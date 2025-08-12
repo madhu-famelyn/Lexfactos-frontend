@@ -1,0 +1,115 @@
+@keyframes smokeGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.help-title {
+  color: white;
+}
+
+.help-center {
+  height: 100vh;
+  background: linear-gradient(
+    120deg,
+    #071430,
+    #000000,
+    #030a1b,
+    #113b95,
+    #061b48,
+    #041029
+  );
+  background-size: 600% 600%;
+  animation: smokeGradient 25s ease-in-out infinite;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 0 20px;
+}
+
+.help-content {
+  text-align: center;
+  max-width: 700px;
+  margin-bottom: 1em;
+  width: 100%;
+}
+
+.help-container {
+  text-align: center;
+  padding: 2rem;
+  background-color: transparent; /* Change if needed */
+}
+
+.help-title {
+  font-family: 'Geist', sans-serif;
+  font-weight: 600;
+  font-style: SemiBold;
+  font-size: 40px;
+  line-height: 100%;
+  letter-spacing: -0.02em;
+  vertical-align: middle;
+  color: white;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.wave-icon {
+  color: white;
+  font-size: 1.2em;
+}
+
+.help-subtext {
+  font-family: 'Geist', sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 22px;
+  line-height: 150%; /* increased from 100% */
+  letter-spacing: -0.02em;
+  text-align: center;
+  vertical-align: middle;
+  color: #ACACAC;
+  margin-top: 1rem;
+}
+
+
+
+.search-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.search-input {
+  padding: 12px 16px;
+  border-radius: 6px;
+  border: none;
+  width: 300px;
+  max-width: 100%;
+  font-size: 1rem;
+}
+
+.search-button {
+  background-color: #3b82f6;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  padding: 12px 24px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.search-button:hover {
+  background-color: #2563eb;
+}

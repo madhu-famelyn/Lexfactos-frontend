@@ -1,0 +1,47 @@
+.stats-section {
+  padding: 60px 20px;
+  background-color: #fff;
+  font-family: "Geist", sans-serif; /* ✅ Apply Geist to entire section */
+}
+
+.stats-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  justify-content: center;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.stat-card {
+  background: white;
+  padding: 30px 20px;
+  border-radius: 16px;
+  border: 1px solid #eee;
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.stat-card h2 {
+  font-size: 2rem;
+  font-weight: 700; /* ✅ Geist bold */
+  color: #000;
+  margin-bottom: 8px;
+}
+
+.stat-card h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 4px;
+}
+
+.stat-card p {
+  font-size: 0.9rem;
+  color: #666;
+}

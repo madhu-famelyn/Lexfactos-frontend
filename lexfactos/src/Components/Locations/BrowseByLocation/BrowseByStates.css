@@ -1,0 +1,90 @@
+.browse-section {
+  background-color: #f9fafb;
+  padding: 32px 16px;
+  text-align: center;
+}
+
+.browse-title {
+  font-family: 'Geist', sans-serif;
+  font-weight: 500;
+  font-style: normal; /* 'Medium' in Figma translates to weight 500, not a CSS style */
+  font-size: 36px;
+  line-height: 40px; /* matches your spec */
+  letter-spacing: 0;
+  text-align: center;
+  vertical-align: middle;
+  color: #000000;
+}
+
+
+.browse-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* exactly 4 columns on large screens */
+  gap: 14px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.browse-card {
+  background: #FFFFFF;
+  border: 1px solid #E5E7EB;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0px 1px 2px 0px #0000000D;
+
+  font-family: 'Geist', sans-serif;
+  font-weight: 400; /* Regular */
+  font-style: normal;
+  font-size: 16px;
+  line-height: 24px; /* matches spec */
+  letter-spacing: 0;
+  text-align: center;
+  vertical-align: middle;
+  color: #374151;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 48px; /* enough height for line-height */
+  
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+
+.browse-card:hover {
+  background-color: #f3f4f6;
+  transform: translateY(-2px);
+}
+
+/* Medium screens: 3 per row */
+@media (max-width: 1024px) {
+  .browse-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .browse-section {
+    padding: 24px 14px;
+  }
+  .browse-title {
+    font-size: 22px;
+  }
+}
+
+/* Small screens: 2 per row */
+@media (max-width: 768px) {
+  .browse-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .browse-card {
+    padding: 14px;
+    font-size: 13px;
+  }
+}
+
+/* Extra small screens: 1 per row */
+@media (max-width: 480px) {
+  .browse-grid {
+    grid-template-columns: 1fr;
+  }
+}

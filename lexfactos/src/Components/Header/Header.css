@@ -1,0 +1,108 @@
+.header {
+  width: 100%;
+  height: 80px;
+  padding: 0 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 0.8px solid #e5e7eb;
+  background-color: #fff;
+  box-sizing: border-box;
+}
+
+.left-section {
+  display: flex;
+  align-items: center;
+  gap: 48px; /* Space between logo and nav */
+}
+
+.logo {
+  font-family: "Geist", sans-serif;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 28px;
+  letter-spacing: -0.5px;
+  background: linear-gradient(90deg, #05308D 0%, #2563EB 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.nav-links {
+  display: flex;
+  gap: 32px;
+}
+
+.nav-links a {
+  font-family: "Geist", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  color: #4B5563;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.nav-links a:hover {
+  color: #2563EB;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.search-icon {
+  font-size: 20px;
+  color: #4B5563;
+  cursor: pointer;
+}
+
+.sign-in {
+  font-family: "Geist", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  color: #4B5563;
+  cursor: pointer;
+}
+
+.join-btn {
+  width: 144px;
+  height: 40px;
+  padding: 9.6px 24px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(90deg, #05308D 0%, #2563EB 100%);
+  color: white;
+  font-family: "Geist", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
+  box-shadow: 0px 4px 6px -4px rgba(0, 0, 0, 0.1),
+              0px 10px 15px -3px rgba(0, 0, 0, 0.1);
+  transition: opacity 0.2s ease;
+}
+
+.join-btn:hover {
+  opacity: 0.9;
+}
+
+/* Responsive tweaks */
+@media (max-width: 1024px) {
+  .header {
+    padding: 0 40px;
+  }
+  .nav-links {
+    gap: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .nav-links {
+    display: none; /* Hide nav links on small screens */
+  }
+  .header {
+    padding: 0 20px;
+  }
+}

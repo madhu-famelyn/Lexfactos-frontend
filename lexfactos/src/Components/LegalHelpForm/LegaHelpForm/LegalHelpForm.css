@@ -1,0 +1,226 @@
+.legal-help-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.form-label-main {
+  font-family: Geist, sans-serif;
+  font-weight: 600; /* SemiBold */
+  font-style: normal;
+  font-size: 18px;
+  line-height: 28px;
+  letter-spacing: 0%;
+  color: #000000;
+  vertical-align: middle;
+}
+
+
+.legal-help-title {
+  font-family: 'Geist', sans-serif;
+  font-weight: 700; /* Bold */
+  font-style: normal;
+  font-size: 36px;
+  line-height: 40px;
+  letter-spacing: 0;
+  text-align: center;
+  vertical-align: middle;
+  color: #000000;
+}
+
+.legal-help-subtitle {
+  font-family: 'Geist', sans-serif;
+  font-weight: 400; /* Regular */
+  font-style: normal;
+  font-size: 20px;
+  line-height: 28px;
+  letter-spacing: 0;
+  text-align: center;
+  vertical-align: middle;
+  color: #4B5563;
+  margin-top: 0.5rem;
+  margin-bottom: 2rem;
+  max-width: 700px; /* limit width for readability */
+  margin-left: auto; /* center horizontally */
+  margin-right: auto; /* center horizontally */
+}
+
+
+.help-center-container {
+  display: flex;
+  justify-content: center;  /* Horizontal center */
+  align-items: center;      /* Vertical center */
+  min-height: 100vh;        /* Full viewport height */
+  background-color: #f9fafb; /* Optional background */
+}
+
+.legal-help-card {
+  width: 700.8px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 32px;
+  text-align: left;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Label for "What's your legal question?" */
+.form-label {
+  font-family: Geist, sans-serif;
+  font-weight: 500; /* Medium weight */
+  font-style: normal;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0%;
+  color: #374151;
+  vertical-align: middle;
+}
+
+
+/* Textarea styling */
+.form-textarea {
+  width: 680.8px;
+  height: 107.2px;
+  min-height: 80px;
+  border: 1px solid #E5E7EB;
+  border-radius: 8px;
+  padding: 0.75rem;
+  font-family: 'Geist', sans-serif;
+  font-weight: 400; /* Regular */
+  font-style: normal;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0;
+  color: #000000;
+  background: #FFFFFF;
+  resize: vertical;
+}
+
+/* Row for category + state */
+.form-row {
+  display: flex;
+  gap: 1rem;
+}
+
+/* Group styles for select fields */
+.form-group {
+  flex: 1;
+}
+
+.form-select {
+  width: 100%;
+  padding: 0.6rem;
+  border: 1px solid #E5E7EB;
+  border-radius: 6px;
+  font-family: 'Geist', sans-serif;
+  font-weight: 500; /* Medium */
+  font-style: normal;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0;
+}
+
+
+.form-info {
+  font-family: Geist, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0%;
+  color: #4B5563;
+  display: flex;
+  align-items: center;
+}
+
+.status {
+  display: flex;
+  align-items: center;
+}
+
+.check-icon {
+  margin-right: 5px;
+  color: green;
+}
+
+/* Submit button */
+.submit-btn {
+  background-color: #2563eb;
+  color: white;
+  padding: 0.75rem 1.2rem;
+  border: none;
+  border-radius: 6px;
+  font-family: 'Geist', sans-serif;
+  font-weight: 500; /* Medium */
+  font-style: normal;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0;
+  cursor: pointer;
+}
+
+
+.submit-btn:hover {
+  background-color: #1d4ed8;
+}
+
+
+
+.tips-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  flex-wrap: wrap; /* Make the cards stack on small screens */
+}
+
+.tip-box {
+  background: #f0f9ff;
+  flex: 1;
+  padding: 1rem;
+  border-radius: 8px;
+  font-size: 14px;
+  text-align: left;
+  box-sizing: border-box;
+  max-width: 280px; /* Ensures it doesn't stretch too wide on larger screens */
+  margin-bottom: 1rem; /* Spacing between rows */
+  display: flex;
+  align-items: center; /* Align icon and content vertically */
+  font-family: Geist, sans-serif; /* ✅ Added here */
+}
+
+.tip-icon-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 0.75rem; /* Adds space between icon and text */
+}
+
+.tip-icon {
+  font-size: 20px;
+  color: #2563eb; /* Blue color similar to the one in your screenshot */
+}
+
+.tip-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.tip-box strong {
+  font-weight: 600; /* SemiBold */
+  font-size: 14px;
+  line-height: 20px;
+  color: #000;
+  margin-bottom: 0.3rem;
+}
+
+.tip-box p {
+  font-weight: 400; /* Regular */
+  font-size: 12px;
+  line-height: 16px;
+  color: #4B5563;
+}

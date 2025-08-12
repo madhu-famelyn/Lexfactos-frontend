@@ -1,0 +1,68 @@
+.stats-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 60px;
+  padding: 80px 272px;
+  max-width: 1440px;
+  height: 32px;
+  margin: 0 auto;
+  background: linear-gradient(90deg, #F6F6F6 0%, #FFFFFF 100%);
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-value {
+  font-family: 'Geist', sans-serif;
+  font-weight: 600;
+  font-size: 28px;
+  line-height: 36px;
+  color: #000000;
+}
+
+.stat-label {
+  font-family: 'Geist', sans-serif;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 20px;
+  color: #6B7280;
+  margin-top: 4px;
+}
+
+@media (max-width: 768px) {
+  .stats-section {
+    flex-direction: column;
+    gap: 20px;
+    padding: 40px 20px;
+    height: auto;
+  }
+}
+
+
+
+.stat-value {
+  font-family: 'Geist', sans-serif;
+  font-weight: 700; /* Bold */
+  font-size: 28px;
+  line-height: 40px;
+  letter-spacing: 0;
+  text-align: center;
+  vertical-align: middle;
+  color: #000000;
+}
+
+
+
+
+.stat-label {
+  font-family: 'Geist', sans-serif;
+  font-weight: 300; /* Light */
+  font-size: 12px;
+  line-height: 24px;
+  letter-spacing: 0;
+  text-align: center;
+  vertical-align: middle;
+  color: #4B5563;
+}

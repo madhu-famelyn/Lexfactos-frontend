@@ -1,0 +1,173 @@
+/* ============================= */
+/* How It Works - Base Styles    */
+/* ============================= */
+
+.how-it-works {
+  text-align: center;
+  padding: 128px 80px;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+  background: #FFFFFF;
+  box-sizing: border-box;
+}
+
+/* ============================= */
+/* Title & Subtitle              */
+/* ============================= */
+
+.hiw-title {
+  font-family: 'Geist', sans-serif;
+  font-weight: 300; /* Light */
+  font-style: normal;
+  font-size: 36px;
+  line-height: 40px;
+  letter-spacing: -0.9px;
+  text-align: center;
+  color: #000000;
+  margin-bottom: 16px;
+}
+
+.hiw-subtitle {
+  font-family: 'Geist', sans-serif;
+  font-weight: 300; /* Light */
+  font-style: normal;
+  font-size: 20px;
+  line-height: 32.5px;
+  letter-spacing: 0;
+  text-align: center;
+  color: #4B5563;
+  max-width: 700px;
+  margin: 0 auto 48px;
+}
+
+/* ============================= */
+/* Steps Layout                  */
+/* ============================= */
+
+.hiw-steps {
+  display: flex;
+  justify-content: center;
+  gap: 64px;
+  flex-wrap: wrap;
+}
+
+.hiw-step {
+  max-width: 280px;
+  text-align: center;
+}
+
+/* Step Number */
+.hiw-number {
+  width: 56px;
+  height: 56px;
+  margin: 0 auto 16px;
+  border-radius: 16px;
+  padding: 0.8px;
+  background: linear-gradient(135deg, #F3F4F6 0%, #F9FAFB 100%);
+  border: 1px solid #F3F4F6;
+  box-shadow:
+    0px 4px 6px -4px rgba(0, 0, 0, 0.1),
+    0px 10px 15px -3px rgba(0, 0, 0, 0.1);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-family: 'Geist', sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  color: #000000;
+}
+
+/* Step Title */
+.hiw-step-title {
+  font-family: 'Geist', sans-serif;
+  font-weight: 500; /* Medium */
+  font-size: 20px;
+  line-height: 28px;
+  letter-spacing: 0;
+  text-align: center;
+  color: #111827;
+  margin-bottom: 8px;
+}
+
+/* Step Description */
+.hiw-step-desc {
+  font-family: 'Geist', sans-serif;
+  font-weight: 300; /* Light */
+  font-size: 16px;
+  line-height: 26px;
+  letter-spacing: 0;
+  text-align: center;
+  color: #4B5563;
+}
+
+/* ============================= */
+/* Responsive Design             */
+/* ============================= */
+
+/* Tablets */
+@media (max-width: 1024px) {
+  .how-it-works {
+    padding: 80px 40px;
+  }
+
+  .hiw-steps {
+    gap: 48px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .how-it-works {
+    padding: 64px 20px;
+  }
+
+  .hiw-title {
+    font-size: 28px;
+    line-height: 34px;
+  }
+
+  .hiw-subtitle {
+    font-size: 18px;
+    line-height: 28px;
+    margin-bottom: 40px;
+  }
+
+  .hiw-steps {
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+  }
+
+  .hiw-step {
+    max-width: 100%;
+  }
+
+  .hiw-number {
+    width: 48px;
+    height: 48px;
+    font-size: 16px;
+    border-radius: 12px;
+  }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+  .hiw-title {
+    font-size: 24px;
+    line-height: 30px;
+  }
+
+  .hiw-subtitle {
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  .hiw-number {
+    width: 44px;
+    height: 44px;
+    font-size: 14px;
+  }
+}

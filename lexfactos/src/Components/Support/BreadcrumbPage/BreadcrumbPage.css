@@ -1,0 +1,79 @@
+/* Container context for responsive design */
+.breadcrumb-page {
+  width: 100%;
+  background-color: #000;
+  padding: 20px 0;
+
+  /* Enable container queries */
+  container-type: inline-size;
+  container-name: breadcrumb;
+}
+
+.breadcrumb-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+.breadcrumb {
+  font-size: 14px;
+  margin-bottom: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.breadcrumb-link {
+  color: #407BFF;
+  text-decoration: none;
+}
+
+.breadcrumb-link:hover {
+  text-decoration: underline;
+}
+
+.breadcrumb-link.active {
+  color: #407BFF;
+}
+
+.breadcrumb-separator {
+  color: #fff;
+  margin: 0 8px;
+}
+
+.page-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #fff;
+}
+
+/* Container Queries for responsiveness */
+@container breadcrumb (max-width: 480px) {
+  .breadcrumb {
+    font-size: 12px;
+  }
+  .breadcrumb-separator {
+    margin: 0 4px;
+  }
+  .page-title {
+    font-size: 18px;
+  }
+}
+
+@container breadcrumb (min-width: 481px) and (max-width: 768px) {
+  .breadcrumb {
+    font-size: 13px;
+  }
+  .page-title {
+    font-size: 20px;
+  }
+}
+
+@container breadcrumb (min-width: 769px) {
+  .breadcrumb {
+    font-size: 14px;
+  }
+  .page-title {
+    font-size: 24px;
+  }
+}

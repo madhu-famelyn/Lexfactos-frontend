@@ -1,0 +1,217 @@
+.support-page {
+  display: flex;
+  gap: 32px;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #FFFFFF ;
+  margin-top: 10vh;
+}
+
+.support-left {
+  flex: 2;
+}
+
+.search-bar {
+  width: 100%;
+  height: 59.6px;
+  padding: 19px 16px 19px 44px; /* left padding to make room for icon */
+  border-radius: 10px;
+  border: 1px solid #C4C4C4;
+  background: rgba(249, 250, 251, 0.8);
+  backdrop-filter: blur(4px);
+  box-sizing: border-box;
+  font-size: 16px;
+  margin-bottom: 3vh;
+}
+
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.faq-item {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 14px;
+  background: white;
+  cursor: pointer;
+}
+
+.faq-item.open {
+  background: #FFFFFF;
+}
+
+.faq-question {
+  font-weight: 500;
+}
+
+.faq-answer {
+  margin-top: 8px;
+  font-size: 14px;
+  color: #555;
+  border-top: 1px dashed #ddd;
+  padding-top: 8px;
+}
+
+.support-right {
+  flex: 1;
+}
+
+.help-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 20px;
+}
+
+.help-card h3 {
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px; /* space between icon and text */
+  margin-bottom: 7vh;
+}
+
+.help-icon {
+  font-size: 1.2em; /* adjust icon size if needed */
+  color: #333; /* optional icon color */
+}
+
+.help-option {
+  display: flex;
+  align-items: center;
+  gap: 12px; /* updated to 12px as your inline style */
+  padding: 10px 16px; /* add some horizontal padding */
+  cursor: pointer;
+  background: #FFFFFF01; /* very faint transparent white */
+  border: 1px solid #E5E5E5;
+  box-shadow: 0px 1px 2px 0px #0000000D;
+  border-radius: 6px; /* optional rounded corners */
+  transition: background-color 0.2s ease;
+  margin-top: 3vh;
+}
+
+.help-option:hover {
+  background: #f9f9f9; /* subtle highlight on hover */
+}
+
+
+.help-option:first-of-type {
+  border-top: none;
+}
+
+.related-topics h4 {
+  margin-bottom: 8px;
+  font-family: Geist, sans-serif;
+  font-weight: 500;
+  font-style: normal; /* "Medium" isn’t a valid CSS value, so normal here */
+  font-size: 16px;
+  line-height: 28px;
+  letter-spacing: 0;
+  vertical-align: middle;
+  color: #2563EB;
+}
+
+.related-topics a {
+  display: block;
+  color: #2563EB; /* your specified blue */
+  text-decoration: none;
+  margin-bottom: 6px;
+  font-family: Geist, sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  font-size: 16px;
+  line-height: 28px;
+  vertical-align: middle;
+}
+
+.related-link svg {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.related-topics a:hover {
+  text-decoration: underline;
+}
+
+.related-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px; /* space between text and arrow */
+  text-decoration: none;
+  color: inherit;
+  font-family: Geist, sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  font-size: 16px;
+  line-height: 28px;
+  vertical-align: middle;
+}
+
+.related-link:hover {
+  text-decoration: underline;
+}
+
+
+
+
+/* Base styles remain unchanged from your current CSS above */
+
+/* Container Queries for responsiveness */
+@container support-page (max-width: 900px) {
+  .support-page {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .support-left,
+  .support-right {
+    flex: 1 1 100%;
+  }
+
+  /* Reorder on mobile/tablet */
+  .support-left {
+    order: 1; /* FAQs first */
+  }
+
+  .help-card {
+    order: 2; /* Need Help Quickly second */
+    margin-bottom: 16px;
+  }
+
+  .related-topics {
+    order: 3; /* Related Topics third */
+  }
+}
+
+@container support-page (max-width: 600px) {
+  .search-bar {
+    font-size: 14px;
+    padding: 16px;
+  }
+
+  .faq-item {
+    padding: 12px;
+  }
+
+  .faq-question {
+    font-size: 14px;
+  }
+
+  .faq-answer {
+    font-size: 13px;
+  }
+
+  .help-card h3 {
+    font-size: 16px;
+  }
+
+  .related-topics h4,
+  .related-topics a {
+    font-size: 14px;
+  }
+}
+
+

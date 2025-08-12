@@ -1,0 +1,166 @@
+.raq-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Geist', sans-serif;
+}
+
+.raq-title {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 6px;
+}
+
+.raq-subtitle {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.raq-filters {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.filter-btn {
+  border: 1px solid #ddd;
+  background: #fff;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.filter-icon {
+  font-size: 1.2rem;
+  margin-right: 5px;
+}
+
+.raq-search {
+  flex: 1;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+.raq-showing {
+  font-size: 0.9rem;
+  color: #888;
+  margin-bottom: 15px;
+}
+
+.raq-card {
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+  transition: all 0.2s ease;
+}
+
+.raq-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0px 8px 16px rgba(0,0,0,0.05);
+}
+
+/* Top row with status/category on left & views/time on right */
+.raq-top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.raq-tags {
+  display: flex;
+  gap: 8px;
+}
+
+.raq-status {
+  background: #e5f8ed;
+  color: #28a745;
+  padding: 4px 8px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+}
+
+.raq-category {
+  background: #f0f4ff;
+  color: #4a6cf7;
+  padding: 4px 8px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+}
+
+.raq-meta {
+  display: flex;
+  gap: 15px;
+  font-size: 0.85rem;
+  color: #888;
+}
+
+.raq-question {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 8px 0 6px;
+}
+
+.raq-description {
+  font-family: 'Geist', sans-serif;
+  font-weight: 400; /* Regular */
+  font-size: 16px;
+  line-height: 26px;
+  letter-spacing: 0;
+  vertical-align: middle;
+  color: #4B5563;
+}
+
+
+/* Bottom row with author on left & actions on right */
+.raq-bottom-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.raq-author {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.raq-avatar {
+  width: 35px;
+  height: 35px;
+  background: #eee;
+  border-radius: 50%;
+}
+
+.raq-author-info {
+  line-height: 1.2; /* Reduced gap between name & location */
+}
+
+.raq-name {
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+.raq-location {
+  font-size: 0.85rem;
+  color: #888;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.star {
+  color: gold;
+}
+
+.raq-actions {
+  display: flex;
+  gap: 15px;
+  color: #666;
+  font-size: 0.9rem;
+  align-items: center;
+}

@@ -1,0 +1,138 @@
+.legal-area {
+  max-width: 950px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  font-family: 'Geist', sans-serif;
+}
+
+.legal-title {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 6px;
+}
+
+.legal-subtitle {
+  color: #666;
+  font-size: 1rem;
+  margin-bottom: 30px;
+}
+
+.legal-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 cards per row */
+  gap: 20px;
+}
+
+.legal-card {
+  background: #fff;
+  border: 1px solid #eaeaea;
+  border-radius: 12px;
+  padding: 20px;
+  position: relative;
+  transition: all 0.2s ease;
+  font-family: 'Geist', sans-serif;
+}
+
+.legal-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.05);
+}
+
+.legal-icon {
+  width: 40px;
+  height: 40px;
+  background: #f0f4ff;
+  color: #2563EB;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+/* Legal questions block */
+.legal-questions {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.legal-questions strong {
+  font-family: 'Geist', sans-serif;
+  font-weight: 500; /* Medium */
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0%;
+  color: #000000;
+  text-align: right;
+  vertical-align: middle;
+}
+
+.legal-questions span {
+  font-family: 'Geist', sans-serif;
+  font-weight: 400; /* Regular */
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0%;
+  color: #6B7280;
+  text-align: right;
+  vertical-align: middle;
+}
+
+/* Card Title */
+.legal-card-title {
+  font-family: 'Geist', sans-serif;
+  font-weight: 600; /* SemiBold */
+  font-size: 18px;
+  line-height: 28px;
+  letter-spacing: 0%;
+  color: #000000;
+  vertical-align: middle;
+  margin: 5px 0;
+}
+
+/* Description */
+.legal-desc {
+  font-family: 'Geist', sans-serif;
+  font-weight: 400; /* Regular */
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0%;
+  color: #4B5563;
+  margin-bottom: 10px;
+}
+
+/* Active Lawyers */
+.lawyers-active {
+  font-family: 'Geist', sans-serif;
+  font-size: 0.9rem;
+  color: #00a854; /* Green */
+  font-weight: 500;
+  display: flex;
+  justify-content: space-between; /* Push text left, arrow right */
+  align-items: center;
+  width: 100%; /* Ensure full width for spacing */
+}
+
+.arrow {
+  font-size: 1.2rem;
+  color: #bbb;
+}
+
+
+/* Responsiveness */
+@media (max-width: 768px) {
+  .legal-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .legal-grid {
+    grid-template-columns: 1fr;
+  }
+}

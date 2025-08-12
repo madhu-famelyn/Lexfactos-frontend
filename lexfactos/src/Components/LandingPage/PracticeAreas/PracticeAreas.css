@@ -1,0 +1,104 @@
+.practice-areas {
+  padding: 100px 20px;
+  text-align: center;
+  background: #F9FAFB;
+}
+
+.pa-title {
+  font-family: 'Geist', sans-serif;
+  font-weight: 400;
+  font-size: 32px;
+  line-height: 40px;
+  color: #111827;
+  margin-bottom: 12px;
+}
+
+.pa-subtitle {
+  font-family: 'Geist', sans-serif;
+  font-weight: 300;
+  font-size: 18px;
+  line-height: 28px;
+  color: #4B5563;
+  max-width: 640px;
+  margin: 0 auto 48px;
+}
+
+.pa-cards {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.pa-card {
+  background: #FFFFFF;
+  border-radius: 16px;
+  padding: 24px;
+  flex: 1 1 300px;
+  max-width: 340px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05), 0 1px 2px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.pa-icon {
+  font-family: "Segoe UI Emoji", sans-serif;
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 36px;
+  color: #2563EB;
+  display: flex;
+
+}
+
+
+.pa-card-title {
+  font-family: "Geist", sans-serif;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 28px;
+  letter-spacing: 0;
+  color: #000000;
+  margin: 0; /* Ensures no extra spacing above/below */
+  vertical-align: middle;
+}
+
+
+
+
+
+.pa-card-desc {
+  font-family: "Geist", sans-serif;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 22.75px;
+  letter-spacing: 0;
+  color: #4B5563;
+  margin: 0; /* remove default p spacing */
+  vertical-align: middle;
+}
+
+
+
+.pa-card-footer {
+  margin-top: auto;
+  display: flex;
+  justify-content: space-between;
+  font-family: 'Geist', sans-serif;
+  font-size: 14px;
+  color: #111827;
+  font-weight: 400;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .pa-title {
+    font-size: 28px;
+  }
+
+  .pa-subtitle {
+    font-size: 16px;
+    line-height: 24px;
+  }
+}

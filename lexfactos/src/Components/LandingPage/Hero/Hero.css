@@ -1,0 +1,237 @@
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@100;200;300;400&display=swap');
+
+/* =====================================
+   Base Container
+===================================== */
+.landing-container {
+  text-align: center;
+  font-family: 'Inter', sans-serif;
+  padding: 50px 20px;
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+/* =====================================
+   Trusted Badge
+===================================== */
+.trusted-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  border: 1px solid #f3f4f6;
+  padding: 8.8px 16.8px;
+  background: #ffffff;
+  box-shadow: 0px 1px 2px 0px #0000000d;
+  backdrop-filter: blur(4px);
+  font-family: 'Geist', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  color: #4b5563;
+  margin-bottom: 5vh;
+  max-width: 90%;
+  white-space: nowrap;
+}
+
+/* Green Dot */
+.green-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background: #00b67a;
+  border-radius: 50%;
+  margin-right: 6px;
+}
+
+/* Blue Dot */
+.blue-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background: #2f5ae0;
+  border-radius: 50%;
+  margin-right: 6px;
+}
+
+/* Responsive: Trusted Badge */
+@media (min-width: 768px) {
+  .trusted-badge {
+    font-size: 15px;
+    padding: 9px 20px;
+    max-width: 300px;
+  }
+}
+@media (min-width: 1200px) {
+  .trusted-badge {
+    font-size: 16px;
+    padding: 10px 24px;
+    max-width: 340px;
+  }
+}
+
+/* =====================================
+   Titles
+===================================== */
+.landing-title {
+  font-family: 'Geist', sans-serif;
+  font-size: 60px;
+  line-height: 64px;
+  letter-spacing: -1.2px;
+  text-align: center;
+  margin: 0 auto;
+  font-weight: 200;
+}
+
+.title-dark {
+  font-weight: 300;
+  color: #111827;
+}
+
+.title-gradient {
+  font-weight: 400;
+  background: linear-gradient(90deg, #083596 0%, #2E7EFF 50%, #083596 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Responsive: Titles */
+@media (max-width: 992px) {
+  .landing-title {
+    font-size: 44px;
+    line-height: 48px;
+  }
+}
+@media (max-width: 600px) {
+  .landing-title {
+    font-size: 30px;
+    line-height: 34px;
+  }
+}
+
+/* =====================================
+   Subtitle
+===================================== */
+.landing-subtitle {
+  font-family: 'Geist', sans-serif;
+  font-weight: 200;
+  font-size: 20px;
+  line-height: 32.5px;
+  letter-spacing: 0;
+  text-align: center;
+  color: #4B5563;
+  max-width: 700px;
+  margin: 38px auto 0;
+}
+
+/* Responsive: Subtitle */
+@media (max-width: 992px) {
+  .landing-subtitle {
+    font-size: 18px;
+    line-height: 28px;
+    max-width: 500px;
+  }
+}
+@media (max-width: 600px) {
+  .landing-subtitle {
+    font-size: 16px;
+    line-height: 26px;
+    padding: 0 12px;
+  }
+}
+
+/* =====================================
+   Search Box
+===================================== */
+.search-box {
+  width: 100%;
+  max-width: 672px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(228, 228, 228, 0.5);
+  border-radius: 24px;
+  padding: 32.8px;
+  backdrop-filter: blur(12px);
+  box-shadow: 0px 25px 50px -12px rgba(17, 24, 39, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: 0 auto;
+}
+
+/* Input Group */
+.input-group {
+  display: flex;
+  align-items: center;
+  height: 56px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 0 12px;
+  background: white;
+}
+
+.search-icon {
+  color: #999;
+  margin-right: 8px;
+}
+
+.search-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-family: 'Geist', sans-serif;
+  font-size: 16px;
+}
+
+/* Location Dropdown */
+.location-dropdown {
+  width: 100%;
+  height: 56px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  padding: 0 12px;
+  font-family: 'Geist', sans-serif;
+  font-size: 16px;
+  outline: none;
+}
+
+/* Search Button */
+.search-button {
+  width: 100%;
+  height: 56px;
+  border-radius: 10px;
+  padding: 0 32px;
+  background: #2563EB;
+  color: white;
+  font-size: 16px;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  box-shadow:
+    0px 4px 6px -4px rgba(0, 0, 0, 0.1),
+    0px 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0px 0px 15.4px rgba(37, 99, 235, 0.35);
+}
+
+.search-button:hover {
+  background: #1e4ed8;
+}
+
+/* Responsive: Search Box */
+@media (max-width: 768px) {
+  .search-box {
+    padding: 20px;
+    gap: 12px;
+  }
+}
+
+/* =====================================
+   Bottom Stats
+===================================== */
+.bottom-stats {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  font-size: 14px;
+  margin-top: 20px;
+  color: #6B7280;
+}

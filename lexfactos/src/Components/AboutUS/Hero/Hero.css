@@ -1,0 +1,162 @@
+.hero-section {
+  position: relative;
+  width: 100%;
+  max-width: 1440px;
+  height: 397px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/* Slideshow container */
+.slideshow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.slideshow img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transform: scale(1.05);
+  transition: opacity 1.5s ease-in-out, transform 6s ease-in-out;
+}
+
+.slideshow img.active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Overlay for dark shade */
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(21, 0, 69, 0.5);
+  z-index: 2;
+}
+
+/* Text content */
+.hero-content {
+  position: relative;
+  z-index: 3;
+  padding: 0 20px;
+  color: white;
+}
+
+
+.hero-description {
+  font-size: 1.1rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+
+
+
+
+.hero-heading {
+  font-family: "Geist", sans-serif;
+  font-weight: 700;
+  font-size: clamp(32px, 5vw, 72px);
+  line-height: clamp(48px, 7vw, 120px);
+  letter-spacing: -2%;
+  color: #ffffff;
+  margin-bottom: 16px;
+  max-width: 90%;
+  text-align: center; /* ✅ Centers the text inside */
+  margin-left: auto;  /* ✅ Centers block horizontally */
+  margin-right: auto; /* ✅ Centers block horizontally */
+}
+
+
+.hero-description {
+  font-family: "Geist", sans-serif;
+  font-weight: 400;
+  font-size: clamp(14px, 2vw, 18px);
+  line-height: clamp(22px, 3vw, 29.25px);
+  color: #f9f9f9;
+  max-width: 900px;
+  margin-bottom: 32px;
+  padding: 0 10px;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+  max-width: 450px;
+}
+
+.hero-btn {
+  flex: 1 1 180px;
+  background-color: #ffffff;
+  color: #05308D;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-family: "Geist", sans-serif;
+  font-weight: 500;
+  cursor: pointer;
+  min-width: 140px;
+  text-align: center;
+}
+
+.hero-btn-outline {
+  flex: 1 1 180px;
+  background-color: transparent;
+  border: 2px solid #ffffff;
+  color: #ffffff;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-family: "Geist", sans-serif;
+  font-weight: 500;
+  cursor: pointer;
+  min-width: 140px;
+  text-align: center;
+}
+
+.hero-btn:hover,
+.hero-btn-outline:hover {
+  opacity: 0.9;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .hero-section {
+    padding: 60px 48px;
+    height: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-section {
+    padding: 40px 24px;
+  }
+  .hero-description {
+    padding: 0 8px;
+  }
+  .hero-buttons {
+    flex-direction: column;
+    max-width: 100%;
+    gap: 12px;
+  }
+  .hero-btn,
+  .hero-btn-outline {
+    flex: 1 1 auto;
+    min-width: auto;
+  }
+}

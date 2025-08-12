@@ -1,0 +1,72 @@
+.our-philosophy {
+  text-align: center;
+  padding: 60px 20px;
+  font-family: "Geist", sans-serif; /* ✅ Applied for entire section */
+  background-color: #f9fafc;
+}
+
+.our-philosophy h2 {
+  font-size: 2rem;
+  font-weight: 700; /* ✅ Geist bold */
+}
+
+.our-philosophy h2 span {
+  color: #2f5ae0;
+  font-weight: 700; /* ✅ Bold highlight */
+}
+
+.subtitle {
+  color: #555;
+  margin-top: 8px;
+  font-size: 1rem;
+  max-width: 550px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.philosophy-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, max-content));
+  justify-content: center;
+  gap: 16px;
+  margin-top: 40px;
+}
+
+.philosophy-card {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  border: 1px solid #eee;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  max-width: 260px;
+  margin: 0;
+}
+
+.philosophy-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.icon {
+  background: #f4f6ff;
+  color: #2f5ae0;
+  font-size: 1.5rem;
+  padding: 10px;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+
+.philosophy-card h3 {
+  font-size: 1.1rem;
+  font-weight: 700; /* ✅ Geist bold */
+  margin-bottom: 8px;
+}
+
+.philosophy-card p {
+  color: #666;
+  font-size: 0.95rem;
+}

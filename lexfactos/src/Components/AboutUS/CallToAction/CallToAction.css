@@ -1,0 +1,80 @@
+.cta-section {
+  background: linear-gradient(
+    76.45deg,
+    #083596 -63.65%,
+    #000000 47.93%,
+    #083596 159.52%
+  );
+  padding: 80px 20px;
+  text-align: center;
+  font-family: 'Inter', sans-serif;
+  color: white;
+}
+
+.cta-content {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.cta-section h2 {
+  font-size: 2rem;
+  font-weight: 500;
+}
+
+.cta-section h2 span {
+  font-weight: 700;
+}
+
+.cta-subtitle {
+  margin-top: 12px;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #d1d5db;
+}
+
+.cta-buttons {
+  margin-top: 24px;
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.primary-btn {
+  background: white;
+  color: black;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.primary-btn:hover {
+  background: #f1f1f1;
+}
+
+.secondary-btn {
+  background: transparent;
+  color: white;
+  border: 1px solid white;
+  padding: 12px 20px;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.secondary-btn:hover {
+  background: white;
+  color: black;
+}
+
+.cta-footnote {
+  margin-top: 20px;
+  font-size: 0.8rem;
+  color: #9ca3af;
+}
