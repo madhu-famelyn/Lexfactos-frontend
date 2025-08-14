@@ -215,3 +215,79 @@
 }
 
 
+
+
+
+
+/* Mobile-first adjustments */
+@media (max-width: 768px) {
+  .support-page {
+    flex-direction: column;
+    gap: 20px;
+    padding: 16px;
+  }
+
+  .support-left,
+  .support-right {
+    width: 100%;
+  }
+
+  .search-bar {
+    font-size: 14px;
+    padding: 14px;
+  }
+
+  .faq-item {
+    padding: 12px;
+  }
+
+  .faq-question {
+    font-size: 14px;
+  }
+
+  .faq-answer {
+    font-size: 13px;
+  }
+
+  .help-card {
+    padding: 14px;
+  }
+
+  .help-card h3 {
+    font-size: 16px;
+  }
+
+  .help-option {
+    font-size: 14px;
+    padding: 8px 12px;
+  }
+
+  .related-topics h4,
+  .related-topics a {
+    font-size: 14px;
+  }
+}
+
+/* Extra-small screens (phones under 480px) */
+@media (max-width: 480px) {
+  .search-bar {
+    font-size: 13px;
+    padding: 12px;
+  }
+
+  .faq-question {
+    font-size: 13px;
+  }
+
+  .faq-answer {
+    font-size: 12px;
+  }
+
+  .help-card h3 {
+    font-size: 15px;
+  }
+
+  .related-topics a {
+    font-size: 13px;
+  }
+}
