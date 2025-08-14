@@ -1,14 +1,14 @@
 .stats-section {
-  padding: 60px 20px;
-  margin-bottom: 3vh;
-  background-color: #fff;
+  padding: 150px 150px; /* more vertical padding */
+  background-color: #f9f9ff;
   font-family: "Geist", sans-serif;
+  min-height: 80vh; /* ensures section takes most of the viewport height */
 }
 
 .stats-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 16px;
+  gap: 24px;
   justify-content: center;
   max-width: 1000px;
   margin: 0 auto;
@@ -16,85 +16,78 @@
 
 .stat-card {
   background: white;
-  padding: 30px 20px;
-  border-radius: 16px;
-  border: 1px solid #eee;
-  height: 30vh;
+  padding: 25px 15px;
+  border-radius: 12px;
+  border: 1px solid #e5e5e5;
   text-align: center;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
   margin-bottom: 10vh;
 }
 
 .stat-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transform: translateY(-4px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
 }
 
 .stat-card h2 {
-  font-size: 2rem;
-  font-weight: 700; /* ✅ Geist bold */
-  color: #000;
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
+  font-weight: 700;
+  color: #000000;
   margin-bottom: 8px;
 }
 
 .stat-card h4 {
-  font-size: 1rem;
+  font-size: clamp(0.9rem, 1.8vw, 1.1rem);
   font-weight: 600;
-  color: #333;
-  margin-bottom: 4px;
+  color: #222;
+  margin-bottom: 6px;
 }
 
 .stat-card p {
-  font-size: 0.9rem;
-  color: #666;
+  font-size: clamp(0.85rem, 1.4vw, 0.95rem);
+  color: #555;
 }
 
-/* 📱 Mobile Styles */
+/* 📱 Tablet */
 @media (max-width: 768px) {
   .stats-section {
-    padding: 40px 15px;
-    margin-bottom: 2vh;
+    padding: 80px 20px; /* reduced horizontal padding for tablets */
+    min-height: 70vh; /* still tall */
+  }
+
+  .stat-card {
+    padding: 20px 12px;
+    margin-bottom: 6vh;
+  }
+}
+
+/* 📱 Mobile */
+@media (max-width: 480px) {
+  .stats-section {
+    padding: 60px 15px;
+    min-height: auto; /* allow height to adjust naturally on small devices */
   }
 
   .stats-container {
-    grid-template-columns: 1fr; /* Single column on mobile */
-    gap: 12px;
+    grid-template-columns: 1fr; /* stack cards vertically */
+    gap: 16px;
   }
 
   .stat-card {
-    height: auto; /* Allow cards to expand naturally */
-    padding: 20px 15px;
-    margin-bottom: 5vh;
+    padding: 18px 10px;
+    margin-bottom: 4vh;
   }
 
   .stat-card h2 {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
   }
 
   .stat-card h4 {
-    font-size: 0.95rem;
+    font-size: 1rem;
   }
 
   .stat-card p {
-    font-size: 0.85rem;
-  }
-}
-
-/* 📱 Extra small screens */
-@media (max-width: 480px) {
-  .stat-card {
-    padding: 16px 12px;
-  }
-
-  .stat-card h2 {
-    font-size: 1.3rem;
-  }
-
-  .stat-card h4 {
     font-size: 0.9rem;
-  }
-
-  .stat-card p {
-    font-size: 0.8rem;
   }
 }

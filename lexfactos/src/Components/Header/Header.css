@@ -1,7 +1,7 @@
 .header {
   width: 100%;
   height: 80px;
-  padding: 0 80px;
+  padding: 0 60px; /* reduced horizontal padding */
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -16,14 +16,21 @@
   font-size: 20px;
   line-height: 28px;
   letter-spacing: -0.5px;
-  background: linear-gradient(90deg, #05308D 0%, #2563EB 100%);
+  background: linear-gradient(90deg, #353535 0%, #4f4f4f 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
+/* Wrap logo + nav-links so they stick together */
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 28px; /* space between logo and nav links */
+}
+
 .nav-links {
   display: flex;
-  gap: 32px;
+  gap: 24px; /* reduced spacing between nav items */
 }
 
 .nav-links a {
@@ -152,25 +159,50 @@
     padding: 0 40px;
   }
   .nav-links {
-    gap: 20px;
+    gap: 18px;
   }
 }
 
-/* Keep hamburger hidden by default */
 .mobile-hamburger {
   display: none;
   cursor: pointer;
 }
 
-/* In mobile view, show hamburger inside header-actions */
+/* In mobile view, hide desktop links */
 @media (max-width: 768px) {
   .nav-links,
   .join-btn,
   .sign-in,
   .search-icon {
-    display: none; /* Hide text links on mobile */
+    display: none;
   }
   .mobile-hamburger {
-    display: block; /* Show hamburger on mobile */
+    display: block;
+  }
+}
+
+
+/* Hamburger Button */
+.mobile-hamburger {
+  display: none; /* hidden by default for desktop */
+  background: none;
+  border: none;
+  padding: 6px;
+  cursor: pointer;
+  color: #4B5563; /* dark grey */
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+/* Hover/Focus state */
+.mobile-hamburger:hover,
+.mobile-hamburger:focus {
+  color: #2563EB; /* blue on hover */
+  transform: scale(1.05); /* small pop effect */
+}
+
+/* Show only in mobile view */
+@media (max-width: 768px) {
+  .mobile-hamburger {
+    display: block;
   }
 }

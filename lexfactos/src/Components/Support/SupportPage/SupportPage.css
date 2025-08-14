@@ -111,7 +111,7 @@
   line-height: 28px;
   letter-spacing: 0;
   vertical-align: middle;
-  color: #2563EB;
+  color: #000000;
 }
 
 .related-topics a {
@@ -122,7 +122,7 @@
   font-family: Geist, sans-serif;
   font-weight: 500;
   font-style: normal;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 28px;
   vertical-align: middle;
 }
@@ -248,6 +248,10 @@
   .faq-answer {
     font-size: 13px;
   }
+  .help-card {
+  max-width: 300px; /* reduces card width */
+  margin: 0 auto 20px; /* centers card and keeps bottom spacing */
+}
 
   .help-card {
     padding: 14px;
@@ -286,6 +290,11 @@
   .help-card h3 {
     font-size: 15px;
   }
+  .help-card {
+  max-width: 300px; /* reduces card width */
+  margin: 0 auto 20px; /* centers card and keeps bottom spacing */
+}
+
 
   .related-topics a {
     font-size: 13px;

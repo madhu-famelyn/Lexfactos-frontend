@@ -1,16 +1,20 @@
+/* ===== Hero Section ===== */
 .hero-section {
   position: relative;
   width: 100%;
-  max-width: 1440px;
-  height: 397px;
+  max-width: 2000px;
+  min-height: 297px; /* ✅ Allows shrink on small devices but prevents too small */
+  height: auto;
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
+  padding: 60px 20px; /* ✅ Gives breathing room on all screens */
+  box-sizing: border-box;
 }
 
-/* Slideshow container */
+/* ===== Slideshow Background ===== */
 .slideshow {
   position: absolute;
   top: 0;
@@ -36,7 +40,7 @@
   transform: scale(1);
 }
 
-/* Overlay for dark shade */
+/* ===== Overlay ===== */
 .overlay {
   position: absolute;
   top: 0;
@@ -47,51 +51,42 @@
   z-index: 2;
 }
 
-/* Text content */
+/* ===== Text Content ===== */
 .hero-content {
   position: relative;
   z-index: 3;
   padding: 0 20px;
   color: white;
+  max-width: 1000px;
 }
 
-
-.hero-description {
-  font-size: 1.1rem;
-  max-width: 800px;
-  margin: 0 auto;
-}
-
-
-
-
-
+/* ===== Heading ===== */
 .hero-heading {
   font-family: "Geist", sans-serif;
   font-weight: 700;
-  font-size: clamp(32px, 5vw, 72px);
-  line-height: clamp(48px, 7vw, 120px);
-  letter-spacing: -2%;
+  font-size: clamp(28px, 4vw, 64px); /* ✅ Dynamically scales */
+  line-height: clamp(40px, 5vw, 90px);
+  letter-spacing: -0.5px;
   color: #ffffff;
   margin-bottom: 16px;
   max-width: 90%;
-  text-align: center; /* ✅ Centers the text inside */
-  margin-left: auto;  /* ✅ Centers block horizontally */
-  margin-right: auto; /* ✅ Centers block horizontally */
+  margin-left: auto;
+  margin-right: auto;
 }
 
-
+/* ===== Description ===== */
 .hero-description {
   font-family: "Geist", sans-serif;
   font-weight: 400;
-  font-size: clamp(14px, 2vw, 18px);
-  line-height: clamp(22px, 3vw, 29.25px);
+  font-size: clamp(14px, 1.8vw, 20px);
+  line-height: clamp(22px, 2.8vw, 32px);
   color: #f9f9f9;
   max-width: 900px;
-  margin-bottom: 32px;
+  margin: 0 auto 32px;
   padding: 0 10px;
 }
 
+/* ===== Buttons (optional if used) ===== */
 .hero-buttons {
   display: flex;
   gap: 20px;
@@ -99,6 +94,7 @@
   justify-content: center;
   width: 100%;
   max-width: 450px;
+  margin: 0 auto;
 }
 
 .hero-btn {
@@ -134,17 +130,16 @@
   opacity: 0.9;
 }
 
-/* Responsive */
+/* ===== Responsive Breakpoints ===== */
 @media (max-width: 1024px) {
   .hero-section {
-    padding: 60px 48px;
-    height: auto;
+    padding: 50px 30px;
   }
 }
 
 @media (max-width: 768px) {
   .hero-section {
-    padding: 40px 24px;
+    padding: 40px 20px;
   }
   .hero-description {
     padding: 0 8px;
@@ -158,5 +153,16 @@
   .hero-btn-outline {
     flex: 1 1 auto;
     min-width: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-heading {
+    font-size: clamp(24px, 6vw, 32px);
+    line-height: clamp(32px, 8vw, 40px);
+  }
+  .hero-description {
+    font-size: clamp(13px, 4vw, 16px);
+    line-height: 1.5;
   }
 }

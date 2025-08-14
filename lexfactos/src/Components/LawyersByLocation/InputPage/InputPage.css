@@ -129,7 +129,7 @@
 @media (max-width: 1024px) {
   .search-bar-container {
     flex-wrap: wrap; /* allow inputs to wrap into new rows */
-    width: 100%;
+    width: 90%;
     max-width: 600px;
     padding: 20px;
     height: auto;
