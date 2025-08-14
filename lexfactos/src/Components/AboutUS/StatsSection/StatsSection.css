@@ -48,3 +48,53 @@
   font-size: 0.9rem;
   color: #666;
 }
+
+/* 📱 Mobile Styles */
+@media (max-width: 768px) {
+  .stats-section {
+    padding: 40px 15px;
+    margin-bottom: 2vh;
+  }
+
+  .stats-container {
+    grid-template-columns: 1fr; /* Single column on mobile */
+    gap: 12px;
+  }
+
+  .stat-card {
+    height: auto; /* Allow cards to expand naturally */
+    padding: 20px 15px;
+    margin-bottom: 5vh;
+  }
+
+  .stat-card h2 {
+    font-size: 1.5rem;
+  }
+
+  .stat-card h4 {
+    font-size: 0.95rem;
+  }
+
+  .stat-card p {
+    font-size: 0.85rem;
+  }
+}
+
+/* 📱 Extra small screens */
+@media (max-width: 480px) {
+  .stat-card {
+    padding: 16px 12px;
+  }
+
+  .stat-card h2 {
+    font-size: 1.3rem;
+  }
+
+  .stat-card h4 {
+    font-size: 0.9rem;
+  }
+
+  .stat-card p {
+    font-size: 0.8rem;
+  }
+}
