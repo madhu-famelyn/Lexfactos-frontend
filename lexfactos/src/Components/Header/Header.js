@@ -25,6 +25,7 @@ const Header = () => {
       <Link to="/about">About us</Link>
       <Link to="/support">Support</Link>
       <Link to="/lawyers-by-location">Lawyers by Location</Link>
+      
     </nav>
   </div>
 
@@ -49,35 +50,41 @@ const Header = () => {
 
 
       {/* Mobile Sidebar */}
-      <aside className={`mobile-menu ${isMenuOpen ? "open" : ""}`}>
-        <div className="mobile-menu-header">
-          <button
-            className="close-icon"
-            onClick={closeMenu}
-            aria-label="Close menu"
-          >
-            <HiX size={24} />
-          </button>
-        </div>
+      {/* Mobile Sidebar */}
+<aside className={`mobile-menu ${isMenuOpen ? "open" : ""}`}>
+  <div className="mobile-menu-header">
+    <button
+      className="close-icon"
+      onClick={closeMenu}
+      aria-label="Close menu"
+    >
+      <HiX size={24} />
+    </button>
+  </div>
 
-        <nav className="mobile-nav-links">
-          <Link to="/about" onClick={closeMenu}>
-            About us
-          </Link>
-          <Link to="/support" onClick={closeMenu}>
-            Support
-          </Link>
-          <Link to="/lawyers-by-location" onClick={closeMenu}>
-            Lawyers by Location
-          </Link>
-          <Link className="sign-in" to="/sign-in" onClick={closeMenu}>
-            Sign in
-          </Link>
-          <button className="join-btn" onClick={closeMenu}>
-            Join as lawyer
-          </button>
-        </nav>
-      </aside>
+  <nav className="mobile-nav-links">
+    <Link to="/about" onClick={closeMenu}>
+      About us
+    </Link>
+    <Link to="/support" onClick={closeMenu}>
+      Support
+    </Link>
+    <Link to="/lawyers-by-location" onClick={closeMenu}>
+      Lawyers by Location
+    </Link>
+
+    {/* Divider */}
+    <hr className="mobile-divider" />
+
+    {/* Auth buttons in mobile */}
+    <Link className="mobile-sign-in" to="/sign-in" onClick={closeMenu}>
+      Sign in
+    </Link>
+    <button className="mobile-join-btn" onClick={closeMenu}>
+      Join as lawyer
+    </button>
+  </nav>
+</aside>
 
       {/* Overlay */}
       {isMenuOpen && <div className="overlay" onClick={closeMenu} />}

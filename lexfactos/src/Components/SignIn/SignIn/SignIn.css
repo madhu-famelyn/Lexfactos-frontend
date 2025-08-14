@@ -315,3 +315,121 @@ input {
 }
 
 
+@media (max-width: 768px) {
+  .signin-container {
+    flex-direction: column;
+    height: auto;
+    padding: 16px; /* give breathing room on mobile */
+  }
+
+  .signin-left {
+    width: 100%;
+    padding: 0;
+    max-width: 420px; /* limits content width so it's not stretched */
+    margin: 0 auto; /* center horizontally */
+  }
+
+  /* Smaller, cleaner Google button for mobile */
+  .google-button {
+    width: 100%;
+    height: 48px;
+    padding: 0 16px;
+    font-size: 14px;
+    border-radius: 6px;
+    gap: 8px;
+    border: 1px solid #D0D0D0;
+    background: #fff;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  }
+
+  .google-button img {
+    width: 20px;
+    height: 20px;
+  }
+
+  /* Make form elements fit nicely */
+  form,
+  input,
+  .signup-btn {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  /* Smaller heading/subheading */
+  .signin-title {
+    font-size: 22px;
+    margin-bottom: 6px;
+  }
+
+  .signin-subtitle {
+    font-size: 13px;
+    margin-bottom: 16px;
+  }
+
+  .divider {
+    margin: 12px auto;
+  }
+
+  .signup-link {
+    margin-left: 0;
+    text-align: center;
+    display: block;
+    margin-top: 12px;
+  }
+}
+
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+  .signin-container {
+    flex-direction: column;
+    height: auto;
+  }
+
+  /* Left form takes full width */
+  .signin-left {
+    flex: none;
+    width: 90%;
+    padding: 20px;
+  }
+
+  /* Remove right side image section completely */
+  .signin-right {
+    display: none;
+  }
+
+  /* Make form elements responsive */
+  .google-button,
+  form,
+  input,
+  .signup-btn {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  /* Adjust title/subtitle for mobile */
+  .signin-title {
+    font-size: 24px;
+    line-height: 1.4;
+  }
+
+  .signin-subtitle {
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  /* Reduce padding and spacing */
+  form {
+    gap: 10px;
+  }
+
+  .divider {
+    margin: 15px auto;
+  }
+
+  .signup-link {
+    margin-left: 0;
+    text-align: center;
+    display: block;
+  }
+}
