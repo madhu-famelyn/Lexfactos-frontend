@@ -1,0 +1,83 @@
+.practice-areas-section {
+  background-color: #f9fafb;
+  padding: 50px 20px;
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+.practice-title {
+  font-family: 'Geist', sans-serif;
+  font-weight: 500;
+  font-style: normal; /* 'Medium' in Figma maps to normal style + 500 weight */
+  font-size: 36px;
+  line-height: 40px;
+  letter-spacing: 0;
+  text-align: center;
+  vertical-align: middle;
+  color: #000000;
+}
+
+.practice-subtitle {
+  font-family: 'Geist', sans-serif;
+  font-weight: 300; /* Light */
+  font-style: normal;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0;
+  text-align: center;
+  vertical-align: middle;
+  color: #4B5563;
+}
+
+
+.practice-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.practice-card {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 16px;
+  text-align: left;
+}
+
+.practice-card-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.practice-name {
+  font-family: 'Geist', sans-serif;
+  font-weight: 500; /* Medium */
+  font-style: normal;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0;
+  color: #000000;
+  vertical-align: middle;
+}
+
+
+.practice-percent {
+  font-size: 14px;
+  font-weight: 500;
+  color: #000;
+}
+
+.progress-bar {
+  background: #e5e7eb;
+  border-radius: 9999px;
+  height: 6px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 9999px;
+}

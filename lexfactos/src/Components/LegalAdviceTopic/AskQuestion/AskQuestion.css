@@ -1,0 +1,122 @@
+.ask-question-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  background-color: #eaf2ff;
+  padding: 30px;
+  border-radius: 8px;
+  gap: 30px;
+  margin: 0 auto;
+  font-family: "Inter", sans-serif;
+}
+
+.ask-question-text {
+  flex: 1;
+}
+
+h2 {
+  font-family: Geist, sans-serif;
+  font-weight: 700;
+  font-style: normal; /* 'Bold' is handled by font-weight */
+  font-size: 32px;
+  line-height: 44px;
+  letter-spacing: 0;
+  vertical-align: middle;
+  color: #000000;
+}
+
+
+.ask-question-underline {
+  width: 88px;
+  height: 8.8px;
+  border-radius: 4px;
+  background: var(--Theme-Color, #2563EB);
+  border-top: 0.8px solid #EBEBEB;
+}
+
+
+.ask-question-desc {
+  font-family: Geist, sans-serif;
+  font-weight: 400; /* Regular */
+  font-size: 14px;
+  line-height: 22px;
+  letter-spacing: 0;
+  vertical-align: middle;
+  color: #000000;
+}
+
+.ask-question-form {
+  width: 504px;
+  height: 157.6px;
+  border-radius: 5px;
+  padding: 12.2px 16.8px 122.8px 16.8px; /* top, right, bottom, left */
+  background-color: #FFFFFF;
+  border: 1px solid #DADDE1;
+  box-sizing: border-box; /* ensures padding is included in total width/height */
+}
+
+.ask-question-form textarea {
+  width: 100%;
+  height: 100%;
+  border: none;
+  outline: none;
+  resize: none;
+  font-family: Geist, sans-serif;
+  font-size: 14px;
+  line-height: 22px;
+  color: #000000;
+  background: transparent;
+}
+
+
+.ask-question-form textarea::placeholder {
+  color: #9ca3af;
+}
+
+.ask-question-form button {
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.ask-question-form button:hover {
+  background-color: #1e4fd8;
+}
+
+
+.button-wrapper {
+  display: flex;
+  justify-content: flex-end; /* pushes button to right */
+  margin-top: 10px; /* space between textarea and button */
+}
+
+.submit-question-btn {
+  width: 175px;
+  height: 48px;
+  border-radius: 6px;
+  padding: 12px 20px;
+  background: #2563EB;
+  color: white;
+  font-family: Geist, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  margin: 1px;
+}
+
+
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .ask-question-section {
+    flex-direction: column;
+  }
+}

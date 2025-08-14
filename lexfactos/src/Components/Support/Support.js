@@ -7,11 +7,9 @@ import HelpSection from "../HelpCenter/HelpSection/HelpSection";
 function SupportPageMain() {
   return (
     <div>
-     <Header/>
      <BreadcrumbPage/>
      <SupportPage/>
      <HelpSection/>
-     <Footer/>
     </div>
 
   );

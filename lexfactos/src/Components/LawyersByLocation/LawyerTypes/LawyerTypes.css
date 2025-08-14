@@ -1,0 +1,78 @@
+.lawyer-types-section {
+  background-color: #f9fafb; /* matches screenshot background */
+  padding: 50px 20px;
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+.lawyer-types-title {
+  font-family: 'Geist', sans-serif;
+  font-weight: 500; /* Medium */
+  font-size: 36px;
+  line-height: 40px;
+  letter-spacing: 0;
+  text-align: center;
+  color: #000000;
+}
+
+
+
+.lawyer-types-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 cards per row */
+  gap: 20px; /* space between cards */
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.lawyer-card {
+  width: 90%; /* let the grid handle layout */
+  border-radius: 8px;
+  border: 1px solid #E5E7EB;
+  padding: 1px; /* reduced from 24.8px */
+  background: #FFFFFF;
+  box-shadow: 0px 1px 2px 0px #0000000D;
+}
+.lawyer-card-title {
+  font-family: 'Geist', sans-serif;
+  font-weight: 500;
+  padding-left: 15px;
+  font-style: normal;
+  font-size: 20px;
+  line-height: 28px;
+  letter-spacing: -0.5px;
+  color: #000000;
+  margin-bottom: 6px;
+  text-align: left;
+}
+
+.lawyer-card-description {
+  font-family: 'Geist', sans-serif;
+  font-weight: 300;
+  padding-left: 15px;
+  font-style: normal;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0;
+  color: #4B5563;
+  text-align: left;
+}
+
+
+
+
+.lawyer-card:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.lawyer-card-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #000000;
+  margin-bottom: 6px;
+}
+
+.lawyer-card-description {
+  font-size: 14px;
+  color: #6b7280; /* light gray for description */
+}

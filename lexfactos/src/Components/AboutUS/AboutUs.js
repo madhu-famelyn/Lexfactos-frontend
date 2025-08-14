@@ -12,7 +12,6 @@ import Footer from "../Footer/Footer";
 const AboutUs = () => {
   return (
     <div>
-      <Header />
       <Hero />
       <OurMission />
       <HowWeWork />
@@ -20,7 +19,6 @@ const AboutUs = () => {
       <OurPhilosophy />
       <StatsSection />
       <CallToAction />
-      <Footer />
     </div>
   );
 };

@@ -1,0 +1,187 @@
+.lq-wrapper {
+  margin: 0 auto;
+  padding: 54px; /* 24px top, right, bottom, left */
+  font-family: "Inter", sans-serif;
+}
+
+.lq-heading {
+  font-family: 'Geist', sans-serif;
+  font-weight: 600; /* SemiBold equivalent */
+  font-style: normal;
+  font-size: 24px;
+  line-height: 32px;
+  letter-spacing: 0;
+  color: #000000;
+  vertical-align: middle;
+  margin: 0; /* Remove default h2 margin */
+  padding: 8px 0; /* Add top/bottom breathing room */
+}
+
+
+.lq-subheading {
+  font-family: 'Geist', sans-serif;
+  font-weight: 600; /* SemiBold */
+  font-style: normal;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0.64px;
+  color: #464E5A;
+  vertical-align: middle;
+  margin: 0; /* remove default <p> margin */
+  padding: 4px 0; /* small breathing space */
+  margin-bottom: 3vh;
+}
+
+.lq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.lq-card {
+  background: #FFFFFF;
+  border: 1px solid #DADDE1;
+  border-radius: 10px;
+  padding: 40px 25px 25px; /* top | left/right | bottom */
+  opacity: 1;
+  box-sizing: border-box; /* ensures padding is included in width */
+  width: 100%;
+}
+
+.lq-card-header {
+  margin-bottom: 8px;
+}
+
+.lq-tag {
+  display: inline-block;
+  background: #e1e9ff;
+  color: #2f54eb;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 8px;
+}
+
+.lq-title {
+  font-family: 'Geist', sans-serif;
+  font-weight: 600;
+  font-style: normal; /* SemiBold is handled by weight */
+  font-size: 18px;
+  line-height: 30px;
+  letter-spacing: 0.32px;
+  color: #000000;
+  vertical-align: middle;
+}
+
+
+.lq-description {
+  font-family: 'Geist', sans-serif;
+  font-weight: 400; /* Regular */
+  font-style: normal;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0;
+  color: #464E5A;
+  vertical-align: middle;
+}
+
+
+.lq-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+}
+
+.lq-meta {
+  font-family: 'Geist', sans-serif;
+  font-weight: 400; /* Regular */
+  font-style: normal;
+  font-size: 14px;
+  line-height: 22px;
+  letter-spacing: 0;
+  color: #464E5A;
+  vertical-align: middle;
+}
+
+
+.lq-answers {
+  font-family: 'Geist', sans-serif;
+  font-weight: 500; /* Medium */
+  font-style: normal;
+  font-size: 14px;
+  line-height: 22px;
+  letter-spacing: 0;
+  color: #2563EB;
+  vertical-align: middle;
+  text-decoration: none;
+}
+
+.lq-answers:hover {
+  text-decoration: underline;
+}
+
+
+.lq-answers:hover {
+  text-decoration: underline;
+}
+
+.lq-save-btn {
+  background: none;
+  border: none;
+  font-family: 'Geist', sans-serif;
+  font-weight: 600; /* SemiBold */
+  font-style: normal;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0;
+  text-align: center;
+  vertical-align: middle;
+  color: #2563EB;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.lq-save-btn:hover {
+  text-decoration: underline;
+}
+
+/* Pagination Styles */
+.pagination {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.page-btn {
+  background: none;
+  border: none;
+  color: #4b5563;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 6px 10px;
+  border-radius: 6px;
+}
+
+.page-btn.active {
+  background-color: #374151;
+  color: white;
+}
+
+.page-btn:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.page-btn:hover:not(.active):not(:disabled) {
+  background-color: #f3f4f6;
+}
+
+.dots {
+  color: #6b7280;
+  font-size: 14px;
+}

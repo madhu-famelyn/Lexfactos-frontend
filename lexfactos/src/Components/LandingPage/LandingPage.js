@@ -4,15 +4,20 @@ import LandingPage from "./Hero/Hero"
 import StatsSection from "./StatsSection/StatsSection"
 import HowItWorks from "./HowItWorks/HowItWorks"
 import PracticeAreas from "./PracticeAreas/PracticeAreas"
+import ClientExperiences from "./ClientExperiences/ClientExperiences"
+import CommonQuestions from "./CommonQuestions/CommonQuestions"
+
+
+
 const LandingPageMain = () => {
   return(
     <div>
-      <Header/>
       <LandingPage/>
       <StatsSection/>
       <HowItWorks/>
       <PracticeAreas/>
-      <Footer/>
+      <ClientExperiences/>
+      <CommonQuestions/>
 
     </div>
   )

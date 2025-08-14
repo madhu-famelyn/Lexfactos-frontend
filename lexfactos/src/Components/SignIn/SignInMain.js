@@ -8,7 +8,6 @@ const SignInPage = () => {
   return (
     <div>
       <SignIn />
-      <Footer />
     </div>
   );
 };

@@ -1,0 +1,68 @@
+.practice-area-section {
+  font-family: "Inter", sans-serif;
+  padding: 50px 20px;
+  text-align: center;
+}
+
+.practice-area-section h2 {
+  font-family: 'Geist', sans-serif;
+  font-weight: 500; /* Medium weight */
+  font-size: 36px;
+  line-height: 40px;
+  letter-spacing: 0;
+  text-align: center;
+  vertical-align: middle;
+  margin: 5px; /* remove default h2 spacing if needed */
+  padding-bottom: 20px;
+}
+
+
+.practice-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 30px;
+  max-width: 1200px; /* adjust as per your design */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+.practice-btn {
+  width: 203.32px;
+  height: 53.6px;
+  border-radius: 9999px;
+  border: 1px solid #E5E7EB;
+  padding: 16.8px;
+  background-color: #fff; /* or transparent if you want no fill */
+  font-family: 'Geist', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0;
+  text-align: center;
+  color: #374151;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.practice-btn:hover {
+  background-color: #f3f4f6; /* light gray on hover */
+}
+
+
+.view-all a {
+  font-size: 16px;
+  color: #374151;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.view-all a:hover {
+  text-decoration: underline;
+}
+
+.arrow {
+  font-size: 16px;
+}

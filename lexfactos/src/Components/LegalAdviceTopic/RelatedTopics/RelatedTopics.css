@@ -1,0 +1,45 @@
+.related-topics-wrapper {
+  margin: 0 auto;
+  padding: 60px;
+  font-family: "Inter", sans-serif;
+}
+
+.related-heading {
+  font-family: 'Geist', sans-serif;
+  font-weight: 600; /* SemiBold */
+  font-style: normal;
+  font-size: 24px;
+  line-height: 32px;
+  letter-spacing: 0;
+  vertical-align: middle;
+  color: #000000;
+}
+
+.related-underline {
+  width: 88px;
+  height: 8.8px;
+  border-radius: 4px;
+  background: var(--Theme-Color, #2563EB);
+  border-top: 0.8px solid #EBEBEB;
+  opacity: 1;
+  margin-bottom: 4vh;
+}
+
+
+.related-topics-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.related-topic-btn {
+  border-radius: 24px;
+  padding: 12.8px 16.8px;
+  background: #FFFFFF;
+  border: 1px solid #DADDE1;
+  opacity: 1;
+}
+
+.related-topic-btn:hover {
+  background-color: #f3f4f6;
+}

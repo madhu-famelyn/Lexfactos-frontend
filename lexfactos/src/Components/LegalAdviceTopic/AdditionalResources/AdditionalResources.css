@@ -1,0 +1,60 @@
+.additional-resources-container {
+  font-family: "Inter", sans-serif;
+  margin: 0 auto;
+}
+
+.additional-resources-container h3 {
+  font-family: "Geist", sans-serif;
+  font-weight: 600; /* SemiBold */
+  font-size: 20px;
+  line-height: 28px;
+  letter-spacing: 0;
+  color: #000000;
+  margin-bottom: 12px; /* optional: adds a bit of spacing under heading */
+  padding-top: 20px;
+  padding-left: 10px;
+}
+
+
+.resources-box {
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.blue-line {
+  height: 8px;
+  background-color: #669cff;
+  border-radius: 4px;
+  margin-bottom: 12px;
+}
+
+.resources-box h4 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.years-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px 40px;
+}
+
+.years-grid a {
+  color: #2563eb;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.years-grid a:hover {
+  text-decoration: underline;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .years-grid {
+    grid-template-columns: 1fr;
+  }
+}

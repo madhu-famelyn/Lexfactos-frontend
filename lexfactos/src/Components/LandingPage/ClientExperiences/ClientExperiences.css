@@ -1,0 +1,194 @@
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;700&display=swap');
+
+.client-experiences {
+  text-align: center;
+  padding: 60px 20px;
+  background: #f9fafb;
+  font-family: 'Geist', sans-serif;
+
+  display: flex;              /* enables flexbox */
+  flex-direction: column;     /* keep heading & cards stacked vertically */
+  align-items: center;        /* center cards horizontally */
+  justify-content: center;    /* center cards vertically if needed */
+}
+
+.client-experiences h2 {
+  font-weight: 300;
+  font-size: 36px;
+  line-height: 40px;
+  letter-spacing: -0.9px;
+  text-align: center;
+  color: #000000;
+  margin: 0;
+}
+
+.subtitle {
+  color: #6b7280;
+  font-size: 16px;
+  margin-bottom: 40px;
+}
+
+.card-stack {
+  position: relative;
+  width: 560px;
+  height: 110px;
+  perspective: 1000px;
+  margin-bottom: 12vh;
+}
+
+.card {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #FFFFFF;
+  border-radius: 6px;
+  border: 1px solid #0000001A;
+  padding: 28px 32px;
+  box-shadow: 0px 4px 8px 0px #04040740;
+  transition: transform 0.6s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 6px;
+  margin-bottom: 10vh;
+}
+
+.active {
+  transform: translateY(0) scale(1);
+}
+
+.next {
+  transform: translateY(8px) scale(0.95);
+}
+
+.inactive {
+  transform: translateY(16px) scale(0.9);
+}
+
+.slide-up {
+  transform: translateY(-40px) scale(0.85);
+}
+
+.slide-in {
+  transform: translateY(0) scale(1);
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.profile img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin-right: 8px;
+  flex-shrink: 0;
+}
+
+.profile div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.profile h4,
+.profile span {
+  margin: 0;
+  padding: 0;
+  text-align: left;
+}
+
+.profile h4 {
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.profile span {
+  font-size: 12px;
+  color: #6b7280;
+  line-height: 1.2;
+}
+
+.quote {
+  font-size: 13px;
+  color: #374151;
+  text-align: left;
+}
+
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+  .client-experiences {
+    padding: 20px 10px;
+  }
+
+  .client-experiences h2 {
+    font-size: 20px;
+    line-height: 24px;
+  }
+
+  .subtitle {
+    font-size: 11px;
+    margin-bottom: 14px;
+  }
+
+  .card-stack {
+    width: 85%;
+    max-width: 260px; /* reduced further */
+    height: auto;
+    margin-bottom: 20px;
+  }
+
+  .card {
+    position: relative;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+    transform: none !important;
+  }
+
+  .profile img {
+    width: 26px;
+    height: 26px;
+  }
+
+  .profile h4 {
+    font-size: 11px;
+  }
+
+  .profile span {
+    font-size: 10px;
+  }
+
+  .quote {
+    font-size: 11px;
+    line-height: 1.4;
+  }
+}
+
+@media (max-width: 480px) {
+  .client-experiences h2 {
+    font-size: 18px;
+    line-height: 22px;
+  }
+
+  .subtitle {
+    font-size: 10px;
+  }
+
+  .card-stack {
+    width: 80%;
+    max-width: 240px; /* even smaller for tiny screens */
+  }
+
+  .card {
+    padding: 12px 14px;
+  }
+
+  .quote {
+    font-size: 10.5px;
+  }
+}

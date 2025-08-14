@@ -10,11 +10,9 @@ import QuestionsList from "./QuestionsList/QuestionsList";
 function LocationMainPage() {
   return (
     <div>
-     <Header/>
      <BrowseByStates/>
      <BrowseByCities/>
      <QuestionsList/>
-     <Footer/>
  
     </div>
 

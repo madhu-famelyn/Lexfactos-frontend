@@ -12,11 +12,9 @@ const LegalHelpFormMain = () => {
       {/* Uncomment as needed */}
       {/* <AboutUs /> */}
       {/* <HelpCenterMain /> */}
-      <Header />
       <LegalHelpForm />
       <LegalAreas />
       <RecentlyAskedQuestions />
-      <Footer />
     </>
   );
 };

@@ -8,11 +8,9 @@ import Footer from "../Footer/Footer";
 export default function HelpCenterMain() {
   return (
     <div>
-        <Header/>
       <HelpCenter />
       <PopularTopics />
       <HelpSection />
-      <Footer/>
     </div>
   );
 }

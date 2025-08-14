@@ -1,7 +1,8 @@
 .stats-section {
   padding: 60px 20px;
+  margin-bottom: 3vh;
   background-color: #fff;
-  font-family: "Geist", sans-serif; /* ✅ Apply Geist to entire section */
+  font-family: "Geist", sans-serif;
 }
 
 .stats-container {
@@ -18,8 +19,10 @@
   padding: 30px 20px;
   border-radius: 16px;
   border: 1px solid #eee;
+  height: 30vh;
   text-align: center;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  margin-bottom: 10vh;
 }
 
 .stat-card:hover {

@@ -4,15 +4,17 @@
   background: #F9FAFB;
 }
 
+/* Title */
 .pa-title {
   font-family: 'Geist', sans-serif;
-  font-weight: 400;
+  font-weight: 500;
   font-size: 32px;
   line-height: 40px;
   color: #111827;
   margin-bottom: 12px;
 }
 
+/* Subtitle */
 .pa-subtitle {
   font-family: 'Geist', sans-serif;
   font-weight: 300;
@@ -23,25 +25,33 @@
   margin: 0 auto 48px;
 }
 
+/* Cards Grid */
 .pa-cards {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 24px;
-  justify-content: center;
-  flex-wrap: wrap;
+  max-width: 1000px;
+  margin: 0 auto;
 }
 
+/* Card Container */
 .pa-card {
   background: #FFFFFF;
-  border-radius: 16px;
+  border-radius: 12px;
   padding: 24px;
-  flex: 1 1 300px;
-  max-width: 340px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.05), 0 1px 2px rgba(0,0,0,0.05);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
   display: flex;
   flex-direction: column;
-  text-align: left;
+  align-items: flex-start;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
+.pa-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+/* Icon */
 .pa-icon {
   font-family: "Segoe UI Emoji", sans-serif;
   font-weight: 400;
@@ -49,56 +59,103 @@
   line-height: 36px;
   color: #2563EB;
   display: flex;
-
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 3px;
 }
 
-
+/* Card Title */
 .pa-card-title {
   font-family: "Geist", sans-serif;
   font-weight: 600;
   font-size: 20px;
   line-height: 28px;
-  letter-spacing: 0;
   color: #000000;
-  margin: 0; /* Ensures no extra spacing above/below */
-  vertical-align: middle;
+  margin-bottom: 2px;
 }
 
-
-
-
-
+/* Card Description */
 .pa-card-desc {
-  font-family: "Geist", sans-serif;
+  font-family: 'Geist', sans-serif;
   font-weight: 300;
   font-size: 14px;
   line-height: 22.75px;
-  letter-spacing: 0;
   color: #4B5563;
-  margin: 0; /* remove default p spacing */
-  vertical-align: middle;
+  margin-bottom: 16px;
+  text-align: left; /* ✅ Forces left alignment */
 }
 
 
-
+/* Footer */
 .pa-card-footer {
   margin-top: auto;
   display: flex;
   justify-content: space-between;
-  font-family: 'Geist', sans-serif;
+  width: 100%;
   font-size: 14px;
-  color: #111827;
-  font-weight: 400;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
+.pa-card-footer span {
+  font-family: 'Geist', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  color: #6B7280;
+}
+
+/* Responsive Layout */
+@media (max-width: 1024px) {
+  .pa-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .pa-cards {
+    grid-template-columns: 1fr;
+  }
+  
   .pa-title {
     font-size: 28px;
+    line-height: 36px;
   }
 
   .pa-subtitle {
     font-size: 16px;
     line-height: 24px;
   }
+}
+
+
+
+.view-all-btn {
+  display: inline-block;
+  width: 302px;
+  height: 48px;
+  border-radius: 10px;
+  padding: 13.6px 32px 14.4px 32px;
+  background: #2563EB;
+  color: white;
+  font-family: 'Geist', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  box-shadow: 
+    0px 4px 6px -4px rgba(0, 0, 0, 0.1),
+    0px 10px 15px -3px rgba(0, 0, 0, 0.1);
+  transition: background 0.2s ease-in-out;
+}
+
+.view-all-btn:hover {
+  background: #1E4FCF;
+}
+
+/* Center alignment container */
+.button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px; /* adjust spacing as needed */
 }
