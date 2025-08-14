@@ -1,8 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Geist:wght@100;200;300;400&display=swap');
 
-/* =====================================
-   Base Container
-===================================== */
+/* ===================================== Base Container ===================================== */
 .landing-container {
   text-align: center;
   font-family: 'Inter', sans-serif;
@@ -10,9 +8,7 @@
   background-color: rgba(255, 255, 255, 0.9);
 }
 
-/* =====================================
-   Trusted Badge
-===================================== */
+/* ===================================== Trusted Badge ===================================== */
 .trusted-badge {
   display: inline-flex;
   align-items: center;
@@ -61,6 +57,7 @@
     max-width: 300px;
   }
 }
+
 @media (min-width: 1200px) {
   .trusted-badge {
     font-size: 16px;
@@ -69,9 +66,7 @@
   }
 }
 
-/* =====================================
-   Titles
-===================================== */
+/* ===================================== Titles ===================================== */
 .landing-title {
   font-family: 'Geist', sans-serif;
   font-size: 60px;
@@ -102,23 +97,21 @@
     line-height: 48px;
   }
 }
+
 @media (max-width: 600px) {
   .landing-title {
-    font-size: 30px;
-    line-height: 34px;
+    font-size: 26px;
+    line-height: 30px;
+    max-width: 90%;
   }
 }
 
-/* =====================================
-   Subtitle
-===================================== */
+/* ===================================== Subtitle ===================================== */
 .landing-subtitle {
   font-family: 'Geist', sans-serif;
   font-weight: 200;
   font-size: 20px;
   line-height: 32.5px;
-  letter-spacing: 0;
-  text-align: center;
   color: #4B5563;
   max-width: 700px;
   margin: 38px auto 0;
@@ -132,17 +125,17 @@
     max-width: 500px;
   }
 }
+
 @media (max-width: 600px) {
   .landing-subtitle {
-    font-size: 16px;
-    line-height: 26px;
-    padding: 0 12px;
+    font-size: 14px;
+    line-height: 22px;
+    padding: 0 8px;
+    max-width: 90%;
   }
 }
 
-/* =====================================
-   Search Box
-===================================== */
+/* ===================================== Search Box ===================================== */
 .search-box {
   width: 100%;
   max-width: 672px;
@@ -206,10 +199,9 @@
   font-weight: 500;
   border: none;
   cursor: pointer;
-  box-shadow:
-    0px 4px 6px -4px rgba(0, 0, 0, 0.1),
-    0px 10px 15px -3px rgba(0, 0, 0, 0.1),
-    0px 0px 15.4px rgba(37, 99, 235, 0.35);
+  box-shadow: 0px 4px 6px -4px rgba(0, 0, 0, 0.1),
+              0px 10px 15px -3px rgba(0, 0, 0, 0.1),
+              0px 0px 15.4px rgba(37, 99, 235, 0.35);
 }
 
 .search-button:hover {
@@ -221,12 +213,18 @@
   .search-box {
     padding: 20px;
     gap: 12px;
+    max-width: 90%;
   }
 }
 
-/* =====================================
-   Bottom Stats
-===================================== */
+@media (max-width: 480px) {
+  .search-box {
+    padding: 16px;
+    max-width: 95%;
+  }
+}
+
+/* ===================================== Bottom Stats ===================================== */
 .bottom-stats {
   display: flex;
   justify-content: center;
@@ -234,4 +232,12 @@
   font-size: 14px;
   margin-top: 20px;
   color: #6B7280;
+}
+
+@media (max-width: 480px) {
+  .bottom-stats {
+    flex-direction: column;
+    gap: 10px;
+    font-size: 12px;
+  }
 }
