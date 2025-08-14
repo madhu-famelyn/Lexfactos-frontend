@@ -9,6 +9,7 @@ import LocationMainPage from "./Components/Locations/Location";
 import LandingPageMain from "./Components/LandingPage/LandingPage";
 import LegalAdviceTopicMain from "./Components/LegalAdviceTopic/LegalAdviceTopic";
 import LawyersByLocation from "./Components/LawyersByLocation/LawyersByLocation";
+import LawyerRegistration from "./Components/LawyerRegistration/LawyerRegistration1/SignIn";
 import Header from "./Components/Header/Header";
 import Footer from "./Components/Footer/Footer";
 
@@ -26,6 +27,7 @@ function App() {
         <Route path="/locations" element={<LocationMainPage />} />
         <Route path="/topics" element={<LegalAdviceTopicMain />} />
         <Route path="/sign-in" element={<SignInPage />} />
+        <Route path="/sign-in-lawyer" element={<LawyerRegistration/>} />
       </Routes>
       <Footer />
     </Router>
