@@ -52,15 +52,12 @@ export const loginUser = async (email, password) => {
 
 
 
-// Service.js
 export async function loginWithGoogle(credential) {
-  const response = await axios.post(`http://127.0.0.1:8000/auth/google`, {
+  const response = await axios.post(`${API_BASE_URL}/auth/google`, {
     credential,
   });
   return response.data;
 }
-
-
 
 
 export const registerLawyer = async (formData) => {
