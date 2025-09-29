@@ -296,26 +296,30 @@ export const getLawyerById = async (id) => {
 
 /**
  * Fetch lawyers by practice area and city.
+/**
+ * Fetch lawyers by city.
  */
 export const fetchLawyersByCity = async (practiceArea, city) => {
   if (!city) return [];
-  const res = await axios.get(
-    `${API_BASE_URL}/get-all-details/lawyers?practice_area=${encodeURIComponent(
-      practiceArea
-    )}&location=${encodeURIComponent(city)}`
-  );
+  const res = await axios.get(`${API_BASE_URL}/get-all-details/lawyers/search`, {
+    params: {
+      practice_area: practiceArea,
+      location: city,
+    },
+  });
   return res.data;
 };
 
 /**
- * Fetch lawyers by practice area and state.
+ * Fetch lawyers by state.
  */
 export const fetchLawyersByState = async (practiceArea, state) => {
   if (!state) return [];
-  const res = await axios.get(
-    `${API_BASE_URL}/get-all-details/lawyers?practice_area=${encodeURIComponent(
-      practiceArea
-    )}&location=${encodeURIComponent(state)}`
-  );
+  const res = await axios.get(`${API_BASE_URL}/get-all-details/lawyers/search`, {
+    params: {
+      practice_area: practiceArea,
+      location: state,
+    },
+  });
   return res.data;
 };
