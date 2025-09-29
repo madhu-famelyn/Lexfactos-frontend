@@ -1,6 +1,10 @@
 import axios from "axios";
 
-const API_BASE_URL = "http://127.0.0.1:8000";
+// // Before
+// const API_BASE_URL = "http://127.0.0.1:8000";
+
+// After
+const API_BASE_URL = "https://lexfactos-backend.onrender.com";
 
 export const signupUser = async (formData) => {
   try {
@@ -262,4 +266,59 @@ export const updateLawyerVerification = async (lawyerId, isVerified, rejectionRe
     }
   );
   return response.data;
+};
+
+
+
+
+
+
+export const getRejectedLawyers = async () => {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/get-all-details/lawyers/rejected`);
+    return response.data; // API returns an array of rejected lawyers
+  } catch (error) {
+    console.error("Error fetching rejected lawyers:", error);
+    throw error;
+  }
+};
+
+
+
+export const getLawyerById = async (id) => {
+  try {
+    const response = await axios.get(
+      `${API_BASE_URL}/get-all-details/lawyers/all-details/${id}`
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching lawyer details:", error);
+    throw error;
+  }
+};
+
+/**
+ * Fetch lawyers by practice area and city.
+ */
+export const fetchLawyersByCity = async (practiceArea, city) => {
+  if (!city) return [];
+  const res = await axios.get(
+    `${API_BASE_URL}/get-all-details/lawyers?practice_area=${encodeURIComponent(
+      practiceArea
+    )}&location=${encodeURIComponent(city)}`
+  );
+  return res.data;
+};
+
+/**
+ * Fetch lawyers by practice area and state.
+ */
+export const fetchLawyersByState = async (practiceArea, state) => {
+  if (!state) return [];
+  const res = await axios.get(
+    `${API_BASE_URL}/get-all-details/lawyers?practice_area=${encodeURIComponent(
+      practiceArea
+    )}&location=${encodeURIComponent(state)}`
+  );
+  return res.data;
 };

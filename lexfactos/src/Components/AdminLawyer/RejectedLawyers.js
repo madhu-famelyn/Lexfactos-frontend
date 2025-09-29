@@ -1,30 +1,25 @@
-// src/components/RejectedLawyers.js
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import "./AdminLawyer.css";
 import {
   FaMapMarkerAlt,
   FaClock,
   FaUniversity,
-  FaStar,
   FaTimesCircle,
   FaEye,
 } from "react-icons/fa";
+import { getRejectedLawyers } from "../Service/Service";
 
 const RejectedLawyers = () => {
   const [lawyers, setLawyers] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Fetch rejected lawyers
   useEffect(() => {
     const fetchRejectedLawyers = async () => {
       try {
-        const response = await axios.get(
-          "http://127.0.0.1:8000/get-all-details/lawyers/rejected"
-        );
-        setLawyers(response.data); // API returns array of rejected lawyers
+        const data = await getRejectedLawyers();
+        setLawyers(data);
       } catch (error) {
-        console.error("Error fetching rejected lawyers:", error);
+        console.error(error);
       } finally {
         setLoading(false);
       }

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import axios from "axios";
 import "./LawyerResultsPage.css";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { useAuth } from "../Context/UserContext";
+import { fetchLawyersByCity, fetchLawyersByState } from "../Service/Service";
 
 export default function LawyerResultsPage() {
   const location = useLocation();
@@ -36,27 +36,19 @@ export default function LawyerResultsPage() {
         setError("");
 
         const cityRes = city
-          ? await axios.get(
-              `http://127.0.0.1:8000/get-all-details/lawyers/search?practice_area=${encodeURIComponent(
-                practiceArea
-              )}&location=${encodeURIComponent(city)}`
-            )
-          : { data: [] };
+          ? await fetchLawyersByCity(practiceArea, city)
+          : [];
 
         const stateRes = state
-          ? await axios.get(
-              `http://127.0.0.1:8000/get-all-details/lawyers/search?practice_area=${encodeURIComponent(
-                practiceArea
-              )}&location=${encodeURIComponent(state)}`
-            )
-          : { data: [] };
+          ? await fetchLawyersByState(practiceArea, state)
+          : [];
 
-        const cityIds = cityRes.data.map((lawyer) => lawyer.id);
-        const filteredState = stateRes.data.filter(
+        const cityIds = cityRes.map((lawyer) => lawyer.id);
+        const filteredState = stateRes.filter(
           (lawyer) => !cityIds.includes(lawyer.id)
         );
 
-        setCityLawyers(cityRes.data);
+        setCityLawyers(cityRes);
         setStateLawyers(filteredState);
       } catch (err) {
         setError("No lawyers found or server error.");
