@@ -1,0 +1,261 @@
+.lr-step2-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  background: #f9f9f9;
+  padding: 40px 0;
+  font-family: Arial, sans-serif;
+}
+
+/* Languages Spoken Section */
+.lr-step2-checkboxes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 20px; /* vertical and horizontal spacing */
+  margin-top: 10px;
+}
+
+.lr-step2-checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.lr-step2-checkbox-label:hover {
+  background: #f0f5ff;
+  border-color: #007d80;
+  color: #007d80;
+}
+
+.lr-step2-checkbox {
+  accent-color: #007d80; /* modern browsers */
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.lr-step2-card {
+  background: #fff;
+  padding: 30px;
+  width: 750px;
+  border-radius: 8px;
+  box-shadow: 0px 1px 3px rgba(0,0,0,0.1);
+}
+
+.lr-step2-title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+.lr-step2-subtitle {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.lr-step2-progress {
+  display: flex;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.lr-step2-progress-bar {
+  height: 8px;
+  background: #000;
+  border-radius: 5px;
+  flex-shrink: 0;
+  width: 22%;
+  margin-right: 10px;
+}
+
+.lr-step2-progress-text {
+  font-size: 12px;
+  color: #666;
+}
+
+.lr-step2-label {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+
+.lr-step2-textarea {
+  width: 100%;
+  height: 100px;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  margin-bottom: 20px;
+  resize: none;
+}
+
+.lr-step2-row {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.lr-step2-input-box {
+  flex: 1;
+}
+
+.lr-step2-input {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
+
+.lr-step2-section {
+  margin-bottom: 25px;
+}
+
+.lr-step2-checkboxes {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.lr-step2-checkbox-label {
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.lr-step2-checkbox {
+  transform: scale(1.1);
+}
+
+.lr-step2-add-btn {
+  background: transparent;
+  border: 1px solid #ddd;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.lr-step2-add-btn:hover {
+  background: #f5f5f5;
+}
+
+.lr-step2-footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.lr-step2-prev-btn,
+.lr-step2-next-btn {
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  border: none;
+}
+
+.lr-step2-prev-btn {
+  background: #f5f5f5;
+}
+
+.lr-step2-next-btn {
+  background: #000;
+  color: #fff;
+}
+
+
+
+/* ============================= */
+/* 📱 Mobile Responsive Styles   */
+/* ============================= */
+@media (max-width: 600px) {
+  .lr-step2-container {
+    padding: 10px; 
+    overflow-x: hidden; /* prevent horizontal scroll */
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  background: #f9f9f9;
+  padding: 40px 0;
+  font-family: Arial, sans-serif;
+}
+  
+
+  .lr-step2-card {
+    width: 100%;
+    max-width: 100%; /* ✅ never overflow */
+    padding: 15px;
+    box-sizing: border-box; /* ✅ padding included in width */
+  }
+
+  .lr-step2-title {
+    font-size: 18px;
+  }
+
+  .lr-step2-subtitle {
+    font-size: 13px;
+  }
+
+  .lr-step2-progress {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    width: 100%; /* ✅ keep inside screen */
+  }
+
+  .lr-step2-progress-bar {
+    width: 100%;
+  }
+
+  .lr-step2-row {
+    flex-direction: column;
+    gap: 10px;
+    width: 100%; /* ✅ inputs won’t overflow */
+  }
+
+  .lr-step2-input,
+  .lr-step2-textarea {
+    width: 100%;  /* ✅ full-width input */
+    font-size: 13px;
+    padding: 8px;
+    box-sizing: border-box;
+  }
+
+  .lr-step2-checkboxes {
+    grid-template-columns: repeat(2, 1fr); /* 2 per row */
+    gap: 10px;
+    width: 100%;
+  }
+
+  .lr-step2-checkbox-label {
+    font-size: 13px;
+    padding: 6px 10px;
+  }
+
+  .lr-step2-footer {
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .lr-step2-prev-btn,
+  .lr-step2-next-btn {
+    width: 100%;
+    padding: 12px;
+    font-size: 15px;
+    box-sizing: border-box;
+  }
+}

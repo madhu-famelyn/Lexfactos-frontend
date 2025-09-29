@@ -1,0 +1,760 @@
+Profile.css
+
+/* Container */
+.lawyer-profile-container {
+  max-width: 100px;
+  margin: 0 auto;
+  padding: 20px 40px;
+  font-family: "Arial", "Helvetica Neue", Helvetica, sans-serif;
+  color: #222;
+  line-height: 1.5;
+}
+
+/* Title */
+.lawyer-profile-title {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #000;
+  padding-bottom: 6px;
+  text-transform: uppercase;
+}
+
+/* Section */
+section {
+  margin-top: 30px;
+}
+
+.section-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid #000;
+  text-transform: uppercase;
+}
+
+/* Subsections */
+.subsection-title {
+  font-size: 15px;
+  font-weight: 600;
+  margin-top: 15px;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+}
+
+/* Summary Section */
+.lawyer-summary-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.lawyer-summary-card {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.lawyer-summary-photo {
+  width: 160px;
+  height: 160px;
+  object-fit: cover;
+}
+
+.lawyer-summary-details {
+  flex: 1;
+}
+
+
+
+.lawyer-summary-bio {
+  margin-bottom: 10px;
+  font-size: 14px;
+  color: #444;
+}
+
+.lawyer-summary-court {
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.practice-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.practice-tag {
+  font-size: 13px;
+  padding: 2px 6px;
+  border: 1px solid #9f9f9f;
+  background: #f5f5f5;
+}
+
+/* Items */
+.lawyer-basic-item,
+.lawyer-reg3-item,
+.lawyer-office-label,
+.lawyer-association-item {
+  margin-bottom: 6px;
+  font-size: 14px;
+}
+
+/* Repeated Data Blocks */
+.lawyer-bar-detail,
+.lawyer-education-item,
+.lawyer-experience-item,
+.lawyer-case-result,
+.lawyer-address-item,
+.lawyer-certification-item,
+.lawyer-award-item,
+.lawyer-publication-item {
+  margin-bottom: 10px;
+  padding: 6px 0;
+}
+
+.lawyer-bar-detail p,
+.lawyer-education-item p,
+.lawyer-experience-item p,
+.lawyer-case-result p,
+.lawyer-address-item p,
+.lawyer-certification-item p,
+.lawyer-award-item p,
+.lawyer-publication-item p {
+  font-size: 13px;
+  margin: 2px 0;
+}
+
+/* Images */
+.lawyer-photo,
+.lawyer-office-image {
+  margin-top: 12px;
+  display: block;
+  max-width: 200px;
+  height: auto;
+}
+
+/* Loading / No Data */
+.loading-text,
+.no-data-text {
+  font-size: 14px;
+  color: #666;
+  text-align: center;
+  margin-top: 30px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.experience-heading {
+  font-family: "Geist", sans-serif;
+  font-weight: 400; /* Light weight */
+  font-style: normal; /* "Light" is not a valid style, use normal/italic */
+  font-size: 40px;
+  line-height: 36px;
+  letter-spacing: 0;
+  vertical-align: middle;
+  color: #000000;
+}
+
+/* Timeline container */
+.experience-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 28px; /* space between items */
+  position: relative;
+  padding-left: 20px;
+  border-left: 1px solid #E5E7EB; /* light gray timeline line */
+}
+
+/* Each item */
+.experience-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  position: relative;
+}
+
+/* Timeline bullet */
+.experience-bullet {
+  width: 10px;
+  height: 10px;
+  background-color: #000;
+  border-radius: 50%;
+  position: absolute;
+  left: -25px;
+  top: 6px;
+}
+
+/* Content inside */
+.experience-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px; /* smaller gap between lines */
+}
+
+/* Reset default paragraph/margin spacing inside content */
+.experience-content p {
+  margin: 0; /* removes browser default margins */
+  line-height: 1.4; /* tighter line spacing */
+}
+
+/* Role (bold) */
+.experience-role {
+  font-family: 'Geist', sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  color: #111827;
+  margin: 0; /* ensure no extra margin */
+}
+
+/* Company */
+.experience-company {
+  font-family: 'Geist', sans-serif;
+  font-weight: 500;
+  font-size: 15px;
+  color: #374151;
+  margin: 0; /* ensure no extra margin */
+}
+
+/* Duration */
+.experience-duration {
+  font-family: 'Geist', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  color: #6B7280;
+  margin: 0; /* ensure no extra margin */
+}
+
+/* Description */
+.experience-description {
+  font-family: 'Geist', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px; /* slightly tighter than before */
+  color: #4B5563;
+  margin: 0; /* remove extra spacing */
+}
+
+
+
+
+
+
+
+
+
+
+.lawyer-info-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  margin-top: 20px;
+}
+
+.info-column {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Heading (Title) */
+.info-heading {
+  font-family: 'Geist', sans-serif;
+  font-weight: 500; /* Medium */
+  font-style: normal;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0;
+  vertical-align: middle;
+  color: #000000;
+  margin-bottom: 10px;
+}
+
+/* Content (Text) */
+.info-item {
+  font-family: 'Geist', sans-serif;
+  font-weight: 400; /* Regular */
+  font-style: normal;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0;
+  vertical-align: middle;
+  color: #4B5563;
+  margin: 4px 0;
+}
+
+.bar-block {
+  margin-bottom: 12px;
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 992px) {
+  .lawyer-info-container {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns on tablets */
+  }
+}
+
+@media (max-width: 768px) {
+  .lawyer-info-container {
+    grid-template-columns: 1fr; /* 1 column on mobile */
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Lawyer Summary Section */
+.lawyer-summary-section {
+  margin: 30px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.lawyer-summary-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  background: #fff;
+  padding: 20px 25px;
+  border-radius: 12px;
+  max-width: 950px;
+  width: 100%;
+}
+
+.lawyer-summary-photo {
+  width: 196px;
+  height: 278px;
+  object-fit: cover;
+  opacity: 1;
+  padding: 22px 10px;
+  border-radius: 8px;
+  display: block;
+}
+
+.lawyer-summary-details {
+  flex: 1;
+}
+
+.lawyer-summary-name {
+  font-family: 'Geist', sans-serif;
+  font-weight: 300; /* Light */
+  font-style: normal;
+  font-size: 48px; /* reduced from 48px */
+  vertical-align: middle;
+  color: #000000;
+  margin: 0 0 6px 0; /* tighter bottom margin */
+}
+
+.lawyer-summary-bio {
+  font-family: 'Geist', sans-serif;
+  font-weight: 300; /* Light */
+  font-style: normal;
+  font-size: 14px; /* reduced from 16px */
+  letter-spacing: 0;
+  vertical-align: middle;
+  color: #4B5563;
+  margin: 0 0 10px 0; /* only small bottom margin */
+}
+
+.lawyer-summary-court {
+  display: flex;
+  align-items: center;
+  gap: 20px; /* space between items */
+  font-size: 14px;
+  color: #333;
+  margin: 0 0 10px 0; /* remove top margin, keep small bottom */
+}
+
+.lawyer-profile-item {
+  font-family: 'Geist', sans-serif;
+  font-weight: 300;         /* Light */
+  font-style: normal;
+  font-size: 14px;
+  line-height: 29.25px;
+  letter-spacing: 0;
+  color: #374151;           /* Dark gray */
+  vertical-align: middle;
+  margin: 6px 0;
+}
+
+
+.lawyer-summary-practice {
+  font-size: 14px; /* reduced from 1rem */
+  margin: 0; /* reset default */
+}
+
+.practice-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.practice-tag {
+  background: #ffffff;
+  color: #818181;
+  padding: 4px 10px; /* slightly smaller padding */
+  border-radius: 20px;
+  font-size: 12px; /* reduced from 0.9rem (~14px) */
+  font-weight: 500;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.education-section {
+  margin-top: 30px;
+  border-top: 1px solid #E5E7EB; /* subtle divider like screenshot */
+  padding-top: 20px;
+}
+
+.education-heading {
+  font-family: 'Geist', sans-serif;
+  font-weight: 500;         /* Medium */
+  font-size: 16px;
+  line-height: 24px;
+  margin-bottom: 20px;
+  color: #000000;
+}
+
+.education-item {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+
+.education-bullet {
+  width: 6px;
+  height: 6px;
+  background-color: #9CA3AF; /* gray-400 */
+  border-radius: 50%;
+  margin-top: 7px;           /* aligns bullet with first text line */
+  margin-right: 10px;
+  flex-shrink: 0;
+}
+
+.education-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.education-degree {
+  font-family: 'Geist', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+  color: #111827;
+  margin: 0; /* remove extra gaps */
+}
+
+.education-institute {
+  font-family: 'Geist', sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 22px;
+  color: #374151;
+  margin: 0; /* tighter spacing */
+}
+
+.education-year {
+  font-family: 'Geist', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  color: #6B7280;
+  margin: 0; /* no extra bottom margin */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.subsection-title {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  padding-bottom: 6px;
+  color: #222;
+}
+
+.lawyer-case-result {
+  border-left: 3px solid #ddd;
+  padding: 12px 16px;
+  margin-bottom: 20px;
+  background: #fff;
+}
+
+.lawyer-case-result p {
+  margin: 4px 0;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #444;
+}
+
+.lawyer-case-result strong {
+  font-weight: 600;
+  color: #111;
+}
+
+/* Title styling */
+.lawyer-case-result p:first-child strong {
+  display: block;
+  font-size: 18px;
+  color: #000;
+  margin-bottom: 6px;
+}
+
+/* Outcome + Summary in softer text */
+.lawyer-case-result p:nth-child(2),
+.lawyer-case-result p:nth-child(3) {
+  color: #555;
+  font-size: 14px;
+}
+
+/* Court + Year on one line like the screenshot */
+.lawyer-case-result p:last-of-type {
+  margin-top: 6px;
+  font-size: 13px;
+  color: #666;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+.subsection-title {
+  font-family: "Geist", sans-serif;
+  font-weight: 300;      /* Light */
+  font-style: normal;
+  font-size: 30px;
+  line-height: 36px;
+  letter-spacing: 0;
+  color: #000000;
+  margin-bottom: 24px;
+  vertical-align: middle;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.awards-section {
+  margin-top: 40px;
+}
+
+.subsection-title {
+  font-family: "Geist", sans-serif;
+  font-weight: 300;
+  font-size: 30px;
+  line-height: 36px;
+  color: #000;
+  margin-bottom: 24px;
+}
+
+.awards-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* two-column layout */
+  gap: 32px 48px;
+}
+
+.lawyer-award-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.award-icon {
+  color: #f4a300; /* golden like screenshot */
+  font-size: 20px;
+  margin-top: 18px;
+}
+
+.award-text {
+  font-family: "Geist", sans-serif;
+  color: #000;
+}
+
+.award-name {
+  font-weight: 600;
+  font-size: 18px;
+  margin: 0 0 4px 0;
+}
+
+.award-organization {
+  font-size: 15px;
+  font-weight: 400;
+  margin: 0 0 2px 0;
+  color: #333;
+}
+
+.award-year {
+  font-size: 14px;
+  color: #555;
+  margin: 0 0 6px 0;
+}
+
+.award-description {
+  font-size: 14px;
+  color: #666;
+  margin: 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.certifications-section {
+  margin-top: 40px;
+}
+
+.subsection-title {
+  font-family: "Geist", sans-serif;
+  font-weight: 300;
+  font-size: 30px;
+  line-height: 36px;
+  color: #000;
+  margin-bottom: 12px;
+}
+
+.cert-subtitle {
+  font-family: "Geist", sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  color: #000;
+  margin-bottom: 20px;
+}
+
+.certifications-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px 24px;
+}
+
+.lawyer-certification-item {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px 20px;
+  background-color: #fff;
+  transition: box-shadow 0.2s ease-in-out;
+}
+
+.lawyer-certification-item:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.cert-title {
+  font-family: "Geist", sans-serif;
+  font-weight: 600;
+  font-size: 18px;
+  margin: 0 0 6px 0;
+}
+
+.cert-issuer {
+  font-family: "Geist", sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  margin: 0 0 10px 0;
+  color: #333;
+}
+
+.cert-dates {
+  display: flex;
+  justify-content: space-between;
+  font-family: "Geist", sans-serif;
+  font-size: 14px;
+  color: #555;
+}
+
+.cert-issued {
+  font-weight: 400;
+}
+
+.cert-validity {
+  font-weight: 500;
+}
+     

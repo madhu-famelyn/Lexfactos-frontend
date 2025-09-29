@@ -1,0 +1,14 @@
+/* Dashboard Layout */
+.dashboard-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* Main content */
+.dashboard-content {
+  flex: 1;
+  margin-left: 240px; /* same as sidebar width */
+  padding: 20px;
+  background-color: #f9fafb;
+  overflow-y: auto;
+}

@@ -1,0 +1,178 @@
+/* Step4.css */
+
+.lr-step4-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  background: #f9fafb;
+  min-height: 100vh;
+}
+
+.lr-step4-section{
+    width: 100%;
+}
+.lr-step4-card {
+  background: #fff;
+  border-radius: 8px;
+  padding: 32px;
+  max-width: 700px; /* increased width */
+  width: 100%;
+  box-shadow: 0px 1px 3px rgba(0,0,0,0.08);
+}
+
+.lr-step4-header {
+  margin-bottom: 20px;
+}
+
+.lr-step4-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #111827;
+  margin: 0;
+}
+
+.lr-step4-subtitle {
+  font-size: 14px;
+  color: #6b7280;
+  margin-top: 4px;
+}
+
+.lr-step4-progress {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.lr-step4-progress-bar {
+  flex: 1;
+  height: 8px;
+  background: #e5e7eb;
+  border-radius: 4px;
+  position: relative;
+}
+
+.lr-step4-progress-bar::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 44%;
+  background: #111827;
+  border-radius: 4px;
+}
+
+.lr-step4-progress-text {
+  font-size: 13px;
+  color: #111827;
+  white-space: nowrap;
+}
+
+.lr-step4-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+.lr-step4-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #111827;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.lr-step4-input {
+  width: 100%;
+  padding: 12px 14px; /* slightly bigger padding */
+  font-size: 15px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  outline: none;
+}
+
+.lr-step4-input:focus {
+  border-color: #111827;
+}
+
+.lr-step4-row {
+  display: flex;
+  gap: 20px;
+  width: 100%;
+}
+
+.lr-step4-input-box {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.lr-step4-placeholder {
+  font-size: 12px;
+  color: #6b7280;
+  margin-top: 4px;
+}
+
+.lr-step4-footer {
+  display: flex;
+  justify-content: space-between; /* prev left, next right */
+  align-items: center;
+  margin-top: 30px;
+}
+
+.lr-step4-prev-btn,
+.lr-step4-next-btn {
+  min-width: 120px; /* make buttons wider */
+  padding: 12px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 6px;
+  cursor: pointer;
+  border: none;
+}
+
+.lr-step4-prev-btn {
+  background: #f3f4f6;
+  color: #111827;
+  text-align: center; /* keeps text centered inside button */
+  padding: 10px 20px;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.lr-step4-btn-container {
+  display: flex;
+  justify-content: flex-start; /* pushes button to left */
+  margin-top: 20px;
+}
+
+
+.lr-step4-btn-container {
+  display: flex;
+  justify-content: space-between; /* pushes prev left, next right */
+  margin-top: 20px;
+}
+
+.lr-step4-prev-btn {
+  background: #f3f4f6;
+  color: #111827;
+  padding: 10px 20px;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+  margin-right: 75vh;
+  cursor: pointer;
+}
+
+.lr-step4-next-btn {
+  background: #111827;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}

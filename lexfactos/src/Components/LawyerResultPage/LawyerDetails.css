@@ -1,0 +1,352 @@
+/* --- Global Font --- */
+.lawyer-profile-container {
+  font-family: 'Geist', sans-serif;
+  color: #222;
+  font-size: 16px; /* base font size increased */
+}
+
+/* --- Profile Header --- */
+.lawyer-profile-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 14px 18px;
+  border-bottom: 1px solid #eee;
+}
+
+.lawyer-profile-left {
+  display: flex;
+  gap: 14px;
+}
+
+.lawyer-profile-photo {
+  width: 220px;
+  height: 260px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.lawyer-profile-info {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* --- Badges --- */
+.lawyer-top-badges {
+  display: flex;
+  gap: 8px;
+}
+
+.lawyer-verified,
+.lawyer-role {
+  font-size: 14px; /* increased */
+  font-weight: 500;
+  padding: 3px 8px;
+  border-radius: 12px;
+  line-height: 1.4;
+}
+
+.lawyer-verified {
+  background: #f2f4f7;
+  color: #555;
+}
+
+.lawyer-role {
+  background: black;
+  color: white;
+}
+
+/* --- Text Info --- */
+.lawyer-name {
+  font-size: 26px; /* bigger name */
+  font-weight: 500;
+  margin-top: 2vh;
+  line-height: 1.3;
+}
+
+.lawyer-designation {
+  font-size: 16px; /* increased */
+  color: #555;
+  font-weight: 400;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.lawyer-chamber-name {
+  font-size: 15px; /* increased */
+  color: #777;
+  line-height: 1.5;
+}
+
+/* --- Tags --- */
+.lawyer-tags {
+  display: flex;
+  gap: 14px;
+  font-size: 15px; /* increased */
+  font-weight: 400;
+  color: #444;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+}
+
+/* --- Rating --- */
+.lawyer-rating-section {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 15px; /* increased */
+  margin-top: 2px;
+  font-weight: 400;
+}
+
+.lawyer-star {
+  color: gold;
+  font-size: 16px;
+}
+
+.lawyer-rating {
+  font-weight: 600;
+}
+
+.lawyer-reviews {
+  color: #555;
+}
+
+/* --- Practice Areas --- */
+.lawyer-practice-areas {
+  margin-top: 8px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.lawyer-practice-areas span {
+  background: #f2f4f7;
+  padding: 5px 10px;
+  border-radius: 16px;
+  font-size: 14px; /* increased */
+  font-weight: 400;
+}
+
+/* --- Right Buttons --- */
+.lawyer-profile-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.lawyer-primary-btn {
+  background: #0077C8;
+  color: white;
+  border: none;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 14px; /* increased */
+  font-weight: 400;
+  cursor: pointer;
+  text-decoration: none;
+  width: 205px;
+  text-align: center;
+}
+
+.lawyer-secondary-btn {
+  background: white;
+  border: 1px solid #ddd;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 15px; /* increased */
+  font-weight: 400;
+  cursor: pointer;
+  width: 240px;
+  text-align: center;
+}
+
+.lawyer-small-btns {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.lawyer-small-btns .lawyer-secondary-btn {
+  width: auto;
+  min-width: 90px;
+  flex: none;
+}
+
+/* --- Layout --- */
+.lawyer-profile-columns {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+}
+
+.lawyer-left-column {
+  flex: 2;
+}
+
+.lawyer-right-column {
+  flex: 1.2;
+}
+
+/* --- Left Column --- */
+.lawyer-section-title {
+  font-size: 22px; /* bigger section titles */
+  font-weight: 600;
+  margin-bottom: 12px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 6px;
+}
+
+.lawyer-about-text {
+  font-size: 16px; /* bigger */
+  line-height: 1.6;
+  margin-bottom: 22px;
+  font-weight: 400;
+  color: #444;
+}
+
+.lawyer-info-section {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 22px;
+  gap: 24px;
+}
+
+.lawyer-info-block {
+  flex: 1;
+}
+
+.lawyer-info-title {
+  font-size: 16px; /* increased */
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+
+.lawyer-info-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.lawyer-info-list li,
+.lawyer-info-block p {
+  font-size: 15px; /* increased */
+  font-weight: 400;
+  margin-bottom: 4px;
+}
+
+/* Education & Qualifications Section */
+.education-section {
+  margin-top: 20px;
+}
+
+.education-section h2 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.education-section ul {
+  list-style: disc;
+  padding-left: 20px; /* space for bullets */
+}
+
+.education-section li {
+  margin-bottom: 12px;
+  line-height: 1.4;
+}
+
+.education-section li strong {
+  display: block;
+  font-weight: 600;
+  color: #111; /* darker for degree */
+  margin-bottom: 2px;
+}
+
+.education-section li .college {
+  display: block;
+  font-weight: 400;
+  color: #555; /* gray for college name */
+  margin-bottom: 2px;
+}
+
+.education-section li .details {
+  display: block;
+  font-weight: 400;
+  color: #888; /* lighter gray for year/class */
+}
+
+/* --- Right Column --- */
+.lawyer-overview-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+  margin: 18px 0;
+}
+
+.lawyer-overview-card {
+  border: 1px solid #eee;
+  padding: 18px;
+  text-align: center;
+  border-radius: 8px;
+  background-color: #fafafa;
+}
+
+.lawyer-overview-card h3 {
+  font-size: 20px; /* bigger */
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.lawyer-overview-card p {
+  font-size: 15px; /* increased */
+  color: #555;
+  font-weight: 400;
+}
+
+/* --- Office Section --- */
+.lawyer-office-section {
+  margin-top: 24px;
+}
+
+.lawyer-office-text {
+  font-size: 15px; /* increased */
+  line-height: 1.6;
+  margin-bottom: 14px;
+  font-weight: 400;
+}
+
+.lawyer-office-photo {
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+/* --- Responsive --- */
+@media (max-width: 900px) {
+  .lawyer-profile-columns {
+    flex-direction: column;
+  }
+
+  .lawyer-profile-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .lawyer-profile-right {
+    align-items: flex-start;
+    width: 100%;
+  }
+
+  .lawyer-primary-btn,
+  .lawyer-secondary-btn {
+    width: 100%;
+  }
+}
+
+
+
+

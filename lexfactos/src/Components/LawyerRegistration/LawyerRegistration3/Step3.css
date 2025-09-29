@@ -1,0 +1,288 @@
+/* Import Geist font */
+@import url('https://fonts.cdnfonts.com/css/geist');
+
+.lr-step3-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  background: #f5f5f5;
+  padding: 40px 0;
+  font-family: 'Geist', sans-serif;
+}
+
+.lr-step3-card {
+  background: #fff;
+  padding: 30px;
+  width: 750px;
+  border-radius: 8px;
+  box-shadow: 0px 1px 3px rgba(0,0,0,0.1);
+}
+
+.lr-step3-title {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.lr-step3-subtitle {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+/* Progress bar */
+.lr-step3-progress {
+  display: flex;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.lr-step3-progress-bar {
+  height: 8px;
+  background: #000;
+  border-radius: 5px;
+  flex-shrink: 0;
+  width: 33%;
+  margin-right: 10px;
+}
+
+.lr-step3-progress-text {
+  font-size: 12px;
+  color: #666;
+}
+
+/* Labels */
+.lr-step3-label {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+
+/* Checkbox grid */
+.lr-step3-checkboxes {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.lr-step3-checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #333;
+}
+
+.lr-step3-checkbox {
+  transform: scale(1.1);
+  accent-color: #000;
+  cursor: pointer;
+}
+
+/* Inputs & textarea */
+.lr-step3-textarea,
+.lr-step3-input {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-family: 'Geist', sans-serif;
+}
+
+.lr-step3-textarea {
+  height: 100px;
+  resize: none;
+  margin-bottom: 20px;
+}
+
+.lr-step3-row {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.lr-step3-input-box {
+  flex: 1;
+}
+
+/* Add Experience */
+.lr-step3-add-btn {
+  background: transparent;
+  border: 1px solid #ddd;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.lr-step3-add-btn:hover {
+  background: #f5f5f5;
+}
+
+/* Footer */
+.lr-step3-footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.lr-step3-prev-btn,
+.lr-step3-next-btn {
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  border: none;
+  font-family: 'Geist', sans-serif;
+  align-items: left;
+}
+
+.lr-step3-prev-btn {
+  background: #f5f5f5;
+}
+
+.lr-step3-next-btn {
+  background: #000;
+  color: #fff;
+}
+
+/* ============================= */
+/* 📌 Practice Areas (Step 3)    */
+/* ============================= */
+
+.lr-step3-section {
+  margin-bottom: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.lr-step3-label {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+}
+
+.lr-step3-checkboxes {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 per row (desktop) */
+  gap: 15px;
+}
+
+.lr-step3-checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #444;
+
+  border-radius: 8px;
+  padding: 10px 12px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.lr-step3-checkbox-label:hover {
+  background: #f0f5ff;
+
+}
+
+.lr-step3-checkbox {
+  accent-color: #007d80; /* ✅ Modern browsers: custom checkbox color */
+  width: 16px;
+  height: 16px;
+}
+
+/* Work Experience Section */
+.lr-step3-exp-box {
+  background: #f9fafb; /* subtle grey background */
+  padding: 16px;
+  margin-bottom: 16px;
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  position: relative;
+}
+
+/* Inputs inside Work Experience */
+.lr-step3-exp-box .lr-step3-input,
+.lr-step3-exp-box .lr-step3-textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.lr-step3-exp-box .lr-step3-input:focus,
+.lr-step3-exp-box .lr-step3-textarea:focus {
+  border-color: #2563eb; /* blue focus */
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+/* Remove button inside each experience */
+.lr-step3-remove-btn {
+  align-self: flex-end;
+  background: #000000; /* red */
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.lr-step3-remove-btn:hover {
+  background: #2b2b2b;
+}
+
+/* Add button below experience list */
+.lr-step3-add-btn {
+  margin-top: 8px;
+  background: #000000; /* blue */
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.lr-step3-add-btn:hover {
+  background: #292929;
+  transform: translateY(-1px);
+}
+
+
+/* ============================= */
+/* 📱 Mobile Responsive          */
+/* ============================= */
+@media (max-width: 768px) {
+  .lr-step3-checkboxes {
+    grid-template-columns: repeat(2, 1fr); /* 2 per row (tablet) */
+  }
+}
+
+@media (max-width: 480px) {
+  .lr-step3-checkboxes {
+    grid-template-columns: 1fr; /* full width on small screens */
+  }
+
+  .lr-step3-checkbox-label {
+    font-size: 13px;
+    padding: 8px 10px;
+  }
+}

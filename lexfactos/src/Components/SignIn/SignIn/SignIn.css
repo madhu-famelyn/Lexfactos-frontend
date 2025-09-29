@@ -10,18 +10,17 @@ body {
   height: 100vh;
 }
 
-/* Left Side */
 .signin-left {
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;   /* Vertical center only */
+  justify-content: center;   
   padding: 40px;
   background: #fff;
 }
 
 .signin-header {
-  text-align: center; /* Only headings centered */
+  text-align: center;
   margin-bottom: 24px;
 }
 
@@ -36,6 +35,7 @@ body {
   text-align: center;
   margin-bottom: 8px;
 }
+
 
 .signin-subtitle {
   font-family: "Geist", sans-serif;
@@ -57,9 +57,8 @@ body {
   justify-content: center;
   gap: 7.54px;
   width: 493px;
-  height: 100.63px;
+  height: 40px; /* set a reasonable height */
   box-sizing: border-box; /* ensures padding is included in height */
-  padding: 2px 116.17px;
   border-radius: 8px;
   border: 1px solid #D0D0D0;
   background: #FFFFFF;

@@ -2,7 +2,7 @@
   padding: 150px 150px; /* more vertical padding */
   background-color: #f9f9ff;
   font-family: "Geist", sans-serif;
-  min-height: 80vh; /* ensures section takes most of the viewport height */
+  min-height: 15vh; /* ensures section takes most of the viewport height */
 }
 
 .stats-container {
