@@ -134,6 +134,8 @@ const Step4 = () => {
     zipCode: "",
     calendlyLink: "",
     workingHours: "",
+    latitude: "",
+    longitude: "",
   };
 
   const [streetAddress, setStreetAddress] = useState(storedStep4Data.streetAddress);
@@ -142,6 +144,8 @@ const Step4 = () => {
   const [zipCode, setZipCode] = useState(storedStep4Data.zipCode);
   const [calendlyLink, setCalendlyLink] = useState(storedStep4Data.calendlyLink);
   const [workingHours, setWorkingHours] = useState(storedStep4Data.workingHours);
+  const [latitude, setLatitude] = useState(storedStep4Data.latitude);
+  const [longitude, setLongitude] = useState(storedStep4Data.longitude);
 
   useEffect(() => {
     const saveData = {
@@ -151,9 +155,11 @@ const Step4 = () => {
       zipCode,
       calendlyLink,
       workingHours,
+      latitude,
+      longitude,
     };
     localStorage.setItem("step4FormData", JSON.stringify(saveData));
-  }, [streetAddress, city, state, zipCode, calendlyLink, workingHours]);
+  }, [streetAddress, city, state, zipCode, calendlyLink, workingHours, latitude, longitude]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -166,6 +172,8 @@ const Step4 = () => {
         zip_code: zipCode,
         calendly_link: calendlyLink,
         working_hours: workingHours,
+        latitude,
+        longitude,
       };
 
       const result = await submitStep4(payload);
@@ -275,6 +283,29 @@ const Step4 = () => {
               onChange={(e) => setWorkingHours(e.target.value)}
             />
             <span className="lr-step4-placeholder">Working Hours</span>
+          </div>
+
+          <div className="lr-step4-row">
+            <div className="lr-step4-input-box">
+              <input
+                type="text"
+                className="lr-step4-input"
+                placeholder="Latitude"
+                value={latitude}
+                onChange={(e) => setLatitude(e.target.value)}
+              />
+              <span className="lr-step4-placeholder">Latitude *</span>
+            </div>
+            <div className="lr-step4-input-box">
+              <input
+                type="text"
+                className="lr-step4-input"
+                placeholder="Longitude"
+                value={longitude}
+                onChange={(e) => setLongitude(e.target.value)}
+              />
+              <span className="lr-step4-placeholder">Longitude *</span>
+            </div>
           </div>
 
           <div className="lr-step4-btn-container">
