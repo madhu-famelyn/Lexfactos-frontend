@@ -35,6 +35,8 @@ import { AuthProvider } from "./Components/Context/AuthContext";
 import { AuthProvider as UserProvider } from "./Components/Context/UserContext";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 
+import BrowseJobGrid from "./Components/ApplyJobs/ApplyJob";
+
 // Replace with your actual Google Client ID
 const GOOGLE_CLIENT_ID = "776723084181-ilgvju235ine04lqlkbl7v4nd55rpt3m.apps.googleusercontent.com";
 
@@ -98,6 +100,8 @@ function App() {
               <Route path="/signup-landing" element={<SignupLanding />} />
               <Route path="/lawyers/search" element={<LawyerResultsPage />} />
               <Route path="/lawyer/:id" element={<LawyerProfilePage />} />
+              <Route path="/browse-jobs" element={<BrowseJobGrid />} />
+
               <Route path="/lawyer-list" element={<CaliforniaLawyers />} />
 
               {/* Admin routes wrapped with AuthProvider */}
