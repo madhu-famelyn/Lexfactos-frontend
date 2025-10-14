@@ -36,9 +36,10 @@ useEffect(() => {
     try {
       const data = await fetchPendingLawyers();
 
-      // ✅ Only include lawyers where rejection_reason is exactly ""
       const filteredLawyers = data.filter(
-        (lawyer) => lawyer.rejection_reason === ""
+        (lawyer) =>
+          (lawyer.rejection_reason === "" || lawyer.rejection_reason === null) &&
+          !lawyer.is_verified
       );
 
       const formattedLawyers = filteredLawyers.map((lawyer) => ({
@@ -49,8 +50,7 @@ useEffect(() => {
         experience: `${lawyer.profile?.years_of_experience ?? "N/A"} years`,
         rating: "0",
         status: lawyer.is_verified ? "Verified" : "Pending",
-        photo:
-          lawyer.photo || "https://via.placeholder.com/48?text=👤", // fallback if no photo
+        photo: lawyer.photo || "https://via.placeholder.com/48?text=👤",
       }));
 
       setLawyers(formattedLawyers);
@@ -64,6 +64,7 @@ useEffect(() => {
 
   getLawyers();
 }, []);
+
 
 
   const handleViewProfile = (lawyerId) => {
