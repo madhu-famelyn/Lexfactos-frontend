@@ -31,7 +31,8 @@ const Header = () => {
             <Link to="/about">About us</Link>
             <Link to="/support">Support</Link>
             <Link to="/lawyers-by-location">Lawyers by Location</Link>
-            <Link to="/browse-jobs">Browse Jobs</Link>                         
+            <Link to="/browse-jobs">Browse Jobs</Link>  
+            <Link to="/admin-lawyers">Admin</Link>
           </nav>
         </div>
 
