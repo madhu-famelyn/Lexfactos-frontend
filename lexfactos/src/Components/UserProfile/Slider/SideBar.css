@@ -5,21 +5,20 @@
   min-height: 100vh;
 }
 
-/* Push job content to the right so it doesn't go under the sidebar */
 .jobs-content {
-  margin-left: 230px; /* same width as sidebar */
+  margin-left: 230px; 
   padding: 2rem;
   flex: 1;
   box-sizing: border-box;
 }
 .sidebar {
-  width: 230px; /* Fixed width for the sidebar */
+  width: 230px;
   height: 100vh;
   background-color: #ffffff;
   display: flex;
   flex-direction: column;
   border-right: 1px solid #e0e0e0;
-  position: fixed; /* Keep the sidebar fixed on the left */
+  position: fixed;
   left: 0;
   top: 0;
   padding: 0;
@@ -32,7 +31,7 @@
   color: white;
   font-weight: bold;
   font-size: 1.4rem;
-  margin: 0; /* remove all margins including bottom */
+  margin: 0; 
 }
 
 .logo-text {
@@ -77,4 +76,85 @@
 
 .text {
   flex: 1;
+}
+
+
+
+/* Sidebar base styles are already defined in your CSS */
+
+/* Hamburger button */
+.hamburger {
+  display: none; /* hidden on desktop */
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+  z-index: 1100;
+  color: #05308D;
+}
+
+/* Mobile sidebar adjustments */
+@media (max-width: 768px) {
+  /* Show hamburger on mobile */
+  .hamburger {
+    display: block;
+  }
+
+  /* Sidebar slides offscreen by default */
+  .sidebar {
+    transform: translateX(-100%);
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    z-index: 1000;
+    transition: transform 0.3s ease-in-out;
+  }
+
+  /* Open sidebar */
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  /* Jobs content full width on mobile */
+  .jobs-content {
+    margin-left: 0;
+    padding: 1rem 1.5rem;
+    transition: margin-left 0.3s ease;
+  }
+
+  /* Sidebar items adjustments for mobile */
+  .sidebar-item {
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+  }
+
+  .icon {
+    font-size: 1.2rem;
+    margin-right: 12px;
+  }
+}
+
+/* Optional extra small screens <480px */
+@media (max-width: 480px) {
+  .hamburger {
+    top: 0.8rem;
+    left: 0.8rem;
+    font-size: 1.3rem;
+  }
+
+  .sidebar-item {
+    padding: 0.9rem 1rem;
+    font-size: 0.95rem;
+  }
+
+  .icon {
+    font-size: 1rem;
+    margin-right: 8px;
+  }
+
+  .jobs-content {
+    padding: 0.8rem 1rem;
+  }
 }

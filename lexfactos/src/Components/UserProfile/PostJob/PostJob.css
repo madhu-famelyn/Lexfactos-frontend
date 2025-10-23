@@ -83,3 +83,65 @@ textarea {
 .postjob-btn:hover {
   opacity: 0.9;
 }
+
+
+
+/* Mobile responsiveness for Post Job page */
+@media (max-width: 768px) {
+  .postjob-container {
+    flex-direction: column;
+  }
+
+  .postjob-content {
+    margin-left: 0; /* sidebar hidden on mobile */
+    padding: 1rem 1.5rem; /* smaller padding for mobile */
+  }
+
+  .postjob-title {
+    font-size: 1.5rem; /* smaller heading */
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+
+  .postjob-form {
+    gap: 0.75rem; /* reduce spacing between fields */
+  }
+
+  .form-group label {
+    font-size: 0.9rem; /* smaller labels */
+  }
+
+  .postjob-form input,
+  .postjob-form textarea {
+    padding: 0.6rem 0.8rem; /* smaller input padding */
+    font-size: 0.9rem;
+  }
+
+  .textarea {
+    min-height: 80px; /* smaller textarea height for mobile */
+  }
+
+  .postjob-btn {
+    padding: 0.7rem 1.2rem; /* smaller button */
+    font-size: 0.95rem;
+    align-self: stretch; /* full-width button on mobile */
+    text-align: center;
+  }
+}
+
+/* Optional for very small screens (<480px) */
+@media (max-width: 480px) {
+  .postjob-title {
+    font-size: 1.3rem;
+  }
+
+  .postjob-form input,
+  .postjob-form textarea {
+    font-size: 0.85rem;
+  }
+
+  .postjob-btn {
+    font-size: 0.9rem;
+    padding: 0.6rem 1rem;
+  }
+}

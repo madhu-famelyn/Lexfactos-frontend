@@ -6,10 +6,10 @@
   background: #f9fafb;
   font-family: 'Geist', sans-serif;
 
-  display: flex;              /* enables flexbox */
-  flex-direction: column;     /* keep heading & cards stacked vertically */
-  align-items: center;        /* center cards horizontally */
-  justify-content: center;    /* center cards vertically if needed */
+  display: flex;              
+  flex-direction: column;     
+  align-items: center;        
+  justify-content: center;    
 }
 
 .client-experiences h2 {
@@ -120,7 +120,6 @@
 }
 
 
-/* Mobile Styles */
 @media (max-width: 768px) {
   .client-experiences {
     padding: 20px 10px;
@@ -138,7 +137,7 @@
 
   .card-stack {
     width: 85%;
-    max-width: 260px; /* reduced further */
+    max-width: 260px; 
     height: auto;
     margin-bottom: 20px;
   }
@@ -181,7 +180,7 @@
 
   .card-stack {
     width: 80%;
-    max-width: 240px; /* even smaller for tiny screens */
+    max-width: 240px; 
   }
 
   .card {

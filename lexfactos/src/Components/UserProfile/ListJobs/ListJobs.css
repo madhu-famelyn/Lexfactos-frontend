@@ -178,3 +178,112 @@
   .job-actions { flex-direction: column; align-items: stretch; }
   .job-actions button { width: 100%; }
 }
+
+
+
+
+
+/* Mobile adjustments for screens <= 768px */
+@media (max-width: 768px) {
+  .jobs-page {
+    flex-direction: column; /* stack sidebar + content vertically if needed */
+  }
+
+  .jobs-content {
+    padding: 1rem 1.5rem;
+    margin-left: 0; /* full width content */
+  }
+
+  .jobs-content h1 {
+    font-size: 1.5rem;
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+
+  .job-list {
+    gap: 1rem; /* smaller gap between cards */
+  }
+
+  .job-card {
+    padding: 1rem;
+    flex-direction: column;
+  }
+
+  .job-card h3 {
+    font-size: 1.1rem;
+  }
+
+  .job-card p {
+    font-size: 0.9rem;
+  }
+
+  .job-card p.status {
+    margin-top: 0.3rem;
+  }
+
+  .job-actions {
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+  }
+
+  .job-actions button {
+    width: 100%;
+    font-size: 0.85rem;
+    padding: 0.5rem 0.8rem;
+  }
+
+  /* Modals */
+  .modal {
+    width: 90%;
+    max-height: 75vh;
+    padding: 1.5rem;
+  }
+
+  .confirm-modal {
+    width: 90%;
+  }
+
+  .modal h2, .modal h3 {
+    font-size: 1rem;
+  }
+
+  .modal-form { gap: 0.75rem; }
+
+  .form-group label {
+    font-size: 0.85rem;
+  }
+
+  .form-group textarea {
+    font-size: 0.85rem;
+    padding: 0.4rem 0.5rem;
+  }
+}
+
+/* Optional: Extra small screens <480px */
+@media (max-width: 480px) {
+  .jobs-content h1 {
+    font-size: 1.3rem;
+  }
+
+  .job-card h3 {
+    font-size: 1rem;
+  }
+
+  .job-card p {
+    font-size: 0.85rem;
+  }
+
+  .job-actions button {
+    font-size: 0.8rem;
+    padding: 0.45rem 0.6rem;
+  }
+
+  .modal {
+    padding: 1rem;
+  }
+
+  .modal h2, .modal h3 {
+    font-size: 0.95rem;
+  }
+}
