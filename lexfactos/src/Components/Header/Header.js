@@ -96,6 +96,10 @@ const Header = () => {
           <Link to="/lawyers-by-location" onClick={closeMenu}>
             Lawyers by Location
           </Link>
+          <Link to="/browse-jobs"  onClick={closeMenu}>
+          Browse Jobs</Link>
+          <Link to="/admin-lawyers" onClick={closeMenu}>
+          Admin</Link>
 
           {/* Divider */}
           <hr className="mobile-divider" />
