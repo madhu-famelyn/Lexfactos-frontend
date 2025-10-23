@@ -6,13 +6,12 @@
 
 .signup-left,
 .signup-right {
-  height: 100%; /* ensures both fill the container */
-  box-sizing: border-box; /* padding stays inside height */
+  height: 100%; 
+  box-sizing: border-box;
 }
 
-/* Left Section */
 .signup-left {
-  flex: 0.9; /* smaller width */
+  flex: 0.9; 
   background: linear-gradient(to bottom, #000, #222);
   color: white;
   padding: 60px;
@@ -82,7 +81,6 @@
   text-align: center;
 }
 
-/* Heading */
 .signup-right h2 {
   font-family: "Geist", sans-serif;
   font-weight: 600; /* SemiBold */
@@ -93,7 +91,6 @@
   margin-bottom: 12px;
 }
 
-/* Subtext */
 .signup-right p {
   font-family: "Geist", sans-serif;
   font-weight: 400;
@@ -104,12 +101,11 @@
   margin-bottom: 30px;
 }
 
-/* Profile Upload Row */
 .profile-upload {
   display: flex;
   align-items: center;
-  justify-content: space-between; /* pushes circle left, button right */
-  width: 100%; /* span full width */
+  justify-content: space-between; 
+  width: 100%;
   margin-bottom: 30px;
 }
 
@@ -137,7 +133,6 @@
   cursor: pointer;
 }
 
-/* Form */
 .signup-form input {
   width: 100%;
   padding: 12px;
@@ -174,7 +169,7 @@
 }
 
 .forgot:hover {
-  color: #1E4ED8; /* slightly darker on hover */
+  color: #1E4ED8; 
 }
 
 
@@ -184,7 +179,7 @@
   gap: 6px;
   cursor: pointer;
   user-select: none;
-  line-height: 1; /* prevents extra text spacing */
+  line-height: 1; 
 }
 
 .form-options input[type="checkbox"] {
@@ -193,7 +188,7 @@
   height: 16px;
   cursor: pointer;
   position: relative;
-  top: 5px; /* tiny tweak for perfect vertical alignment */
+  top: 5px; 
 }
 
 .form-options .forgot {
@@ -235,4 +230,154 @@
 .create-account .link {
   color: #2f5ae0;
   text-decoration: none;
+}
+
+
+
+
+/* 📱 Responsive Design for Mobile */
+@media (max-width: 768px) {
+  .signup-container {
+    flex-direction: column; /* Stack left and right sections */
+    height: auto; /* Auto height for mobile */
+  }
+
+  .signup-left,
+  .signup-right {
+    width: 100%;
+    padding: 40px 20px;
+    height: auto;
+  }
+
+  .signup-left {
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .signup-left h1 {
+    font-size: 2rem;
+  }
+
+  .signup-left p {
+    font-size: 0.95rem;
+    max-width: 90%;
+  }
+
+  .testimonial {
+    margin-top: 30px;
+    max-width: 100%;
+  }
+
+  .signup-right {
+    padding: 30px 20px;
+  }
+
+  .signup-right h2 {
+    font-size: 1.6rem;
+    line-height: 2.2rem;
+  }
+
+  .signup-right p {
+    font-size: 0.9rem;
+    line-height: 1.4rem;
+    margin-bottom: 20px;
+    max-width: 100%;
+  }
+
+  .profile-upload {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .circle {
+    width: 70px;
+    height: 70px;
+  }
+
+  .upload-btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  .signup-form input {
+    font-size: 0.95rem;
+    padding: 10px;
+  }
+
+  .form-options {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 13px;
+  }
+
+  .signup-btn {
+    font-size: 15px;
+    padding: 12px;
+  }
+
+  .create-account {
+    font-size: 13px;
+  }
+}
+
+/* 📱 Small Phones (≤480px) */
+@media (max-width: 480px) {
+  .signup-left {
+    padding: 30px 15px;
+  }
+
+  .signup-left h1 {
+    font-size: 1.6rem;
+  }
+
+  .signup-left p {
+    font-size: 0.9rem;
+  }
+
+  .signup-right {
+    padding: 25px 15px;
+  }
+
+  .signup-right h2 {
+    font-size: 1.4rem;
+  }
+
+  .signup-right p {
+    font-size: 0.85rem;
+  }
+
+  .signup-form input {
+    font-size: 0.9rem;
+  }
+
+  .signup-btn {
+    font-size: 0.9rem;
+    padding: 10px;
+  }
+
+  .create-account {
+    font-size: 12px;
+  }
+}
+
+
+/* Upload Button Fix for Mobile */
+/* Center the Upload Button below the profile circle */
+@media (max-width: 768px) {
+  .profile-upload {
+    flex-direction: column;      /* stack circle and button vertically */
+    align-items: center;         /* center horizontally */
+    gap: 10px;                   /* spacing between circle and button */
+  }
+
+  .upload-btn {
+    display: inline-flex;        /* keep icon + text together */
+    justify-content: center;
+    align-items: center;
+    width: auto;                 /* only as wide as content */
+    padding: 10px 15px;
+    text-align: center;
+  }
 }

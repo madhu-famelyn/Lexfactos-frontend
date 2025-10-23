@@ -29,17 +29,18 @@ const lawyerTypes = [
 ];
 
 export default function LawyerTypes() {
-  return (
-    <div className="lawyer-types-section">
-      <h2 className="lawyer-types-title">What Kind of Lawyer Do I Need?</h2>
-      <div className="lawyer-types-grid">
-        {lawyerTypes.map((lawyer, index) => (
-          <div key={index} className="lawyer-card">
-            <h3 className="lawyer-card-title">{lawyer.title}</h3>
-            <p className="lawyer-card-description">{lawyer.description}</p>
-          </div>
-        ))}
-      </div>
+return (
+  <div className="lawyer-section-container">
+    <h2 className="lawyer-section-title">What Kind of Lawyer Do I Need?</h2>
+    <div className="lawyer-section-grid">
+      {lawyerTypes.map((lawyer, index) => (
+        <div key={index} className="lawyer-section-card">
+          <h3 className="lawyer-section-card-title">{lawyer.title}</h3>
+          <p className="lawyer-section-card-description">{lawyer.description}</p>
+        </div>
+      ))}
     </div>
-  );
+  </div>
+);
+
 }
