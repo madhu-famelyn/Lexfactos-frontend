@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=Geist&display=swap');
+
+.my-applied-jobs-page {
+  display: flex;
+  min-height: 100vh;
+  font-family: 'Geist', sans-serif;
+  background-color: #f3f4f6;
+}
+
+.applications-content {
+  flex: 1;
+  margin-left: 250px; /* same as sidebar width */
+  padding: 2rem;
+}
+
+h2 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #000000;
+  padding-bottom: 0.25rem;
+  margin-bottom: 1rem;
+  letter-spacing: 0.5px;
+}
+
+.application-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 1.5rem;
+}
+
+.application-card {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 180px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.application-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.application-card h3 {
+  color: #111827;
+  margin-bottom: 0.5rem;
+}
+
+.application-card p {
+  margin: 0.25rem 0;
+  color: #4b5563;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.cover-letter-preview {
+  white-space: pre-line;
+  font-style: italic;
+  color: #6b7280;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .applications-content {
+    margin-left: 0;
+    padding: 1rem;
+  }
+
+  .application-list {
+    grid-template-columns: 1fr;
+  }
+}

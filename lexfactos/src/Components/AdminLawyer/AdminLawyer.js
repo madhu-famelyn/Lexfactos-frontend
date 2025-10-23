@@ -92,7 +92,6 @@ const AdminLawyer = () => {
             </button>
           </div>
 
-          {/* Render Based on Tab */}
           {activeTab === "pending" && <PendingLawyers lawyers={pendingLawyers} />}
           {activeTab === "approved" && (
             <ApprovedLawyers lawyers={approvedLawyers} />

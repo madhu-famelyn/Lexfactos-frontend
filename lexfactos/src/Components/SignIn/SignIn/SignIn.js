@@ -1,7 +1,9 @@
+// src/pages/auth/SignIn.js
 import React, { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { useNavigate } from "react-router-dom";
 import { GoogleLogin } from "@react-oauth/google";
+import {jwtDecode} from "jwt-decode"; // 👈 import this
 import "./SignIn.css";
 import { loginUser, loginWithGoogle } from "../../Service/Service";
 import { useAuth } from "../../Context/UserContext";
@@ -13,7 +15,7 @@ export default function SignIn() {
   const [message, setMessage] = useState("");
 
   const navigate = useNavigate();
-  const { login } = useAuth(); // Use auth context
+  const { login } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -23,12 +25,21 @@ export default function SignIn() {
     try {
       const data = await loginUser(email, password);
 
-      // Save in localStorage
+      // Decode JWT to extract user ID
+      const decoded = jwtDecode(data.access_token);
+      const userId = decoded.sub;
+
+      const userInfo = {
+        id: userId,
+        email: email,
+      };
+
+      // Save tokens
       localStorage.setItem("access_token", data.access_token);
       localStorage.setItem("token_type", data.token_type);
 
       // Store in auth context
-      login({ email }, data.access_token, data.token_type);
+      login(userInfo, data.access_token, data.token_type);
 
       alert("Login successful!");
       navigate("/");
@@ -44,11 +55,16 @@ export default function SignIn() {
       const credential = response.credential;
       const data = await loginWithGoogle(credential);
 
+      const decoded = jwtDecode(data.access_token);
+      const userId = decoded.sub;
+
+      const userInfo = {
+        id: userId,
+        email: "google_user",
+      };
+
       localStorage.setItem("access_token", data.access_token);
       localStorage.setItem("token_type", data.token_type);
-
-      // Google returns only basic info, you can decode JWT if needed
-      const userInfo = { email: "google_user" }; // optionally parse from JWT
 
       login(userInfo, data.access_token, data.token_type);
 
@@ -144,4 +160,3 @@ export default function SignIn() {
     </div>
   );
 }
-

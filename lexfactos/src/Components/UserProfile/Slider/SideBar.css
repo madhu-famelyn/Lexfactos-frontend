@@ -1,0 +1,80 @@
+
+.jobs-page {
+  display: flex;
+  background-color: #f8f9fb;
+  min-height: 100vh;
+}
+
+/* Push job content to the right so it doesn't go under the sidebar */
+.jobs-content {
+  margin-left: 230px; /* same width as sidebar */
+  padding: 2rem;
+  flex: 1;
+  box-sizing: border-box;
+}
+.sidebar {
+  width: 230px; /* Fixed width for the sidebar */
+  height: 100vh;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid #e0e0e0;
+  position: fixed; /* Keep the sidebar fixed on the left */
+  left: 0;
+  top: 0;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-header {
+  padding: 0.5rem 1rem;
+  text-align: left;
+  color: white;
+  font-weight: bold;
+  font-size: 1.4rem;
+  margin: 0; /* remove all margins including bottom */
+}
+
+.logo-text {
+  margin: 0;
+  background: linear-gradient(90deg, #05308D 0%, #2563EB 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.sidebar-menu {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  flex-grow: 1;
+}
+
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  padding: 0.9rem 1.2rem;
+  cursor: pointer;
+  color: #000000;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.sidebar-item:hover {
+  background: rgba(37, 99, 235, 0.1);
+  color: #2563EB;
+}
+
+.icon {
+  font-size: 1.1rem;
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+  margin: 1px;
+  color: #000000;
+  background-color: transparent;
+}
+
+.text {
+  flex: 1;
+}

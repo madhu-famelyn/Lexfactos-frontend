@@ -1,0 +1,32 @@
+.dashboard-container {
+  display: flex;
+  height: 100vh;
+  background-color: #f4f6fb;
+  font-family: "Poppins", sans-serif;
+}
+
+/* Main content area (beside sidebar) */
+.dashboard-main {
+  flex: 1;
+  margin-left: 250px; /* same as sidebar width */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Page body */
+.dashboard-body {
+  flex: 1;
+  padding: 2rem;
+  text-align: center;
+}
+
+.dashboard-body h1 {
+  color: #1b1f3b;
+  font-size: 2rem;
+}
+
+@media (max-width: 768px) {
+  .dashboard-main {
+    margin-left: 70px; /* for collapsed sidebar */
+  }
+}

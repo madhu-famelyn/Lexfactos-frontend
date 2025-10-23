@@ -1,0 +1,202 @@
+/* Import Geist font at the top */
+@import url('https://fonts.googleapis.com/css2?family=Geist&display=swap');
+
+/* ApplicantsPage.css */
+
+/* General layout */
+.applicants-page {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f3f4f6; /* light gray background */
+  font-family: 'Geist', sans-serif; /* Updated font */
+}
+/* Resumes Section Heading */
+h2 {
+  font-family: 'Geist', sans-serif;
+  font-size: 1.8rem; /* slightly larger than default */
+  font-weight: 600;
+  color: #000000; /* your theme blue */
+  margin-bottom: 1rem;
+  padding-bottom: 0.25rem;
+  letter-spacing: 0.5px;
+}
+
+/* Sidebar will take care of itself, content will respect sidebar width */
+.applicants-content {
+  flex: 1;
+  padding: 2rem;
+  margin-left: 250px; /* adjust according to your sidebar width */
+}
+
+/* Applicant List */
+.applicant-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 1.5rem;
+}
+
+.applicant-card {
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  min-height: 180px; /* make it rectangular */
+}
+
+.applicant-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.applicant-card h3 {
+  color: #111827;
+  margin-bottom: 0.5rem;
+}
+
+.applicant-card p {
+  margin: 0.25rem 0;
+  color: #4b5563;
+  font-size: 0.95rem;
+}
+
+.cover-letter-preview,
+.cover-letter-full {
+  white-space: pre-line; /* preserves line breaks */
+  line-height: 1.5;      /* improves readability */
+  color: #6b7280;
+  margin-top: 0.5rem;
+  font-style: italic;
+}
+
+/* Buttons */
+.applicant-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.btn-contact,
+.btn-view-profile,
+.back-button,
+.btn-close {
+  background-color: #2563eb;
+  color: #fff;
+  padding: 0.45rem 0.85rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 500;
+  text-decoration: none;
+  text-align: center;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.btn-contact:hover,
+.btn-view-profile:hover,
+.back-button:hover,
+.btn-close:hover {
+  background-color: #1d4ed8;
+  transform: translateY(-2px);
+}
+
+.back-button {
+  margin-top: 2rem;
+}
+
+/* Modal Overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(17, 24, 39, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  padding: 1rem;
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #ffffff;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 700px;
+  padding: 2rem;
+  position: relative;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  overflow-y: auto;
+  max-height: 90vh;
+  font-family: 'Geist', sans-serif; /* ensure modal uses Geist too */
+}
+
+.modal-content h2 {
+  color: #111827;
+  margin-bottom: 0.5rem;
+}
+
+.cover-letter-full {
+  margin: 1rem 0;
+  font-style: italic;
+  color: #6b7280;
+}
+
+.resume-frame {
+  width: 100%;
+  height: 400px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  margin-top: 0.5rem;
+}
+
+/* Modal Actions */
+.modal-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.rate-dropdown {
+  padding: 0.45rem 0.65rem;
+  border-radius: 5px;
+  border: 1px solid #d1d5db;
+  font-size: 0.95rem;
+  background-color: #ffffff;
+  cursor: pointer;
+  color: #111827;
+}
+
+.rate-dropdown:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.3);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .applicants-content {
+    margin-left: 200px; /* sidebar shrinks if needed */
+  }
+}
+
+@media (max-width: 768px) {
+  .applicants-content {
+    margin-left: 0;
+    padding: 1rem;
+  }
+
+  .applicant-list {
+    grid-template-columns: 1fr;
+  }
+
+  .modal-content {
+    padding: 1rem;
+  }
+}

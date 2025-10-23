@@ -36,6 +36,13 @@ import { AuthProvider as UserProvider } from "./Components/Context/UserContext";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 
 import BrowseJobGrid from "./Components/ApplyJobs/ApplyJob";
+import Dashboard from "./Components/UserProfile/UserProfile/UserProfile";
+import PostJob from "./Components/UserProfile/PostJob/PostJob";
+import JobsPage from "./Components/UserProfile/ListJobs/ListJobs";
+import ViewJobDetails from "./Components/ApplyJobs/ViewJobDetails";
+import ApplicantsPage from "./Components/UserProfile/ApplicantsPage/ApplicantsPage";
+import MyAppliedJobsPage from "./Components/UserProfile/MyAppliedJobsPage/MyAppliedJobsPage";
+import AdminJobs from "./Components/AdminJobs/AdminJobs";
 
 // Replace with your actual Google Client ID
 const GOOGLE_CLIENT_ID = "776723084181-ilgvju235ine04lqlkbl7v4nd55rpt3m.apps.googleusercontent.com";
@@ -52,6 +59,13 @@ function Layout({ children }) {
     "/admin-lawyers",
     "/admin-appointments",
     "/admin-support",
+    "/profile",
+    "/post-job",
+    "/view-jobs",
+    "/view-job/:id",
+    "/applicents",
+    "/my-applied-jobs",
+    "/job-post"
   ];
 
   const hideHeaderFooterStartsWith = ["/lawyer/"];
@@ -73,97 +87,58 @@ function Layout({ children }) {
 
 function App() {
   return (
-    <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
+<GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
       <Router>
-        {/* Wrap the entire app in UserProvider to carry JWT/user info */}
-        <UserProvider>
-          <Layout>
-            <Routes>
-              {/* Public routes */}
-              <Route path="/" element={<LandingPageMain />} />
-              <Route path="/about" element={<AboutUs />} />
-              <Route path="/support" element={<SupportPageMain />} />
-              <Route path="/lawyers-by-location" element={<LawyersByLocation />} />
-              <Route path="/help-center" element={<HelpCenterMain />} />
-              <Route path="/legal-help" element={<LegalHelpFormMain />} />
-              <Route path="/locations" element={<LocationMainPage />} />
-              <Route path="/topics" element={<LegalAdviceTopicMain />} />
-              <Route path="/sign-in" element={<SignInPage />} />
-              <Route path="/sign-up" element={<SignupPage />} />
-              <Route path="/sign-in-lawyer" element={<LawyerRegistration />} />
-              <Route path="/step2" element={<LawyerRegistrationStep2 />} />
-              <Route path="/step3" element={<LawyerRegistrationStep3 />} />
-              <Route path="/step4" element={<Step4 />} />
-              <Route path="/step5" element={<LawyerRegistrationStep5 />} />
-              <Route path="/step6" element={<LawyerRegistrationStep6 />} />
-              <Route path="/profile-review" element={<ProfileReview />} />
-              <Route path="/signup-landing" element={<SignupLanding />} />
-              <Route path="/lawyers/search" element={<LawyerResultsPage />} />
-              <Route path="/lawyer/:id" element={<LawyerProfilePage />} />
-              <Route path="/browse-jobs" element={<BrowseJobGrid />} />
+        {/* AuthProvider wraps the entire app so Header and all routes have access */}
+        <AuthProvider>
+          <UserProvider>
+            <Layout>
+              <Routes>
+                {/* Public routes */}
+                <Route path="/" element={<LandingPageMain />} />
+                <Route path="/about" element={<AboutUs />} />
+                <Route path="/support" element={<SupportPageMain />} />
+                <Route path="/lawyers-by-location" element={<LawyersByLocation />} />
+                <Route path="/help-center" element={<HelpCenterMain />} />
+                <Route path="/legal-help" element={<LegalHelpFormMain />} />
+                <Route path="/locations" element={<LocationMainPage />} />
+                <Route path="/topics" element={<LegalAdviceTopicMain />} />
+                <Route path="/sign-in" element={<SignInPage />} />
+                <Route path="/sign-up" element={<SignupPage />} />
+                <Route path="/sign-in-lawyer" element={<LawyerRegistration />} />
+                <Route path="/step2" element={<LawyerRegistrationStep2 />} />
+                <Route path="/step3" element={<LawyerRegistrationStep3 />} />
+                <Route path="/step4" element={<Step4 />} />
+                <Route path="/step5" element={<LawyerRegistrationStep5 />} />
+                <Route path="/step6" element={<LawyerRegistrationStep6 />} />
+                <Route path="/profile-review" element={<ProfileReview />} />
+                <Route path="/signup-landing" element={<SignupLanding />} />
+                <Route path="/lawyers/search" element={<LawyerResultsPage />} />
+                <Route path="/lawyer/:id" element={<LawyerProfilePage />} />
+                <Route path="/browse-jobs" element={<BrowseJobGrid />} />
+                <Route path="/lawyer-list" element={<CaliforniaLawyers />} />
+                <Route path="/profile" element={<Dashboard />} />
+                <Route path="/post-job" element={<PostJob />} />
+                <Route path="/view-jobs" element={<JobsPage />} />
+                <Route path="/applicents" element={<ApplicantsPage />} />
+                <Route path="/my-applied-jobs" element={<MyAppliedJobsPage />} />
+                <Route path="/job-post" element={<AdminJobs />} />
 
-              <Route path="/lawyer-list" element={<CaliforniaLawyers />} />
 
-              {/* Admin routes wrapped with AuthProvider */}
-              <Route
-                path="/admin-signin"
-                element={
-                  <AuthProvider>
-                    <AdminSignIn />
-                  </AuthProvider>
-                }
-              />
-              <Route
-                path="/admin-signup"
-                element={
-                  <AuthProvider>
-                    <AdminSignUp />
-                  </AuthProvider>
-                }
-              />
-              <Route
-                path="/admin-dashboard"
-                element={
-                  <AuthProvider>
-                    <AdminDashboard />
-                  </AuthProvider>
-                }
-              />
-              <Route
-                path="/admin-lawyers"
-                element={
-                  <AuthProvider>
-                    <AdminLawyer />
-                  </AuthProvider>
-                }
-              />
-              <Route
-                path="/admin-appointments"
-                element={
-                  <AuthProvider>
-                    <AdminAppointments />
-                  </AuthProvider>
-                }
-              />
-              <Route
-                path="/admin-support"
-                element={
-                  <AuthProvider>
-                    <AdminSupport />
-                  </AuthProvider>
-                }
-              />
-              <Route
-                path="/lawyer/:lawyerId"
-                element={
-                  <AuthProvider>
-                    <LawyerProfile />
-                  </AuthProvider>
-                }
-              />
-            </Routes>
-          </Layout>
-        </UserProvider>
+
+                {/* Admin routes */}
+                <Route path="/admin-signin" element={<AdminSignIn />} />
+                <Route path="/admin-signup" element={<AdminSignUp />} />
+                <Route path="/admin-dashboard" element={<AdminDashboard />} />
+                <Route path="/admin-lawyers" element={<AdminLawyer />} />
+                <Route path="/admin-appointments" element={<AdminAppointments />} />
+                <Route path="/admin-support" element={<AdminSupport />} />
+                <Route path="/lawyer/:lawyerId" element={<LawyerProfile />} />
+                <Route path="/view-job/:id" element={<ViewJobDetails />} />
+              </Routes>
+            </Layout>
+          </UserProvider>
+        </AuthProvider>
       </Router>
     </GoogleOAuthProvider>
   );

@@ -1,12 +1,15 @@
+// src/Components/Header/Header.js
 import React, { useState, useCallback } from "react";
-import "./Header.css";
-import { FiSearch } from "react-icons/fi";
+import { FiSearch, FiUser } from "react-icons/fi"; // Added FiUser for profile icon
 import { HiMenu, HiX } from "react-icons/hi";
 import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../Context/UserContext";
+import "./Header.css";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
+  const { auth } = useAuth(); // Get auth state
 
   const openMenu = useCallback(() => setIsMenuOpen(true), []);
   const closeMenu = useCallback(() => setIsMenuOpen(false), []);
@@ -14,6 +17,11 @@ const Header = () => {
   const handleJoinClick = useCallback(() => {
     closeMenu(); // close mobile menu if open
     navigate("/sign-in-lawyer"); // redirect to lawyer sign-in
+  }, [closeMenu, navigate]);
+
+  const handleProfileClick = useCallback(() => {
+    closeMenu();
+    navigate("/profile");
   }, [closeMenu, navigate]);
 
   return (
@@ -39,12 +47,21 @@ const Header = () => {
         {/* Right side: Actions */}
         <div className="header-actions">
           <FiSearch className="search-icon" aria-label="Search" />
-          <Link className="sign-in" to="/sign-in">
-            Sign in
-          </Link>
-          <button className="join-btn" onClick={handleJoinClick}>
-            Join as lawyer
-          </button>
+
+          {!auth.user ? (
+            <>
+              <Link className="sign-in" to="/sign-in">
+                Sign in
+              </Link>
+              <button className="join-btn" onClick={handleJoinClick}>
+                Join as lawyer
+              </button>
+            </>
+          ) : (
+            <button className="profile-btn" onClick={handleProfileClick}>
+              <FiUser size={24} aria-label="Profile" />
+            </button>
+          )}
 
           {/* Mobile Hamburger Icon */}
           <button
@@ -84,12 +101,20 @@ const Header = () => {
           <hr className="mobile-divider" />
 
           {/* Auth buttons in mobile */}
-          <Link className="mobile-sign-in" to="/sign-in" onClick={closeMenu}>
-            Sign in
-          </Link>
-          <button className="mobile-join-btn" onClick={handleJoinClick}>
-            Join as lawyer
-          </button>
+          {!auth.user ? (
+            <>
+              <Link className="mobile-sign-in" to="/sign-in" onClick={closeMenu}>
+                Sign in
+              </Link>
+              <button className="mobile-join-btn" onClick={handleJoinClick}>
+                Join as lawyer
+              </button>
+            </>
+          ) : (
+            <button className="mobile-profile-btn" onClick={handleProfileClick}>
+              <FiUser size={24} aria-label="Profile" />
+            </button>
+          )}
         </nav>
       </aside>
 

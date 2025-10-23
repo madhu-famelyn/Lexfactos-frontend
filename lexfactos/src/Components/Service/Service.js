@@ -3,7 +3,7 @@ import axios from "axios";
 // // Before
 
 // After
-const API_BASE_URL = "https://lexfactos-backend.onrender.com";
+const API_BASE_URL = "http://127.0.0.1:8000";
 
 export const signupUser = async (formData) => {
   try {
@@ -321,4 +321,55 @@ export const fetchLawyersByState = async (practiceArea, state) => {
     },
   });
   return res.data;
+};
+
+
+
+export const postJob = async (jobData) => {
+  try {
+    const response = await axios.post(`${API_BASE_URL}/job-posts/ `, jobData);
+    return response.data;
+  } catch (error) {
+    console.error("Error posting job:", error);
+    throw error; 
+  }
+};
+
+
+
+
+
+
+
+// API call to fetch job posts for a specific user
+export const fetchJobPosts = async (userId) => {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/job-posts/?user_id=${userId}&skip=0&limit=10`);
+    return response.data; // Return the job posts data
+  } catch (error) {
+    console.error("Error fetching job posts:", error);
+    throw error; // Rethrow error to be handled by the component
+  }
+};
+
+// API call to update a job post
+export const updateJobPost = async (jobId, updatedData) => {
+  try {
+    const response = await axios.put(`${API_BASE_URL}/job-posts/${jobId}`, updatedData);
+    return response.data; // Return the updated job post
+  } catch (error) {
+    console.error("Error updating job post:", error);
+    throw error;
+  }
+};
+
+// API call to deactivate or activate a job post
+export const toggleJobPostStatus = async (jobId, status) => {
+  try {
+    const response = await axios.patch(`${API_BASE_URL}/job-posts/${jobId}/status`, { status });
+    return response.data; // Return the updated job post status
+  } catch (error) {
+    console.error("Error toggling job post status:", error);
+    throw error;
+  }
 };
