@@ -1,75 +1,48 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Sidebar from "../AdminSidebar/AdminSidebar";
 import PendingLawyers from "./PendingLawyers";
 import ApprovedLawyers from "./ApprovedLawyers";
 import RejectedLawyers from "./RejectedLawyers";
+import axios from "axios";
 import "./AdminLawyer.css";
 
 const AdminLawyer = () => {
   const [activeTab, setActiveTab] = useState("pending");
+  const [pendingLawyers, setPendingLawyers] = useState([]);
+  const [approvedLawyers, setApprovedLawyers] = useState([]);
+  const [rejectedLawyers, setRejectedLawyers] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const pendingLawyers = [
-    {
-      id: 1,
-      name: "Sarah Johnson",
-      email: "sarah.johnson@email.com",
-      location: "New York, NY",
-      experience: "8 years",
-      specialization: "Corporate Law",
-      rating: 4.8,
-      status: "Pending",
-    },
-    {
-      id: 2,
-      name: "Michael Chen",
-      email: "michael.chen@email.com",
-      location: "Los Angeles, CA",
-      experience: "12 years",
-      specialization: "Criminal Defense",
-      rating: 4.9,
-      status: "Pending",
-    },
-    {
-      id: 3,
-      name: "Emma Rodriguez",
-      email: "emma.rodriguez@email.com",
-      location: "Chicago, IL",
-      experience: "6 years",
-      specialization: "Family Law",
-      rating: 4.7,
-      status: "Pending",
-    },
-  ];
+  useEffect(() => {
+    fetchLawyers();
+  }, []);
 
-  const approvedLawyers = [
-    {
-      id: 4,
-      name: "David Miller",
-      email: "david.miller@email.com",
-      location: "Boston, MA",
-      experience: "10 years",
-      specialization: "Civil Law",
-      rating: 4.6,
-    },
-  ];
+  const fetchLawyers = async () => {
+    try {
+      setLoading(true);
+      const response = await axios.get("http://localhost:5000/api/lawyers");
+      
+      // Filter based on status from backend
+      const pending = response.data.filter(l => l.status === "Pending");
+      const approved = response.data.filter(l => l.status === "Approved");
+      const rejected = response.data.filter(l => l.status === "Rejected");
 
-  const rejectedLawyers = [
-    {
-      id: 5,
-      name: "Sophia White",
-      email: "sophia.white@email.com",
-      location: "Houston, TX",
-      experience: "5 years",
-      specialization: "Immigration Law",
-      rating: 4.2,
-    },
-  ];
+      setPendingLawyers(pending);
+      setApprovedLawyers(approved);
+      setRejectedLawyers(rejected);
+    } catch (error) {
+      console.error("Error fetching lawyers:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="dashboard-layout">
       <Sidebar />
       <main className="dashboard-content">
         <div className="lawyer-container">
+
           {/* Tabs */}
           <div className="tabs">
             <button
@@ -78,26 +51,36 @@ const AdminLawyer = () => {
             >
               Pending <span className="count">{pendingLawyers.length}</span>
             </button>
+
             <button
               className={`tab ${activeTab === "approved" ? "active" : ""}`}
               onClick={() => setActiveTab("approved")}
             >
-              Approved
+              Approved <span className="count">{approvedLawyers.length}</span>
             </button>
+
             <button
               className={`tab ${activeTab === "rejected" ? "active" : ""}`}
               onClick={() => setActiveTab("rejected")}
             >
-              Rejected
+              Rejected <span className="count">{rejectedLawyers.length}</span>
             </button>
           </div>
 
-          {activeTab === "pending" && <PendingLawyers lawyers={pendingLawyers} />}
-          {activeTab === "approved" && (
-            <ApprovedLawyers lawyers={approvedLawyers} />
-          )}
-          {activeTab === "rejected" && (
-            <RejectedLawyers lawyers={rejectedLawyers} />
+          {loading ? (
+            <p className="loading-text">Loading lawyers...</p>
+          ) : (
+            <>
+              {activeTab === "pending" && (
+                <PendingLawyers lawyers={pendingLawyers} />
+              )}
+              {activeTab === "approved" && (
+                <ApprovedLawyers lawyers={approvedLawyers} />
+              )}
+              {activeTab === "rejected" && (
+                <RejectedLawyers lawyers={rejectedLawyers} />
+              )}
+            </>
           )}
         </div>
       </main>

@@ -13,9 +13,17 @@
   padding: 20px;
   box-sizing: border-box;
   font-family: "Inter", sans-serif;
-  z-index: 1100;
+  z-index: 1200; /* Updated */
   transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
   overflow-y: auto;
+}
+
+/* ===== Sidebar Overlay ===== */
+
+
+/* Show overlay when sidebar is open */
+.sidebar.open + .sidebar-overlay {
+  display: block;
 }
 
 /* Sidebar Hidden for Mobile */
@@ -132,7 +140,7 @@
   border: none;
   border-radius: 8px;
   padding: 8px 10px;
-  z-index: 1201;
+  z-index: 1300; /* Updated highest */
   cursor: pointer;
   display: none;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
@@ -143,27 +151,16 @@
   background: #1e40af;
 }
 
-/* Show hamburger on smaller screens */
+/* ✅ Tablet Screens (Width: 577px - 992px) */
 @media (max-width: 992px) {
-  .hamburger-btn {
-    display: block;
-  }
-}
-
-/* ===== Overlay for Mobile ===== */
-.sidebar-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.45);
-  z-index: 1090;
-  transition: opacity 0.3s ease;
-}
-
-/* ===== Responsive Adjustments ===== */
-@media (max-width: 768px) {
   .sidebar {
-    width: 210px;
-    padding: 16px;
+    transform: translateX(-100%);
+    width: 220px;
+    padding: 18px;
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
   }
 
   .sidebar-header h1 {
@@ -172,25 +169,80 @@
 
   .sidebar nav ul li a {
     font-size: 13px;
-    padding: 9px 10px;
+    padding: 10px;
   }
 
   .sidebar-footer a,
   .sidebar-footer button {
     font-size: 13px;
   }
+
+  .hamburger-btn {
+    display: block;
+  }
+
 }
 
-/* ===== Smooth Slide Animation ===== */
-@keyframes slideIn {
-  from {
-    transform: translateX(-100%);
+/* ✅ Mobile Screens (Width: ≤ 576px) */
+@media (max-width: 576px) {
+  .sidebar {
+    width: 200px;
+    padding: 16px;
   }
-  to {
-    transform: translateX(0);
+
+  .sidebar-header h1 {
+    font-size: 16px;
+  }
+
+  .sidebar-header p {
+    font-size: 12px;
+  }
+
+  .sidebar nav ul li a {
+    font-size: 12px;
+    gap: 8px;
+    padding: 8px 10px;
+  }
+
+  .sidebar-footer {
+    gap: 10px;
+  }
+
+  .sidebar-footer a,
+  .sidebar-footer button {
+    font-size: 12px;
+    padding: 8px;
+  }
+
+  .hamburger-btn {
+    padding: 6px 8px;
   }
 }
 
-.sidebar.open {
-  animation: slideIn 0.3s ease forwards;
+/* ✅ Extra Small Devices (350px and below) */
+@media (max-width: 350px) {
+  .sidebar {
+    width: 180px;
+    padding: 14px;
+  }
+
+  .sidebar-header h1 {
+    font-size: 15px;
+  }
+
+  .sidebar-header p {
+    display: none;
+  }
+
+  .sidebar nav ul li a {
+    font-size: 11px;
+    gap: 6px;
+  }
+}
+
+/* ✅ Desktop Content Push */
+@media (min-width: 993px) {
+  .main-content {
+    margin-left: 240px;
+  }
 }

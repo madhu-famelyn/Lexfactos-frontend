@@ -4,7 +4,7 @@ import LandingPage from "./Hero/Hero"
 import StatsSection from "./StatsSection/StatsSection"
 import HowItWorks from "./HowItWorks/HowItWorks"
 import PracticeAreas from "./PracticeAreas/PracticeAreas"
-import ClientExperiences from "./ClientExperiences/ClientExperiences"
+// import ClientExperiences from "./ClientExperiences/ClientExperiences"
 import CommonQuestions from "./CommonQuestions/CommonQuestions"
 
 
@@ -16,7 +16,7 @@ const LandingPageMain = () => {
       <StatsSection/>
       <HowItWorks/>
       <PracticeAreas/>
-      <ClientExperiences/>
+      {/* <ClientExperiences/> */}
       <CommonQuestions/>
 
     </div>

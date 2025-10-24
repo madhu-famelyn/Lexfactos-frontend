@@ -40,19 +40,18 @@ return (
     />
     <div className="lawyer-summary-details">
       <h2 className="lawyer-summary-name">{lawyer.full_name}</h2>
-      <p className="lawyer-summary-court">
-          <p className="lawyer-summary-court">
-            <span className="lawyer-profile-item">
-              <FaClock style={{ marginRight: "6px", color: "#555" }} />
-              {lawyer.profile?.years_of_experience}+ years
-            </span>
+      <div className="lawyer-summary-court">
+  <span className="lawyer-profile-item">
+    <FaClock style={{ marginRight: "6px", color: "#555" }} />
+    {lawyer.profile?.years_of_experience}+ years
+  </span>
 
-            <span className="lawyer-profile-item">
-              <FaUniversity style={{ marginRight: "6px", color: "#555" }} />
-              {lawyer.registration3?.court_admitted_to}
-            </span>
-          </p>
-      </p>
+  <span className="lawyer-profile-item">
+    <FaUniversity style={{ marginRight: "6px", color: "#555" }} />
+    {lawyer.registration3?.court_admitted_to}
+  </span>
+</div>
+
       <div className="lawyer-summary-practice">
         <div className="practice-tags">
           {lawyer.registration3?.practice_area?.split(",").map((area, i) => (

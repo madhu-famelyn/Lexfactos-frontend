@@ -55,10 +55,46 @@
 .alert-box p {
   color: #CA3500;
 }
+@media (max-width: 768px) {
 
+  /* ✅ Container - reduce padding and allow full width */
+  .lawyer-container {
+    width: 100%;
+    padding: 0 12px;
+  }
 
+  /* ✅ Tabs - stack vertically */
+  .tabs {
+    flex-direction: column;
+    width: 100%;
+    gap: 8px;
+  }
 
+  .tab {
+    width: 100%;
+    text-align: center;
+    padding: 12px;
+  }
 
+  .tab .count {
+    font-size: 11px;
+    padding: 3px 8px;
+  }
+
+  /* ✅ Alert Box - full screen width */
+  .alert-box {
+    padding: 12px;
+    font-size: 14px;
+  }
+
+  .alert-box span {
+    font-size: 15px;
+  }
+
+  .alert-box p {
+    font-size: 13px;
+  }
+}
 
 
 
@@ -238,6 +274,71 @@
 }
 
 
+@media (max-width: 768px) {
+
+  /* Lawyer list spacing */
+  .lawyer-list {
+    gap: 10px;
+  }
+
+  /* Card becomes vertical */
+  .lawyer-card {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 14px 16px;
+    gap: 12px;
+  }
+
+  /* Avatar + info row stays horizontal */
+  .lawyer-info {
+    gap: 10px;
+  }
+
+  .lawyer-info h3 {
+    font-size: 15px;
+  }
+
+  .lawyer-info .email,
+  .lawyer-info .location,
+  .lawyer-info .experience {
+    font-size: 12px;
+  }
+
+  /* Right section moves under info */
+  .lawyer-right {
+    width: 100%;
+    align-items: flex-start;
+    min-width: auto;
+    gap: 8px;
+  }
+
+  /* Text left-aligned on mobile */
+  .lawyer-meta {
+    align-items: flex-start;
+  }
+
+  .lawyer-meta .specialization {
+    font-size: 12px;
+  }
+
+  .status {
+    font-size: 11px;
+    padding: 3px 6px;
+  }
+
+  /* Buttons → full width when needed */
+  .actions {
+    width: 100%;
+    justify-content: flex-start;
+    gap: 6px;
+  }
+
+  .actions button {
+    flex: 1; /* makes buttons stretch nicely */
+    font-size: 12px;
+    padding: 6px 10px;
+  }
+}
 
 
 
@@ -330,6 +431,59 @@
 .additional-info ul li {
   margin-left: 20px;
   list-style-type: disc;
+}
+@media (max-width: 768px) {
+  .lawyer-profile-page {
+    padding: 15px 20px;
+  }
+
+  .profile-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .profile-photo img {
+    width: 120px;
+    height: 150px;
+  }
+
+  .profile-info h1 {
+    font-size: 20px;
+  }
+
+  .title {
+    font-size: 14px;
+  }
+
+  .law-chamber {
+    font-size: 14px;
+  }
+
+  .meta-info {
+    flex-direction: column;
+    gap: 8px;
+    font-size: 14px;
+    margin: 8px 0;
+  }
+
+  .practice-tag {
+    font-size: 13px;
+    margin-bottom: 6px;
+  }
+
+  .additional-info h2 {
+    font-size: 16px;
+  }
+
+  .additional-info p,
+  .additional-info ul {
+    font-size: 14px;
+  }
+
+  .back-btn {
+    font-size: 14px;
+  }
 }
 
 
@@ -645,5 +799,113 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+
+
+/* ✅ Global Mobile Layout Fix */
+@media (max-width: 768px) {
+
+  /* Sidebar pushes content down — hide permanently in mobile */
+  .dashboard-layout {
+    display: block;
+  }
+
+  .dashboard-content {
+    width: 100%;
+    margin-left: 0 !important; /* remove sidebar reserved space */
+    padding: 10px !important;
+  }
+
+  /* Sidebar Slides as Drawer */
+  .sidebar {
+    width: 240px;
+    left: -240px; /* hidden by default */
+    transition: left 0.3s ease;
+  }
+  .sidebar.open {
+    left: 0; /* slide in */
+  }
+
+  /* Overlay on mobile only */
+  .sidebar-overlay {
+    display: block;
+  }
+
+  /* ✅ Tabs - full width buttons */
+  .tabs {
+    flex-direction: column;
+    gap: 8px;
+  }
+  .tab {
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+  }
+
+  /* Lawyer Cards */
+  .lawyer-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px;
+  }
+
+  .lawyer-right {
+    width: 100%;
+    align-items: flex-start;
+    min-width: auto;
+  }
+  .lawyer-meta {
+    align-items: flex-start;
+  }
+
+  .actions {
+    width: 100%;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+  .actions button {
+    flex: 1 1 auto;
+    text-align: center;
+  }
+
+  /* Profile Page */
+  .profile-header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .meta-info {
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .lawyer-profile-image,
+  .profile-photo img {
+    width: 120px !important;
+    height: auto;
+  }
+
+  .additional-info h2 {
+    font-size: 16px;
+  }
+
+  /* Popup */
+  .popup {
+    width: 90%;
+    padding: 15px;
+  }
+  .popup textarea {
+    width: 100%;
+  }
+  .popup-actions {
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .popup-actions button {
+    flex: 1 1 48%;
   }
 }

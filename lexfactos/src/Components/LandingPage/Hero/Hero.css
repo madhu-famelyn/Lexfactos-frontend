@@ -8,6 +8,55 @@
   background-color: rgba(255, 255, 255, 0.9);
 }
 
+
+
+.input-group {
+  display: flex;
+  align-items: center;
+  position: relative;
+  border-radius: 6px;
+  background-color: #ffffff;
+  border: 1px solid #d3d3d3; /* only on the wrapper */
+  overflow: hidden; /* prevents extra borders from inner element */
+}
+
+.input-group .search-icon {
+  position: absolute;
+  left: 12px;
+  font-size: 1rem;
+  color: #6b7280;
+}
+
+.input-group select.search-input {
+  flex: 1;
+  border: none; /* remove border from select */
+  outline: none;
+  padding: 0.6rem 1rem 0.6rem 2.5rem; /* space for the icon */
+  background: transparent; /* inherit parent background */
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+/* Adjust arrow */
+.input-group select.search-input {
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg width='12' height='8' viewBox='0 0 12 8' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23374351' stroke-width='2' fill='none'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.8rem center;
+  background-size: 12px 8px;
+  padding-right: 2rem;
+}
+
+
+
+
+
+
+
+
+
 /* ===================================== Trusted Badge ===================================== */
 .trusted-badge {
   display: inline-flex;
@@ -152,15 +201,6 @@
 }
 
 /* Input Group */
-.input-group {
-  display: flex;
-  align-items: center;
-  height: 56px;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  padding: 0 12px;
-  background: white;
-}
 
 .search-icon {
   color: #999;
@@ -188,8 +228,17 @@
 }
 
 /* Search Button */
+/* Wrapper container */
+.search-button-container {
+  display: flex;
+  justify-content: center; /* horizontal center */
+  align-items: center;     /* vertical center if needed */
+  margin: 1rem 0;          /* optional spacing */
+}
+
+/* Keep your button styles */
 .search-button {
-  width: 100%;
+  width: 100% !important; 
   height: 56px;
   border-radius: 10px;
   padding: 0 32px;
@@ -207,6 +256,31 @@
 .search-button:hover {
   background: #1e4ed8;
 }
+
+
+/* Common select styling */
+.search-box select {
+  appearance: none; /* remove default arrow */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding: 0.6rem 1rem;
+  font-size: 0.95rem;
+  border: 1px solid #d3d3d3;
+  border-radius: 6px;
+  background-color: #ffffff;
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg width='12' height='8' viewBox='0 0 12 8' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23374351' stroke-width='2' fill='none' fill-rule='evenodd'/%3E%3C/svg%3E"); /* arrow icon */
+  background-repeat: no-repeat;
+  background-position: right 0.6rem center; /* adjust horizontal position */
+  background-size: 12px 8px;
+  cursor: pointer;
+}
+
+/* Optional: add some padding-right so text doesn't overlap arrow */
+.search-box select.search-input,
+.search-box select.location-dropdown {
+  padding-right: 2rem; /* make room for the arrow */
+}
+
 
 /* Responsive: Search Box */
 @media (max-width: 768px) {

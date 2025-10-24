@@ -78,37 +78,54 @@ const ApplicantsPage = () => {
       <div className="applicants-content">
         <h2>Resumes</h2>
 
+{/* ✅ Sorted Applicant List */}
         {applicants.length === 0 ? (
           <p>No applicants found.</p>
         ) : (
-          <div className="applicant-list">
-            {applicants.map((applicant) => (
-              <div key={applicant.id} className="applicant-card">
-                <h3>{applicant.applicant_name}</h3>
-                <p><strong>Email:</strong> {applicant.email}</p>
-                <p><strong>Mobile:</strong> {applicant.mobile_number}</p>
-                <p><strong>Current Rating:</strong> {applicant.rate || "Not decided"}</p>
-                <p className="cover-letter-preview">
-                  {applicant.cover_letter.length > 50
-                    ? applicant.cover_letter.slice(0, 50) + "..."
-                    : applicant.cover_letter}
-                </p>
+          <div className="applicant-list-rows">
+            {applicants
+              .slice()
+              .sort((a, b) => {
+                const order = {
+                  "Not decided": 1,
+                  "Good fit": 2,
+                  "Maybe": 3,
+                  "Not a fit": 4,
+                };
+                const aRate = order[a.rate] || 5;
+                const bRate = order[b.rate] || 5;
+                return aRate - bRate;
+              })
+              .map((applicant) => (
+                <div key={applicant.id} className="applicant-card-row">
+                  <div className="applicant-info">
+                    <h3>{applicant.applicant_name}</h3>
+                    <p><strong>Email:</strong> {applicant.email}</p>
+                    <p><strong>Mobile:</strong> {applicant.mobile_number}</p>
+                    <p><strong>Rating:</strong> {applicant.rate || "Not decided"}</p>
+                    <p className="cover-letter-preview">
+                      {applicant.cover_letter.length > 120
+                        ? applicant.cover_letter.slice(0, 120) + "..."
+                        : applicant.cover_letter}
+                    </p>
+                  </div>
 
-                <div className="applicant-actions">
-                  <a href={`mailto:${applicant.email}`} className="btn-contact">
-                    Contact via Email
-                  </a>
-                  <button
-                    onClick={() => handleViewProfile(applicant)}
-                    className="btn-view-profile"
-                  >
-                    View Profile
-                  </button>
+                  <div className="applicant-actions-rect">
+                    <a href={`mailto:${applicant.email}`} className="btn-contact">
+                      Contact
+                    </a>
+                    <button
+                      onClick={() => handleViewProfile(applicant)}
+                      className="btn-view-profile"
+                    >
+                      View Profile
+                    </button>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
           </div>
         )}
+
       </div>
 
       {/* ✅ Profile Modal */}
