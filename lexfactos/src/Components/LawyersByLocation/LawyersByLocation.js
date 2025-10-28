@@ -2,6 +2,7 @@ import React from "react";
 import InputPage from "./InputPage/InputPage";
 import BrowseByLocation from "./Cities/BrowseByLocation";
 import LawyerSection from "./LawyerSection/LawyerSection";
+import PracticeAreas from "../LandingPage/PracticeAreas/PracticeAreas";
 import LawyerTypes from "./LawyerTypes/LawyerTypes";
 import PopularPracticeAreas from "./PopularPracticeAreas/PopularPracticeAreas";
 import ChooseLawyer from "./ChooseLawyer/ChooseLawyer";
@@ -13,7 +14,7 @@ export default function LawyersByLocation() {
   return (
     <div>
         <InputPage/>
-        <PracticeArea/>
+        <PracticeAreas/>
         <BrowseByLocation/>
         <LawyerSection/>
         <LawyerTypes/>
