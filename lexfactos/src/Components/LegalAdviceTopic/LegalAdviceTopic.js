@@ -5,8 +5,6 @@ import RelatedTopics from "./RelatedTopics/RelatedTopics";
 import AskQuestion from "./AskQuestion/AskQuestion";
 import AdditionalResources from "./AdditionalResources/AdditionalResources";
 import TopCities from "./TopCities/TopCities";
-import Header from "../Header/Header";
-import Footer from "../Footer/Footer";
 
 const LegalAdviceTopicMain = () => {
     return(

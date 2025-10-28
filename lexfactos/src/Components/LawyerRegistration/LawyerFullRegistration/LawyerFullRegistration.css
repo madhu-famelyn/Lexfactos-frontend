@@ -1,169 +1,280 @@
-/* ===============================
-   ✅ Lawyer Full Registration Form
-=================================*/
+/* ============ Global Container ============ */
+/* ====== Fix for inconsistent input alignment ====== */
+.form-section {
+  width: 100%;
+  box-sizing: border-box;
+}
 
+.form-section input,
+.form-section textarea,
+.form-section select {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Align nested groups perfectly with main inputs */
+.nested {
+  width: 100%;
+  box-sizing: border-box;
+  margin-left: 0;
+  margin-right: 0;
+  padding-left: 0;
+  padding-right: 0;
+  background: #fafafa;
+  border: 1px solid #e5e5e5;
+}
+
+/* Prevent inner spacing from shrinking inputs visually */
+.nested input,
+.nested select,
+.nested textarea {
+  width: 100%;
+  flex: 1 1 100%;
+  box-sizing: border-box;
+  margin: 0;
+}
+
+/* Give consistent spacing between sections */
+.form-section:not(:last-of-type) {
+  margin-bottom: 40px;
+}
+
+/* ============ Main Container ============ */
 .lawyer-form-container {
-  max-width: 950px;
-  margin: 40px auto;
-  padding: 25px 30px;
-  background: #ffffff;
-  border-radius: 16px;
-  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.08);
-  font-family: "Poppins", sans-serif;
+  width: 100%;
+  max-width: 1400px; /* Increased width for laptop screens */
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 40px 4%; /* Reduced side padding for more visible width */
+  font-family: "Inter", "Segoe UI", sans-serif;
   color: #222;
+  box-sizing: border-box;
 }
 
 .lawyer-form-container h2 {
   text-align: center;
+  margin-bottom: 30px;
+  color: #333;
   font-size: 28px;
-  font-weight: 700;
-  color: #1f2937;
-  margin-bottom: 25px;
+  letter-spacing: 0.3px;
 }
 
-.form-box {
-  display: flex;
-  flex-direction: column;
-  gap: 25px;
+/* ============ Section Styling ============ */
+.form-section {
+  border-top: 1px solid #eee;
+  padding-top: 28px;
+  margin-top: 28px;
 }
 
-h3 {
+.form-section:first-of-type {
+  border-top: none;
+  padding-top: 0;
+  margin-top: 0;
+}
+
+.form-section h3 {
+  color: #222;
+  margin-bottom: 20px;
   font-size: 20px;
   font-weight: 600;
-  color: #2563eb;
-  border-left: 5px solid #2563eb;
+  border-left: 4px solid #000000;
   padding-left: 10px;
-  margin-top: 20px;
-  margin-bottom: 5px;
-}
-
-.form-group {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
 }
 
+/* ============ Label & Inputs ============ */
 label {
+  display: block;
+  margin: 10px 0 6px;
   font-weight: 500;
-  font-size: 15px;
-  margin-bottom: 6px;
-  color: #374151;
+  color: #333;
 }
 
-.input-field,
-.section-box input {
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="file"],
+input[type="number"],
+textarea,
+select {
   width: 100%;
   padding: 12px 14px;
-  border: 1px solid #d1d5db;
-  border-radius: 10px;
-  background-color: #fafafa;
+  border-radius: 8px;
+  border: 1px solid #ccc;
   font-size: 15px;
-  color: #111827;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  box-sizing: border-box;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
   outline: none;
-  transition: all 0.2s ease;
+  border-color: #000000;
+  box-shadow: 0 0 0 3px rgba(255, 127, 80, 0.15);
 }
 
-.input-field:focus,
-.section-box input:focus {
-  border-color: #2563eb;
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
-  background-color: #fff;
+textarea {
+  min-height: 90px;
+  resize: vertical;
 }
 
-/* ============ Dynamic Section Boxes ============ */
-.section-box {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+/* ============ Nested Groups ============ */
+.nested {
+  background: #fafafa;
+  padding: 18px;
+  border-radius: 10px;
+  margin-bottom: 16px;
+  border: 1px solid #e5e5e5;
+  display: flex;
+  flex-wrap: wrap;
   gap: 14px;
-  background: #f9fafb;
-  padding: 15px;
-  border-radius: 12px;
-  border: 1px solid #e5e7eb;
-  margin-top: 10px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.nested input,
+.nested select,
+.nested textarea {
+  flex: 1 1 100%;
+  width: 100%;
+  max-width: 100%;
 }
 
 /* ============ Buttons ============ */
-.add-btn {
-  align-self: flex-start;
-  background-color: #2563eb;
-  color: #fff;
+.nested button {
+  background: #ff4d4f;
+  color: white;
   border: none;
-  padding: 9px 15px;
-  border-radius: 8px;
+  border-radius: 6px;
+  padding: 10px 16px;
+  cursor: pointer;
   font-size: 14px;
   font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
+  transition: background 0.2s ease;
+  align-self: center;
 }
 
-.add-btn:hover {
-  background-color: #1d4ed8;
-  transform: translateY(-1px);
+.nested button:hover {
+  background: #d9363e;
+}
+
+/* Add Button */
+button[type="button"] {
+  background: #000000;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-size: 14px;
+  cursor: pointer;
+  margin-top: 12px;
+  transition: background 0.3s ease;
+}
+
+button[type="button"]:hover {
+  background: #161616;
+}
+
+/* ============ Submit Button ============ */
+.form-actions {
+  text-align: center;
+  margin-top: 40px;
 }
 
 .submit-btn {
-  background-color: #16a34a;
+  background: #222;
   color: #fff;
   border: none;
-  padding: 14px;
-  font-size: 16px;
-  font-weight: 600;
+  padding: 12px 26px;
   border-radius: 10px;
+  font-size: 16px;
+  font-weight: 500;
   cursor: pointer;
-  transition: all 0.2s ease-in-out;
+  transition: background 0.3s ease, transform 0.1s ease;
 }
 
 .submit-btn:hover {
-  background-color: #15803d;
-  transform: translateY(-2px);
+  background: #333;
 }
 
-.submit-btn:disabled {
-  background-color: #9ca3af;
-  cursor: not-allowed;
+.submit-btn:active {
+  transform: scale(0.97);
 }
 
-/* ============ Success Message ============ */
-.success-msg {
-  margin-top: 15px;
-  text-align: center;
-  font-weight: 600;
-  color: #16a34a;
-  background-color: #dcfce7;
-  border: 1px solid #86efac;
-  border-radius: 8px;
-  padding: 10px;
+/* ============ Checkbox / Language Section ============ */
+.language-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 10px;
+}
+
+.language-options label {
+  font-weight: 400;
+  color: #444;
+  cursor: pointer;
 }
 
 /* ============ Responsive ============ */
-@media (max-width: 768px) {
+@media (min-width: 1600px) {
   .lawyer-form-container {
-    padding: 20px;
+    max-width: 1600px;
+    padding: 40px 3%;
+  }
+}
+
+@media (max-width: 1024px) {
+  .lawyer-form-container {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 40px 3%;
+    border-radius: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    background: #fff;
+  }
+
+  .lawyer-form-container {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 20px 12px;
+    border-radius: 0;
     box-shadow: none;
-    border-radius: 10px;
   }
 
-  .lawyer-form-container h2 {
-    font-size: 24px;
+  .form-section {
+    margin-top: 20px;
+    padding-top: 20px;
   }
 
-  h3 {
-    font-size: 18px;
+  .nested {
+    flex-direction: column;
+    gap: 10px;
   }
 
-  .section-box {
-    grid-template-columns: 1fr;
-    padding: 12px;
+  input,
+  select,
+  textarea,
+  button {
+    width: 100%;
+    max-width: 100%;
   }
 
-  .input-field,
-  .section-box input {
-    font-size: 14px;
-    padding: 10px;
-  }
-
-  .add-btn,
   .submit-btn {
     width: 100%;
-    text-align: center;
   }
 }

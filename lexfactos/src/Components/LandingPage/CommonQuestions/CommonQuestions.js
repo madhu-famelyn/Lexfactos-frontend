@@ -1,22 +1,21 @@
-import React, { useState } from "react";
+// import { useState } from "react";
 import "./CommonQuestions.css";
-import { IoIosArrowDown } from "react-icons/io"; // import arrow icon
 
 
-const questions = [
-  "Question 1",
-  "Question 2",
-  "Question 3",
-  "Question 4",
-  "Question 5",
-];
+// const questions = [
+//   "Question 1",
+//   "Question 2",
+//   "Question 3",
+//   "Question 4",
+//   "Question 5",
+// ];
 
 const CommonQuestions = () => {
-  const [openIndex, setOpenIndex] = useState(null);
+  // const [openIndex, setOpenIndex] = useState(null);
 
-  const toggleQuestion = (index) => {
-    setOpenIndex(openIndex === index ? null : index);
-  };
+  // const toggleQuestion = (index) => {
+  //   setOpenIndex(openIndex === index ? null : index);
+  // };
 
   return (
     <section className="questions-section">

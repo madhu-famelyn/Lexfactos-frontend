@@ -45,7 +45,7 @@ import ViewJobDetails from "./Components/ApplyJobs/ViewJobDetails";
 import ApplicantsPage from "./Components/UserProfile/ApplicantsPage/ApplicantsPage";
 import MyAppliedJobsPage from "./Components/UserProfile/MyAppliedJobsPage/MyAppliedJobsPage";
 import AdminJobs from "./Components/AdminJobs/AdminJobs";
-import ForgotPasswordUser from "./Components/ForgotPasswordUser/ForgotPassword";
+// import ForgotPasswordUser from "./Components/ForgotPasswordUser/ForgotPassword";
 import LawyerFullRegistration from "./Components/LawyerRegistration/LawyerFullRegistration/LawyerFullRegistration";
 import UserResetPassword from "./Components/ForgotPasswordUser/ResetPassword";
 
@@ -70,8 +70,7 @@ function Layout({ children }) {
     "/view-job/:id",
     "/applicents",
     "/my-applied-jobs",
-    "/job-post",
-    "/lawyer-full-registration"
+    "/job-post"
   ];
 
   const hideHeaderFooterStartsWith = ["/lawyer/"];

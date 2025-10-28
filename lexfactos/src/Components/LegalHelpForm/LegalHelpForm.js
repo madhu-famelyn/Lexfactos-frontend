@@ -1,5 +1,3 @@
-import Header from "../Header/Header";
-import Footer from "../Footer/Footer";
 
 // Import components relative to LegalHelpFormMain.js inside LegalHelpForm folder:
 import LegalHelpForm from "./LegaHelpForm/LegalHelpForm";

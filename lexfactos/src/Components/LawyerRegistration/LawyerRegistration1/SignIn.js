@@ -5,14 +5,13 @@ import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
 import { registerLawyer } from "../../Service/Service";
 import { useNavigate } from "react-router-dom";
 
-// Convert YYYY-MM-DD to DD-MM-YYYY for backend
+
 const formatDOB = (dob) => {
   if (!dob) return "";
   const [year, month, day] = dob.split("-");
   return `${day}-${month}-${year}`;
 };
 
-// 🌍 Country calling codes list
 const countryCodes = [
   { code: "+1" },
   { code: "+7" },

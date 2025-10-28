@@ -1,4 +1,3 @@
-import React, { useState, useCallback } from "react";
 import "./Header.css";
 import { Link } from "react-router-dom";
 

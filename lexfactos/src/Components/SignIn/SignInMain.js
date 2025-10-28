@@ -2,7 +2,6 @@
 
 import React from "react";
 import SignIn from "./SignIn/SignIn";
-import Footer from "../Footer/Footer";
 
 const SignInPage = () => {
   return (

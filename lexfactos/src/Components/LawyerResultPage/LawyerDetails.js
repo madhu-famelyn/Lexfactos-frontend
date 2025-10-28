@@ -4,8 +4,6 @@ import {
   FaPhone,
   FaCalendarAlt,
   FaShareAlt,
-  FaChevronDown,
-  FaChevronUp,
   FaTrophy,
   FaMapMarkerAlt,
   FaExternalLinkAlt,
@@ -35,7 +33,6 @@ export default function LawyerProfilePage() {
   const [lawyer, setLawyer] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [showMoreLocations, setShowMoreLocations] = useState(false);
 
   useEffect(() => {
     const fetchLawyer = async () => {

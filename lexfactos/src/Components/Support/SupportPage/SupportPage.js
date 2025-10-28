@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { SlArrowDown, SlArrowUp } from "react-icons/sl";
 import { SlArrowRight } from "react-icons/sl";
 import { FaRegQuestionCircle } from "react-icons/fa";
-import { SlMagnifier } from "react-icons/sl";
 import { MdEmail, MdConfirmationNumber } from "react-icons/md"; // Material icons for email and ticket
 import "./SupportPage.css";
 
