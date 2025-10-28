@@ -1,5 +1,4 @@
 import Sidebar from "../Slider/SideBar";
-import SubHeader from "../../Header/Banner";
 import "./UserProfile.css";
 
 const Dashboard = () => {
