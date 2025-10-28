@@ -1,0 +1,111 @@
+// src/Pages/LawyerAuth.js
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import "./LawyerAuth.css";
+
+const LawyerAuth = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const navigate = useNavigate();
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    setMessage("");
+
+    if (!email || !password) {
+      setMessage("⚠️ Please enter both email and password.");
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      const response = await fetch("http://127.0.0.1:8000/lawyer/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        // ✅ Save token locally
+        localStorage.setItem("lawyer_token", data.access_token);
+        setMessage("✅ Login successful! Redirecting...");
+        setTimeout(() => navigate("/dashboard"), 1500);
+      } else {
+        setMessage(data.detail || "❌ Invalid credentials.");
+      }
+    } catch (error) {
+      setMessage("⚠️ Server error. Please try again later.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="lawyer-auth-wrapper">
+      <div className="lawyer-auth-card">
+        <h2 className="lawyer-auth-title">Lawyer Login</h2>
+        <p className="lawyer-auth-subtitle">
+          Access your account using your credentials
+        </p>
+
+        <form onSubmit={handleLogin} className="lawyer-auth-form">
+          <div className="lawyer-input-group">
+            <label htmlFor="email">Email</label>
+            <input
+              type="email"
+              id="email"
+              placeholder="Enter your email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+
+          <div className="lawyer-input-group">
+            <label htmlFor="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              placeholder="Enter your password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+
+          <button type="submit" className="lawyer-auth-btn" disabled={loading}>
+            {loading ? "Logging in..." : "Login"}
+          </button>
+
+          {message && <p className="lawyer-auth-message">{message}</p>}
+        </form>
+
+        <div className="lawyer-auth-links">
+          <p>
+            Don’t have an account?{" "}
+            <span onClick={() => navigate("/sign-in-lawyer")} className="link">
+              Sign Up
+            </span>
+          </p>
+          <p>
+            Forgot your password?{" "}
+            <span
+              onClick={() => navigate("/change-lawyer-password")}
+              className="link"
+            >
+              Reset Here
+            </span>
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default LawyerAuth;

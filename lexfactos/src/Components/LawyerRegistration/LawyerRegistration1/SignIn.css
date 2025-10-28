@@ -181,6 +181,16 @@ select {
   cursor: pointer;
 }
 
+.form-group.full-width {
+  width: 100%;
+  flex: 0 0 100%;
+}
+
+.form-group.full-width textarea {
+  width: 100%;
+  resize: vertical; /* allow adjusting height */
+}
+
 
 
 .back-btn {
@@ -223,73 +233,162 @@ select {
   background: #f5f5f5;
 }
 
-/* Responsive Layout */
-@media (max-width: 1200px) {
-  .registration-body {
-    flex-direction: column;
-    align-items: center;
-  }
 
-  .upload-section {
-    margin-bottom: 20px;
-  }
 
-  .vertical-line {
-    display: none;
-  }
-
-  .form-row {
-    flex-direction: column;
-    gap: 12px;
+/* ========================================
+   Responsive Design
+======================================== */
+/* Tablets */
+@media (max-width: 768px) {
+  .registration-form {
+    width: 100%;
   }
 
   .registration-form input,
-  .registration-form select {
+  .registration-form select,
+  .form-group.full-width textarea {
     width: 100%;
   }
 }
 
-@media (max-width: 768px) {
+/* Mobile Phones */
+@media (max-width: 480px) {
   .registration-container {
-    padding: 20px;
+    padding: 0 12px;
+  }
+
+  .registration-card {
+    width: 100%;
+    padding: 16px;
+  }
+
+  .registration-body {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .photo-placeholder {
+    width: 100%;
+    max-width: 260px; /* maintains good ratio */
+    height: auto;
+    aspect-ratio: 3/4;
+  }
+
+  .registration-form {
+    width: 100%;
+  }
+
+  .form-group,
+  .form-row {
+    width: 100%;
+  }
+
+  .registration-form input,
+  .registration-form select,
+  .form-group.full-width textarea {
+    width: 100%;
+    font-size: 15px;
+    padding: 12px;
+  }
+
+  .form-row {
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .back-btn,
+  .next-btn {
+    width: 100%;
+    font-size: 15px;
+    height: 42px;
+  }
+}
+
+/* Large Tablets / Medium Screens */
+@media (max-width: 1024px) {
+  .registration-card {
+    padding: 18px;
   }
 
   .registration-body {
     flex-direction: column;
     align-items: center;
+  }
+
+  .vertical-line {
+    display: none;
   }
 
   .upload-section {
     flex: unset;
     width: 100%;
-    text-align: center;
+    margin-bottom: 20px;
   }
 
   .photo-placeholder {
-    width: 100%;
-    height: auto;
-    aspect-ratio: 3/4;
-    margin: 0 auto;
+    width: 220px;
+    height: 300px;
   }
 
-  .vertical-line {
-    display: none;
+  .registration-form {
+    width: 100%;
   }
 
   .form-row {
+    gap: 12px;
+  }
+}
+
+/* Tablets */
+@media (max-width: 768px) {
+  .registration-container {
+    padding: 20px;
+  }
+
+  .registration-header {
     flex-direction: column;
     gap: 12px;
   }
 
-  .registration-form input,
-  .registration-form select {
-    width: 100%;
+  .progress-container {
+    text-align: left;
   }
 
+  .form-row {
+    flex-direction: column;
+  }
 
-  .back-btn,
-  .next-btn {
-    width: 100%; /* match input width */
+  .registration-form input,
+  .registration-form select,
+  .form-group.full-width textarea {
+    width: 100%;
   }
 }
 
+/* Mobile Phones */
+@media (max-width: 480px) {
+  .registration-container {
+    padding: 10px;
+  }
+
+  .photo-placeholder {
+    width: 180px;
+    height: 240px;
+  }
+
+  .progress-bar {
+    width: 80px;
+  }
+
+  .back-btn,
+  .next-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .button-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+}

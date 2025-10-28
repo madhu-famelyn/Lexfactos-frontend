@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./AdminLawyer.css";
+import "./RejectedLawyers.css";
 import {
   FaMapMarkerAlt,
   FaClock,
@@ -29,63 +29,65 @@ const RejectedLawyers = () => {
   }, []);
 
   if (loading) {
-    return <p>Loading rejected lawyers...</p>;
+    return <p className="rejected-loading-text">Loading rejected lawyers...</p>;
   }
 
   return (
-    <div className="lawyer-list">
+    <div className="rejected-lawyer-list">
       {lawyers.length === 0 ? (
-        <p>No rejected lawyers found.</p>
+        <p className="no-rejected-lawyers-text">No rejected lawyers found.</p>
       ) : (
         lawyers.map((lawyer) => (
-          <div key={lawyer.id} className="lawyer-card">
+          <div key={lawyer.id} className="rejected-lawyer-card">
             {/* Lawyer Info */}
-            <div className="lawyer-info">
-              <div className="avatar">
+            <div className="rejected-lawyer-info">
+              <div className="rejected-avatar">
                 {lawyer.photo ? (
                   <img src={lawyer.photo} alt={lawyer.full_name} />
                 ) : (
-                  <div className="avatar-placeholder">👩‍⚖️</div>
+                  <div className="rejected-avatar-placeholder">👩‍⚖️</div>
                 )}
               </div>
+
               <div>
-                <h3>{lawyer.full_name}</h3>
-                <p className="email">{lawyer.email}</p>
-                <p className="location">
-                  <FaMapMarkerAlt style={{ marginRight: "6px" }} />
+                <h3 className="rejected-lawyer-name">{lawyer.full_name}</h3>
+                <p className="rejected-lawyer-email">{lawyer.email}</p>
+
+                <p className="rejected-location">
+                  <FaMapMarkerAlt />
                   {lawyer.registration5?.[0]?.city},{" "}
                   {lawyer.registration5?.[0]?.state}
                 </p>
-                <p className="experience">
-                  <FaClock style={{ marginRight: "6px" }} />
+
+                <p className="rejected-experience">
+                  <FaClock />
                   {lawyer.profile?.years_of_experience} years experience
                 </p>
               </div>
             </div>
 
             {/* Meta Info */}
-            <div className="lawyer-meta">
-              <p className="specialization">
-                <FaUniversity style={{ marginRight: "6px" }} />
+            <div className="rejected-lawyer-meta">
+              <p className="rejected-specialization">
+                <FaUniversity />
                 {lawyer.registration3?.practice_area}
               </p>
-              <span className="status rejected">Rejected</span>
+
+              <span className="rejected-status-badge">Rejected</span>
 
               {lawyer.rejection_reason &&
                 lawyer.rejection_reason.trim() !== "" && (
-                  <p className="rejection-reason">
-                    <FaTimesCircle
-                      style={{ marginRight: "6px", color: "red" }}
-                    />
+                  <p className="rejected-reason-text">
+                    <FaTimesCircle />
                     Reason: {lawyer.rejection_reason}
                   </p>
                 )}
             </div>
 
             {/* Actions */}
-            <div className="actions">
-              <button className="view">
-                <FaEye style={{ marginRight: "6px" }} /> View Profile
+            <div className="rejected-actions">
+              <button className="rejected-view-btn">
+                <FaEye /> View Profile
               </button>
             </div>
           </div>

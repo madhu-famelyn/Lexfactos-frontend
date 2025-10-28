@@ -124,7 +124,7 @@ export default function SignIn() {
             <label className="remember-me">
               <input type="checkbox" /> Remember me
             </label>
-            <a href="/" className="forgot-password">
+            <a href="/forgot-password-user" className="forgot-password">
               Forgot password?
             </a>
           </div>

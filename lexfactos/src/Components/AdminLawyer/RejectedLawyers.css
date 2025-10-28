@@ -1,0 +1,174 @@
+/* ========================
+   Rejected Lawyers Styles
+======================== */
+
+.rejected-lawyer-list {
+  padding: 0;
+  margin: 0;
+}
+
+/* Card */
+.rejected-lawyer-card {
+  background: #fff;
+  padding: 1rem 1.2rem;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  border: 1px solid #ddd;
+  margin-bottom: 0.8rem;
+  gap: 1rem;
+  width: 100%;
+}
+
+/* Lawyer Info */
+.rejected-lawyer-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex: 1;
+}
+
+.rejected-avatar img {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.rejected-avatar-placeholder {
+  width: 70px;
+  height: 70px;
+  background: #e9e9e9;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 35px;
+}
+
+/* Text Styling */
+.rejected-lawyer-name {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #111;
+}
+
+.rejected-lawyer-email,
+.rejected-location,
+.rejected-experience,
+.rejected-specialization {
+  font-size: 0.85rem;
+  color: #555;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 3px;
+}
+
+/* Meta section */
+.rejected-lawyer-meta {
+  flex: 1;
+  text-align: left;
+}
+
+.rejected-status-badge {
+  font-size: 0.8rem;
+  color: #fff;
+  background: red;
+  border-radius: 5px;
+  padding: 3px 8px;
+  margin-top: 4px;
+  display: inline-block;
+}
+
+.rejected-reason-text {
+  font-size: 0.8rem;
+  color: #c00;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 4px;
+}
+
+/* Actions */
+.rejected-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.rejected-view-btn {
+  padding: 0.45rem 0.9rem;
+  background: #007bff;
+  font-size: 0.8rem;
+  border: none;
+  border-radius: 6px;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.rejected-view-btn:hover {
+  background: #0056b3;
+}
+
+/* ===================================
+   Mobile Responsive Layout
+=================================== */
+@media (max-width: 600px) {
+  .rejected-lawyer-card {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0.8rem;
+    gap: 0.7rem;
+  }
+
+  .rejected-lawyer-info {
+    width: 100%;
+    align-items: flex-start;
+  }
+
+  .rejected-avatar img,
+  .rejected-avatar-placeholder {
+    width: 55px;
+    height: 55px;
+  }
+
+  .rejected-lawyer-name {
+    font-size: 1rem;
+  }
+
+  .rejected-lawyer-meta {
+    width: 100%;
+  }
+
+  .rejected-view-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .rejected-actions {
+    width: 100%;
+  }
+}
+
+/* Loading and Empty text */
+.rejected-loading-text,
+.no-rejected-lawyers-text {
+  text-align: center;
+  font-size: 1rem;
+  padding: 0.8rem 0;
+  color: #444;
+}
+
+
+
+
+
+
+
+
+
+
+

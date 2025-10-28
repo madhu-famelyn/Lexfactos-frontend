@@ -12,6 +12,62 @@ const formatDOB = (dob) => {
   return `${day}-${month}-${year}`;
 };
 
+// 🌍 Country calling codes list
+const countryCodes = [
+  { code: "+1" },
+  { code: "+7" },
+  { code: "+20" },
+  { code: "+27" },
+  { code: "+30" },
+  { code: "+31" },
+  { code: "+32" },
+  { code: "+33" },
+  { code: "+34" },
+  { code: "+36" },
+  { code: "+39" },
+  { code: "+40" },
+  { code: "+41" },
+  { code: "+43" },
+  { code: "+44" },
+  { code: "+45" },
+  { code: "+46" },
+  { code: "+47" },
+  { code: "+48" },
+  { code: "+49" },
+  { code: "+52" },
+  { code: "+55" },
+  { code: "+56" },
+  { code: "+57" },
+  { code: "+58" },
+  { code: "+60" },
+  { code: "+61" },
+  { code: "+62" },
+  { code: "+63" },
+  { code: "+64" },
+  { code: "+65" },
+  { code: "+66" },
+  { code: "+81" },
+  { code: "+82" },
+  { code: "+84" },
+  { code: "+86" },
+  { code: "+90" },
+  { code: "+91" },
+  { code: "+92" },
+  { code: "+93" },
+  { code: "+94" },
+  { code: "+95" },
+  { code: "+98" },
+  { code: "+971" },
+  { code: "+972" },
+  { code: "+974" },
+  { code: "+975" },
+  { code: "+977" },
+  { code: "+994" },
+  { code: "+995" },
+  { code: "+996" },
+  { code: "+998" },
+];
+
 const LawyerRegistration = () => {
   const navigate = useNavigate();
 
@@ -21,6 +77,7 @@ const LawyerRegistration = () => {
     gender: "",
     dob: "",
     email: "",
+    country_code: "+91",
     phone_number: "",
     password: "",
     confirm_password: "",
@@ -30,7 +87,6 @@ const LawyerRegistration = () => {
     photo: null,
   };
 
-  // Load saved lawyerId
   const storedLawyerId = localStorage.getItem("lawyerId");
 
   const [formData, setFormData] = useState(storedData);
@@ -61,31 +117,29 @@ const LawyerRegistration = () => {
     e.preventDefault();
 
     try {
-      // 🔹 If already registered → skip API call
       if (storedLawyerId) {
         navigate("/step2", { state: { lawyerId: storedLawyerId } });
         return;
       }
 
-      // 🔹 Otherwise register new lawyer
       const data = new FormData();
       data.append("full_name", formData.full_name);
       data.append("gender", formData.gender);
       data.append("dob", formatDOB(formData.dob));
       data.append("email", formData.email);
-      data.append("phone_number", formData.phone_number);
+
+      // Combine code + number
+      const fullPhone = `${formData.country_code}${formData.phone_number}`;
+      data.append("phone_number", fullPhone);
+
       data.append("password", formData.password);
       data.append("confirm_password", formData.confirm_password);
       data.append("linkedin_url", formData.linkedin_url);
       data.append("website_url", formData.website_url);
-      data.append("short_note", formData.short_note); // ✅ Added field
-      if (formData.photo) {
-        data.append("photo", formData.photo);
-      }
+      data.append("short_note", formData.short_note);
+      if (formData.photo) data.append("photo", formData.photo);
 
       const res = await registerLawyer(data);
-
-      // Save lawyerId so future submits skip API
       localStorage.setItem("lawyerId", res.id);
 
       navigate("/step2", { state: { lawyerId: res.id } });
@@ -97,7 +151,6 @@ const LawyerRegistration = () => {
   return (
     <div className="registration-container">
       <div className="registration-card">
-        {/* Header */}
         <div className="registration-header">
           <div>
             <h2 className="registration-title">Lawyer Registration</h2>
@@ -113,9 +166,7 @@ const LawyerRegistration = () => {
           </div>
         </div>
 
-        {/* Form layout */}
         <div className="registration-body">
-          {/* Left side: Upload photo */}
           <div className="upload-section">
             <div className="photo-placeholder">
               {photoPreview ? (
@@ -143,7 +194,6 @@ const LawyerRegistration = () => {
           </div>
           <div className="vertical-line"></div>
 
-          {/* Right side: Form fields */}
           <form className="registration-form" onSubmit={handleSubmit}>
             <div className="form-row">
               <div className="form-group">
@@ -157,6 +207,7 @@ const LawyerRegistration = () => {
                   required
                 />
               </div>
+
               <div className="form-group">
                 <label>Gender (Optional)</label>
                 <select
@@ -195,18 +246,57 @@ const LawyerRegistration = () => {
               </div>
             </div>
 
+            {/* 🔹 Combined Country Code + Phone Number Input */}
             <div className="form-row">
               <div className="form-group">
                 <label>Phone Number *</label>
-                <input
-                  type="tel"
-                  name="phone_number"
-                  value={formData.phone_number}
-                  onChange={handleChange}
-                  placeholder="+1 (555) 123-4567"
-                  required
-                />
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    border: "1px solid #ccc",
+                    borderRadius: "6px",
+                    padding: "4px 8px",
+                    width:"280px",
+                    height:"34px",
+                  }}
+                >
+                  <select
+                    name="country_code"
+                    value={formData.country_code}
+                    onChange={handleChange}
+                    style={{
+                      border: "none",
+                      background: "transparent",
+                      fontSize: "14px",
+                      outline: "none",
+                      width: "70px",
+                    }}
+                  >
+                    {countryCodes.map((c, idx) => (
+                      <option key={idx} value={c.code}>
+                        {c.code}
+                      </option>
+                    ))}
+                  </select>
+                  <input
+                    type="tel"
+                    name="phone_number"
+                    value={formData.phone_number}
+                    onChange={handleChange}
+                    placeholder="Enter phone number"
+                    required
+                    style={{
+                      border: "none",
+                      outline: "none",
+                      flex: 1,
+                      fontSize: "14px",
+                      padding: "8px",
+                    }}
+                  />
+                </div>
               </div>
+
               <div className="form-group">
                 <label>Password *</label>
                 <input
@@ -257,8 +347,7 @@ const LawyerRegistration = () => {
               </div>
             </div>
 
-            {/* New Short Note Field */}
-            <div className="form-row">
+            {/* <div className="form-row">
               <div className="form-group full-width">
                 <label>Short Note (Optional)</label>
                 <textarea
@@ -269,9 +358,8 @@ const LawyerRegistration = () => {
                   rows={3}
                 />
               </div>
-            </div>
+            </div> */}
 
-            {/* Buttons */}
             <div className="button-container">
               <button
                 type="button"

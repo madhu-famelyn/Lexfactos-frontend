@@ -22,7 +22,9 @@ import Footer from "./Components/Footer/Footer";
 import LawyerResultsPage from "./Components/LawyerResultPage/LawyerResultPage";
 import CaliforniaLawyers from "./Components/LawyerList/LawyerList";
 import LawyerProfilePage from "./Components/LawyerResultPage/LawyerDetails";
-
+import LawyerAuth from "./Components/LawyerRegistration/Auth/LawyerAuth";
+import LawyerForgotPassword from "./Components/LawyerRegistration/ForgotPassword/ForgotPasswrod";
+import LawyerResetPassword from "./Components/LawyerRegistration/ForgotPassword/ResetPassword";
 import AdminDashboard from "./Components/AdminDashboard/AdminDashboard";
 import AdminSignIn from "./Components/AdminSignIn/AdminSignIn";
 import AdminSignUp from "./Components/AdminSignUp/AdminSignUp";
@@ -43,6 +45,9 @@ import ViewJobDetails from "./Components/ApplyJobs/ViewJobDetails";
 import ApplicantsPage from "./Components/UserProfile/ApplicantsPage/ApplicantsPage";
 import MyAppliedJobsPage from "./Components/UserProfile/MyAppliedJobsPage/MyAppliedJobsPage";
 import AdminJobs from "./Components/AdminJobs/AdminJobs";
+import ForgotPasswordUser from "./Components/ForgotPasswordUser/ForgotPassword";
+import LawyerFullRegistration from "./Components/LawyerRegistration/LawyerFullRegistration/LawyerFullRegistration";
+import UserResetPassword from "./Components/ForgotPasswordUser/ResetPassword";
 
 // Replace with your actual Google Client ID
 const GOOGLE_CLIENT_ID = "776723084181-ilgvju235ine04lqlkbl7v4nd55rpt3m.apps.googleusercontent.com";
@@ -65,7 +70,8 @@ function Layout({ children }) {
     "/view-job/:id",
     "/applicents",
     "/my-applied-jobs",
-    "/job-post"
+    "/job-post",
+    "/lawyer-full-registration"
   ];
 
   const hideHeaderFooterStartsWith = ["/lawyer/"];
@@ -106,6 +112,7 @@ function App() {
                 <Route path="/sign-in" element={<SignInPage />} />
                 <Route path="/sign-up" element={<SignupPage />} />
                 <Route path="/sign-in-lawyer" element={<LawyerRegistration />} />
+                <Route path="/lawyer-full-registration" element={<LawyerFullRegistration />} />
                 <Route path="/step2" element={<LawyerRegistrationStep2 />} />
                 <Route path="/step3" element={<LawyerRegistrationStep3 />} />
                 <Route path="/step4" element={<Step4 />} />
@@ -123,6 +130,13 @@ function App() {
                 <Route path="/applicents" element={<ApplicantsPage />} />
                 <Route path="/my-applied-jobs" element={<MyAppliedJobsPage />} />
                 <Route path="/job-post" element={<AdminJobs />} />
+                <Route path="/lawyer-auth" element={<LawyerAuth />} />
+                <Route path="/forgot-password-user" element={<LawyerForgotPassword />} />
+                <Route path="/change-lawyer-password" element={<LawyerForgotPassword />} />
+                <Route path="/user/reset-password" element={<UserResetPassword />} />
+                <Route path="/reset-password" element={<LawyerResetPassword />} />
+
+                
 
 
 

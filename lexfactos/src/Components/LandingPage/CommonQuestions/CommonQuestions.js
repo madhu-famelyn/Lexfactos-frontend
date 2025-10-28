@@ -20,7 +20,7 @@ const CommonQuestions = () => {
 
   return (
     <section className="questions-section">
-      <h2 className="questions-title">Common questions</h2>
+      {/* <h2 className="questions-title">Common questions</h2>
       <p>Everything you need to know about finding and working with lawyers on our
 platform.</p>
       <div className="questions-container">
@@ -46,7 +46,7 @@ platform.</p>
             )}
           </div>
         ))}
-      </div>
+      </div> */}
     </section>
   );
 };

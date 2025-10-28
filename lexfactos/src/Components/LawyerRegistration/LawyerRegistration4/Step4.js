@@ -127,53 +127,98 @@ const Step4 = () => {
     (location.state && location.state.lawyer_id) ||
     localStorage.getItem("lawyerId");
 
-  const storedStep4Data = JSON.parse(localStorage.getItem("step4FormData")) || {
-    streetAddress: "",
-    city: "",
-    state: "",
-    zipCode: "",
-    calendlyLink: "",
-    workingHours: "",
-    latitude: "",
-    longitude: "",
+  // ✅ Safely parse localStorage data
+  let storedStep4Data = { addresses: [], workingHours: "" };
+  try {
+    const saved = JSON.parse(localStorage.getItem("step4FormData"));
+    if (saved && Array.isArray(saved.addresses)) {
+      storedStep4Data = saved;
+    } else {
+      storedStep4Data = {
+        addresses: [
+          {
+            streetAddress: "",
+            city: "",
+            state: "",
+            zipCode: "",
+            latitude: "",
+            longitude: "",
+          },
+        ],
+        workingHours: "",
+      };
+    }
+  } catch {
+    storedStep4Data = {
+      addresses: [
+        {
+          streetAddress: "",
+          city: "",
+          state: "",
+          zipCode: "",
+          latitude: "",
+          longitude: "",
+        },
+      ],
+      workingHours: "",
+    };
+  }
+
+  const [addresses, setAddresses] = useState(storedStep4Data.addresses);
+  const [workingHours, setWorkingHours] = useState(storedStep4Data.workingHours);
+
+  // 🧠 Auto-save to localStorage
+  useEffect(() => {
+    localStorage.setItem(
+      "step4FormData",
+      JSON.stringify({ addresses, workingHours })
+    );
+  }, [addresses, workingHours]);
+
+  // ➕ Add new address
+  const addAddress = () => {
+    setAddresses([
+      ...addresses,
+      {
+        streetAddress: "",
+        city: "",
+        state: "",
+        zipCode: "",
+        latitude: "",
+        longitude: "",
+      },
+    ]);
   };
 
-  const [streetAddress, setStreetAddress] = useState(storedStep4Data.streetAddress);
-  const [city, setCity] = useState(storedStep4Data.city);
-  const [state, setState] = useState(storedStep4Data.state);
-  const [zipCode, setZipCode] = useState(storedStep4Data.zipCode);
-  const [calendlyLink, setCalendlyLink] = useState(storedStep4Data.calendlyLink);
-  const [workingHours, setWorkingHours] = useState(storedStep4Data.workingHours);
-  const [latitude, setLatitude] = useState(storedStep4Data.latitude);
-  const [longitude, setLongitude] = useState(storedStep4Data.longitude);
+  // 🗑️ Remove address
+  const removeAddress = (index) => {
+    setAddresses(addresses.filter((_, i) => i !== index));
+  };
 
-  useEffect(() => {
-    const saveData = {
-      streetAddress,
-      city,
-      state,
-      zipCode,
-      calendlyLink,
-      workingHours,
-      latitude,
-      longitude,
-    };
-    localStorage.setItem("step4FormData", JSON.stringify(saveData));
-  }, [streetAddress, city, state, zipCode, calendlyLink, workingHours, latitude, longitude]);
+  // ✏️ Handle address changes
+  const handleAddressChange = (index, field, value) => {
+    const updated = [...addresses];
+    updated[index][field] = value;
+    setAddresses(updated);
+  };
 
+  // 🚀 Submit
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      const formattedAddresses = addresses.map((addr) => ({
+        street_address: addr.streetAddress,
+        city: addr.city,
+        state: addr.state,
+        zip_code: addr.zipCode,
+        latitude: addr.latitude,
+        longitude: addr.longitude,
+      }));
+
       const payload = {
         lawyer_id,
-        street_address: streetAddress,
-        city,
-        state,
-        zip_code: zipCode,
-        calendly_link: calendlyLink,
+        address: formattedAddresses,
         working_hours: workingHours,
-        latitude,
-        longitude,
       };
 
       const result = await submitStep4(payload);
@@ -181,6 +226,7 @@ const Step4 = () => {
 
       navigate("/step5", { state: { lawyer_id } });
     } catch (err) {
+      console.error(err);
       alert("Error saving step 4, please try again.");
     }
   };
@@ -199,113 +245,136 @@ const Step4 = () => {
         </div>
 
         <form className="lr-step4-form" onSubmit={handleSubmit}>
+          {Array.isArray(addresses) &&
+            addresses.map((addr, index) => (
+              <div key={index} className="lr-step4-address-block">
+                <div className="lr-step4-section">
+                  <label className="lr-step4-label">
+                    Office Address {index + 1} *
+                  </label>
+                  <input
+                    type="text"
+                    className="lr-step4-input"
+                    placeholder="123 Main Street, Suite 100"
+                    value={addr.streetAddress}
+                    onChange={(e) =>
+                      handleAddressChange(index, "streetAddress", e.target.value)
+                    }
+                  />
+                </div>
+
+                <div className="lr-step4-row">
+                  <div className="lr-step4-input-box">
+                    <select
+                      className="lr-step4-input"
+                      value={addr.state}
+                      onChange={(e) => {
+                        handleAddressChange(index, "state", e.target.value);
+                        handleAddressChange(index, "city", "");
+                      }}
+                    >
+                      <option value="">Select State</option>
+                      {Object.keys(indiaStates || {}).map((st) => (
+                        <option key={st} value={st}>
+                          {st}
+                        </option>
+                      ))}
+                    </select>
+                    <span className="lr-step4-placeholder">State</span>
+                  </div>
+
+                  <div className="lr-step4-input-box">
+                    <select
+                      className="lr-step4-input"
+                      value={addr.city}
+                      onChange={(e) =>
+                        handleAddressChange(index, "city", e.target.value)
+                      }
+                      disabled={!addr.state}
+                    >
+                      <option value="">Select City</option>
+                      {addr.state &&
+                        indiaStates[addr.state]?.map((ct) => (
+                          <option key={ct} value={ct}>
+                            {ct}
+                          </option>
+                        ))}
+                    </select>
+                    <span className="lr-step4-placeholder">City</span>
+                  </div>
+                </div>
+
+                <div className="lr-step4-row">
+                  <div className="lr-step4-input-box">
+                    <input
+                      type="text"
+                      className="lr-step4-input"
+                      placeholder="Zip Code"
+                      value={addr.zipCode}
+                      onChange={(e) =>
+                        handleAddressChange(index, "zipCode", e.target.value)
+                      }
+                    />
+                    <span className="lr-step4-placeholder">Zip Code</span>
+                  </div>
+
+                  <div className="lr-step4-input-box">
+                    <input
+                      type="text"
+                      className="lr-step4-input"
+                      placeholder="Latitude"
+                      value={addr.latitude}
+                      onChange={(e) =>
+                        handleAddressChange(index, "latitude", e.target.value)
+                      }
+                    />
+                    <span className="lr-step4-placeholder">Latitude</span>
+                  </div>
+
+                  <div className="lr-step4-input-box">
+                    <input
+                      type="text"
+                      className="lr-step4-input"
+                      placeholder="Longitude"
+                      value={addr.longitude}
+                      onChange={(e) =>
+                        handleAddressChange(index, "longitude", e.target.value)
+                      }
+                    />
+                    <span className="lr-step4-placeholder">Longitude</span>
+                  </div>
+                </div>
+
+                {addresses.length > 1 && (
+                  <button
+                    type="button"
+                    className="lr-step4-remove-btn"
+                    onClick={() => removeAddress(index)}
+                  >
+                    Remove Address
+                  </button>
+                )}
+                <hr className="lr-step4-divider" />
+              </div>
+            ))}
+
+          <button
+            type="button"
+            className="lr-step4-add-btn"
+            onClick={addAddress}
+          >
+            + Add Another Address
+          </button>
+
           <div className="lr-step4-section">
-            <label className="lr-step4-label">Office Address *</label>
             <input
               type="text"
               className="lr-step4-input"
-              placeholder="123 Main Street, Suite 100"
-              value={streetAddress}
-              onChange={(e) => setStreetAddress(e.target.value)}
-            />
-          </div>
-
-          <div className="lr-step4-row">
-            {/* State Dropdown */}
-            <div className="lr-step4-input-box">
-              <select
-                className="lr-step4-input"
-                value={state}
-                onChange={(e) => {
-                  setState(e.target.value);
-                  setCity(""); // reset city when state changes
-                }}
-              >
-                <option value="">Select State</option>
-                {Object.keys(indiaStates).map((st) => (
-                  <option key={st} value={st}>
-                    {st}
-                  </option>
-                ))}
-              </select>
-              <span className="lr-step4-placeholder">State</span>
-            </div>
-
-            {/* City Dropdown */}
-            <div className="lr-step4-input-box">
-              <select
-                className="lr-step4-input"
-                value={city}
-                onChange={(e) => setCity(e.target.value)}
-                disabled={!state}
-              >
-                <option value="">Select City</option>
-                {state &&
-                  indiaStates[state]?.map((ct) => (
-                    <option key={ct} value={ct}>
-                      {ct}
-                    </option>
-                  ))}
-              </select>
-              <span className="lr-step4-placeholder">City</span>
-            </div>
-          </div>
-
-          <div className="lr-step4-row">
-            <div className="lr-step4-input-box">
-              <input
-                type="text"
-                className="lr-step4-input"
-                placeholder="90210"
-                value={zipCode}
-                onChange={(e) => setZipCode(e.target.value)}
-              />
-              <span className="lr-step4-placeholder">Zip Code</span>
-            </div>
-            <div className="lr-step4-input-box">
-              <input
-                type="text"
-                className="lr-step4-input"
-                placeholder="Calendly link"
-                value={calendlyLink}
-                onChange={(e) => setCalendlyLink(e.target.value)}
-              />
-              <span className="lr-step4-placeholder">Calendly Link *</span>
-            </div>
-          </div>
-
-          <div className="lr-step4-section">
-            <input
-              type="text"
-              className="lr-step4-input"
-              placeholder="Mon-Fri 9AM–6PM"
+              placeholder="Mon–Fri 9AM–6PM"
               value={workingHours}
               onChange={(e) => setWorkingHours(e.target.value)}
             />
             <span className="lr-step4-placeholder">Working Hours</span>
-          </div>
-
-          <div className="lr-step4-row">
-            <div className="lr-step4-input-box">
-              <input
-                type="text"
-                className="lr-step4-input"
-                placeholder="Latitude"
-                value={latitude}
-                onChange={(e) => setLatitude(e.target.value)}
-              />
-              <span className="lr-step4-placeholder">Latitude *</span>
-            </div>
-            <div className="lr-step4-input-box">
-              <input
-                type="text"
-                className="lr-step4-input"
-                placeholder="Longitude"
-                value={longitude}
-                onChange={(e) => setLongitude(e.target.value)}
-              />
-              <span className="lr-step4-placeholder">Longitude *</span>
-            </div>
           </div>
 
           <div className="lr-step4-btn-container">
@@ -325,5 +394,4 @@ const Step4 = () => {
     </div>
   );
 };
-
 export default Step4;

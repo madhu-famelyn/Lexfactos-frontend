@@ -1,164 +1,173 @@
-// ApprovedLawyers.js
 import React, { useState, useEffect } from "react";
-import "./AdminLawyer.css";
-import { fetchApprovedLawyers, updateLawyerVerification } from "../Service/Service";
-
-// Icons
-import { FaEye, FaTimes, FaUndo } from "react-icons/fa";
+import "./ApprovedLawyers.css";
+import {
+  FaEye,
+  FaTimes,
+  FaUndo,
+  FaMapMarkerAlt,
+  FaClock,
+  FaUniversity,
+} from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+import {
+  fetchApprovedLawyers,
+  updateLawyerVerification,
+} from "../Service/Service";
 
 const ApprovedLawyers = () => {
   const [lawyers, setLawyers] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Popup states
   const [showRejectPopup, setShowRejectPopup] = useState(false);
   const [showUnapprovePopup, setShowUnapprovePopup] = useState(false);
-
-  // Selected lawyer
   const [selectedLawyerId, setSelectedLawyerId] = useState(null);
   const [rejectionReason, setRejectionReason] = useState("");
 
-  useEffect(() => {
-    const getApprovedLawyers = async () => {
-      try {
-        const data = await fetchApprovedLawyers();
+  const navigate = useNavigate();
 
-        const formattedLawyers = data.map((lawyer) => ({
+  useEffect(() => {
+    const loadApproved = async () => {
+      try {
+        const res = await fetchApprovedLawyers();
+        const formatted = res.map((lawyer) => ({
           id: lawyer.id,
           name: lawyer.full_name || "",
           email: lawyer.email || "",
-          location: lawyer.registration5?.[0]?.city || "",
+          location:
+            lawyer.registration5?.[0]?.city &&
+            lawyer.registration5?.[0]?.state
+              ? `${lawyer.registration5[0].city}, ${lawyer.registration5[0].state}`
+              : "Not Provided",
           experience: lawyer.profile?.years_of_experience
-            ? `${lawyer.profile.years_of_experience} years`
-            : "",
-          specialization: lawyer.registration3?.practice_area || "",
-          rating: "0",
-          photo: lawyer.profile?.photo || "https://via.placeholder.com/48?text=👤", // ✅ fallback photo
-        }));
+            ? `${lawyer.profile.years_of_experience} years experience`
+            : "N/A",
+          specialization:
+            lawyer.registration3?.practice_area || "Not Provided",
 
-        setLawyers(formattedLawyers);
-      } catch (error) {
-        console.error("Failed to fetch approved lawyers:", error);
+          // ✅ FIX: Photo is at root!
+          photo: lawyer.photo
+            ? lawyer.photo
+            : "https://via.placeholder.com/70?text=👨‍⚖️",
+        }));
+        setLawyers(formatted);
+      } catch (err) {
+        console.error("Error fetching approved lawyers:", err);
         setLawyers([]);
       } finally {
         setLoading(false);
       }
     };
 
-    getApprovedLawyers();
+    loadApproved();
   }, []);
 
-  // Reject flow
-  const handleRejectClick = (lawyerId) => {
-    setSelectedLawyerId(lawyerId);
+  const handleViewProfile = (id) => {
+    navigate(`/lawyer/${id}`);
+  };
+
+  const handleRejectOpen = (id) => {
+    setSelectedLawyerId(id);
     setShowRejectPopup(true);
   };
 
   const handleRejectConfirm = async () => {
     if (!rejectionReason.trim()) {
-      alert("Please enter a rejection reason.");
+      alert("Enter rejection reason.");
       return;
     }
     try {
       await updateLawyerVerification(selectedLawyerId, false, rejectionReason);
-      setLawyers((prev) => prev.filter((lawyer) => lawyer.id !== selectedLawyerId));
-      setShowRejectPopup(false);
+      setLawyers((prev) => prev.filter((x) => x.id !== selectedLawyerId));
       setRejectionReason("");
-      alert("Lawyer rejected successfully!");
-    } catch (error) {
-      console.error("Failed to reject lawyer:", error);
-      alert("Error rejecting lawyer.");
+      setShowRejectPopup(false);
+      alert("Rejected successfully");
+    } catch (err) {
+      console.error("Reject failed:", err);
+      alert("Error");
     }
   };
 
-  // Unapprove flow
-  const handleUnapproveClick = (lawyerId) => {
-    setSelectedLawyerId(lawyerId);
+  const handleUnapproveOpen = (id) => {
+    setSelectedLawyerId(id);
     setShowUnapprovePopup(true);
   };
 
   const handleUnapproveConfirm = async () => {
     try {
       await updateLawyerVerification(selectedLawyerId, false, "");
-      setLawyers((prev) => prev.filter((lawyer) => lawyer.id !== selectedLawyerId));
+      setLawyers((prev) => prev.filter((x) => x.id !== selectedLawyerId));
       setShowUnapprovePopup(false);
-      alert("Lawyer unapproved successfully!");
-    } catch (error) {
-      console.error("Failed to unapprove lawyer:", error);
-      alert("Error unapproving lawyer.");
+      alert("Unapproved successfully");
+    } catch (err) {
+      console.error("Unapprove failed:", err);
+      alert("Error");
     }
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <p className="approved-loading">Loading approved lawyers...</p>;
   }
 
   return (
-    <div className="lawyer-list">
+    <div className="approved-lawyer-list">
       {lawyers.length === 0 ? (
-        <p>No approved lawyers found.</p>
+        <p className="approved-no-data">No approved lawyers found</p>
       ) : (
-        lawyers.map((lawyer) => (
-          <div key={lawyer.id} className="lawyer-card">
-            <div className="lawyer-info">
-              <div className="avatar">
-                <img src={lawyer.photo} alt={lawyer.name} />
-              </div>
+        lawyers.map((l) => (
+          <div key={l.id} className="approved-lawyer-card">
+            <div className="approved-lawyer-info">
+              <img src={l.photo} alt={l.name} className="approved-avatar" />
 
               <div>
-                <h3>{lawyer.name || "Unnamed Lawyer"}</h3>
-                <p className="email">{lawyer.email}</p>
-                <p className="location">{lawyer.location && `📍 ${lawyer.location}`}</p>
-                <p className="experience">
-                  {lawyer.experience && `⏳ ${lawyer.experience}`}
+                <h3 className="approved-lawyer-name">{l.name}</h3>
+                <p className="approved-lawyer-email">{l.email}</p>
+                <p className="approved-lawyer-location">
+                  <FaMapMarkerAlt /> {l.location}
                 </p>
-                <p className="specialization">
-                  {lawyer.specialization && `⚖️ ${lawyer.specialization}`}
+                <p className="approved-lawyer-experience">
+                  <FaClock /> {l.experience}
+                </p>
+                <p className="approved-lawyer-specialization">
+                  <FaUniversity /> {l.specialization}
                 </p>
               </div>
             </div>
 
-            <div className="actions">
-              <button className="view">
-                <FaEye style={{ marginRight: "4px" }} /> View Profile
+            <div className="approved-lawyer-actions">
+              <button className="approved-btn-view" onClick={() => handleViewProfile(l.id)}>
+                <FaEye /> View
               </button>
-              <button
-                className="reject"
-                onClick={() => handleRejectClick(lawyer.id)}
-              >
-                <FaTimes style={{ marginRight: "4px" }} /> Reject
+              <button className="approved-btn-reject" onClick={() => handleRejectOpen(l.id)}>
+                <FaTimes /> Reject
               </button>
-              <button
-                className="unapprove"
-                onClick={() => handleUnapproveClick(lawyer.id)}
-              >
-                <FaUndo style={{ marginRight: "4px" }} /> Unapprove
+              <button className="approved-btn-unapprove" onClick={() => handleUnapproveOpen(l.id)}>
+                <FaUndo /> Unapprove
               </button>
             </div>
           </div>
         ))
       )}
 
-      {/* ✅ Reject Reason Popup */}
+      {/* Reject Popup */}
       {showRejectPopup && (
-        <div className="popup-overlay">
-          <div className="popup">
+        <div className="approved-popup-overlay">
+          <div className="approved-popup">
             <h3>Reject Lawyer</h3>
             <textarea
-              placeholder="Enter rejection reason"
+              placeholder="Enter reason here..."
               value={rejectionReason}
               onChange={(e) => setRejectionReason(e.target.value)}
-            />
-            <div className="popup-actions">
-              <button onClick={handleRejectConfirm} className="confirm">
+            ></textarea>
+            <div className="approved-popup-actions">
+              <button className="confirm" onClick={handleRejectConfirm}>
                 Submit
               </button>
               <button
+                className="cancel"
                 onClick={() => {
                   setShowRejectPopup(false);
                   setRejectionReason("");
                 }}
-                className="cancel"
               >
                 Cancel
               </button>
@@ -167,20 +176,17 @@ const ApprovedLawyers = () => {
         </div>
       )}
 
-      {/* ✅ Unapprove Confirmation Popup */}
+      {/* Unapprove Popup */}
       {showUnapprovePopup && (
-        <div className="popup-overlay">
-          <div className="popup">
+        <div className="approved-popup-overlay">
+          <div className="approved-popup">
             <h3>Unapprove Lawyer</h3>
-            <p>Are you sure you want to unapprove this lawyer?</p>
-            <div className="popup-actions">
-              <button onClick={handleUnapproveConfirm} className="confirm">
-                Yes, Unapprove
+            <p>Are you sure unapprove?</p>
+            <div className="approved-popup-actions">
+              <button className="confirm" onClick={handleUnapproveConfirm}>
+                Yes
               </button>
-              <button
-                onClick={() => setShowUnapprovePopup(false)}
-                className="cancel"
-              >
+              <button className="cancel" onClick={() => setShowUnapprovePopup(false)}>
                 Cancel
               </button>
             </div>

@@ -1,16 +1,28 @@
-/* --- Global Font --- */
-.lawyer-profile-container {
+.lawyer-profile-container-full {
   font-family: 'Geist', sans-serif;
   color: #222;
-  font-size: 16px; /* base font size increased */
+  font-size: 16px;
+
+  /* Balanced spacing */
+  margin: 0 80px; /* 0px top & bottom | 30px left & right */
+  padding: 20px;
+
+  box-sizing: border-box;
 }
+
+  .lawyer-profile-header,
+  .lawyer-profile-footer {
+    padding: 0 80px;
+  }
+
+
+
 
 /* --- Profile Header --- */
 .lawyer-profile-header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  padding: 14px 18px;
   border-bottom: 1px solid #eee;
 }
 
@@ -103,6 +115,7 @@
 .lawyer-star {
   color: gold;
   font-size: 16px;
+  margin-bottom: 5px;
 }
 
 .lawyer-rating {
@@ -179,7 +192,6 @@
 /* --- Layout --- */
 .lawyer-profile-columns {
   display: flex;
-  gap: 40px;
   align-items: flex-start;
 }
 
@@ -243,15 +255,13 @@
   margin-top: 20px;
 }
 
-.education-section h2 {
-  font-size: 18px;
-  font-weight: 600;
+.education-section-h2 {
+  font-size: 12px;
   margin-bottom: 12px;
 }
 
 .education-section ul {
   list-style: disc;
-  padding-left: 20px; /* space for bullets */
 }
 
 .education-section li {
@@ -325,20 +335,112 @@
   border: 1px solid #ddd;
 }
 
-/* --- Responsive --- */
-@media (max-width: 900px) {
-  .lawyer-profile-columns {
-    flex-direction: column;
+
+
+
+
+
+
+
+
+
+@media (max-width: 768px) {
+  /* Global Reset for Full Width */
+  * {
+    box-sizing: border-box;
   }
 
-  .lawyer-profile-header {
-    flex-direction: column;
-    align-items: flex-start;
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    width: 100%;
+  }
+  /* ================================
+   📱 Mobile Edge-to-Edge Layout
+   ================================ */
+@media (max-width: 768px) {
+  html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    overflow-x: hidden; /* prevent horizontal scroll */
   }
 
-  .lawyer-profile-right {
+  * {
+    box-sizing: border-box; /* include padding/border in width */
+  }
+
+  /* Outer container full width */
+  .lawyer-profile-container-full {
+    display: flex;
+    flex-direction: column;
     align-items: flex-start;
     width: 100%;
+    padding: 0;
+    margin: 0;
+    gap: 18px; /* no scroll inside container */
+  }
+
+  /* Columns */
+  .lawyer-profile-columns {
+    display: flex;
+    flex-direction: column; /* stack vertically */
+    align-items: stretch;   /* full width */
+    justify-content: flex-start;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    gap: 0;
+  }
+
+  /* Inner containers */
+  .lawyer-profile-left,
+  .lawyer-profile-right,
+  .lawyer-info-section,
+  .lawyer-left-column,
+  .lawyer-right-column {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  
+  /* Profile photo full width */
+  .lawyer-profile-photo {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    margin: 0;
+    border-radius: 0; /* edge-to-edge photo */
+  }
+
+  /* Buttons full width */
+  .lawyer-primary-btn,
+  .lawyer-secondary-btn {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Grids, lists, iframes, etc. */
+  .lawyer-overview-grid,
+  .lawyer-office-section,
+  .awards-list,
+  .education-section ul,
+  .lawyer-info-list {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+/* Ultra small screens */
+@media (max-width: 480px) {
+  .lawyer-profile-photo {
+    max-width: 100%;
+    height: auto;
   }
 
   .lawyer-primary-btn,
@@ -348,5 +450,397 @@
 }
 
 
+  /* Main Container */
+.lawyer-profile-container-full{
+  width: 100%; /* ✅ safer than 100vw */
+  max-width: 100%;
+  margin-left: 0;
+  padding: 0;
+  font-size: 15px;
+  text-align: left;
+  box-sizing: border-box;
+  overflow-x: hidden; /* ensures no horizontal scroll */
+}
+
+.lawyer-profile-columns {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between; /* or flex-start if no space needed */
+  width: 120%; /* ✅ ensures it matches parent container width */
+  margin-left: 0;
+  padding: 0;
+  box-sizing: border-box;
+  flex-wrap: wrap; /* ✅ prevents overflow on smaller screens */
+}
 
 
+  /* Header Section */
+  .lawyer-profile-header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    gap: 18px;
+  }
+
+  .lawyer-profile-left {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    gap: 14px;
+    margin: 0;
+    padding: 0;
+  }
+
+  .lawyer-profile-photo {
+    width: 100%;
+    max-width: 340px;
+    height: auto;
+    border-radius: 10px;
+    display: block;
+    margin: 0 auto;
+  }
+
+  .lawyer-profile-info {
+    width: 100%;
+    align-items: flex-start;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Top Info */
+  .lawyer-top-badges,
+  .lawyer-rating-section,
+  .lawyer-practice-areas {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .lawyer-name {
+    font-size: 24px;
+    margin: 0;
+    text-align: left;
+  }
+
+  .lawyer-designation,
+  .lawyer-chamber-name {
+    text-align: left;
+    margin: 0;
+  }
+
+  .lawyer-tags {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    width: 100%;
+    white-space: normal;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Right Section (Buttons) */
+  .lawyer-profile-right {
+    width: 100%;
+    align-items: flex-start;
+    margin: 0;
+    padding: 0;
+  }
+
+  .lawyer-primary-btn,
+  .lawyer-secondary-btn {
+    width: 100%;
+    font-size: 15px;
+    padding: 10px 0;
+    margin: 0;
+  }
+
+
+  .lawyer-left-column,
+  .lawyer-right-column {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Info Section */
+  .lawyer-info-section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .lawyer-info-block {
+    text-align: left;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Overview Section */
+  .lawyer-overview-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    gap: 14px;
+  }
+  .education-section{
+    font-size: 23px;
+
+
+  }
+
+
+  /* ================================
+   Mobile: lawyer-left-column edge-to-edge
+   ================================ */
+@media (max-width: 768px) {
+  .lawyer-left-column {
+    width: 80% !important;       /* full width */
+    max-width: 100% !important;   /* prevent overflow */
+    margin: 0 !important;         /* remove left/right space */
+    padding: 0 !important;        /* remove inner padding */
+    box-sizing: border-box !important; /* include border/padding in width */
+  }
+}
+
+
+  /* Office Section */
+  .lawyer-office-section {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .lawyer-office-section iframe {
+    width: 100%;
+    height: 250px;
+    border: none;
+    display: block;
+  }
+
+  .lawyer-office-section p {
+    text-align: left;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Education & Experience */
+  .education-section ul,
+  .lawyer-info-list {
+    width: 100%;
+    margin: 0;
+  }
+
+  /* Awards Section */
+  .awards-container {
+    text-align: left;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .awards-list {
+    list-style: none;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .award-item {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 6px;
+    margin-bottom: 8px;
+  }
+
+  .award-icon {
+    color: #f9b233;
+  }
+}
+
+
+
+/* ================================
+   Ultra Small Screens (Phones)
+================================= */
+@media (max-width: 480px) {
+  .lawyer-name {
+    font-size: 20px;
+  }
+
+  .lawyer-designation,
+  .lawyer-chamber-name {
+    font-size: 14px;
+  }
+
+  .lawyer-section-title {
+    font-size: 16px;
+  }
+
+  .lawyer-about-text {
+    font-size: 13px;
+    line-height: 1.4;
+  }
+
+  .lawyer-overview-card h3 {
+    font-size: 15px;
+  }
+
+  .lawyer-overview-card p {
+    font-size: 13px;
+    line-height: 1.3;
+  }
+
+  .lawyer-primary-btn,
+  .lawyer-secondary-btn {
+    font-size: 14px;
+    padding: 8px 0;
+  }
+
+  .education-section ul,
+  .lawyer-info-list {
+    font-size: 13px;
+  }
+
+  .awards-list li {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 768px) {
+  .lawyer-overview-card {
+    max-width: 400px;  /* reduced width */
+  }
+}
+
+@media (max-width: 480px) {
+  .lawyer-overview-card {
+    max-width: 83%;   /* full width on very small screens */
+  }
+}
+
+
+
+/* Tablet / Medium screens */
+@media (max-width: 768px) {
+  .education-section-h2 {
+    font-size: 12px;
+  }
+}
+
+/* Mobile / Small screens */
+@media (max-width: 480px) {
+  .education-section-h2{
+    font-size: 12px;
+  }
+}
+
+
+
+.award-item {
+  display: flex;
+  align-items: center; /* vertically center icon with text */
+  gap: 6px;           /* space between icon and text */
+  margin-bottom: 22px;
+}
+
+.award-icon {
+  color: #f9b233;
+  margin-bottom: 22px; /* adjust this to move icon slightly up/down */
+  flex-shrink: 0;  /* prevent icon from shrinking */
+}
+
+
+
+
+
+
+
+
+
+
+/* ===== MAP AND LOCATION DROPDOWN ===== */
+.lawyer-office-section {
+  margin-top: 2rem;
+  width: 100%;
+}
+
+.location-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.location-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.8rem;
+  background-color: #f9f9f9;
+  padding: 0.8rem 1rem;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.location-icon {
+  color: #05308d;
+  font-size: 1.3rem;
+  margin-top: 3px;
+}
+
+.get-directions-link {
+  color: #05308d;
+  font-weight: 500;
+  font-size: 0.9rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  text-decoration: none;
+}
+
+.get-directions-link:hover {
+  text-decoration: underline;
+}
+
+/* Toggle Button */
+.toggle-locations-btn {
+  background: none;
+  border: none;
+  color: #05308d;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 0.5rem;
+}
+
+.toggle-locations-btn:hover {
+  text-decoration: underline;
+}
+
+/* Map styling */
+iframe {
+  width: 100%;
+  border-radius: 10px;
+  margin-top: 1rem;
+}
+.location-icon {
+  color: #05308D; /* deep blue */
+  font-size: 1.2rem;
+  flex-shrink: 0; /* keep icon size fixed */
+  margin-top: 17px; /* slight adjustment for perfect centering */
+}

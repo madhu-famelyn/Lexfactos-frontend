@@ -1,0 +1,169 @@
+/* ===============================
+   ✅ Lawyer Full Registration Form
+=================================*/
+
+.lawyer-form-container {
+  max-width: 950px;
+  margin: 40px auto;
+  padding: 25px 30px;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.08);
+  font-family: "Poppins", sans-serif;
+  color: #222;
+}
+
+.lawyer-form-container h2 {
+  text-align: center;
+  font-size: 28px;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 25px;
+}
+
+.form-box {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+h3 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #2563eb;
+  border-left: 5px solid #2563eb;
+  padding-left: 10px;
+  margin-top: 20px;
+  margin-bottom: 5px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  font-weight: 500;
+  font-size: 15px;
+  margin-bottom: 6px;
+  color: #374151;
+}
+
+.input-field,
+.section-box input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  background-color: #fafafa;
+  font-size: 15px;
+  color: #111827;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.input-field:focus,
+.section-box input:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+  background-color: #fff;
+}
+
+/* ============ Dynamic Section Boxes ============ */
+.section-box {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 14px;
+  background: #f9fafb;
+  padding: 15px;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  margin-top: 10px;
+}
+
+/* ============ Buttons ============ */
+.add-btn {
+  align-self: flex-start;
+  background-color: #2563eb;
+  color: #fff;
+  border: none;
+  padding: 9px 15px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.add-btn:hover {
+  background-color: #1d4ed8;
+  transform: translateY(-1px);
+}
+
+.submit-btn {
+  background-color: #16a34a;
+  color: #fff;
+  border: none;
+  padding: 14px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.submit-btn:hover {
+  background-color: #15803d;
+  transform: translateY(-2px);
+}
+
+.submit-btn:disabled {
+  background-color: #9ca3af;
+  cursor: not-allowed;
+}
+
+/* ============ Success Message ============ */
+.success-msg {
+  margin-top: 15px;
+  text-align: center;
+  font-weight: 600;
+  color: #16a34a;
+  background-color: #dcfce7;
+  border: 1px solid #86efac;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+/* ============ Responsive ============ */
+@media (max-width: 768px) {
+  .lawyer-form-container {
+    padding: 20px;
+    box-shadow: none;
+    border-radius: 10px;
+  }
+
+  .lawyer-form-container h2 {
+    font-size: 24px;
+  }
+
+  h3 {
+    font-size: 18px;
+  }
+
+  .section-box {
+    grid-template-columns: 1fr;
+    padding: 12px;
+  }
+
+  .input-field,
+  .section-box input {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .add-btn,
+  .submit-btn {
+    width: 100%;
+    text-align: center;
+  }
+}

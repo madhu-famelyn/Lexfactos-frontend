@@ -151,59 +151,82 @@
 }
 /* Mobile Styles */
 /* Mobile Styles - Optimized for small screens */
+/* Mobile Styles - Optimized for small screens with !important */
 @media (max-width: 768px) {
   .lawyer-summary-card {
-    flex-direction: column;
-    align-items: center;
-    gap: 12px;
-    padding: 8px;
-    width: 100%; /* Ensure it doesn't overflow */
-    box-sizing: border-box;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 12px !important;
+    padding: 8px !important;
+    width: 100% !important; /* Ensure it doesn't overflow */
+    box-sizing: border-box !important;
   }
 
   .lawyer-summary-photo {
-    width: 100px; /* smaller */
-    height: 100px;
-    border-radius: 8px; /* optional for nice look */
+    width: 100px !important; /* smaller */
+    height: 100px !important;
+    border-radius: 8px !important; /* optional for nice look */
   }
 
   .lawyer-summary-details {
-    text-align: center;
-    width: 100%; /* full width for mobile */
+    text-align: center !important;
+    width: 100% !important; /* full width for mobile */
   }
 
   .lawyer-summary-name {
-    font-size: 18px; /* smaller */
-    word-break: break-word; /* prevent overflow */
+    font-size: 18px !important; /* smaller */
+    word-break: break-word !important; /* prevent overflow */
   }
 
   .lawyer-summary-court {
-    font-size: 12px;
-    display: flex;
-    flex-direction: column;
-    gap: 3px;
-    word-break: break-word; /* prevent text overflow */
+    font-size: 12px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 3px !important;
+    word-break: break-word !important; /* prevent text overflow */
   }
 
   .practice-tags {
-    justify-content: center;
-    gap: 4px;
-    flex-wrap: wrap;
+    justify-content: center !important;
+    gap: 4px !important;
+    flex-wrap: wrap !important;
   }
 
   .practice-tag {
-    font-size: 11px; /* smaller */
-    padding: 2px 3px;
-    word-break: break-word; /* wrap long words */
+    font-size: 11px !important; /* smaller */
+    padding: 2px 3px !important;
+    word-break: break-word !important; /* wrap long words */
   }
 
   .lawyer-summary-bio {
-    font-size: 12px;
+    font-size: 12px !important;
+  }
+
+  /* Optional: adjust repeated data blocks */
+  .lawyer-bar-detail,
+  .lawyer-education-item,
+  .lawyer-experience-item,
+  .lawyer-case-result,
+  .lawyer-address-item,
+  .lawyer-certification-item,
+  .lawyer-award-item,
+  .lawyer-publication-item {
+    padding: 4px 0 !important;
+    margin-bottom: 8px !important;
+  }
+
+  .lawyer-bar-detail p,
+  .lawyer-education-item p,
+  .lawyer-experience-item p,
+  .lawyer-case-result p,
+  .lawyer-address-item p,
+  .lawyer-certification-item p,
+  .lawyer-award-item p,
+  .lawyer-publication-item p {
+    font-size: 12px !important;
+    margin: 2px 0 !important;
   }
 }
-
-
-
 
 
 
