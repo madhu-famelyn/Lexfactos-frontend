@@ -48,13 +48,15 @@ const LawyerFullRegistration = () => {
     address: [
       {
         street_address: "",
-        city: "",
+        country: "",
         state: "",
+        city: "",
         zip_code: "",
         latitude: "",
         longitude: "",
       },
     ],
+
     working_hours: "",
     professional_associations: "",
     certifications: [
@@ -80,7 +82,6 @@ const LawyerFullRegistration = () => {
   });
 
   const [photoFile, setPhotoFile] = useState(null);
-  // const [officeImageFile, setOfficeImageFile] = useState(null);
 
   const [loading, setLoading] = useState(false);
   const [successPopup, setSuccessPopup] = useState(false);
@@ -100,6 +101,30 @@ const LawyerFullRegistration = () => {
     { value: "Alternative Dispute Resolution", label: "Alternative Dispute Resolution" },
     { value: "Animal Law", label: "Animal Law" },
   ];
+
+
+  const stateCityData = {
+  Telangana: ["Hyderabad", "Warangal", "Nizamabad", "Karimnagar"],
+  "Andhra Pradesh": ["Vijayawada", "Visakhapatnam", "Guntur", "Tirupati"],
+  Karnataka: ["Bengaluru", "Mysuru", "Mangalore", "Hubballi"],
+};
+const locationData = {
+  India: {
+    Telangana: ["Hyderabad", "Warangal", "Karimnagar"],
+    "Andhra Pradesh": ["Vijayawada", "Visakhapatnam", "Guntur"],
+    Karnataka: ["Bengaluru", "Mysore", "Hubli"],
+  },
+  USA: {
+    California: ["Los Angeles", "San Diego", "San Francisco"],
+    Texas: ["Houston", "Dallas", "Austin"],
+    Florida: ["Miami", "Orlando", "Tampa"],
+  },
+  UK: {
+    England: ["London", "Manchester", "Liverpool"],
+    Scotland: ["Edinburgh", "Glasgow", "Aberdeen"],
+    Wales: ["Cardiff", "Swansea", "Newport"],
+  },
+};
 
   // Handlers
   const handleChange = (e) => {
@@ -261,10 +286,10 @@ const LawyerFullRegistration = () => {
           <h3>Practice Details</h3>
           <label>Practice Areas</label>
           <Select isMulti options={practiceOptions} value={form.practice_area} onChange={handlePracticeChange} />
-          <label>Court Admitted To</label>
-          <input name="court_admitted_to" value={form.court_admitted_to} onChange={handleChange} />
-          <label>Active Since</label>
-          <input name="active_since" value={form.active_since} onChange={handleChange} />
+          {/* <label>Court Admitted To</label>
+          <input name="court_admitted_to" value={form.court_admitted_to} onChange={handleChange} /> */}
+          {/* <label>Active Since</label>
+          <input name="active_since" value={form.active_since} onChange={handleChange} /> */}
 
           <h4>Work Experience</h4>
           {form.work_experience.map((w, i) => (
@@ -284,8 +309,55 @@ const LawyerFullRegistration = () => {
           {form.address.map((a, i) => (
             <div key={i} className="nested">
               <input placeholder="Street Address" value={a.street_address} onChange={(e) => handleNestedChange("address", i, "street_address", e.target.value)} />
-              <input placeholder="City" value={a.city} onChange={(e) => handleNestedChange("address", i, "city", e.target.value)} />
-              <input placeholder="State" value={a.state} onChange={(e) => handleNestedChange("address", i, "state", e.target.value)} />
+<select
+  value={a.country}
+  onChange={(e) => handleNestedChange("address", i, "country", e.target.value)}
+>
+  <option value="">Select Country</option>
+  {Object.keys(locationData).map((country, index) => (
+    <option key={index} value={country}>
+      {country}
+    </option>
+  ))}
+</select>
+
+
+<select
+  value={a.state}
+  onChange={(e) => handleNestedChange("address", i, "state", e.target.value)}
+  disabled={!a.country}
+>
+  <option value="">Select State</option>
+  {a.country &&
+    Object.keys(locationData[a.country]).map((state, index) => (
+      <option key={index} value={state}>
+        {state}
+      </option>
+    ))}
+</select>
+
+
+<select
+  value={a.city}
+  onChange={(e) => handleNestedChange("address", i, "city", e.target.value)}
+  disabled={!a.state}
+>
+  <option value="">Select City</option>
+  {a.country &&
+    a.state &&
+    locationData[a.country] &&
+    locationData[a.country][a.state] &&
+    locationData[a.country][a.state].map((city, index) => (
+      <option key={index} value={city}>
+        {city}
+      </option>
+    ))}
+</select>
+
+        
+
+
+              
               <input placeholder="Zip Code" value={a.zip_code} onChange={(e) => handleNestedChange("address", i, "zip_code", e.target.value)} />
               <input placeholder="Latitude" value={a.latitude} onChange={(e) => handleNestedChange("address", i, "latitude", e.target.value)} />
               <input placeholder="Longitude" value={a.longitude} onChange={(e) => handleNestedChange("address", i, "longitude", e.target.value)} />
@@ -294,23 +366,23 @@ const LawyerFullRegistration = () => {
           ))}
           <button type="button" onClick={() => addNestedItem("address", { street_address: "", city: "", state: "", zip_code: "", latitude: "", longitude: "" })}>+ Add Address</button>
 
-          <label>Working Hours</label>
-          <input name="working_hours" value={form.working_hours} onChange={handleChange} />
+          {/* <label>Working Hours</label> */}
+          {/* <input name="working_hours" value={form.working_hours} onChange={handleChange} /> */}
 
-          <label>Professional Associations</label>
-          <input name="professional_associations" value={form.professional_associations} onChange={handleChange} />
+          {/* <label>Professional Associations</label> */}
+          {/* <input name="professional_associations" value={form.professional_associations} onChange={handleChange} /> */}
 
-          <h4>Certifications</h4>
-          {form.certifications.map((c, i) => (
+          {/* <h4>Certifications</h4> */}
+          {/* {form.certifications.map((c, i) => (
             <div key={i} className="nested">
               <input placeholder="Certification Name" value={c.name} onChange={(e) => handleNestedChange("certifications", i, "name", e.target.value)} />
               <input placeholder="Issuer" value={c.issuer} onChange={(e) => handleNestedChange("certifications", i, "issuer", e.target.value)} />
               <button type="button" onClick={() => removeNestedItem("certifications", i)}>Remove</button>
             </div>
-          ))}
-          <button type="button" onClick={() => addNestedItem("certifications", { name: "", issuer: "" })}>+ Add Certification</button>
+          ))} */}
+          {/* <button type="button" onClick={() => addNestedItem("certifications", { name: "", issuer: "" })}>+ Add Certification</button> */}
 
-          <h4>Awards</h4>
+          {/* <h4>Awards</h4>
           {form.awards.map((a, i) => (
             <div key={i} className="nested">
               <input placeholder="Award Name" value={a.name} onChange={(e) => handleNestedChange("awards", i, "name", e.target.value)} />
@@ -318,9 +390,9 @@ const LawyerFullRegistration = () => {
               <input placeholder="Year" value={a.year} onChange={(e) => handleNestedChange("awards", i, "year", e.target.value)} />
               <button type="button" onClick={() => removeNestedItem("awards", i)}>Remove</button>
             </div>
-          ))}
-          <button type="button" onClick={() => addNestedItem("awards", { name: "", organization: "", year: "" })}>+ Add Award</button>
-
+          ))} */}
+          {/* <button type="button" onClick={() => addNestedItem("awards", { name: "", organization: "", year: "" })}>+ Add Award</button> */}
+{/* 
           <h4>Publications</h4>
           {form.publications.map((p, i) => (
             <div key={i} className="nested">
@@ -329,8 +401,8 @@ const LawyerFullRegistration = () => {
               <input placeholder="Year" value={p.year} onChange={(e) => handleNestedChange("publications", i, "year", e.target.value)} />
               <button type="button" onClick={() => removeNestedItem("publications", i)}>Remove</button>
             </div>
-          ))}
-          <button type="button" onClick={() => addNestedItem("publications", { title: "", journal: "", year: "" })}>+ Add Publication</button>
+          ))} */}
+          {/* <button type="button" onClick={() => addNestedItem("publications", { title: "", journal: "", year: "" })}>+ Add Publication</button> */}
         </div>
 
         <div className="form-actions">

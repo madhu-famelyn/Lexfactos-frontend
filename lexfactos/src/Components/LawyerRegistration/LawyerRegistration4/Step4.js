@@ -3,120 +3,16 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { submitStep4 } from "../../Service/Service";
 import "./Step4.css";
 
-// Simple state → cities mapping (can be expanded)
 const indiaStates = {
   "Andhra Pradesh": [
     "Visakhapatnam", "Vijayawada", "Guntur", "Nellore", "Tirupati",
     "Kurnool", "Rajahmundry", "Kakinada", "Anantapur", "Chittoor"
   ],
-  "Arunachal Pradesh": [
-    "Itanagar", "Tawang", "Naharlagun", "Pasighat", "Ziro"
-  ],
-  "Assam": [
-    "Guwahati", "Silchar", "Dibrugarh", "Jorhat", "Tezpur"
-  ],
-  "Bihar": [
-    "Patna", "Gaya", "Bhagalpur", "Muzaffarpur", "Darbhanga",
-    "Purnia", "Begusarai", "Arrah", "Katihar", "Munger"
-  ],
-  "Chhattisgarh": [
-    "Raipur", "Bhilai", "Bilaspur", "Korba", "Durg"
-  ],
-  "Goa": [
-    "Panaji", "Margao", "Vasco da Gama", "Mapusa"
-  ],
-  "Gujarat": [
-    "Ahmedabad", "Surat", "Vadodara", "Rajkot", "Bhavnagar",
-    "Jamnagar", "Junagadh", "Anand", "Gandhinagar"
-  ],
-  "Haryana": [
-    "Gurgaon", "Faridabad", "Panipat", "Ambala", "Karnal",
-    "Hisar", "Rohtak", "Sonipat", "Panchkula"
-  ],
-  "Himachal Pradesh": [
-    "Shimla", "Dharamshala", "Manali", "Solan", "Mandi"
-  ],
-  "Jharkhand": [
-    "Ranchi", "Jamshedpur", "Dhanbad", "Bokaro", "Hazaribagh"
-  ],
-  "Karnataka": [
-    "Bengaluru", "Mysuru", "Mangaluru", "Hubli", "Belagavi",
-    "Davangere", "Ballari", "Tumakuru", "Shivamogga"
-  ],
-  "Kerala": [
-    "Thiruvananthapuram", "Kochi", "Kozhikode", "Thrissur", "Kollam",
-    "Alappuzha", "Palakkad", "Kannur"
-  ],
-  "Madhya Pradesh": [
-    "Bhopal", "Indore", "Gwalior", "Jabalpur", "Ujjain",
-    "Sagar", "Satna", "Rewa"
-  ],
-  "Maharashtra": [
-    "Mumbai", "Pune", "Nagpur", "Nashik", "Thane",
-    "Aurangabad", "Solapur", "Kolhapur", "Amravati"
-  ],
-  "Manipur": [
-    "Imphal", "Thoubal", "Churachandpur"
-  ],
-  "Meghalaya": [
-    "Shillong", "Tura", "Jowai"
-  ],
-  "Mizoram": [
-    "Aizawl", "Lunglei", "Champhai"
-  ],
-  "Nagaland": [
-    "Kohima", "Dimapur", "Mokokchung"
-  ],
-  "Odisha": [
-    "Bhubaneswar", "Cuttack", "Rourkela", "Berhampur", "Sambalpur"
-  ],
-  "Punjab": [
-    "Amritsar", "Ludhiana", "Jalandhar", "Patiala", "Bathinda",
-    "Mohali", "Hoshiarpur"
-  ],
-  "Rajasthan": [
-    "Jaipur", "Jodhpur", "Udaipur", "Kota", "Bikaner",
-    "Ajmer", "Alwar", "Sikar"
-  ],
-  "Sikkim": [
-    "Gangtok", "Namchi", "Gyalshing"
-  ],
-  "Tamil Nadu": [
-    "Chennai", "Coimbatore", "Madurai", "Tiruchirappalli", "Salem",
-    "Tirunelveli", "Erode", "Vellore", "Thoothukudi"
-  ],
-  "Telangana": [
-    "Hyderabad", "Warangal", "Nizamabad", "Karimnagar", "Khammam"
-  ],
-  "Tripura": [
-    "Agartala", "Udaipur", "Dharmanagar"
-  ],
-  "Uttar Pradesh": [
-    "Lucknow", "Kanpur", "Varanasi", "Agra", "Prayagraj",
-    "Ghaziabad", "Noida", "Meerut", "Bareilly", "Aligarh"
-  ],
-  "Uttarakhand": [
-    "Dehradun", "Haridwar", "Rishikesh", "Haldwani", "Nainital"
-  ],
-  "West Bengal": [
-    "Kolkata", "Howrah", "Durgapur", "Asansol", "Siliguri",
-    "Kharagpur", "Haldia"
-  ],
-
-  // ✅ Union Territories
-  "Andaman and Nicobar Islands": [
-    "Port Blair", "Havelock Island", "Car Nicobar"
-  ],
-  "Chandigarh": ["Chandigarh"],
-  "Dadra and Nagar Haveli and Daman and Diu": [
-    "Daman", "Diu", "Silvassa"
-  ],
-  "Jammu and Kashmir": [
-    "Srinagar", "Jammu", "Anantnag", "Baramulla", "Leh"
-  ],
+  "Arunachal Pradesh": ["Itanagar", "Tawang", "Naharlagun", "Pasighat", "Ziro"],
+  "Jammu and Kashmir": ["Srinagar", "Jammu", "Anantnag", "Baramulla", "Leh"],
   "Ladakh": ["Leh", "Kargil"],
   "Lakshadweep": ["Kavaratti"],
-  "Puducherry": ["Puducherry", "Karaikal", "Mahe", "Yanam"]
+  "Puducherry": ["Puducherry", "Karaikal", "Mahe", "Yanam"],
 };
 
 const Step4 = () => {
@@ -127,27 +23,12 @@ const Step4 = () => {
     (location.state && location.state.lawyer_id) ||
     localStorage.getItem("lawyerId");
 
-  // ✅ Safely parse localStorage data
+  // ✅ Safe localStorage load
   let storedStep4Data = { addresses: [], workingHours: "" };
   try {
     const saved = JSON.parse(localStorage.getItem("step4FormData"));
-    if (saved && Array.isArray(saved.addresses)) {
-      storedStep4Data = saved;
-    } else {
-      storedStep4Data = {
-        addresses: [
-          {
-            streetAddress: "",
-            city: "",
-            state: "",
-            zipCode: "",
-            latitude: "",
-            longitude: "",
-          },
-        ],
-        workingHours: "",
-      };
-    }
+    if (saved && Array.isArray(saved.addresses)) storedStep4Data = saved;
+    else throw new Error();
   } catch {
     storedStep4Data = {
       addresses: [
@@ -166,6 +47,13 @@ const Step4 = () => {
 
   const [addresses, setAddresses] = useState(storedStep4Data.addresses);
   const [workingHours, setWorkingHours] = useState(storedStep4Data.workingHours);
+  const [showModal, setShowModal] = useState(false);
+
+  const [selectedDays, setSelectedDays] = useState([]);
+  const [openTime, setOpenTime] = useState("09:00");
+  const [closeTime, setCloseTime] = useState("22:00");
+
+  const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
   // 🧠 Auto-save to localStorage
   useEffect(() => {
@@ -195,14 +83,51 @@ const Step4 = () => {
     setAddresses(addresses.filter((_, i) => i !== index));
   };
 
-  // ✏️ Handle address changes
+  // ✏️ Handle address change
   const handleAddressChange = (index, field, value) => {
     const updated = [...addresses];
     updated[index][field] = value;
     setAddresses(updated);
   };
 
-  // 🚀 Submit
+  // 🕒 Convert 24hr → 12hr format
+  const formatTime = (time) => {
+    const [hour, minute] = time.split(":");
+    let h = parseInt(hour, 10);
+    const ampm = h >= 12 ? "PM" : "AM";
+    h = h % 12 || 12;
+    return `${h}:${minute} ${ampm}`;
+  };
+
+  // 🧩 Toggle day selection
+  const toggleDay = (day) => {
+    if (selectedDays.includes(day)) {
+      setSelectedDays(selectedDays.filter((d) => d !== day));
+    } else {
+      setSelectedDays([...selectedDays, day]);
+    }
+  };
+
+  // 💾 Save working hours
+  const handleSaveWorkingHours = () => {
+    if (selectedDays.length === 0) {
+      alert("Please select at least one day.");
+      return;
+    }
+
+    // Group consecutive days (e.g., Mon–Fri)
+    const sortedDays = days.filter((d) => selectedDays.includes(d));
+    const dayString =
+      sortedDays.length > 1
+        ? `${sortedDays[0]}–${sortedDays[sortedDays.length - 1]}`
+        : sortedDays[0];
+
+    const formatted = `${dayString} ${formatTime(openTime)} – ${formatTime(closeTime)}`;
+    setWorkingHours(formatted);
+    setShowModal(false);
+  };
+
+  // 🚀 Submit to backend
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -245,118 +170,117 @@ const Step4 = () => {
         </div>
 
         <form className="lr-step4-form" onSubmit={handleSubmit}>
-          {Array.isArray(addresses) &&
-            addresses.map((addr, index) => (
-              <div key={index} className="lr-step4-address-block">
-                <div className="lr-step4-section">
-                  <label className="lr-step4-label">
-                    Office Address {index + 1} *
-                  </label>
+          {addresses.map((addr, index) => (
+            <div key={index} className="lr-step4-address-block">
+              <div className="lr-step4-section">
+                <label className="lr-step4-label">
+                  Office Address {index + 1} *
+                </label>
+                <input
+                  type="text"
+                  className="lr-step4-input"
+                  placeholder="123 Main Street, Suite 100"
+                  value={addr.streetAddress}
+                  onChange={(e) =>
+                    handleAddressChange(index, "streetAddress", e.target.value)
+                  }
+                />
+              </div>
+
+              <div className="lr-step4-row">
+                <div className="lr-step4-input-box">
+                  <select
+                    className="lr-step4-input"
+                    value={addr.state}
+                    onChange={(e) => {
+                      handleAddressChange(index, "state", e.target.value);
+                      handleAddressChange(index, "city", "");
+                    }}
+                  >
+                    <option value="">Select State</option>
+                    {Object.keys(indiaStates || {}).map((st) => (
+                      <option key={st} value={st}>
+                        {st}
+                      </option>
+                    ))}
+                  </select>
+                  <span className="lr-step4-placeholder">State</span>
+                </div>
+
+                <div className="lr-step4-input-box">
+                  <select
+                    className="lr-step4-input"
+                    value={addr.city}
+                    onChange={(e) =>
+                      handleAddressChange(index, "city", e.target.value)
+                    }
+                    disabled={!addr.state}
+                  >
+                    <option value="">Select City</option>
+                    {addr.state &&
+                      indiaStates[addr.state]?.map((ct) => (
+                        <option key={ct} value={ct}>
+                          {ct}
+                        </option>
+                      ))}
+                  </select>
+                  <span className="lr-step4-placeholder">City</span>
+                </div>
+              </div>
+
+              <div className="lr-step4-row">
+                <div className="lr-step4-input-box">
                   <input
                     type="text"
                     className="lr-step4-input"
-                    placeholder="123 Main Street, Suite 100"
-                    value={addr.streetAddress}
+                    placeholder="Zip Code"
+                    value={addr.zipCode}
                     onChange={(e) =>
-                      handleAddressChange(index, "streetAddress", e.target.value)
+                      handleAddressChange(index, "zipCode", e.target.value)
                     }
                   />
+                  <span className="lr-step4-placeholder">Zip Code</span>
                 </div>
 
-                <div className="lr-step4-row">
-                  <div className="lr-step4-input-box">
-                    <select
-                      className="lr-step4-input"
-                      value={addr.state}
-                      onChange={(e) => {
-                        handleAddressChange(index, "state", e.target.value);
-                        handleAddressChange(index, "city", "");
-                      }}
-                    >
-                      <option value="">Select State</option>
-                      {Object.keys(indiaStates || {}).map((st) => (
-                        <option key={st} value={st}>
-                          {st}
-                        </option>
-                      ))}
-                    </select>
-                    <span className="lr-step4-placeholder">State</span>
-                  </div>
-
-                  <div className="lr-step4-input-box">
-                    <select
-                      className="lr-step4-input"
-                      value={addr.city}
-                      onChange={(e) =>
-                        handleAddressChange(index, "city", e.target.value)
-                      }
-                      disabled={!addr.state}
-                    >
-                      <option value="">Select City</option>
-                      {addr.state &&
-                        indiaStates[addr.state]?.map((ct) => (
-                          <option key={ct} value={ct}>
-                            {ct}
-                          </option>
-                        ))}
-                    </select>
-                    <span className="lr-step4-placeholder">City</span>
-                  </div>
+                <div className="lr-step4-input-box">
+                  <input
+                    type="text"
+                    className="lr-step4-input"
+                    placeholder="Latitude"
+                    value={addr.latitude}
+                    onChange={(e) =>
+                      handleAddressChange(index, "latitude", e.target.value)
+                    }
+                  />
+                  <span className="lr-step4-placeholder">Latitude</span>
                 </div>
 
-                <div className="lr-step4-row">
-                  <div className="lr-step4-input-box">
-                    <input
-                      type="text"
-                      className="lr-step4-input"
-                      placeholder="Zip Code"
-                      value={addr.zipCode}
-                      onChange={(e) =>
-                        handleAddressChange(index, "zipCode", e.target.value)
-                      }
-                    />
-                    <span className="lr-step4-placeholder">Zip Code</span>
-                  </div>
-
-                  <div className="lr-step4-input-box">
-                    <input
-                      type="text"
-                      className="lr-step4-input"
-                      placeholder="Latitude"
-                      value={addr.latitude}
-                      onChange={(e) =>
-                        handleAddressChange(index, "latitude", e.target.value)
-                      }
-                    />
-                    <span className="lr-step4-placeholder">Latitude</span>
-                  </div>
-
-                  <div className="lr-step4-input-box">
-                    <input
-                      type="text"
-                      className="lr-step4-input"
-                      placeholder="Longitude"
-                      value={addr.longitude}
-                      onChange={(e) =>
-                        handleAddressChange(index, "longitude", e.target.value)
-                      }
-                    />
-                    <span className="lr-step4-placeholder">Longitude</span>
-                  </div>
+                <div className="lr-step4-input-box">
+                  <input
+                    type="text"
+                    className="lr-step4-input"
+                    placeholder="Longitude"
+                    value={addr.longitude}
+                    onChange={(e) =>
+                      handleAddressChange(index, "longitude", e.target.value)
+                    }
+                  />
+                  <span className="lr-step4-placeholder">Longitude</span>
                 </div>
-
-                {addresses.length > 1 && (
-                  <button
-                    type="button"
-                    className="lr-step4-remove-btn"
-                    onClick={() => removeAddress(index)}
-                  >
-                    Remove Address
-                  </button>
-                )}
-                <hr className="lr-step4-divider" />
               </div>
-            ))}
+
+              {addresses.length > 1 && (
+                <button
+                  type="button"
+                  className="lr-step4-remove-btn"
+                  onClick={() => removeAddress(index)}
+                >
+                  Remove Address
+                </button>
+              )}
+              <hr className="lr-step4-divider" />
+            </div>
+          ))}
 
           <button
             type="button"
@@ -366,15 +290,15 @@ const Step4 = () => {
             + Add Another Address
           </button>
 
+          {/* Working Hours Section */}
           <div className="lr-step4-section">
-            <input
-              type="text"
-              className="lr-step4-input"
-              placeholder="Mon–Fri 9AM–6PM"
-              value={workingHours}
-              onChange={(e) => setWorkingHours(e.target.value)}
-            />
-            <span className="lr-step4-placeholder">Working Hours</span>
+            <label className="lr-step4-label">Working Hours</label>
+            <div
+              className="lr-step4-input lr-step4-workinghours-display"
+              onClick={() => setShowModal(true)}
+            >
+              {workingHours || "Select Working Days & Hours"}
+            </div>
           </div>
 
           <div className="lr-step4-btn-container">
@@ -391,7 +315,52 @@ const Step4 = () => {
           </div>
         </form>
       </div>
+
+      {/* Modal */}
+      {showModal && (
+        <div className="working-hours-overlay">
+          <div className="working-hours-popup">
+            <h3>Choose Days and Hours</h3>
+
+            <div className="days-selector">
+              {days.map((day) => (
+                <button
+                  key={day}
+                  className={`day-btn ${selectedDays.includes(day) ? "active" : ""}`}
+                  onClick={() => toggleDay(day)}
+                >
+                  {day}
+                </button>
+              ))}
+            </div>
+
+            <div className="time-inputs">
+              <input
+                type="time"
+                value={openTime}
+                onChange={(e) => setOpenTime(e.target.value)}
+              />
+              <span>–</span>
+              <input
+                type="time"
+                value={closeTime}
+                onChange={(e) => setCloseTime(e.target.value)}
+              />
+            </div>
+
+            <div className="popup-actions">
+              {/* <button className="cancel-btn" onClick={() => setShowModal(false)}>
+                Cancel
+              </button> */}
+              <button className="save-btn" onClick={handleSaveWorkingHours}>
+                Save
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
+
 export default Step4;

@@ -3,21 +3,40 @@ import "./Step2.css";
 import { useLocation, useNavigate } from "react-router-dom";
 import { createLawyerProfile } from "../../Service/Service";
 
+const statesAndCities = {
+  "Andhra Pradesh": ["Visakhapatnam", "Vijayawada", "Guntur", "Tirupati"],
+  "Assam": ["Guwahati", "Silchar", "Dibrugarh", "Jorhat"],
+  "Bihar": ["Patna", "Gaya", "Muzaffarpur", "Bhagalpur"],
+  "Delhi": ["New Delhi", "Dwarka", "Rohini", "Karol Bagh"],
+  "Gujarat": ["Ahmedabad", "Surat", "Vadodara", "Rajkot"],
+  "Haryana": ["Gurugram", "Faridabad", "Panipat", "Hisar"],
+  "Karnataka": ["Bengaluru", "Mysuru", "Hubli", "Mangalore"],
+  "Kerala": ["Kochi", "Thiruvananthapuram", "Kozhikode", "Thrissur"],
+  "Madhya Pradesh": ["Bhopal", "Indore", "Gwalior", "Jabalpur"],
+  "Maharashtra": ["Mumbai", "Pune", "Nagpur", "Nashik"],
+  "Odisha": ["Bhubaneswar", "Cuttack", "Rourkela", "Puri"],
+  "Punjab": ["Amritsar", "Ludhiana", "Jalandhar", "Patiala"],
+  "Rajasthan": ["Jaipur", "Udaipur", "Jodhpur", "Kota"],
+  "Tamil Nadu": ["Chennai", "Coimbatore", "Madurai", "Salem"],
+  "Telangana": ["Hyderabad", "Warangal", "Karimnagar", "Nizamabad"],
+  "Uttar Pradesh": ["Lucknow", "Noida", "Kanpur", "Varanasi"],
+  "Uttarakhand": ["Dehradun", "Haridwar", "Nainital", "Rishikesh"],
+  "West Bengal": ["Kolkata", "Howrah", "Durgapur", "Siliguri"]
+};
+
+
 const LawyerRegistrationStep2 = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  // Load lawyerId from location.state or localStorage
   const storedId = localStorage.getItem("lawyerId");
   const { lawyerId: idFromState } = location.state || {};
   const lawyerId = idFromState || storedId;
 
-  // Persist lawyerId if obtained from location
   useEffect(() => {
     if (idFromState) localStorage.setItem("lawyerId", idFromState);
   }, [idFromState]);
 
-  // Safe parse helper
   const safeParse = (key, fallback) => {
     try {
       const value = JSON.parse(localStorage.getItem(key));
@@ -27,7 +46,6 @@ const LawyerRegistrationStep2 = () => {
     }
   };
 
-  // Load saved Step2 data with safe defaults
   const storedData = safeParse("lawyerStep2Data", {
     bio: "",
     yearsOfExperience: "",
@@ -42,28 +60,10 @@ const LawyerRegistrationStep2 = () => {
   const [yearsOfExperience, setYearsOfExperience] = useState(
     storedData.yearsOfExperience || ""
   );
-  const [barDetails, setBarDetails] = useState(
-    Array.isArray(storedData.barDetails) && storedData.barDetails.length
-      ? storedData.barDetails
-      : [
-          {
-            bar_license_number: "",
-            bar_association_name: "",
-            state: "",
-            city: "",
-          },
-        ]
-  );
-  const [educationList, setEducationList] = useState(
-    Array.isArray(storedData.educationList) && storedData.educationList.length
-      ? storedData.educationList
-      : [{ degree: "", college_name: "", graduation_year: "" }]
-  );
-  const [languages, setLanguages] = useState(
-    Array.isArray(storedData.languages) ? storedData.languages : []
-  );
+  const [barDetails, setBarDetails] = useState(storedData.barDetails);
+  const [educationList, setEducationList] = useState(storedData.educationList);
+  const [languages, setLanguages] = useState(storedData.languages);
 
-  // Save Step2 data to localStorage whenever it changes
   useEffect(() => {
     const step2Data = {
       bio,
@@ -75,7 +75,6 @@ const LawyerRegistrationStep2 = () => {
     localStorage.setItem("lawyerStep2Data", JSON.stringify(step2Data));
   }, [bio, yearsOfExperience, barDetails, educationList, languages]);
 
-  // ---------- Education ----------
   const addEducation = () => {
     setEducationList([
       ...educationList,
@@ -89,7 +88,6 @@ const LawyerRegistrationStep2 = () => {
     setEducationList(updated);
   };
 
-  // ---------- Bar Details ----------
   const addBarDetail = () => {
     setBarDetails([
       ...barDetails,
@@ -100,17 +98,19 @@ const LawyerRegistrationStep2 = () => {
   const handleBarDetailChange = (index, field, value) => {
     const updated = [...barDetails];
     updated[index][field] = value;
+
+    if (field === "state") {
+      updated[index].city = "";
+    }
     setBarDetails(updated);
   };
 
-  // ---------- Languages ----------
   const toggleLanguage = (lang) => {
     setLanguages((prev) =>
       prev.includes(lang) ? prev.filter((l) => l !== lang) : [...prev, lang]
     );
   };
 
-  // ---------- Submit ----------
   const handleSubmit = async () => {
     if (!lawyerId) {
       alert("Lawyer ID missing. Please complete Step 1 first.");
@@ -132,14 +132,13 @@ const LawyerRegistrationStep2 = () => {
 
     try {
       const res = await createLawyerProfile(profileData);
-
-      // Persist lawyerProfileId for Step3
       const profileId = res.id || res.lawyer_profile_id;
+
       if (profileId) {
         localStorage.setItem("lawyerProfileId", profileId);
         navigate("/step3", { state: { lawyerProfileId: profileId } });
       } else {
-        alert("Profile created but ID missing in response");
+        alert("Profile created but ID missing");
       }
     } catch (err) {
       alert(err.detail || "Profile creation failed");
@@ -152,44 +151,36 @@ const LawyerRegistrationStep2 = () => {
         <h2 className="lr-step2-title">Lawyer Registration</h2>
         <p className="lr-step2-subtitle">Step 2 of 6: Professional Summary</p>
 
-        {/* Progress bar */}
         <div className="lr-step2-progress">
           <div className="lr-step2-progress-bar" style={{ width: "22%" }}></div>
           <span className="lr-step2-progress-text">22% Complete</span>
         </div>
 
-        {/* Short Bio */}
-        <label className="lr-step2-label">Short Bio / About Me *</label>
+        <label className="lr-step2-label">Short Bio *</label>
         <textarea
           className="lr-step2-textarea"
-          placeholder="Tell potential clients about yourself..."
+          placeholder="Tell potential clients about yourself"
           value={bio}
           onChange={(e) => setBio(e.target.value)}
         ></textarea>
 
-        {/* Years of Experience */}
-        <div className="lr-step2-row">
-          <div className="lr-step2-input-box full-width">
-            <label className="lr-step2-label">Years of Experience *</label>
-            <input
-              type="text"
-              placeholder="e.g., 20+ years practicing law"
-              className="lr-step2-input"
-              value={yearsOfExperience}
-              onChange={(e) => setYearsOfExperience(e.target.value)}
-            />
-          </div>
-        </div>
+        <label className="lr-step2-label">Years of Experience *</label>
+        <input
+          type="text"
+          className="lr-step2-input"
+          placeholder="e.g. 5"
+          value={yearsOfExperience}
+          onChange={(e) => setYearsOfExperience(e.target.value)}
+        />
 
-        {/* Bar Details */}
         <div className="lr-step2-section">
           <label className="lr-step2-label">Bar Details</label>
           {barDetails.map((bar, index) => (
             <div key={index} className="lr-step2-row">
               <input
                 type="text"
-                placeholder="Bar License Number"
                 className="lr-step2-input"
+                placeholder="Bar License Number"
                 value={bar.bar_license_number}
                 onChange={(e) =>
                   handleBarDetailChange(index, "bar_license_number", e.target.value)
@@ -197,31 +188,41 @@ const LawyerRegistrationStep2 = () => {
               />
               <input
                 type="text"
-                placeholder="Bar Association Name"
                 className="lr-step2-input"
+                placeholder="Bar Association Name"
                 value={bar.bar_association_name}
                 onChange={(e) =>
                   handleBarDetailChange(index, "bar_association_name", e.target.value)
                 }
               />
-              <input
-                type="text"
-                placeholder="State"
-                className="lr-step2-input"
-                value={bar.state}
-                onChange={(e) =>
-                  handleBarDetailChange(index, "state", e.target.value)
-                }
-              />
-              <input
-                type="text"
-                placeholder="City"
-                className="lr-step2-input"
-                value={bar.city}
-                onChange={(e) =>
-                  handleBarDetailChange(index, "city", e.target.value)
-                }
-              />
+
+              <select
+                  className="lr-step2-input"
+                  value={bar.state}
+                  onChange={(e) => handleBarDetailChange(index, "state", e.target.value)}
+                >
+                  <option value="">Select State</option>
+                  {Object.keys(statesAndCities).map((state, i) => (
+                    <option key={i} value={state}>
+                      {state}
+                    </option>
+                  ))}
+                </select>
+
+                <select
+                  className="lr-step2-input"
+                  value={bar.city}
+                  onChange={(e) => handleBarDetailChange(index, "city", e.target.value)}
+                  disabled={!bar.state} // Disable if state is not selected yet
+                >
+                  <option value="">Select City</option>
+                  {statesAndCities[bar.state]?.map((city, i) => (
+                    <option key={i} value={city}>
+                      {city}
+                    </option>
+                  ))}
+                </select>
+
             </div>
           ))}
           <button className="lr-step2-add-btn" onClick={addBarDetail}>
@@ -229,7 +230,6 @@ const LawyerRegistrationStep2 = () => {
           </button>
         </div>
 
-        {/* Languages Spoken */}
         <div className="lr-step2-section">
           <label className="lr-step2-label">Languages Spoken</label>
           <div className="lr-step2-checkboxes">
@@ -246,8 +246,8 @@ const LawyerRegistrationStep2 = () => {
               "Arabic",
               "Hindi",
               "Russian",
-            ].map((lang, index) => (
-              <label key={index} className="lr-step2-checkbox-label">
+            ].map((lang) => (
+              <label key={lang} className="lr-step2-checkbox-label">
                 <input
                   type="checkbox"
                   className="lr-step2-checkbox"
@@ -260,15 +260,14 @@ const LawyerRegistrationStep2 = () => {
           </div>
         </div>
 
-        {/* Education */}
         <div className="lr-step2-section">
           <label className="lr-step2-label">Education</label>
           {educationList.map((edu, index) => (
             <div key={index} className="lr-step2-row">
               <input
                 type="text"
-                placeholder="J.D., LL.M., etc."
                 className="lr-step2-input"
+                placeholder="Degree"
                 value={edu.degree}
                 onChange={(e) =>
                   handleEducationChange(index, "degree", e.target.value)
@@ -276,8 +275,8 @@ const LawyerRegistrationStep2 = () => {
               />
               <input
                 type="text"
-                placeholder="Harvard Law School"
                 className="lr-step2-input"
+                placeholder="College Name"
                 value={edu.college_name}
                 onChange={(e) =>
                   handleEducationChange(index, "college_name", e.target.value)
@@ -285,8 +284,8 @@ const LawyerRegistrationStep2 = () => {
               />
               <input
                 type="text"
-                placeholder="e.g., 2015"
                 className="lr-step2-input"
+                placeholder="e.g. 2020"
                 value={edu.graduation_year}
                 onChange={(e) =>
                   handleEducationChange(index, "graduation_year", e.target.value)
@@ -299,9 +298,10 @@ const LawyerRegistrationStep2 = () => {
           </button>
         </div>
 
-        {/* Navigation Buttons */}
         <div className="lr-step2-footer">
-          <button className="lr-step2-prev-btn">Previous</button>
+          <button className="lr-step2-prev-btn" onClick={() => navigate(-1)}>
+            Previous
+          </button>
           <button className="lr-step2-next-btn" onClick={handleSubmit}>
             Next
           </button>
