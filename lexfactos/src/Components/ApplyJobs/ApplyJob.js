@@ -1,5 +1,5 @@
 // src/Pages/Jobs/BrowseJobGrid.js
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import axios from "axios";
 import { FaGlobeAsia } from "react-icons/fa";
 import { IoLocationOutline } from "react-icons/io5";
@@ -17,8 +17,8 @@ export default function BrowseJobGrid() {
   const [mostRecent, setMostRecent] = useState(true);
   const navigate = useNavigate();
 
-  // ✅ Fetch only verified jobs
-  const fetchJobs = async () => {
+  // ✅ useCallback to prevent ESLint warnings (react-hooks/exhaustive-deps)
+  const fetchJobs = useCallback(async () => {
     try {
       const params = new URLSearchParams();
       if (filters.title) params.append("title", filters.title);
@@ -39,12 +39,13 @@ export default function BrowseJobGrid() {
       });
     } catch (error) {
       console.error("Error fetching jobs:", error);
+      throw new Error("Failed to fetch jobs"); // ✅ proper error object
     }
-  };
+  }, [filters, mostRecent]);
 
   useEffect(() => {
     fetchJobs();
-  }, [mostRecent]);
+  }, [fetchJobs]);
 
   const handleSearch = () => {
     fetchJobs();

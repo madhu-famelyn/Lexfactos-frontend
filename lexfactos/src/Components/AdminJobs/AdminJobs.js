@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import axios from "axios";
 import Sidebar from "../AdminSidebar/AdminSidebar";
 import "./AdminJobs.css";
@@ -25,7 +25,8 @@ export default function AdminJobs() {
   const [confirmVerifyJob, setConfirmVerifyJob] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const fetchJobs = async () => {
+  // ✅ Wrap fetchJobs with useCallback to avoid missing dependency warnings
+  const fetchJobs = useCallback(async () => {
     try {
       setLoading(true);
       const response = await axios.get(
@@ -48,11 +49,12 @@ export default function AdminJobs() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [filter, sort, statusFilter]);
 
+  // ✅ No more ESLint warnings about missing dependencies
   useEffect(() => {
     fetchJobs();
-  }, [filter, sort, statusFilter]);
+  }, [fetchJobs]);
 
   const handleViewMore = () => setVisibleCount((prev) => prev + 10);
 
@@ -65,6 +67,7 @@ export default function AdminJobs() {
       fetchJobs();
     } catch (err) {
       console.error("Error verifying job:", err);
+      throw new Error("Failed to verify job"); // ✅ Proper error object
     }
   };
 
