@@ -21,8 +21,8 @@ const LawyerRegistrationStep5 = () => {
       ? storedStep5Data.caseResults
       : [{ title: "", outcome: "", summary: "" }]
   );
-  const [officeImage, setOfficeImage] = useState(storedStep5Data.officeImage || null);
-  const [imagePreview, setImagePreview] = useState(storedStep5Data.imagePreview || null);
+  // const [officeImage, setOfficeImage] = useState(storedStep5Data.officeImage || null);
+  // const [imagePreview, setImagePreview] = useState(storedStep5Data.imagePreview || null);
 
   // ✅ Save to localStorage whenever caseResults or officeImage changes
   useEffect(() => {
