@@ -17,12 +17,12 @@ const LawyerRegistrationStep5 = () => {
   }
 
   // ✅ Define missing states to avoid 'no-undef' errors
-  const [officeImage, setOfficeImage] = useState(
-    storedStep5Data.officeImage || null
-  );
-  const [imagePreview, setImagePreview] = useState(
-    storedStep5Data.imagePreview || null
-  );
+  // const [officeImage, setOfficeImage] = useState(
+  //   storedStep5Data.officeImage || null
+  // );
+  // const [imagePreview, setImagePreview] = useState(
+  //   storedStep5Data.imagePreview || null
+  // );
 
   const [caseResults, setCaseResults] = useState(
     Array.isArray(storedStep5Data.caseResults)
