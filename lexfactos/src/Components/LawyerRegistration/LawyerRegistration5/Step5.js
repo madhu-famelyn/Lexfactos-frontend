@@ -46,14 +46,14 @@ const LawyerRegistrationStep5 = () => {
     setCaseResults(newResults);
   };
 
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    setOfficeImage(file);
-    if (file) {
-      const previewUrl = URL.createObjectURL(file);
-      setImagePreview(previewUrl);
-    }
-  };
+  // const handleImageChange = (e) => {
+  //   const file = e.target.files[0];
+  //   setOfficeImage(file);
+  //   if (file) {
+  //     const previewUrl = URL.createObjectURL(file);
+  //     setImagePreview(previewUrl);
+  //   }
+  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
