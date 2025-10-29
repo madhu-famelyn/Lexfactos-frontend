@@ -160,7 +160,7 @@ const SignupPage = () => {
             <label>
               <input type="checkbox" /> Remember me
             </label>
-            <a href="javascript:void(0)" className="forgot">
+            <a href="/coming-soon"  className="forgot">
               Forgot password?
             </a>
           </div>
