@@ -45,7 +45,7 @@ import ViewJobDetails from "./Components/ApplyJobs/ViewJobDetails";
 import ApplicantsPage from "./Components/UserProfile/ApplicantsPage/ApplicantsPage";
 import MyAppliedJobsPage from "./Components/UserProfile/MyAppliedJobsPage/MyAppliedJobsPage";
 import AdminJobs from "./Components/AdminJobs/AdminJobs";
-// import ForgotPasswordUser from "./Components/ForgotPasswordUser/ForgotPassword";
+import ForgotPasswordUser from "./Components/ForgotPasswordUser/ForgotPassword";
 import LawyerFullRegistration from "./Components/LawyerRegistration/LawyerFullRegistration/LawyerFullRegistration";
 import UserResetPassword from "./Components/ForgotPasswordUser/ResetPassword";
 
@@ -130,7 +130,7 @@ function App() {
                 <Route path="/my-applied-jobs" element={<MyAppliedJobsPage />} />
                 <Route path="/job-post" element={<AdminJobs />} />
                 <Route path="/lawyer-auth" element={<LawyerAuth />} />
-                <Route path="/forgot-password-user" element={<LawyerForgotPassword />} />
+                <Route path="/forgot-password-user" element={<ForgotPasswordUser />} />
                 <Route path="/change-lawyer-password" element={<LawyerForgotPassword />} />
                 <Route path="/user/reset-password" element={<UserResetPassword />} />
                 <Route path="/reset-password" element={<LawyerResetPassword />} />

@@ -1,3 +1,4 @@
+// src/Pages/LawyerFullRegistration.js
 import React, { useState } from "react";
 import axios from "axios";
 import Select from "react-select";
@@ -81,6 +82,9 @@ const LawyerFullRegistration = () => {
   const [photoFile, setPhotoFile] = useState(null);
   const [officeImageFile, setOfficeImageFile] = useState(null);
 
+  const [loading, setLoading] = useState(false);
+  const [successPopup, setSuccessPopup] = useState(false);
+
   // Dropdown options
   const languageOptions = [
     { value: "English", label: "English" },
@@ -97,6 +101,7 @@ const LawyerFullRegistration = () => {
     { value: "Animal Law", label: "Animal Law" },
   ];
 
+  // Handlers
   const handleChange = (e) => {
     const { name, value } = e.target;
     setForm((prev) => ({ ...prev, [name]: value }));
@@ -120,7 +125,13 @@ const LawyerFullRegistration = () => {
   const removeNestedItem = (field, index) => {
     setForm((prev) => {
       const arr = prev[field].filter((_, i) => i !== index);
-      return { ...prev, [field]: arr.length ? arr : [Object.keys(prev[field][0]).reduce((a, k) => ({ ...a, [k]: "" }), {})] };
+      return {
+        ...prev,
+        [field]:
+          arr.length > 0
+            ? arr
+            : [Object.keys(prev[field][0]).reduce((acc, k) => ({ ...acc, [k]: "" }), {})],
+      };
     });
   };
 
@@ -132,49 +143,54 @@ const LawyerFullRegistration = () => {
     setForm((prev) => ({ ...prev, practice_area: selected || [] }));
   };
 
+  // Submit form
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     const fd = new FormData();
+    const fields = [
+      "full_name",
+      "email",
+      "phone_number",
+      "hashed_password",
+      "bio",
+      "years_of_experience",
+      "court_admitted_to",
+      "active_since",
+      "working_hours",
+      "professional_associations",
+    ];
+    fields.forEach((f) => fd.append(f, form[f]));
 
-    fd.append("full_name", form.full_name);
-    fd.append("email", form.email);
-    fd.append("phone_number", form.phone_number);
-    fd.append("hashed_password", form.hashed_password);
-    fd.append("bio", form.bio);
-    fd.append("years_of_experience", form.years_of_experience);
-    fd.append("court_admitted_to", form.court_admitted_to);
-    fd.append("active_since", form.active_since);
-    fd.append("working_hours", form.working_hours);
-    fd.append("professional_associations", form.professional_associations);
-
-    // Convert selects to comma-separated string
     fd.append("languages_spoken", form.languages_spoken.map((l) => l.value).join(","));
     fd.append("practice_area", form.practice_area.map((p) => p.value).join(","));
 
-    // JSON-stringify nested structures
-    fd.append("bar_details", JSON.stringify(form.bar_details));
-    fd.append("education", JSON.stringify(form.education));
-    fd.append("work_experience", JSON.stringify(form.work_experience));
-    fd.append("case_results", JSON.stringify(form.case_results));
-    fd.append("address", JSON.stringify(form.address));
-    fd.append("certifications", JSON.stringify(form.certifications));
-    fd.append("awards", JSON.stringify(form.awards));
-    fd.append("publications", JSON.stringify(form.publications));
+    [
+      "bar_details",
+      "education",
+      "work_experience",
+      "case_results",
+      "address",
+      "certifications",
+      "awards",
+      "publications",
+    ].forEach((key) => fd.append(key, JSON.stringify(form[key])));
 
     if (photoFile) fd.append("photo", photoFile);
-    if (officeImageFile) fd.append("office_image", officeImageFile);
+    // if (officeImageFile) fd.append("office_image", officeImageFile); // commented intentionally
 
     try {
       const res = await axios.post("https://lexfactos-backend.fly.dev/lawyer/full/", fd, {
         headers: { "Content-Type": "multipart/form-data" },
       });
-      alert("✅ Lawyer registered successfully!");
       console.log("✅ Response:", res.data);
+      setLoading(false);
+      setSuccessPopup(true);
     } catch (err) {
       console.error("❌ Error:", err);
+      setLoading(false);
       if (err.response) {
-        console.error("Server Response:", err.response.data);
         alert(`Error ${err.response.status}: ${err.response.data.detail || "Unknown error"}`);
       } else {
         alert("Failed: Internal or network error");
@@ -185,8 +201,9 @@ const LawyerFullRegistration = () => {
   return (
     <div className="lawyer-form-container">
       <h2>Full Lawyer Registration</h2>
+
       <form onSubmit={handleSubmit}>
-        {/* === Step 1 === */}
+        {/* === Step 1: Basic Info === */}
         <div className="form-section">
           <h3>Basic Information</h3>
           <label>Full Name *</label>
@@ -197,15 +214,13 @@ const LawyerFullRegistration = () => {
           <input name="phone_number" value={form.phone_number} onChange={handleChange} required />
           <label>Password *</label>
           <input name="hashed_password" type="password" value={form.hashed_password} onChange={handleChange} required />
-
           <label>Photo *</label>
           <input type="file" accept="image/*" onChange={(e) => setPhotoFile(e.target.files[0])} required />
-
-          <label>Office Image (optional)</label>
-          <input type="file" accept="image/*" onChange={(e) => setOfficeImageFile(e.target.files[0])} />
+          {/* <label>Office Image (optional)</label>
+          <input type="file" accept="image/*" onChange={(e) => setOfficeImageFile(e.target.files[0])} /> */}
         </div>
 
-        {/* === Step 2 === */}
+        {/* === Step 2: Profile & Qualifications === */}
         <div className="form-section">
           <h3>Profile & Qualifications</h3>
           <label>Bio</label>
@@ -213,7 +228,6 @@ const LawyerFullRegistration = () => {
           <label>Years of Experience</label>
           <input name="years_of_experience" value={form.years_of_experience} onChange={handleChange} />
 
-          {/* Bar Details */}
           <h4>Bar Details</h4>
           {form.bar_details.map((b, i) => (
             <div key={i} className="nested">
@@ -227,11 +241,9 @@ const LawyerFullRegistration = () => {
           ))}
           <button type="button" onClick={() => addNestedItem("bar_details", { bar_license_number: "", bar_association_name: "", enrollment_year: "", state: "", city: "" })}>+ Add Bar</button>
 
-          {/* Languages */}
           <label>Languages Spoken</label>
           <Select isMulti options={languageOptions} value={form.languages_spoken} onChange={handleLanguageChange} />
 
-          {/* Education */}
           <h4>Education</h4>
           {form.education.map((ed, i) => (
             <div key={i} className="nested">
@@ -244,7 +256,7 @@ const LawyerFullRegistration = () => {
           <button type="button" onClick={() => addNestedItem("education", { degree: "", college_name: "", graduation_year: "" })}>+ Add Education</button>
         </div>
 
-        {/* === Step 3 === */}
+        {/* === Step 3: Practice Details === */}
         <div className="form-section">
           <h3>Practice Details</h3>
           <label>Practice Areas</label>
@@ -266,12 +278,86 @@ const LawyerFullRegistration = () => {
           <button type="button" onClick={() => addNestedItem("work_experience", { company_name: "", role: "", duration: "" })}>+ Add Work Experience</button>
         </div>
 
-        {/* === Step 4–6 === */}
-        {/* Keep your existing nested fields exactly as they were */}
+        {/* === Step 4: Address & Other Details === */}
+        <div className="form-section">
+          <h3>Address Details</h3>
+          {form.address.map((a, i) => (
+            <div key={i} className="nested">
+              <input placeholder="Street Address" value={a.street_address} onChange={(e) => handleNestedChange("address", i, "street_address", e.target.value)} />
+              <input placeholder="City" value={a.city} onChange={(e) => handleNestedChange("address", i, "city", e.target.value)} />
+              <input placeholder="State" value={a.state} onChange={(e) => handleNestedChange("address", i, "state", e.target.value)} />
+              <input placeholder="Zip Code" value={a.zip_code} onChange={(e) => handleNestedChange("address", i, "zip_code", e.target.value)} />
+              <input placeholder="Latitude" value={a.latitude} onChange={(e) => handleNestedChange("address", i, "latitude", e.target.value)} />
+              <input placeholder="Longitude" value={a.longitude} onChange={(e) => handleNestedChange("address", i, "longitude", e.target.value)} />
+              <button type="button" onClick={() => removeNestedItem("address", i)}>Remove</button>
+            </div>
+          ))}
+          <button type="button" onClick={() => addNestedItem("address", { street_address: "", city: "", state: "", zip_code: "", latitude: "", longitude: "" })}>+ Add Address</button>
+
+          <label>Working Hours</label>
+          <input name="working_hours" value={form.working_hours} onChange={handleChange} />
+
+          <label>Professional Associations</label>
+          <input name="professional_associations" value={form.professional_associations} onChange={handleChange} />
+
+          <h4>Certifications</h4>
+          {form.certifications.map((c, i) => (
+            <div key={i} className="nested">
+              <input placeholder="Certification Name" value={c.name} onChange={(e) => handleNestedChange("certifications", i, "name", e.target.value)} />
+              <input placeholder="Issuer" value={c.issuer} onChange={(e) => handleNestedChange("certifications", i, "issuer", e.target.value)} />
+              <button type="button" onClick={() => removeNestedItem("certifications", i)}>Remove</button>
+            </div>
+          ))}
+          <button type="button" onClick={() => addNestedItem("certifications", { name: "", issuer: "" })}>+ Add Certification</button>
+
+          <h4>Awards</h4>
+          {form.awards.map((a, i) => (
+            <div key={i} className="nested">
+              <input placeholder="Award Name" value={a.name} onChange={(e) => handleNestedChange("awards", i, "name", e.target.value)} />
+              <input placeholder="Organization" value={a.organization} onChange={(e) => handleNestedChange("awards", i, "organization", e.target.value)} />
+              <input placeholder="Year" value={a.year} onChange={(e) => handleNestedChange("awards", i, "year", e.target.value)} />
+              <button type="button" onClick={() => removeNestedItem("awards", i)}>Remove</button>
+            </div>
+          ))}
+          <button type="button" onClick={() => addNestedItem("awards", { name: "", organization: "", year: "" })}>+ Add Award</button>
+
+          <h4>Publications</h4>
+          {form.publications.map((p, i) => (
+            <div key={i} className="nested">
+              <input placeholder="Title" value={p.title} onChange={(e) => handleNestedChange("publications", i, "title", e.target.value)} />
+              <input placeholder="Journal" value={p.journal} onChange={(e) => handleNestedChange("publications", i, "journal", e.target.value)} />
+              <input placeholder="Year" value={p.year} onChange={(e) => handleNestedChange("publications", i, "year", e.target.value)} />
+              <button type="button" onClick={() => removeNestedItem("publications", i)}>Remove</button>
+            </div>
+          ))}
+          <button type="button" onClick={() => addNestedItem("publications", { title: "", journal: "", year: "" })}>+ Add Publication</button>
+        </div>
+
         <div className="form-actions">
-          <button type="submit" className="submit-btn">Submit Registration</button>
+          <button type="submit" className="submit-btn" disabled={loading}>
+            {loading ? "Submitting..." : "Submit Registration"}
+          </button>
         </div>
       </form>
+
+      {/* Loader overlay */}
+      {loading && (
+        <div className="loader-overlay">
+          <div className="loader"></div>
+          <p>Submitting your details...</p>
+        </div>
+      )}
+
+      {/* Success popup */}
+      {successPopup && (
+        <div className="popup-overlay">
+          <div className="popup-box">
+            <h3>✅ Registration Successful!</h3>
+            <p>Your details have been submitted successfully.</p>
+            <button onClick={() => setSuccessPopup(false)}>Close</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
