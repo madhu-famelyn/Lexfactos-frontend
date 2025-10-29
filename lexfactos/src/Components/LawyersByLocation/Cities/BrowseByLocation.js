@@ -28,7 +28,7 @@ export default function BrowseByLocation() {
         ))}
       </div>
       <div className="view-more">
-        <a href="#" className="view-more-link">
+        <a href="javascript:void(0)" className="view-more-link">
           View More Cities →
         </a>
       </div>

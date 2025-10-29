@@ -28,7 +28,7 @@ export default function PracticeArea() {
         ))}
       </div>
       <div className="view-all">
-        <a href="#">
+        <a href="javascript:void(0)">
           View All Practice Areas <span className="arrow">→</span>
         </a>
       </div>

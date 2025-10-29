@@ -21,7 +21,7 @@ const TopCities = () => {
       <div className="blue-underline"></div>
       <div className="cities-grid">
         {cities.map((city, index) => (
-          <a key={index} href="#">{city}</a>
+          <a key={index} href="javascript:void(0)">{city}</a>
         ))}
       </div>
     </div>

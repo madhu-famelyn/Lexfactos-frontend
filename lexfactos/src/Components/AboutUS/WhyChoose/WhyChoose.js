@@ -45,7 +45,7 @@ const WhyChoose = () => {
             <div className="icon">{feature.icon}</div>
             <h3>{feature.title}</h3>
             <p>{feature.description}</p>
-            <a href="#" className="learn-more">
+            <a href="javascript:void(0)" className="learn-more">
               Learn more →
             </a>
           </div>
