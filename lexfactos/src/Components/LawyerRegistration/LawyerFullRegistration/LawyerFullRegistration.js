@@ -245,12 +245,12 @@ const barLocationData = {
   };
 
   return (
-    <div className="lawyer-form-container">
+    <div className="full-reg-lawyer-form-container">
       <h2>Full Lawyer Registration</h2>
 
       <form onSubmit={handleSubmit}>
         {/* === Step 1: Basic Info === */}
-        <div className="form-section">
+        <div className="full-reg-form-section">
           <h3>Basic Information</h3>
           <label>Full Name *</label>
           <input name="full_name" value={form.full_name} onChange={handleChange} required />
@@ -267,7 +267,7 @@ const barLocationData = {
         </div>
 
         {/* === Step 2: Profile & Qualifications === */}
-        <div className="form-section">
+        <div className="full-reg-form-section">
           <h3>Profile & Qualifications</h3>
           <label>Bio</label>
           <textarea name="bio" value={form.bio} onChange={handleChange} />
@@ -276,7 +276,7 @@ const barLocationData = {
 
           <h4>Bar Details</h4>
               {form.bar_details.map((b, i) => (
-                <div key={i} className="nested">
+                <div key={i} className="full-reg-nested">
                   <input
                     placeholder="Bar License Number"
                     value={b.bar_license_number}
@@ -354,7 +354,7 @@ const barLocationData = {
                   <button
                     type="button"
                     onClick={() => removeNestedItem("bar_details", i)}
-                    className="lawreg-remove-btn"
+                    className="full-reg-lawreg-remove-btn"
                   >
                     Remove
                   </button>
@@ -362,13 +362,13 @@ const barLocationData = {
               ))}
 
           <button type="button" onClick={() => addNestedItem("bar_details", { bar_license_number: "", bar_association_name: "", enrollment_year: "", state: "", city: "" })}>+ Add Bar</button>
-
+<p/>
           <label>Languages Spoken</label>
           <Select isMulti options={languageOptions} value={form.languages_spoken} onChange={handleLanguageChange} />
 
           <h4>Education</h4>
           {form.education.map((ed, i) => (
-            <div key={i} className="nested">
+            <div key={i} className="full-reg-nested">
               <input placeholder="Degree" value={ed.degree} onChange={(e) => handleNestedChange("education", i, "degree", e.target.value)} />
               <input placeholder="College Name" value={ed.college_name} onChange={(e) => handleNestedChange("education", i, "college_name", e.target.value)} />
               <input placeholder="Graduation Year" value={ed.graduation_year} onChange={(e) => handleNestedChange("education", i, "graduation_year", e.target.value)} />
@@ -379,7 +379,7 @@ const barLocationData = {
         </div>
 
         {/* === Step 3: Practice Details === */}
-        <div className="form-section">
+        <div className="full-reg-form-section">
           <h3>Practice Details</h3>
           <label>Practice Areas</label>
           <Select isMulti options={practiceOptions} value={form.practice_area} onChange={handlePracticeChange} />
@@ -390,7 +390,7 @@ const barLocationData = {
 
           <h4>Work Experience</h4>
           {form.work_experience.map((w, i) => (
-            <div key={i} className="nested">
+            <div key={i} className="full-reg-nested">
               <input placeholder="Company Name" value={w.company_name} onChange={(e) => handleNestedChange("work_experience", i, "company_name", e.target.value)} />
               <input placeholder="Role" value={w.role} onChange={(e) => handleNestedChange("work_experience", i, "role", e.target.value)} />
               <input placeholder="Duration" value={w.duration} onChange={(e) => handleNestedChange("work_experience", i, "duration", e.target.value)} />
@@ -401,10 +401,10 @@ const barLocationData = {
         </div>
 
         {/* === Step 4: Address & Other Details === */}
-        <div className="form-section">
+        <div className="full-reg-form-section">
           <h3>Address Details</h3>
           {form.address.map((a, i) => (
-            <div key={i} className="nested">
+            <div key={i} className="full-reg-nested">
               <input placeholder="Street Address" value={a.street_address} onChange={(e) => handleNestedChange("address", i, "street_address", e.target.value)} />
 <select
   value={a.country}
@@ -462,48 +462,10 @@ const barLocationData = {
             </div>
           ))}
           <button type="button" onClick={() => addNestedItem("address", { street_address: "", city: "", state: "", zip_code: "", latitude: "", longitude: "" })}>+ Add Address</button>
-
-          {/* <label>Working Hours</label> */}
-          {/* <input name="working_hours" value={form.working_hours} onChange={handleChange} /> */}
-
-          {/* <label>Professional Associations</label> */}
-          {/* <input name="professional_associations" value={form.professional_associations} onChange={handleChange} /> */}
-
-          {/* <h4>Certifications</h4> */}
-          {/* {form.certifications.map((c, i) => (
-            <div key={i} className="nested">
-              <input placeholder="Certification Name" value={c.name} onChange={(e) => handleNestedChange("certifications", i, "name", e.target.value)} />
-              <input placeholder="Issuer" value={c.issuer} onChange={(e) => handleNestedChange("certifications", i, "issuer", e.target.value)} />
-              <button type="button" onClick={() => removeNestedItem("certifications", i)}>Remove</button>
-            </div>
-          ))} */}
-          {/* <button type="button" onClick={() => addNestedItem("certifications", { name: "", issuer: "" })}>+ Add Certification</button> */}
-
-          {/* <h4>Awards</h4>
-          {form.awards.map((a, i) => (
-            <div key={i} className="nested">
-              <input placeholder="Award Name" value={a.name} onChange={(e) => handleNestedChange("awards", i, "name", e.target.value)} />
-              <input placeholder="Organization" value={a.organization} onChange={(e) => handleNestedChange("awards", i, "organization", e.target.value)} />
-              <input placeholder="Year" value={a.year} onChange={(e) => handleNestedChange("awards", i, "year", e.target.value)} />
-              <button type="button" onClick={() => removeNestedItem("awards", i)}>Remove</button>
-            </div>
-          ))} */}
-          {/* <button type="button" onClick={() => addNestedItem("awards", { name: "", organization: "", year: "" })}>+ Add Award</button> */}
-{/* 
-          <h4>Publications</h4>
-          {form.publications.map((p, i) => (
-            <div key={i} className="nested">
-              <input placeholder="Title" value={p.title} onChange={(e) => handleNestedChange("publications", i, "title", e.target.value)} />
-              <input placeholder="Journal" value={p.journal} onChange={(e) => handleNestedChange("publications", i, "journal", e.target.value)} />
-              <input placeholder="Year" value={p.year} onChange={(e) => handleNestedChange("publications", i, "year", e.target.value)} />
-              <button type="button" onClick={() => removeNestedItem("publications", i)}>Remove</button>
-            </div>
-          ))} */}
-          {/* <button type="button" onClick={() => addNestedItem("publications", { title: "", journal: "", year: "" })}>+ Add Publication</button> */}
         </div>
 
-        <div className="form-actions">
-          <button type="submit" className="submit-btn" disabled={loading}>
+        <div className="full-reg-form-actions">
+          <button type="submit" className="full-reg-submit-btn" disabled={loading}>
             {loading ? "Submitting..." : "Submit Registration"}
           </button>
         </div>
@@ -511,16 +473,16 @@ const barLocationData = {
 
       {/* Loader overlay */}
       {loading && (
-        <div className="loader-overlay">
-          <div className="loader"></div>
+        <div className="full-reg-loader-overlay">
+          <div className="full-reg-loader"></div>
           <p>Submitting your details...</p>
         </div>
       )}
 
       {/* Success popup */}
       {successPopup && (
-        <div className="popup-overlay">
-          <div className="popup-box">
+        <div className="full-reg-popup-overlay">
+          <div className="full-reg-popup-box">
             <h3>✅ Registration Successful!</h3>
             <p>Your details have been submitted successfully.</p>
             <button onClick={() => setSuccessPopup(false)}>Close</button>

@@ -32,6 +32,7 @@ import AdminLawyer from "./Components/AdminLawyer/AdminLawyer";
 import AdminAppointments from "./Components/AdminAppointments/AdminAppointments";
 import AdminSupport from "./Components/AdminSupport/AdminSupport";
 import LawyerProfile from "./Components/AdminLawyer/Profile";
+// import SignIn from "./Components/SignIn/SignIn/SignIn";
 
 import { AuthProvider } from "./Components/Context/AuthContext";
 import { AuthProvider as UserProvider } from "./Components/Context/UserContext";

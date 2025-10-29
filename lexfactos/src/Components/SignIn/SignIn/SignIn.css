@@ -101,27 +101,26 @@ body {
   margin-left: auto; /* pushes it to far right of flex container */
 }
 
-/* Form */
-form {
+/* form {
   display: flex;
-  flex-direction: column; /* Keeps items stacked vertically */
-  align-items: flex-start; /* Keep inner items left aligned */
-  gap: 12px; /* Space between elements */
-  width: 493px; /* Optional: set a fixed width for form */
-  margin: 0 auto; /* Centers the form horizontally */
-}
+  flex-direction: column; 
+  align-items: flex-start;
+  gap: 12px;
+  width: 493px; 
+  margin: 0 auto;
+} */
 
 
-input {
+/* input {
   width: 493px;
   height: 42px;
   padding: 10px;
   border: 1px solid #e5e7eb;
-  border-radius: 9px; /* Your spec says 9px */
+  border-radius: 9px; 
   outline: none;
-  opacity: 1; /* Default anyway */
-  box-sizing: border-box; /* Ensures padding doesn't break width */
-}
+  opacity: 1; 
+  box-sizing: border-box; 
+} */
 
 
 

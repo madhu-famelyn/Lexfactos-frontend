@@ -148,14 +148,14 @@
 }
 
 /* Submit button */
-.submit-btn {
+.submit-btn-legal-form-btn {
   background-color: #2563eb;
   color: white;
   padding: 0.75rem 1.2rem;
   border: none;
   border-radius: 6px;
   font-family: 'Geist', sans-serif;
-  font-weight: 500; /* Medium */
+  font-weight: 500;
   font-style: normal;
   font-size: 14px;
   line-height: 20px;

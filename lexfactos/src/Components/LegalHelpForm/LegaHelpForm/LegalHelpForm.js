@@ -51,7 +51,7 @@ export default function LegalHelpForm() {
       </span>
     </div>
 
-        <button className="submit-btn">Ask Your Question</button>
+        <button className="submit-btn-legal-form">Ask Your Question</button>
       </div>
 
       <div className="tips-container">
