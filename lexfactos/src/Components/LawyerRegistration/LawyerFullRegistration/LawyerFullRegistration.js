@@ -103,11 +103,11 @@ const LawyerFullRegistration = () => {
   ];
 
 
-  const stateCityData = {
-  Telangana: ["Hyderabad", "Warangal", "Nizamabad", "Karimnagar"],
-  "Andhra Pradesh": ["Vijayawada", "Visakhapatnam", "Guntur", "Tirupati"],
-  Karnataka: ["Bengaluru", "Mysuru", "Mangalore", "Hubballi"],
-};
+//   const stateCityData = {
+//   Telangana: ["Hyderabad", "Warangal", "Nizamabad", "Karimnagar"],
+//   "Andhra Pradesh": ["Vijayawada", "Visakhapatnam", "Guntur", "Tirupati"],
+//   Karnataka: ["Bengaluru", "Mysuru", "Mangalore", "Hubballi"],
+// };
 const locationData = {
   India: {
     Telangana: ["Hyderabad", "Warangal", "Karimnagar"],
