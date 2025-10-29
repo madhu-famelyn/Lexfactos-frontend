@@ -80,7 +80,7 @@ const LawyerFullRegistration = () => {
   });
 
   const [photoFile, setPhotoFile] = useState(null);
-  const [officeImageFile, setOfficeImageFile] = useState(null);
+  // const [officeImageFile, setOfficeImageFile] = useState(null);
 
   const [loading, setLoading] = useState(false);
   const [successPopup, setSuccessPopup] = useState(false);
