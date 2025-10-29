@@ -14,12 +14,13 @@ export const signupUser = async (formData) => {
     });
     return response.data;
   } catch (error) {
-    if (error.response) {
-      throw error.response.data;
-    } else {
-      throw { detail: "Something went wrong. Please try again." };
-    }
+  if (error.response) {
+    throw new Error(JSON.stringify(error.response.data));
+  } else {
+    throw new Error("Something went wrong. Please try again.");
   }
+}
+
 };
 
 
@@ -40,12 +41,13 @@ export const loginUser = async (email, password) => {
     );
     return response.data;
   } catch (error) {
-    if (error.response) {
-      throw error.response.data;
-    } else {
-      throw { detail: "Something went wrong. Please try again." };
-    }
+  if (error.response) {
+    throw new Error(JSON.stringify(error.response.data));
+  } else {
+    throw new Error("Something went wrong. Please try again.");
   }
+}
+
 };
 
 
