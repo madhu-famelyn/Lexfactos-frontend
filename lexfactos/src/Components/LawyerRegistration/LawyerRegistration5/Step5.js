@@ -16,20 +16,27 @@ const LawyerRegistrationStep5 = () => {
     storedStep5Data = {};
   }
 
-  // ✅ Define missing states to avoid 'no-undef' errors
-  // const [officeImage, setOfficeImage] = useState(
-  //   storedStep5Data.officeImage || null
-  // );
-  // const [imagePreview, setImagePreview] = useState(
-  //   storedStep5Data.imagePreview || null
-  // );
-
+  // ✅ Case Results state
   const [caseResults, setCaseResults] = useState(
     Array.isArray(storedStep5Data.caseResults)
       ? storedStep5Data.caseResults
       : [{ title: "", outcome: "", summary: "" }]
   );
 
+  // ✅ Office image upload (optional, but defined to avoid no-undef)
+  const [officeImage, setOfficeImage] = useState(storedStep5Data.officeImage || null);
+  const [imagePreview, setImagePreview] = useState(storedStep5Data.imagePreview || null);
+
+  // ✅ Handle office image selection
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setOfficeImage(file);
+      setImagePreview(URL.createObjectURL(file));
+    }
+  };
+
+  // ✅ Save form data locally
   useEffect(() => {
     localStorage.setItem(
       "step5FormData",
@@ -41,16 +48,19 @@ const LawyerRegistrationStep5 = () => {
     );
   }, [caseResults, officeImage, imagePreview]);
 
+  // ✅ Add case result
   const addCaseResult = () => {
     setCaseResults([...caseResults, { title: "", outcome: "", summary: "" }]);
   };
 
+  // ✅ Handle case result field change
   const handleChange = (index, field, value) => {
     const newResults = [...caseResults];
     newResults[index][field] = value;
     setCaseResults(newResults);
   };
 
+  // ✅ Submit step 5
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -71,6 +81,7 @@ const LawyerRegistrationStep5 = () => {
       if (officeImage instanceof File) {
         formData.append("office_image", officeImage);
       } else {
+        // If not uploaded, append an empty blob (optional)
         formData.append(
           "office_image",
           new Blob([], { type: "application/octet-stream" }),
@@ -79,13 +90,14 @@ const LawyerRegistrationStep5 = () => {
       }
 
       const result = await submitStep5(formData);
-      console.log("Step 5 saved:", result);
+      console.log("✅ Step 5 saved:", result);
 
       // ✅ Clear step5 data after successful submit
       localStorage.removeItem("step5FormData");
 
       navigate("/step6", { state: { lawyer_id } });
     } catch (err) {
+      console.error(err);
       alert("Error saving step 5, please try again.");
     }
   };
@@ -104,7 +116,7 @@ const LawyerRegistrationStep5 = () => {
         </div>
 
         <form onSubmit={handleSubmit}>
-          {/* Case Results */}
+          {/* Case Results Section */}
           <div className="lr-step5-case-results">
             <div className="lr-step5-case-header">
               <h3 className="lr-step5-case-title">Case Results (Optional)</h3>
@@ -150,7 +162,7 @@ const LawyerRegistrationStep5 = () => {
           </div>
 
           {/* Office Image Upload (Optional) */}
-          {/* <div className="lr-step5-upload">
+          <div className="lr-step5-upload">
             <label className="lr-step5-label">Office Image (Optional)</label>
             <input
               type="file"
@@ -165,7 +177,7 @@ const LawyerRegistrationStep5 = () => {
                 className="lr-step5-preview"
               />
             )}
-          </div> */}
+          </div>
 
           {/* Footer Buttons */}
           <div className="lr-step5-footer">
