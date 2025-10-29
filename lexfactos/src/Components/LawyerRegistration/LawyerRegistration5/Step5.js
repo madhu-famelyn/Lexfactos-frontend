@@ -16,15 +16,20 @@ const LawyerRegistrationStep5 = () => {
     storedStep5Data = {};
   }
 
+  // ✅ Define missing states to avoid 'no-undef' errors
+  const [officeImage, setOfficeImage] = useState(
+    storedStep5Data.officeImage || null
+  );
+  const [imagePreview, setImagePreview] = useState(
+    storedStep5Data.imagePreview || null
+  );
+
   const [caseResults, setCaseResults] = useState(
     Array.isArray(storedStep5Data.caseResults)
       ? storedStep5Data.caseResults
       : [{ title: "", outcome: "", summary: "" }]
   );
-  // const [officeImage, setOfficeImage] = useState(storedStep5Data.officeImage || null);
-  // const [imagePreview, setImagePreview] = useState(storedStep5Data.imagePreview || null);
 
-  // ✅ Save to localStorage whenever caseResults or officeImage changes
   useEffect(() => {
     localStorage.setItem(
       "step5FormData",
@@ -46,15 +51,6 @@ const LawyerRegistrationStep5 = () => {
     setCaseResults(newResults);
   };
 
-  // const handleImageChange = (e) => {
-  //   const file = e.target.files[0];
-  //   setOfficeImage(file);
-  //   if (file) {
-  //     const previewUrl = URL.createObjectURL(file);
-  //     setImagePreview(previewUrl);
-  //   }
-  // };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -71,7 +67,7 @@ const LawyerRegistrationStep5 = () => {
         )
       );
 
-      // Office image (optional) → send actual file if present
+      // Office image (optional)
       if (officeImage instanceof File) {
         formData.append("office_image", officeImage);
       } else {
