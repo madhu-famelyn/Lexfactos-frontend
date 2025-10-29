@@ -392,3 +392,59 @@ select {
     gap: 12px;
   }
 }
+
+
+
+
+/* === Navigation Buttons (Back & Next) === */
+.lawreg-nav-buttons {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  width: 100% !important;
+  margin-top: 2rem !important;
+  text-align: unset !important;
+}
+
+/* Back Button */
+.lawreg-back-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #e5e7eb;
+  color: #374151;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 18px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  align-self: flex-start !important;
+}
+
+.lawreg-back-btn:hover {
+  background-color: #d1d5db;
+}
+
+/* Next Button */
+.lawreg-next-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #1e3a8a;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 18px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  align-self: flex-end !important;
+}
+
+.lawreg-next-btn:hover {
+  background-color: #1d4ed8;
+  transform: translateY(-1px);
+}

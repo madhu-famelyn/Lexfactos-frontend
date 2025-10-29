@@ -3,25 +3,59 @@ import "./Step2.css";
 import { useLocation, useNavigate } from "react-router-dom";
 import { createLawyerProfile } from "../../Service/Service";
 
-const statesAndCities = {
+
+
+
+const countriesData = {
+India: {
   "Andhra Pradesh": ["Visakhapatnam", "Vijayawada", "Guntur", "Tirupati"],
+  "Arunachal Pradesh": ["Itanagar", "Tawang", "Ziro", "Pasighat"],
   "Assam": ["Guwahati", "Silchar", "Dibrugarh", "Jorhat"],
   "Bihar": ["Patna", "Gaya", "Muzaffarpur", "Bhagalpur"],
-  "Delhi": ["New Delhi", "Dwarka", "Rohini", "Karol Bagh"],
+  "Chhattisgarh": ["Raipur", "Bhilai", "Bilaspur", "Korba"],
+  "Goa": ["Panaji", "Margao", "Mapusa", "Vasco da Gama"],
   "Gujarat": ["Ahmedabad", "Surat", "Vadodara", "Rajkot"],
   "Haryana": ["Gurugram", "Faridabad", "Panipat", "Hisar"],
+  "Himachal Pradesh": ["Shimla", "Manali", "Dharamshala", "Kullu"],
+  "Jharkhand": ["Ranchi", "Jamshedpur", "Dhanbad", "Bokaro"],
   "Karnataka": ["Bengaluru", "Mysuru", "Hubli", "Mangalore"],
-  "Kerala": ["Kochi", "Thiruvananthapuram", "Kozhikode", "Thrissur"],
+  "Kerala": ["Thiruvananthapuram", "Kochi", "Kozhikode", "Thrissur"],
   "Madhya Pradesh": ["Bhopal", "Indore", "Gwalior", "Jabalpur"],
   "Maharashtra": ["Mumbai", "Pune", "Nagpur", "Nashik"],
+  "Manipur": ["Imphal", "Thoubal", "Churachandpur", "Ukhrul"],
+  "Meghalaya": ["Shillong", "Tura", "Jowai", "Nongpoh"],
+  "Mizoram": ["Aizawl", "Lunglei", "Champhai", "Serchhip"],
+  "Nagaland": ["Kohima", "Dimapur", "Mokokchung", "Tuensang"],
   "Odisha": ["Bhubaneswar", "Cuttack", "Rourkela", "Puri"],
   "Punjab": ["Amritsar", "Ludhiana", "Jalandhar", "Patiala"],
   "Rajasthan": ["Jaipur", "Udaipur", "Jodhpur", "Kota"],
+  "Sikkim": ["Gangtok", "Namchi", "Geyzing", "Mangan"],
   "Tamil Nadu": ["Chennai", "Coimbatore", "Madurai", "Salem"],
   "Telangana": ["Hyderabad", "Warangal", "Karimnagar", "Nizamabad"],
+  "Tripura": ["Agartala", "Udaipur", "Dharmanagar", "Kailasahar"],
   "Uttar Pradesh": ["Lucknow", "Noida", "Kanpur", "Varanasi"],
   "Uttarakhand": ["Dehradun", "Haridwar", "Nainital", "Rishikesh"],
-  "West Bengal": ["Kolkata", "Howrah", "Durgapur", "Siliguri"]
+  "West Bengal": ["Kolkata", "Howrah", "Durgapur", "Siliguri"],
+  "Andaman and Nicobar Islands": ["Port Blair", "Havelock Island", "Neil Island"],
+  "Chandigarh": ["Chandigarh"],
+  "Dadra and Nagar Haveli and Daman and Diu": ["Daman", "Silvassa"],
+  "Delhi": ["New Delhi", "Dwarka", "Rohini", "Karol Bagh"],
+  "Jammu and Kashmir": ["Srinagar", "Jammu", "Anantnag", "Baramulla"],
+  "Ladakh": ["Leh", "Kargil"],
+  "Lakshadweep": ["Kavaratti", "Minicoy", "Agatti"],
+  "Puducherry": ["Puducherry", "Karaikal", "Mahe", "Yanam"]
+},
+
+  USA: {
+    California: ["Los Angeles", "San Francisco", "San Diego"],
+    Texas: ["Houston", "Dallas", "Austin"],
+    Florida: ["Miami", "Orlando", "Tampa"],
+  },
+  UK: {
+    England: ["London", "Manchester", "Liverpool"],
+    Scotland: ["Edinburgh", "Glasgow"],
+    Wales: ["Cardiff", "Swansea"],
+  },
 };
 
 
@@ -165,13 +199,15 @@ const LawyerRegistrationStep2 = () => {
         ></textarea>
 
         <label className="lr-step2-label">Years of Experience *</label>
-        <input
-          type="text"
-          className="lr-step2-input"
-          placeholder="e.g. 5"
-          value={yearsOfExperience}
-          onChange={(e) => setYearsOfExperience(e.target.value)}
-        />
+            <input
+              type="number"
+              className="lr-step2-input"
+              placeholder="e.g. 5"
+              value={yearsOfExperience}
+              onChange={(e) => setYearsOfExperience(e.target.value)}
+              min="0"
+            />
+
 
         <div className="lr-step2-section">
           <label className="lr-step2-label">Bar Details</label>
@@ -196,33 +232,52 @@ const LawyerRegistrationStep2 = () => {
                 }
               />
 
+              {/* 🌍 Country Dropdown */}
               <select
-                  className="lr-step2-input"
-                  value={bar.state}
-                  onChange={(e) => handleBarDetailChange(index, "state", e.target.value)}
-                >
-                  <option value="">Select State</option>
-                  {Object.keys(statesAndCities).map((state, i) => (
+                className="lr-step2-input"
+                value={bar.country || ""}
+                onChange={(e) => handleBarDetailChange(index, "country", e.target.value)}
+              >
+                <option value="">Select Country</option>
+                {Object.keys(countriesData).map((country, i) => (
+                  <option key={i} value={country}>
+                    {country}
+                  </option>
+                ))}
+              </select>
+
+              {/* 🏙️ State Dropdown */}
+              <select
+                className="lr-step2-input"
+                value={bar.state || ""}
+                onChange={(e) => handleBarDetailChange(index, "state", e.target.value)}
+                disabled={!bar.country}
+              >
+                <option value="">Select State</option>
+                {bar.country &&
+                  Object.keys(countriesData[bar.country]).map((state, i) => (
                     <option key={i} value={state}>
                       {state}
                     </option>
                   ))}
-                </select>
+              </select>
 
-                <select
-                  className="lr-step2-input"
-                  value={bar.city}
-                  onChange={(e) => handleBarDetailChange(index, "city", e.target.value)}
-                  disabled={!bar.state} // Disable if state is not selected yet
-                >
-                  <option value="">Select City</option>
-                  {statesAndCities[bar.state]?.map((city, i) => (
+              {/* 🌆 City Dropdown */}
+              <select
+                className="lr-step2-input"
+                value={bar.city || ""}
+                onChange={(e) => handleBarDetailChange(index, "city", e.target.value)}
+                disabled={!bar.state}
+              >
+                <option value="">Select City</option>
+                {bar.country &&
+                  bar.state &&
+                  countriesData[bar.country][bar.state]?.map((city, i) => (
                     <option key={i} value={city}>
                       {city}
                     </option>
                   ))}
-                </select>
-
+              </select>
             </div>
           ))}
           <button className="lr-step2-add-btn" onClick={addBarDetail}>

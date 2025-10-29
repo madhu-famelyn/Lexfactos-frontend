@@ -95,7 +95,7 @@ export default function LawyerProfilePage() {
 
             <div className="lawyer-tags">
               <span>{lawyer.profile?.years_of_experience}+ Years</span>
-              <span>{lawyer.registration3?.court_admitted_to}</span>
+              {/* <span>{lawyer.registration3?.court_admitted_to}</span> */}
             </div>
 
             <div className="lawyer-rating-section">
@@ -144,7 +144,7 @@ export default function LawyerProfilePage() {
 
             {/* EDUCATION */}
             <section className="education-section">
-              <h2 className="education-section-h2">
+              <h2 className="lawyer-section-title">
                 Education & Qualifications
               </h2>
               <ul>
@@ -157,10 +157,26 @@ export default function LawyerProfilePage() {
                 ))}
               </ul>
             </section>
+            {/* WORKING HOURS */}
+<section className="lawyer-working-hours-section">
+  <h2 className="lawyer-section-title">Working Hours</h2>
+  {lawyer.working_hours && lawyer.working_hours.length > 0 ? (
+    <ul className="working-hours-list">
+      {lawyer.working_hours.map((slot, idx) => (
+        <li key={idx} className="working-hour-item">
+          <strong>{slot.day}</strong>: {slot.time}
+        </li>
+      ))}
+    </ul>
+  ) : (
+    <p>Available Monday to Friday, 9:00 AM – 6:00 PM</p> // default fallback
+  )}
+</section>
+
 
             {/* EXPERIENCE */}
             <section>
-              <h2 className="education-section-h2">Professional Experience</h2>
+              <h2 className="lawyer-section-title">Professional Experience</h2>
               <ul>
                 {lawyer.registration3?.work_experience?.map((job, idx) => (
                   <li key={idx}>
@@ -175,7 +191,7 @@ export default function LawyerProfilePage() {
 
             {/* OFFICE LOCATIONS */}
             <section className="lawyer-office-section">
-              <h2 className="education-section-h2">Office Locations</h2>
+              <h2 className="lawyer-section-title">Office Locations</h2>
 
               {addresses.length > 0 ? (
                 <>
@@ -250,7 +266,7 @@ export default function LawyerProfilePage() {
 
             {/* CERTIFICATIONS */}
             <section className="lawyer-certifications-section">
-              <h2 className="education-section-h2">Certifications</h2>
+              <h2 className="lawyer-section-title">Certifications</h2>
               <ul>
                 {lawyer.registration6?.certifications?.map((cert, idx) => (
                   <li key={idx}>
@@ -259,7 +275,7 @@ export default function LawyerProfilePage() {
                 ))}
               </ul>
 
-              <h2 className="education-section-h2">Awards & Recognition</h2>
+              <h2 className="lawyer-section-title">Awards & Recognition</h2>
               <ul className="awards-list">
                 {lawyer.registration6?.awards?.map((award, idx) => (
                   <li key={idx} className="award-item">

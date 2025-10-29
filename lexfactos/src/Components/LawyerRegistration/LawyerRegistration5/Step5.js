@@ -154,7 +154,7 @@ const LawyerRegistrationStep5 = () => {
           </div>
 
           {/* Office Image Upload (Optional) */}
-          <div className="lr-step5-upload">
+          {/* <div className="lr-step5-upload">
             <label className="lr-step5-label">Office Image (Optional)</label>
             <input
               type="file"
@@ -169,7 +169,7 @@ const LawyerRegistrationStep5 = () => {
                 className="lr-step5-preview"
               />
             )}
-          </div>
+          </div> */}
 
           {/* Footer Buttons */}
           <div className="lr-step5-footer">

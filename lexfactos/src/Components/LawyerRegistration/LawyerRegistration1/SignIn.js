@@ -359,20 +359,26 @@ const LawyerRegistration = () => {
               </div>
             </div> */}
 
-            <div className="button-container">
-              <button
-                type="button"
-                className="back-btn"
-                onClick={() => navigate(-1)}
-              >
-                <HiChevronLeft size={18} />
-                Back
-              </button>
-              <button type="submit" className="next-btn">
-                Next
-                <HiChevronRight size={18} />
-              </button>
-            </div>
+<div className="lr-step2-footer">
+  <button
+    type="button"
+    className="lr-step2-prev-btn"
+    onClick={() => navigate(-1)}
+  >
+    <HiChevronLeft size={18} />
+    Previous
+  </button>
+
+  <button
+    type="submit"
+    className="lr-step2-next-btn"
+    onClick={handleSubmit}
+  >
+    Next
+    <HiChevronRight size={18} />
+  </button>
+</div>
+
           </form>
         </div>
       </div>

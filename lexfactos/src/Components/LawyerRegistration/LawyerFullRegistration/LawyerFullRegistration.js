@@ -126,6 +126,27 @@ const locationData = {
   },
 };
 
+
+
+// 🌍 Small demo dataset for Bar Location (Country → State → City)
+const barLocationData = {
+  India: {
+    "Tamil Nadu": ["Chennai", "Coimbatore", "Madurai"],
+    "Maharashtra": ["Mumbai", "Pune", "Nagpur"],
+    "Delhi": ["New Delhi"],
+  },
+  USA: {
+    California: ["Los Angeles", "San Francisco", "San Diego"],
+    Texas: ["Houston", "Dallas", "Austin"],
+    "New York": ["New York City", "Buffalo"],
+  },
+  UK: {
+    England: ["London", "Manchester", "Birmingham"],
+    Scotland: ["Edinburgh", "Glasgow"],
+    Wales: ["Cardiff", "Swansea"],
+  },
+};
+
   // Handlers
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -206,7 +227,7 @@ const locationData = {
     // if (officeImageFile) fd.append("office_image", officeImageFile); // commented intentionally
 
     try {
-      const res = await axios.post("https://lexfactos-backend.fly.dev/lawyer/full/", fd, {
+      const res = await axios.post("http://127.0.0.1:8000/lawyer/full/", fd, {
         headers: { "Content-Type": "multipart/form-data" },
       });
       console.log("✅ Response:", res.data);
@@ -254,16 +275,92 @@ const locationData = {
           <input name="years_of_experience" value={form.years_of_experience} onChange={handleChange} />
 
           <h4>Bar Details</h4>
-          {form.bar_details.map((b, i) => (
-            <div key={i} className="nested">
-              <input placeholder="Bar License Number" value={b.bar_license_number} onChange={(e) => handleNestedChange("bar_details", i, "bar_license_number", e.target.value)} />
-              <input placeholder="Bar Association Name" value={b.bar_association_name} onChange={(e) => handleNestedChange("bar_details", i, "bar_association_name", e.target.value)} />
-              <input placeholder="Enrollment Year" value={b.enrollment_year} onChange={(e) => handleNestedChange("bar_details", i, "enrollment_year", e.target.value)} />
-              <input placeholder="State" value={b.state} onChange={(e) => handleNestedChange("bar_details", i, "state", e.target.value)} />
-              <input placeholder="City" value={b.city} onChange={(e) => handleNestedChange("bar_details", i, "city", e.target.value)} />
-              <button type="button" onClick={() => removeNestedItem("bar_details", i)}>Remove</button>
-            </div>
-          ))}
+              {form.bar_details.map((b, i) => (
+                <div key={i} className="nested">
+                  <input
+                    placeholder="Bar License Number"
+                    value={b.bar_license_number}
+                    onChange={(e) =>
+                      handleNestedChange("bar_details", i, "bar_license_number", e.target.value)
+                    }
+                  />
+
+                  <input
+                    placeholder="Bar Association Name"
+                    value={b.bar_association_name}
+                    onChange={(e) =>
+                      handleNestedChange("bar_details", i, "bar_association_name", e.target.value)
+                    }
+                  />
+
+                  <input
+                    placeholder="Enrollment Year"
+                    value={b.enrollment_year}
+                    onChange={(e) =>
+                      handleNestedChange("bar_details", i, "enrollment_year", e.target.value)
+                    }
+                  />
+
+                  {/* === Country Dropdown === */}
+                  <select
+                    value={b.country || ""}
+                    onChange={(e) =>
+                      handleNestedChange("bar_details", i, "country", e.target.value)
+                    }
+                  >
+                    <option value="">Select Country</option>
+                    {Object.keys(barLocationData).map((country, index) => (
+                      <option key={index} value={country}>
+                        {country}
+                      </option>
+                    ))}
+                  </select>
+
+                  {/* === State Dropdown (depends on country) === */}
+                  <select
+                    value={b.state || ""}
+                    onChange={(e) =>
+                      handleNestedChange("bar_details", i, "state", e.target.value)
+                    }
+                    disabled={!b.country}
+                  >
+                    <option value="">Select State</option>
+                    {b.country &&
+                      Object.keys(barLocationData[b.country]).map((state, index) => (
+                        <option key={index} value={state}>
+                          {state}
+                        </option>
+                      ))}
+                  </select>
+
+                  {/* === City Dropdown (depends on state) === */}
+                  <select
+                    value={b.city || ""}
+                    onChange={(e) =>
+                      handleNestedChange("bar_details", i, "city", e.target.value)
+                    }
+                    disabled={!b.state}
+                  >
+                    <option value="">Select City</option>
+                    {b.country &&
+                      b.state &&
+                      barLocationData[b.country][b.state]?.map((city, index) => (
+                        <option key={index} value={city}>
+                          {city}
+                        </option>
+                      ))}
+                  </select>
+
+                  <button
+                    type="button"
+                    onClick={() => removeNestedItem("bar_details", i)}
+                    className="lawreg-remove-btn"
+                  >
+                    Remove
+                  </button>
+                </div>
+              ))}
+
           <button type="button" onClick={() => addNestedItem("bar_details", { bar_license_number: "", bar_association_name: "", enrollment_year: "", state: "", city: "" })}>+ Add Bar</button>
 
           <label>Languages Spoken</label>

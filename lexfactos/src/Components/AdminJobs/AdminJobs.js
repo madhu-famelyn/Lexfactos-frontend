@@ -30,7 +30,7 @@ export default function AdminJobs() {
     try {
       setLoading(true);
       const response = await axios.get(
-        `https://lexfactos-backend.fly.dev/jobs/?most_recent=${sort === "newest"}&skip=0&limit=100`
+        `http://127.0.0.1:8000/jobs/?most_recent=${sort === "newest"}&skip=0&limit=100`
       );
 
       let data = response.data;
@@ -60,7 +60,7 @@ export default function AdminJobs() {
 
   const handleVerify = async (id) => {
     try {
-      await axios.put(`https://lexfactos-backend.fly.dev/${id}/verified`, {
+      await axios.put(`http://127.0.0.1:8000/${id}/verified`, {
         verified: true,
       });
       setSelectedJob(null);

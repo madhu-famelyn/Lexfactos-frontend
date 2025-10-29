@@ -30,12 +30,12 @@
 
 .lr-step2-checkbox-label:hover {
   background: #f0f5ff;
-  border-color: #007d80;
-  color: #007d80;
+  border-color: #000000;
+  color: #000000;
 }
 
 .lr-step2-checkbox {
-  accent-color: #007d80; /* modern browsers */
+  accent-color: #000000; /* modern browsers */
   width: 16px;
   height: 16px;
   cursor: pointer;

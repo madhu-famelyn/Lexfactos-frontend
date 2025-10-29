@@ -3,6 +3,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { submitStep4 } from "../../Service/Service";
 import "./Step4.css";
 
+const countries = ["India", "USA", "UK", "Canada", "Australia"];
+
 const indiaStates = {
   "Andhra Pradesh": [
     "Visakhapatnam", "Vijayawada", "Guntur", "Nellore", "Tirupati",
@@ -33,6 +35,7 @@ const Step4 = () => {
     storedStep4Data = {
       addresses: [
         {
+          country: "",
           streetAddress: "",
           city: "",
           state: "",
@@ -68,6 +71,7 @@ const Step4 = () => {
     setAddresses([
       ...addresses,
       {
+        country: "",
         streetAddress: "",
         city: "",
         state: "",
@@ -132,6 +136,7 @@ const Step4 = () => {
     e.preventDefault();
     try {
       const formattedAddresses = addresses.map((addr) => ({
+        country: addr.country,
         street_address: addr.streetAddress,
         city: addr.city,
         state: addr.state,
@@ -186,6 +191,29 @@ const Step4 = () => {
                   }
                 />
               </div>
+              <p/>
+
+              {/* 🌍 Country Field */}
+              <div className="lr-step4-row">
+                <div className="lr-step4-input-box">
+                  <select
+                    className="lr-step4-input"
+                    value={addr.country}
+                    onChange={(e) =>
+                      handleAddressChange(index, "country", e.target.value)
+                    }
+                  >
+                    <option value="">Select Country</option>
+                    {countries.map((ct) => (
+                      <option key={ct} value={ct}>
+                        {ct}
+                      </option>
+                    ))}
+                  </select>
+                  <span className="lr-step4-placeholder">Country</span>
+                </div>
+              </div>
+              <p/>
 
               <div className="lr-step4-row">
                 <div className="lr-step4-input-box">
@@ -227,6 +255,7 @@ const Step4 = () => {
                   <span className="lr-step4-placeholder">City</span>
                 </div>
               </div>
+              <p/>
 
               <div className="lr-step4-row">
                 <div className="lr-step4-input-box">
@@ -278,7 +307,6 @@ const Step4 = () => {
                   Remove Address
                 </button>
               )}
-              <hr className="lr-step4-divider" />
             </div>
           ))}
 
@@ -349,9 +377,6 @@ const Step4 = () => {
             </div>
 
             <div className="popup-actions">
-              {/* <button className="cancel-btn" onClick={() => setShowModal(false)}>
-                Cancel
-              </button> */}
               <button className="save-btn" onClick={handleSaveWorkingHours}>
                 Save
               </button>
@@ -364,3 +389,4 @@ const Step4 = () => {
 };
 
 export default Step4;
+
