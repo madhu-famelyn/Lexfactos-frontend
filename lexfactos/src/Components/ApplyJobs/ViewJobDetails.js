@@ -35,7 +35,7 @@ export default function ViewJobDetails() {
   // Fetch single job details
   const fetchJobDetails = async () => {
     try {
-      const res = await axios.get(`http://127.0.0.1:8000/job-posts/${id}`);
+      const res = await axios.get(`https://lexfactos-backend.fly.dev/job-posts/${id}`);
       setJob(res.data);
       console.log("Fetched job:", res.data);
     } catch (error) {
@@ -48,7 +48,7 @@ export default function ViewJobDetails() {
     if (!user) return;
     try {
       const res = await axios.get(
-        `http://127.0.0.1:8000/job-applications/user/${user.id}`
+        `https://lexfactos-backend.fly.dev/job-applications/user/${user.id}`
       );
       const applications = res.data || [];
       const alreadyApplied = applications.some(
@@ -110,7 +110,7 @@ export default function ViewJobDetails() {
       payload.append("resume_file", formData.resume_file);
 
       const res = await axios.post(
-        "http://127.0.0.1:8000/job-applications/",
+        "https://lexfactos-backend.fly.dev/job-applications/",
         payload,
         { headers: { "Content-Type": "multipart/form-data" } }
       );

@@ -28,7 +28,7 @@ export default function BrowseJobGrid() {
       params.append("skip", 0);
       params.append("limit", 50);
 
-      const res = await axios.get(`http://127.0.0.1:8000/jobs/?${params.toString()}`);
+      const res = await axios.get(`https://lexfactos-backend.fly.dev/jobs/?${params.toString()}`);
       // ✅ Show only verified jobs
       const verifiedJobs = res.data.filter((job) => job.verified === true);
       setJobs(verifiedJobs);

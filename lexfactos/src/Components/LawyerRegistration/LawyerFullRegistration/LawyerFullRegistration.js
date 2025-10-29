@@ -166,7 +166,7 @@ const LawyerFullRegistration = () => {
     if (officeImageFile) fd.append("office_image", officeImageFile);
 
     try {
-      const res = await axios.post("http://127.0.0.1:8000/lawyer/full/", fd, {
+      const res = await axios.post("https://lexfactos-backend.fly.dev/lawyer/full/", fd, {
         headers: { "Content-Type": "multipart/form-data" },
       });
       alert("✅ Lawyer registered successfully!");
