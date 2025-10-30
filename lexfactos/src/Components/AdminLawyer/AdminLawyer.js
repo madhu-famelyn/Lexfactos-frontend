@@ -20,7 +20,7 @@ const AdminLawyer = () => {
   const fetchLawyers = async () => {
     try {
       setLoading(true);
-      const response = await axios.get("http://localhost:5000/api/lawyers");
+      const response = await axios.get("https://lexfactos-frontend.pages.dev/api/lawyers");
       
       // Filter based on status from backend
       const pending = response.data.filter(l => l.status === "Pending");

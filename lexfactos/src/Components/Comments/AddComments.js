@@ -48,7 +48,7 @@ export default function AddComments({ lawyerId }) {
   // 📥 Fetch reviews
   const fetchReviews = async () => {
     try {
-      const res = await fetch(`http://127.0.0.1:8000/lawyer-rating/${lawyerId}`);
+      const res = await fetch(`https://lexfactos-frontend.pages.dev/lawyer-rating/${lawyerId}`);
       if (!res.ok) throw new Error("Failed to fetch reviews");
       const data = await res.json();
       setAvgRating(data.average_rating || 0);
@@ -86,7 +86,7 @@ export default function AddComments({ lawyerId }) {
     };
 
     try {
-      const res = await fetch("http://127.0.0.1:8000/lawyer-rating/", {
+      const res = await fetch("https://lexfactos-frontend.pages.dev/lawyer-rating/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -126,7 +126,7 @@ export default function AddComments({ lawyerId }) {
     setEditLoading(true);
     try {
       const res = await fetch(
-        `http://127.0.0.1:8000/lawyer-rating/${editReview.id}/${auth.user.id}`,
+        `https://lexfactos-frontend.pages.dev/lawyer-rating/${editReview.id}/${auth.user.id}`,
         {
           method: "PUT",
           headers: {
