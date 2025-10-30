@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../Context/UserContext";
 import {
   FaStar,
-  FaRegCommentDots,
   FaChevronDown,
   FaChevronUp,
   FaPlus,
