@@ -207,19 +207,29 @@ const LawyerRegistration = () => {
                 />
               </div>
 
-              <div className="form-group">
-                <label>Gender (Optional)</label>
-                <select
-                  name="gender"
-                  value={formData.gender}
-                  onChange={handleChange}
-                >
-                  <option value="">Select gender</option>
-                  <option>Male</option>
-                  <option>Female</option>
-                  <option>Other</option>
-                </select>
-              </div>
+             <div className="form-group">
+  <label>Gender (Optional)</label>
+  <select
+    name="gender"
+    value={formData.gender}
+    onChange={handleChange}
+    style={{
+      width: "95%",
+      padding: "10px",
+      borderRadius: "8px",
+      border: "1px solid #ccc",
+      fontSize: "14px",
+      outline: "none",
+      boxSizing: "border-box",
+    }}
+  >
+    <option value="">Select gender</option>
+    <option>Male</option>
+    <option>Female</option>
+    <option>Other</option>
+  </select>
+</div>
+
             </div>
 
             <div className="form-row">
@@ -256,7 +266,7 @@ const LawyerRegistration = () => {
                     border: "1px solid #ccc",
                     borderRadius: "6px",
                     padding: "4px 8px",
-                    width:"280px",
+                    width:"300px",
                     height:"34px",
                   }}
                 >
@@ -359,13 +369,13 @@ const LawyerRegistration = () => {
               </div>
             </div> */}
 
+
 <div className="lr-step2-footer">
   <button
     type="button"
     className="lr-step2-prev-btn"
     onClick={() => navigate(-1)}
   >
-    <HiChevronLeft size={18} />
     Previous
   </button>
 
@@ -375,11 +385,13 @@ const LawyerRegistration = () => {
     onClick={handleSubmit}
   >
     Next
-    <HiChevronRight size={18} />
   </button>
 </div>
-
           </form>
+
+
+
+          
         </div>
       </div>
     </div>

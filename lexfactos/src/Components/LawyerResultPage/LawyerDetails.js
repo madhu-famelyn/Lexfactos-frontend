@@ -12,6 +12,7 @@ import "./LawyerDetails.css";
 import { getLawyerById } from "../Service/Service";
 import "leaflet/dist/leaflet.css";
 import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
+import AddComments from "../Comments/AddComments";
 import L from "leaflet";
 
 // ✅ helper to auto fit all markers
@@ -341,6 +342,8 @@ export default function LawyerProfilePage() {
                 )}
               </ul>
             </section>
+     <AddComments lawyerId={id} />
+
           </div>
         </div>
       </div>
