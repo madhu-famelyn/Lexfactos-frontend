@@ -99,41 +99,104 @@ const LawyerFullRegistration = () => {
     { value: "Animal Law", label: "Animal Law" },
   ];
 
-  const locationData = {
-    India: {
-      Telangana: ["Hyderabad", "Warangal", "Karimnagar"],
-      "Andhra Pradesh": ["Vijayawada", "Visakhapatnam", "Guntur"],
-      Karnataka: ["Bengaluru", "Mysore", "Hubli"],
-    },
-    USA: {
-      California: ["Los Angeles", "San Diego", "San Francisco"],
-      Texas: ["Houston", "Dallas", "Austin"],
-      Florida: ["Miami", "Orlando", "Tampa"],
-    },
-    UK: {
-      England: ["London", "Manchester", "Liverpool"],
-      Scotland: ["Edinburgh", "Glasgow", "Aberdeen"],
-      Wales: ["Cardiff", "Swansea", "Newport"],
-    },
-  };
+const locationData = {
+  India: {
+    "Andhra Pradesh": ["Visakhapatnam", "Vijayawada", "Guntur", "Nellore", "Tirupati", "Kurnool"],
+    "Arunachal Pradesh": ["Itanagar", "Tawang", "Ziro"],
+    Assam: ["Guwahati", "Dibrugarh", "Silchar", "Jorhat"],
+    Bihar: ["Patna", "Gaya", "Bhagalpur", "Muzaffarpur"],
+    Chhattisgarh: ["Raipur", "Bhilai", "Bilaspur", "Korba"],
+    Goa: ["Panaji", "Margao", "Mapusa"],
+    Gujarat: ["Ahmedabad", "Surat", "Vadodara", "Rajkot", "Bhavnagar"],
+    Haryana: ["Gurugram", "Faridabad", "Panipat", "Ambala", "Karnal"],
+    "Himachal Pradesh": ["Shimla", "Manali", "Dharamshala", "Solan"],
+    Jharkhand: ["Ranchi", "Jamshedpur", "Dhanbad", "Bokaro"],
+    Karnataka: ["Bengaluru", "Mysuru", "Hubballi", "Mangalore", "Belagavi"],
+    Kerala: ["Thiruvananthapuram", "Kochi", "Kozhikode", "Thrissur"],
+    "Madhya Pradesh": ["Bhopal", "Indore", "Gwalior", "Jabalpur", "Ujjain"],
+    Maharashtra: ["Mumbai", "Pune", "Nagpur", "Nashik", "Aurangabad"],
+    Manipur: ["Imphal", "Churachandpur", "Thoubal"],
+    Meghalaya: ["Shillong", "Tura", "Jowai"],
+    Mizoram: ["Aizawl", "Lunglei"],
+    Nagaland: ["Kohima", "Dimapur"],
+    Odisha: ["Bhubaneswar", "Cuttack", "Rourkela", "Sambalpur"],
+    Punjab: ["Ludhiana", "Amritsar", "Jalandhar", "Patiala"],
+    Rajasthan: ["Jaipur", "Jodhpur", "Udaipur", "Kota", "Bikaner"],
+    Sikkim: ["Gangtok", "Namchi"],
+    "Tamil Nadu": ["Chennai", "Coimbatore", "Madurai", "Tiruchirappalli", "Salem"],
+    Telangana: ["Hyderabad", "Warangal", "Nizamabad", "Karimnagar"],
+    Tripura: ["Agartala"],
+    "Uttar Pradesh": ["Lucknow", "Kanpur", "Varanasi", "Agra", "Noida", "Ghaziabad", "Prayagraj"],
+    Uttarakhand: ["Dehradun", "Haridwar", "Nainital", "Rishikesh"],
+    "West Bengal": ["Kolkata", "Asansol", "Siliguri", "Durgapur", "Howrah"],
+    "Delhi (NCT)": ["New Delhi", "Dwarka", "Rohini", "Saket"],
+    "Jammu and Kashmir": ["Srinagar", "Jammu", "Anantnag"],
+    Ladakh: ["Leh", "Kargil"],
+    Chandigarh: ["Chandigarh"],
+    "Puducherry (UT)": ["Puducherry", "Karaikal"],
+  },
+
+  UAE: {
+    "Abu Dhabi": ["Abu Dhabi", "Al Ain", "Madinat Zayed", "Ruwais"],
+    Dubai: ["Dubai", "Jebel Ali", "Hatta"],
+    Sharjah: ["Sharjah", "Khor Fakkan", "Kalba", "Dhaid"],
+    Ajman: ["Ajman"],
+    "Umm Al Quwain": ["Umm Al Quwain"],
+    "Ras Al Khaimah": ["Ras Al Khaimah", "Dibba Al Hisn"],
+    Fujairah: ["Fujairah", "Dibba Al Fujairah"],
+  },
+};
+
 
   const barLocationData = {
-    India: {
-      "Tamil Nadu": ["Chennai", "Coimbatore", "Madurai"],
-      "Maharashtra": ["Mumbai", "Pune", "Nagpur"],
-      "Delhi": ["New Delhi"],
-    },
-    USA: {
-      California: ["Los Angeles", "San Francisco", "San Diego"],
-      Texas: ["Houston", "Dallas", "Austin"],
-      "New York": ["New York City", "Buffalo"],
-    },
-    UK: {
-      England: ["London", "Manchester", "Birmingham"],
-      Scotland: ["Edinburgh", "Glasgow"],
-      Wales: ["Cardiff", "Swansea"],
-    },
-  };
+  India: {
+    "Andhra Pradesh": ["Visakhapatnam", "Vijayawada", "Guntur", "Nellore", "Tirupati", "Kurnool"],
+    "Arunachal Pradesh": ["Itanagar", "Tawang", "Ziro"],
+    Assam: ["Guwahati", "Dibrugarh", "Silchar", "Jorhat"],
+    Bihar: ["Patna", "Gaya", "Bhagalpur", "Muzaffarpur"],
+    Chhattisgarh: ["Raipur", "Bhilai", "Bilaspur", "Korba"],
+    Goa: ["Panaji", "Margao", "Mapusa"],
+    Gujarat: ["Ahmedabad", "Surat", "Vadodara", "Rajkot", "Bhavnagar"],
+    Haryana: ["Gurugram", "Faridabad", "Panipat", "Ambala", "Karnal"],
+    "Himachal Pradesh": ["Shimla", "Manali", "Dharamshala", "Solan"],
+    Jharkhand: ["Ranchi", "Jamshedpur", "Dhanbad", "Bokaro"],
+    Karnataka: ["Bengaluru", "Mysuru", "Hubballi", "Mangalore", "Belagavi"],
+    Kerala: ["Thiruvananthapuram", "Kochi", "Kozhikode", "Thrissur"],
+    "Madhya Pradesh": ["Bhopal", "Indore", "Gwalior", "Jabalpur", "Ujjain"],
+    Maharashtra: ["Mumbai", "Pune", "Nagpur", "Nashik", "Aurangabad"],
+    Manipur: ["Imphal", "Churachandpur", "Thoubal"],
+    Meghalaya: ["Shillong", "Tura", "Jowai"],
+    Mizoram: ["Aizawl", "Lunglei"],
+    Nagaland: ["Kohima", "Dimapur"],
+    Odisha: ["Bhubaneswar", "Cuttack", "Rourkela", "Sambalpur"],
+    Punjab: ["Ludhiana", "Amritsar", "Jalandhar", "Patiala"],
+    Rajasthan: ["Jaipur", "Jodhpur", "Udaipur", "Kota", "Bikaner"],
+    Sikkim: ["Gangtok", "Namchi"],
+    "Tamil Nadu": ["Chennai", "Coimbatore", "Madurai", "Tiruchirappalli", "Salem"],
+    Telangana: ["Hyderabad", "Warangal", "Nizamabad", "Karimnagar"],
+    Tripura: ["Agartala"],
+    "Uttar Pradesh": ["Lucknow", "Kanpur", "Varanasi", "Agra", "Noida", "Ghaziabad", "Prayagraj"],
+    Uttarakhand: ["Dehradun", "Haridwar", "Nainital", "Rishikesh"],
+    "West Bengal": ["Kolkata", "Asansol", "Siliguri", "Durgapur", "Howrah"],
+    "Delhi (NCT)": ["New Delhi", "Dwarka", "Rohini", "Saket"],
+    "Jammu and Kashmir": ["Srinagar", "Jammu", "Anantnag"],
+    Ladakh: ["Leh", "Kargil"],
+    Chandigarh: ["Chandigarh"],
+    "Puducherry (UT)": ["Puducherry", "Karaikal"],
+  },
+
+
+ UAE: {
+    "Abu Dhabi": ["Abu Dhabi", "Al Ain", "Madinat Zayed", "Ruwais"],
+    Dubai: ["Dubai", "Jebel Ali", "Hatta"],
+    Sharjah: ["Sharjah", "Khor Fakkan", "Kalba", "Dhaid"],
+    Ajman: ["Ajman"],
+    "Umm Al Quwain": ["Umm Al Quwain"],
+    "Ras Al Khaimah": ["Ras Al Khaimah", "Dibba Al Hisn"],
+    Fujairah: ["Fujairah", "Dibba Al Fujairah"],
+  },
+};
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
