@@ -128,39 +128,47 @@ const SignupPage = () => {
           </div>
 
           <input
-            type="text"
-            placeholder="Full name"
-            value={fullName}
-            onChange={(e) => setFullName(e.target.value)}
-            required
-          />
-          <input
-            type="email"
-            placeholder="Email address"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-          <input
-            type="text"
-            placeholder="Mobile number"
-            value={mobileNumber}
-            onChange={(e) => setMobileNumber(e.target.value)}
-            required
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
+  type="text"
+  className="form-input"
+  placeholder="Full name"
+  value={fullName}
+  onChange={(e) => setFullName(e.target.value)}
+  required
+/>
+
+<input
+  type="email"
+  className="form-input"
+  placeholder="Email address"
+  value={email}
+  onChange={(e) => setEmail(e.target.value)}
+  required
+/>
+
+<input
+  type="text"
+  className="form-input"
+  placeholder="Mobile number"
+  value={mobileNumber}
+  onChange={(e) => setMobileNumber(e.target.value)}
+  required
+/>
+
+<input
+  type="password"
+  className="form-input"
+  placeholder="Password"
+  value={password}
+  onChange={(e) => setPassword(e.target.value)}
+  required
+/>
+
 
           <div className="form-options">
             <label>
               <input type="checkbox" /> Remember me
             </label>
-            <a href="/coming-soon"  className="forgot">
+            <a href="/forgot-password-user"  className="forgot">
               Forgot password?
             </a>
           </div>

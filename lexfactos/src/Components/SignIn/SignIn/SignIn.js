@@ -87,10 +87,35 @@ export default function SignIn() {
           It's fast, simple, and free.
         </p>
 
-        <GoogleLogin
-          onSuccess={handleGoogleSuccess}
-          onError={handleGoogleFailure}
-        />
+       <div
+          className="form"
+          style={{
+            width: "100%",
+            display: "flex",
+            justifyContent: "center",
+            marginTop: "16px",
+          }}
+        >
+          <div
+              className="google-login-container"
+              style={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "center",
+                marginTop: "16px",
+              }}
+            >
+              <div className="google-login-wrapper">
+                <GoogleLogin
+                  onSuccess={handleGoogleSuccess}
+                  onError={handleGoogleFailure}
+                />
+              </div>
+            </div>
+
+        </div>
+
+
 
         <div className="divider">
           <span className="line"></span>
@@ -98,21 +123,23 @@ export default function SignIn() {
           <span className="line"></span>
         </div>
 
-        <form onSubmit={handleSubmit}>
-          <label htmlFor="email">Email address</label>
+        <form className="login-form" onSubmit={handleSubmit}>
+          <label htmlFor="email" className="form-label">Email address</label>
           <input
             type="email"
             id="email"
+            className="form-input"
             placeholder="Enter your email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
           />
 
-          <label htmlFor="password">Password</label>
+          <label htmlFor="password" className="form-label">Password</label>
           <input
             type="password"
             id="password"
+            className="form-input"
             placeholder="Enter your password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -128,12 +155,13 @@ export default function SignIn() {
             </a>
           </div>
 
-          <button type="submit" className="signup-btn" disabled={loading}>
-            {loading ? "Signing In..." : "Sign In"}
-          </button>
+ <button type="submit" className="signup-btn" disabled={loading}>
+          {loading ? "Signing In..." : "Sign In"}
+        </button>
 
-          {message && <p style={{ marginTop: "10px" }}>{message}</p>}
+          {message && <p className="form-message">{message}</p>}
         </form>
+
 
         <p className="signup-link">
           Don’t have an account?{" "}

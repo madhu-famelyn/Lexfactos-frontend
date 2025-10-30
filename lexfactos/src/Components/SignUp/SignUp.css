@@ -1,28 +1,35 @@
+/* 🌐 Main Container */
 .signup-container {
   display: flex;
-  height: 130vh;
+  height: 100%;
   font-family: "Inter", sans-serif;
+  overflow: hidden;
 }
 
-.signup-left,
-.signup-right {
-  height: 100%; 
-  box-sizing: border-box;
+/* 🖤 Left Section */
+.signup-container {
+  display: flex;
+  min-height: 100vh; /* ensures full screen height */
+  font-family: "Inter", sans-serif;
+  overflow: hidden;
 }
 
 .signup-left {
-  flex: 0.9; 
+  flex: 1;
   background: linear-gradient(to bottom, #000, #222);
   color: white;
-  padding: 60px;
+  padding: 60px 50px;
+  height: 119vh; /* ensures gradient fills full height */
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
+
 .signup-left h1 {
-  font-size: 2.5rem;
-  font-weight: bold;
+  font-size: 2.6rem;
+  font-weight: 700;
+  margin-bottom: 10px;
 }
 
 .signup-left .brand {
@@ -33,7 +40,8 @@
   margin-top: 15px;
   font-size: 1rem;
   line-height: 1.5;
-  color: #ddd;
+  color: #ccc;
+  max-width: 400px;
 }
 
 .testimonial {
@@ -69,220 +77,175 @@
   color: #aaa;
 }
 
-/* Right Section */
+/* ⚪ Right Section */
 .signup-right {
-  flex: 2; /* bigger width */
+  flex: 1.5;
   background: #fff;
-  padding: 60px;
+  padding: 60px 80px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;   /* horizontal center */
-  text-align: center;
+  align-items: center;
 }
 
 .signup-right h2 {
-  font-family: "Geist", sans-serif;
-  font-weight: 600; /* SemiBold */
-  font-size: 27.46px;
-  line-height: 40.54px;
-  letter-spacing: -1.31px;
-  color: #000000;
-  margin-bottom: 12px;
+  font-size: 1.9rem;
+  font-weight: 700;
+  color: #000;
+  margin-bottom: 8px;
 }
 
 .signup-right p {
-  font-family: "Geist", sans-serif;
-  font-weight: 400;
-  font-size: 11.77px;
-  line-height: 19.62px;
-  color: #52525B;
-  max-width: 450px;
-  margin-bottom: 30px;
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 35px;
+  text-align: center;
+  max-width: 400px;
+  line-height: 1.6;
 }
 
+/* 📸 Profile Upload */
 .profile-upload {
   display: flex;
   align-items: center;
-  justify-content: space-between; 
+  justify-content: center;
+  gap: 25px;
   width: 100%;
-  margin-bottom: 30px;
+  max-width: 500px;
+  margin-bottom: 25px;
 }
 
 .circle {
-  width: 60px;
-  height: 60px;
+  width: 70px;
+  height: 70px;
   border-radius: 50%;
-  background: #f0f0f0;
+  background: #f5f5f5;
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
+  border: 1px solid #ddd;
 }
 
 .camera-icon {
-  font-size: 20px;
-  color: #555;
+  font-size: 22px;
+  color: #777;
 }
 
 .upload-btn {
-  padding: 8px 15px;
+  padding: 10px 18px;
   font-size: 14px;
-  border: 1px solid #ccc;
-  background: white;
-  border-radius: 5px;
+  border: 1px solid #dcdcdc;
+  background: #fff;
+  border-radius: 8px;
   cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
 }
 
-.signup-form input {
+.upload-btn:hover {
+  background: #f9f9f9;
+  border-color: #bbb;
+}
+
+/* 🧾 Form */
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
   width: 100%;
-  padding: 12px;
-  margin-bottom: 15px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  font-size: 14px;
+  max-width: 500px;
 }
 
+.form-input {
+  width: 100%;
+  height: 44px;
+  padding: 10px 14px;
+  border: 1px solid #e5e7eb;
+  border-radius: 9px;
+  outline: none;
+  font-size: 14px;
+  color: #333;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+  background-color: #fff;
+}
+
+.form-input::placeholder {
+  color: #9ca3af;
+}
+
+.form-input:focus {
+  border-color: #2f5ae0;
+  box-shadow: 0 0 0 3px rgba(47, 90, 224, 0.1);
+}
+
+/* 🧩 Options */
 .form-options {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 12px;
-  font-size: 14px;
-  color: #333;
   width: 100%;
+  font-size: 13px;
+  color: #333;
 }
-.forgot {
-  font-family: "Geist", sans-serif;
-  font-weight: 400;
-  font-style: normal;
-  font-size: 12px;
-  line-height: 14.39px;
-  letter-spacing: 0px;
-
-  color: #2563EB;
-  padding: 4px 10px;
-  border-radius: 4px;
-
-  text-decoration: none;
-  display: inline-block;
-  transition: background 0.2s ease-in-out;
-}
-
-.forgot:hover {
-  color: #1E4ED8; 
-}
-
 
 .form-options label {
   display: flex;
   align-items: center;
   gap: 6px;
   cursor: pointer;
-  user-select: none;
-  line-height: 1; 
-}
-
-.form-options input[type="checkbox"] {
-  accent-color: #2f5ae0;
-  width: 16px;
-  height: 16px;
-  cursor: pointer;
-  position: relative;
-  top: 5px; 
-}
-
-.form-options .forgot {
-  text-decoration: none;
-  font-weight: 500;
-  transition: color 0.2s ease-in-out;
-}
-
-.form-options .forgot:hover {
-  text-decoration: underline;
 }
 
 .forgot {
-  color: #2f5ae0;
+  color: #2563eb;
   text-decoration: none;
 }
 
+.forgot:hover {
+  text-decoration: underline;
+}
+
+/* 🚀 Buttons */
 .signup-btn {
   width: 100%;
   padding: 12px;
   background: #2f5ae0;
-  color: white;
+  color: #fff;
   font-size: 16px;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
-  margin-bottom: 15px;
+  transition: all 0.3s ease;
 }
 
 .signup-btn:hover {
-  background: #2549b5;
+  background: #2448b8;
+  transform: translateY(-1px);
 }
 
-.create-account {
-  font-size: 14px;
-  text-align: center;
+/* 👥 Google Button */
+.google-login-btn {
+  width: 100%;
+  max-width: 500px;
+  margin-top: 10px;
 }
 
-.create-account .link {
-  color: #2f5ae0;
-  text-decoration: none;
-}
-
-
-
-
-/* 📱 Responsive Design for Mobile */
-@media (max-width: 768px) {
+/* 📱 Responsive Design */
+@media (max-width: 992px) {
   .signup-container {
-    flex-direction: column; /* Stack left and right sections */
-    height: auto; /* Auto height for mobile */
+    flex-direction: column;
+    height: auto;
   }
 
   .signup-left,
   .signup-right {
     width: 100%;
-    padding: 40px 20px;
-    height: auto;
-  }
-
-  .signup-left {
+    padding: 40px 25px;
     text-align: center;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .signup-left h1 {
-    font-size: 2rem;
-  }
-
-  .signup-left p {
-    font-size: 0.95rem;
-    max-width: 90%;
-  }
-
-  .testimonial {
-    margin-top: 30px;
-    max-width: 100%;
-  }
-
-  .signup-right {
-    padding: 30px 20px;
-  }
-
-  .signup-right h2 {
-    font-size: 1.6rem;
-    line-height: 2.2rem;
-  }
-
-  .signup-right p {
-    font-size: 0.9rem;
-    line-height: 1.4rem;
-    margin-bottom: 20px;
-    max-width: 100%;
   }
 
   .profile-upload {
@@ -290,94 +253,12 @@
     gap: 15px;
   }
 
-  .circle {
-    width: 70px;
-    height: 70px;
-  }
-
-  .upload-btn {
+  .signup-form {
     width: 100%;
-    text-align: center;
-  }
-
-  .signup-form input {
-    font-size: 0.95rem;
-    padding: 10px;
-  }
-
-  .form-options {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-    font-size: 13px;
+    max-width: 100%;
   }
 
   .signup-btn {
-    font-size: 15px;
-    padding: 12px;
-  }
-
-  .create-account {
-    font-size: 13px;
-  }
-}
-
-/* 📱 Small Phones (≤480px) */
-@media (max-width: 480px) {
-  .signup-left {
-    padding: 30px 15px;
-  }
-
-  .signup-left h1 {
-    font-size: 1.6rem;
-  }
-
-  .signup-left p {
-    font-size: 0.9rem;
-  }
-
-  .signup-right {
-    padding: 25px 15px;
-  }
-
-  .signup-right h2 {
-    font-size: 1.4rem;
-  }
-
-  .signup-right p {
-    font-size: 0.85rem;
-  }
-
-  .signup-form input {
-    font-size: 0.9rem;
-  }
-
-  .signup-btn {
-    font-size: 0.9rem;
-    padding: 10px;
-  }
-
-  .create-account {
-    font-size: 12px;
-  }
-}
-
-
-/* Upload Button Fix for Mobile */
-/* Center the Upload Button below the profile circle */
-@media (max-width: 768px) {
-  .profile-upload {
-    flex-direction: column;      /* stack circle and button vertically */
-    align-items: center;         /* center horizontally */
-    gap: 10px;                   /* spacing between circle and button */
-  }
-
-  .upload-btn {
-    display: inline-flex;        /* keep icon + text together */
-    justify-content: center;
-    align-items: center;
-    width: auto;                 /* only as wide as content */
-    padding: 10px 15px;
-    text-align: center;
+    width: 100%;
   }
 }

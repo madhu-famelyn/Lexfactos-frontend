@@ -3,85 +3,73 @@
 body {
   margin: 0;
   font-family: 'Geist', sans-serif;
+  background-color: #fff;
 }
 
+/* ====== Layout ====== */
 .signin-container {
   display: flex;
-  height: 100vh;
+  min-height: 100vh;
+  overflow: hidden;
 }
 
 .signin-left {
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;   
-  padding: 40px;
+  justify-content: center;
+  padding: 60px 50px;
   background: #fff;
 }
 
-.signin-header {
-  text-align: center;
-  margin-bottom: 24px;
-}
-
+/* ====== Header Text ====== */
 .signin-title {
-  font-family: "Geist", sans-serif;
-  font-weight: 600; /* SemiBold */
-  font-style: normal;
-  font-size: 31.68px;
-  line-height: 46.77px;
-  letter-spacing: -1.51px;
-  color: #000000;
+  font-weight: 600;
+  font-size: 32px;
+  color: #000;
   text-align: center;
-  margin-bottom: 8px;
+  margin-bottom: 0px !important; /* reduced from default spacing */
 }
-
 
 .signin-subtitle {
-  font-family: "Geist", sans-serif;
-  font-weight: 400; /* Regular */
-  font-style: normal;
-  font-size: 13.58px;
-  line-height: 22.63px;
-  letter-spacing: 0px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
   text-align: center;
   color: #52525B;
-  margin-bottom: 20px;
+  margin-bottom: 0px !important; /* reduced from 24px */
 }
 
-
-/* Google Button */
-.google-button {
+/* ====== Google Login ====== */
+.google-login-container {
+  width: 100%;
   display: flex;
-  align-items: center;
   justify-content: center;
-  gap: 7.54px;
-  width: 493px;
-  height: 40px; /* set a reasonable height */
-  box-sizing: border-box; /* ensures padding is included in height */
-  border-radius: 8px;
-  border: 1px solid #D0D0D0;
-  background: #FFFFFF;
-  cursor: pointer;
-  opacity: 1;
-  margin: 0 auto; /* Centers the button */
-  line-height: normal; /* prevent text from increasing height */
 }
 
-.google-button * {
-  max-height: 100%; /* prevent child elements from stretching height */
+.google-login-wrapper {
+  width: 100%;
+  max-width: 493px;
+  display: flex;
+  justify-content: center;
+  gap: 0px !important; /* ensure no internal spacing */
+}
+
+.google-login-wrapper iframe {
+  width: 100% !important;
+  min-width: 100% !important;
+  border-radius: 8px !important;
+  border: 1px solid #e5e7eb !important;
 }
 
 
-
-
-/* Divider */
+/* ====== Divider ====== */
 .divider {
   display: flex;
   align-items: center;
-  justify-content: center; /* Centers "Or" horizontally */
+  justify-content: center;
   color: #9ca3af;
-  margin: 20px auto; /* Centers the divider itself */
+  margin: 20px auto;
   max-width: 320px;
   width: 100%;
 }
@@ -93,74 +81,62 @@ body {
   margin: 0 8px;
 }
 
-.divider .divider-text {
-  white-space: nowrap;
-}
-
-.forgot-password {
-  margin-left: auto; /* pushes it to far right of flex container */
-}
-
-/* form {
+/* ====== Form ====== */
+.login-form {
   display: flex;
-  flex-direction: column; 
+  flex-direction: column;
   align-items: flex-start;
   gap: 12px;
-  width: 493px; 
+  width: 100%;
+  max-width: 493px;
   margin: 0 auto;
-} */
+}
 
+.form-label {
+  font-size: 13px;
+  color: #444;
+}
 
-/* input {
-  width: 493px;
+.form-input {
+  width: 100%;
   height: 42px;
   padding: 10px;
   border: 1px solid #e5e7eb;
-  border-radius: 9px; 
+  border-radius: 9px;
+  font-size: 14px;
   outline: none;
-  opacity: 1; 
-  box-sizing: border-box; 
-} */
+  transition: all 0.2s ease;
+}
 
+.form-input:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
 
+/* ====== Options ====== */
+.form-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
 
 .remember-me {
   display: flex;
   align-items: center;
-  gap: 8px; /* space between checkbox and text */
-  font-size: 14px;
-  color: #374151; /* Tailwind gray-700 */
-  cursor: pointer;
-  user-select: none; /* prevent accidental text selection */
+  gap: 6px;
+  font-size: 13px;
+  color: #374151;
 }
 
 .remember-me input[type="checkbox"] {
   width: 16px;
   height: 16px;
-  accent-color: #2563eb; /* Modern browsers — sets checkbox color */
-  cursor: pointer;
-  margin: 0; /* remove default spacing */
-}
-
-
-.form-options {
-  display: flex;
-  justify-content: space-between; 
-  align-items: center;
-}
-
-.remember-me {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  font-size: 12px;
+  accent-color: #2563eb;
 }
 
 .forgot-password {
-  font-family: "Geist", sans-serif;
-  font-weight: 400;
-  font-size: 10.56px;
-  line-height: 16.6px;
+  font-size: 12px;
   color: #2563eb;
   text-decoration: none;
 }
@@ -169,81 +145,46 @@ body {
   text-decoration: underline;
 }
 
-
-
+/* ====== Sign In Button ====== */
 .signup-btn {
-  width: 493px;
-  height: 41.49px;
-  gap: 7.54px; /* only works if display:flex */
-  border-radius: 6.79px;
-  padding: 12.07px;
+  width: 100%;
+  height: 44px;
+  border-radius: 7px;
   background: #2563EB;
   color: #fff;
-  font-family: "Geist", sans-serif;
   font-weight: 600;
-  font-size: 12.07px;
-  line-height: 21.12px;
-  letter-spacing: -0.15px;
-  text-align: center;
+  font-size: 14px;
   border: none;
   cursor: pointer;
-  display: flex; /* so gap works if needed */
-  justify-content: center;
-  align-items: center;
+  transition: all 0.3s ease;
 }
 
 .signup-btn:hover {
-  background: #1d4ed8; /* slightly darker blue on hover */
+  background: #1d4ed8;
 }
 
-
+/* ====== Signup Link ====== */
 .signup-link {
-  font-family: "Geist", sans-serif;
-  font-weight: 500;
-  font-size: 9.81px;
-  margin-left: 15vh;
-  line-height: 15.84px;
-  letter-spacing: 0px;
-  color: #000; /* default text color */
-  vertical-align: middle;
+  text-align: center;
+  margin-top: 16px;
+  font-size: 13px;
+  color: #000;
 }
 
-.signup-link a {
-  color: #2563EB; /* blue for link */
-  text-decoration: none;
-  font-weight: 500;
+.signup-link span {
+  color: #2563EB;
+  cursor: pointer;
 }
 
-.signup-link a:hover {
+.signup-link span:hover {
   text-decoration: underline;
-}
-
-
-
-
-/* Right Side */
-
-
-
-
-.signin-right {
-  display: flex;
-  justify-content: center;  /* centers horizontally */
-  align-items: center;      /* centers vertically */
-  height: 100%;             /* or set a fixed height */
-  padding: 20px;            /* optional padding */
-}
-
-.overlay-text {
-  text-align: left;
-  max-width: 1000px; /* increased from 800px */
 }
 
 
 .signin-right {
   position: relative; /* needed for positioning the overlay */
   width: 500px;
-  height: 600px;
+  height: 700px;
   padding: 33px 73px;
   gap: 10px;
   background: url('../../Assets/SingInBackground.jpg') center/cover no-repeat;
@@ -263,36 +204,36 @@ body {
   z-index: 1;
 }
 
-/* To make sure your overlay-text content is above overlay */
+/* Centers the container vertically but keeps text left-aligned */
 .overlay-text {
-  position: relative;
-  z-index: 2;
+  position: absolute;          /* Position relative to .signin-right */
+  top: 50%;                    /* Move to middle vertically */
+  left: 50%;                   /* Horizontally center the block */
+  transform: translate(-50%, -50%); /* Perfect vertical + horizontal center */
+  z-index: 2;                  /* Ensure it's above overlay */
+  text-align: left;            /* Left-align text content */
+  max-width: 600px;
+  width: 90%;
+  padding: 0 20px;
 }
-
-
 
 .overlay-text h2 {
   font-family: "Geist", sans-serif;
-  font-weight: 600; /* SemiBold */
+  font-weight: 600;
   font-size: 28px;
   line-height: 43px;
   letter-spacing: -1.73px;
-  color: #FFFFFF; /* optional: make text visible on white background */
-  margin: 0; /* remove default spacing */
-  padding: 0; /* adjust if you want spacing inside */
+  color: #FFFFFF;
+  margin: 0 0 16px 0;
 }
-
 
 .overlay-text p {
   font-family: "Geist", sans-serif;
-  font-weight: 400; /* Regular */
+  font-weight: 400;
   font-size: 15.53px;
   line-height: 24px;
-  letter-spacing: 0px;
   color: #CBD5E1;
-  margin: 0; /* remove default paragraph margin */
-  padding: 0;
-  margin-bottom: 10vh;
+  margin: 0;
 }
 
 
@@ -312,122 +253,37 @@ body {
 
 }
 
-
+/* ====== Mobile Styles ====== */
 @media (max-width: 768px) {
   .signin-container {
     flex-direction: column;
     height: auto;
-    padding: 16px; /* give breathing room on mobile */
-  }
-
-  .signin-left {
-    width: 100%;
-    padding: 0;
-    max-width: 420px; /* limits content width so it's not stretched */
-    margin: 0 auto; /* center horizontally */
-  }
-
-  /* Smaller, cleaner Google button for mobile */
-  .google-button {
-    width: 100%;
-    height: 48px;
-    padding: 0 16px;
-    font-size: 14px;
-    border-radius: 6px;
-    gap: 8px;
-    border: 1px solid #D0D0D0;
-    background: #fff;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
-  }
-
-  .google-button img {
-    width: 20px;
-    height: 20px;
-  }
-
-  /* Make form elements fit nicely */
-  form,
-  input,
-  .signup-btn {
-    width: 100%;
-    max-width: 100%;
-  }
-
-  /* Smaller heading/subheading */
-  .signin-title {
-    font-size: 22px;
-    margin-bottom: 6px;
-  }
-
-  .signin-subtitle {
-    font-size: 13px;
-    margin-bottom: 16px;
-  }
-
-  .divider {
-    margin: 12px auto;
-  }
-
-  .signup-link {
-    margin-left: 0;
-    text-align: center;
-    display: block;
-    margin-top: 12px;
-  }
-}
-
-
-/* Mobile Styles */
-@media (max-width: 768px) {
-  .signin-container {
-    flex-direction: column;
-    height: auto;
-  }
-
-  /* Left form takes full width */
-  .signin-left {
-    flex: none;
-    width: 90%;
     padding: 20px;
   }
 
-  /* Remove right side image section completely */
   .signin-right {
     display: none;
   }
 
-  /* Make form elements responsive */
-  .google-button,
-  form,
-  input,
-  .signup-btn {
+  .signin-left {
+    padding: 0;
+    width: 100%;
+    max-width: 420px;
+    margin: 0 auto;
+  }
+
+  .login-form,
+  .signup-btn,
+  .google-login-wrapper {
     width: 100%;
     max-width: 100%;
   }
 
-  /* Adjust title/subtitle for mobile */
   .signin-title {
     font-size: 24px;
-    line-height: 1.4;
   }
 
   .signin-subtitle {
-    font-size: 12px;
-    line-height: 1.5;
-  }
-
-  /* Reduce padding and spacing */
-  form {
-    gap: 10px;
-  }
-
-  .divider {
-    margin: 15px auto;
-  }
-
-  .signup-link {
-    margin-left: 0;
-    text-align: center;
-    display: block;
+    font-size: 13px;
   }
 }
