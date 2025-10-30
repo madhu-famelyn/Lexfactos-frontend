@@ -339,7 +339,7 @@ const LawyerRegistrationStep6 = () => {
               <input
                 type="text"
                 placeholder="Link (Optional)"
-                className="lr-step6-input"
+                className="lr-step6-input-big"
                 value={p.link}
                 onChange={(e) =>
                   handleChange(i, "link", e.target.value, "publications")

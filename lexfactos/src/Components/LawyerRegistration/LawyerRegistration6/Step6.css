@@ -106,12 +106,15 @@
 }
 
 .lr-step6-input{
-     width: 100%;
+     width: 90%;
   border: 1px solid #d1d5db;
   border-radius: 6px;
   padding: 10px;
   font-size: 14px;
   color: #111827;
+}
+.lr-step6-input-big{
+  width:97%;
 }
 .lr-step6-textarea {
   width: 96%;
