@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./SignIn.css";
 import { FiUpload } from "react-icons/fi";
-import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
 import { registerLawyer } from "../../Service/Service";
 import { useNavigate } from "react-router-dom";
 
