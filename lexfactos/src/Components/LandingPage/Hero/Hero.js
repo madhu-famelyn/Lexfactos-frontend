@@ -1,21 +1,55 @@
+// src/Pages/LandingPage.js
 import React, { useState } from "react";
-import "./Hero.css";
-// import { FaSearch } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import "./Hero.css";
 
-// ✅ States + Cities
 const indiaStates = {
-  "Andhra Pradesh": ["Visakhapatnam", "Vijayawada", "Chittoor", "Guntur", "Nellore", "Tirupati"],
+  "Andhra Pradesh": ["Visakhapatnam", "Vijayawada", "Guntur", "Nellore", "Tirupati", "Kurnool", "Rajahmundry"],
+  "Arunachal Pradesh": ["Itanagar", "Tawang", "Ziro", "Pasighat"],
+  "Assam": ["Guwahati", "Silchar", "Dibrugarh", "Jorhat"],
   "Bihar": ["Patna", "Gaya", "Bhagalpur", "Muzaffarpur", "Darbhanga"],
-  "Delhi": ["New Delhi", "Dwarka", "Saket", "Rohini", "Karol Bagh"],
-  "Gujarat": ["Ahmedabad", "Surat", "Vadodara", "Rajkot"],
-  "Karnataka": ["Bengaluru", "Mysuru", "Mangaluru", "Hubli", "Belagavi"],
-  "Kerala": ["Thiruvananthapuram", "Kochi", "Kozhikode", "Thrissur"],
-  "Maharashtra": ["Mumbai", "Pune", "Nagpur", "Nashik", "Thane"],
-  "Tamil Nadu": ["Chennai", "Coimbatore", "Madurai", "Salem"],
-  "Telangana": ["Hyderabad", "Warangal", "Nizamabad", "Khammam"],
-  "Uttar Pradesh": ["Lucknow", "Kanpur", "Varanasi", "Agra", "Noida"],
-  "West Bengal": ["Kolkata", "Howrah", "Durgapur", "Siliguri"],
+  "Chhattisgarh": ["Raipur", "Bhilai", "Bilaspur", "Durg"],
+  "Goa": ["Panaji", "Margao", "Mapusa", "Vasco da Gama"],
+  "Gujarat": ["Ahmedabad", "Surat", "Vadodara", "Rajkot", "Gandhinagar", "Bhavnagar"],
+  "Haryana": ["Gurugram", "Faridabad", "Panipat", "Ambala", "Hisar"],
+  "Himachal Pradesh": ["Shimla", "Manali", "Dharamshala", "Solan"],
+  "Jharkhand": ["Ranchi", "Jamshedpur", "Dhanbad", "Hazaribagh"],
+  "Karnataka": ["Bengaluru", "Mysuru", "Mangaluru", "Hubballi", "Belagavi", "Davangere"],
+  "Kerala": ["Thiruvananthapuram", "Kochi", "Kozhikode", "Thrissur", "Alappuzha", "Palakkad"],
+  "Madhya Pradesh": ["Bhopal", "Indore", "Gwalior", "Jabalpur", "Ujjain"],
+  "Maharashtra": ["Mumbai", "Pune", "Nagpur", "Nashik", "Thane", "Aurangabad", "Kolhapur"],
+  "Manipur": ["Imphal", "Churachandpur", "Thoubal"],
+  "Meghalaya": ["Shillong", "Tura", "Jowai"],
+  "Mizoram": ["Aizawl", "Lunglei", "Champhai"],
+  "Nagaland": ["Kohima", "Dimapur", "Mokokchung"],
+  "Odisha": ["Bhubaneswar", "Cuttack", "Rourkela", "Puri"],
+  "Punjab": ["Amritsar", "Ludhiana", "Jalandhar", "Patiala", "Bathinda"],
+  "Rajasthan": ["Jaipur", "Jodhpur", "Udaipur", "Kota", "Ajmer"],
+  "Sikkim": ["Gangtok", "Namchi", "Gyalshing"],
+  "Tamil Nadu": ["Chennai", "Coimbatore", "Madurai", "Salem", "Tiruchirappalli", "Erode"],
+  "Telangana": ["Hyderabad", "Warangal", "Nizamabad", "Khammam", "Karimnagar"],
+  "Tripura": ["Agartala", "Dharmanagar", "Udaipur"],
+  "Uttar Pradesh": ["Lucknow", "Kanpur", "Varanasi", "Agra", "Noida", "Prayagraj", "Ghaziabad"],
+  "Uttarakhand": ["Dehradun", "Haridwar", "Nainital", "Rishikesh"],
+  "West Bengal": ["Kolkata", "Howrah", "Durgapur", "Siliguri", "Asansol"],
+  "Delhi": ["New Delhi", "Dwarka", "Rohini", "Karol Bagh", "Saket"],
+  "Jammu and Kashmir": ["Srinagar", "Jammu", "Anantnag", "Baramulla"],
+  "Ladakh": ["Leh", "Kargil"],
+  "Puducherry": ["Puducherry", "Karaikal", "Mahe", "Yanam"],
+  "Chandigarh": ["Chandigarh"],
+  "Andaman and Nicobar Islands": ["Port Blair", "Havelock Island"],
+  "Lakshadweep": ["Kavaratti", "Agatti"],
+  "Dadra and Nagar Haveli and Daman and Diu": ["Daman", "Silvassa"],
+};
+
+const uaeStates = {
+  "Abu Dhabi": ["Abu Dhabi", "Al Ain", "Madinat Zayed", "Ghaf Hub"],
+  "Dubai": ["Dubai City", "Jebel Ali", "Deira", "Bur Dubai", "Business Bay"],
+  "Sharjah": ["Sharjah City", "Khor Fakkan", "Kalba", "Mleiha"],
+  "Ajman": ["Ajman City", "Masfout", "Manama"],
+  "Umm Al Quwain": ["UAQ City", "Falaj Al Mualla", "Dreamland"],
+  "Ras Al Khaimah": ["RAK City", "Dibba Al-Hisn", "Al Jazirah Al Hamra"],
+  "Fujairah": ["Fujairah City", "Dibba Al-Fujairah", "Khor Fakkan", "Masafi"],
 };
 
 const LandingPage = () => {
@@ -69,6 +103,7 @@ const LandingPage = () => {
         >
           <option value="">Select Country</option>
           <option value="India">India</option>
+          <option value="UAE">United Arab Emirates</option>
         </select>
 
         {/* State Dropdown */}
@@ -88,6 +123,12 @@ const LandingPage = () => {
                 {state}
               </option>
             ))}
+          {selectedCountry === "UAE" &&
+            Object.keys(uaeStates).map((state, index) => (
+              <option key={index} value={state}>
+                {state}
+              </option>
+            ))}
         </select>
 
         {/* City Dropdown */}
@@ -98,8 +139,16 @@ const LandingPage = () => {
           disabled={!selectedState}
         >
           <option value="">Select City</option>
-          {selectedState &&
+          {selectedCountry === "India" &&
+            selectedState &&
             indiaStates[selectedState].map((city, index) => (
+              <option key={index} value={city}>
+                {city}
+              </option>
+            ))}
+          {selectedCountry === "UAE" &&
+            selectedState &&
+            uaeStates[selectedState].map((city, index) => (
               <option key={index} value={city}>
                 {city}
               </option>
@@ -107,7 +156,6 @@ const LandingPage = () => {
         </select>
 
         <button className="search-button" onClick={handleSearch}>
-          {/* <FaSearch className="search-icon" /> */}
           Search
         </button>
       </div>
