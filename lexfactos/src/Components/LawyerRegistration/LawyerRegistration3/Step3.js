@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import Select from "react-select"; // ✅ import react-select
+import Select from "react-select";
 import { submitLawyerStep3 } from "../../Service/Service";
 import "./Step3.css";
 
@@ -24,7 +24,6 @@ const LawyerRegistrationStep3 = () => {
     description: "",
   };
 
-  // store as array for react-select
   const [practiceAreas, setPracticeAreas] = useState(
     storedData.practiceArea
       ? storedData.practiceArea.split(",").map((area) => ({ value: area, label: area }))
@@ -34,10 +33,14 @@ const LawyerRegistrationStep3 = () => {
   const [activeSince, setActiveSince] = useState(storedData.activeSince);
   const [experiences, setExperiences] = useState(storedData.experiences);
   const [description, setDescription] = useState(storedData.description);
+  
+
+  const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const step3Data = {
-      practiceArea: practiceAreas.map((a) => a.value).join(","), // save as CSV
+      practiceArea: practiceAreas.map((a) => a.value).join(","),
       courtAdmittedTo,
       activeSince,
       experiences,
@@ -62,29 +65,53 @@ const LawyerRegistrationStep3 = () => {
     );
   };
 
-  const handleSubmit = async () => {
-    if (!lawyerId) {
-      alert("Error: Lawyer ID missing. Please complete previous steps first.");
-      return;
-    }
+  // ✅ Validation before submit
+  const validateForm = () => {
+    let newErrors = {};
 
-    const payload = {
-      lawyer_id: lawyerId,
-      practice_area: practiceAreas.map((a) => a.value).join(","),
-      court_admitted_to: courtAdmittedTo,
-      active_since: parseInt(activeSince, 10) || 0,
-      work_experience: experiences,
-      description: description || "Experienced lawyer with expertise in multiple practice areas.", // default dummy string
-    };
+    if (practiceAreas.length === 0)
+      newErrors.practiceAreas = "Please select at least one practice area.";
+    if (!courtAdmittedTo.trim())
+      newErrors.courtAdmittedTo = "Court admitted to is required.";
+    if (!activeSince || activeSince < 1900 || activeSince > new Date().getFullYear())
+      newErrors.activeSince = "Please enter a valid year.";
+    if (!description.trim())
+      newErrors.description = "Professional summary is required.";
 
-    try {
-      const res = await submitLawyerStep3(payload);
-      localStorage.setItem("lawyerProfileId", res.id);
-      navigate("/step4", { state: { lawyer_id: lawyerId } });
-    } catch (err) {
-      alert("Failed to submit step 3. Please try again.");
-    }
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
+
+const handleSubmit = async () => {
+  if (!lawyerId) {
+    alert("Error: Lawyer ID missing. Please complete previous steps first.");
+    return;
+  }
+
+  if (!validateForm()) return;
+
+  setLoading(true); // start loader
+
+  const payload = {
+    lawyer_id: lawyerId,
+    practice_area: practiceAreas.map((a) => a.value).join(","),
+    court_admitted_to: courtAdmittedTo,
+    active_since: parseInt(activeSince, 10) || 0,
+    work_experience: experiences,
+    description:
+      description || "Experienced lawyer with expertise in multiple practice areas.",
+  };
+
+  try {
+    const res = await submitLawyerStep3(payload);
+    localStorage.setItem("lawyerProfileId", res.id);
+    navigate("/step4", { state: { lawyer_id: lawyerId } });
+  } catch (err) {
+    alert("Failed to submit step 3. Please try again.");
+  } finally {
+    setLoading(false); // stop loader
+  }
+};
 
   const allPracticeAreas = [
     "Administrative Law",
@@ -100,8 +127,7 @@ const LawyerRegistrationStep3 = () => {
     "Civil Litigation",
     "Civil Rights",
     "Commercial Law",
-    "Communications & Media Law",
-    "Constitutional & Human Rights Law",
+     "Constitutional & Human Rights Law",
     "Construction Law",
     "Consumer Protection Law",
     "Contract Law",
@@ -161,7 +187,7 @@ const LawyerRegistrationStep3 = () => {
           <span className="lr-step3-progress-text">33% Complete</span>
         </div>
 
-        {/* Practice Area (Searchable Multi-select) */}
+        {/* Practice Area */}
         <div className="lr-step3-section">
           <label className="lr-step3-label">Practice Areas *</label>
           <Select
@@ -173,9 +199,12 @@ const LawyerRegistrationStep3 = () => {
             classNamePrefix="select"
             placeholder="Search and select practice areas..."
           />
+          {errors.practiceAreas && (
+            <p className="lr-error-text">{errors.practiceAreas}</p>
+          )}
         </div>
 
-        {/* Courts Admitted */}
+        {/* Court Admitted */}
         <div className="lr-step3-section">
           <label className="lr-step3-label">Court Admitted To *</label>
           <input
@@ -185,6 +214,9 @@ const LawyerRegistrationStep3 = () => {
             value={courtAdmittedTo}
             onChange={(e) => setCourtAdmittedTo(e.target.value)}
           />
+          {errors.courtAdmittedTo && (
+            <p className="lr-error-text">{errors.courtAdmittedTo}</p>
+          )}
         </div>
 
         {/* Active Since */}
@@ -198,10 +230,13 @@ const LawyerRegistrationStep3 = () => {
               value={activeSince}
               onChange={(e) => setActiveSince(e.target.value)}
             />
+            {errors.activeSince && (
+              <p className="lr-error-text">{errors.activeSince}</p>
+            )}
           </div>
         </div>
 
-        {/* Description Field */}
+        {/* Professional Summary */}
         <div className="lr-step3-section">
           <label className="lr-step3-label">Professional Summary *</label>
           <textarea
@@ -210,6 +245,9 @@ const LawyerRegistrationStep3 = () => {
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
+          {errors.description && (
+            <p className="lr-error-text">{errors.description}</p>
+          )}
         </div>
 
         {/* Work Experience */}
@@ -274,15 +312,26 @@ const LawyerRegistrationStep3 = () => {
           </button>
         </div>
 
-        {/* Footer Navigation */}
-        <div className="lr-step3-footer">
-          <button className="lr-step3-prev-btn" onClick={() => navigate(-1)}>
-            ‹ Previous
-          </button>
-          <button className="lr-step3-next-btn" onClick={handleSubmit}>
-            Next ›
-          </button>
-        </div>
+        {/* Footer Buttons */}
+{/* Footer Buttons */}
+<div className="lr-step3-footer">
+  <button
+    className="lr-step3-prev-btn"
+    onClick={() => navigate(-1)}
+    disabled={loading}
+  >
+    ‹ Previous
+  </button>
+
+  <button
+    className="lr-step3-next-btn"
+    onClick={handleSubmit}
+    disabled={loading}
+  >
+    {loading ? "Submitting..." : "Next ›"}
+  </button>
+</div>
+
       </div>
     </div>
   );

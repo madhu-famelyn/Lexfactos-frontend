@@ -3,18 +3,55 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { submitStep4 } from "../../Service/Service";
 import "./Step4.css";
 
-const countries = ["India", "USA", "UK", "Canada", "Australia"];
+const countries = ["India", "AE"];
 
 const indiaStates = {
   "Andhra Pradesh": [
     "Visakhapatnam", "Vijayawada", "Guntur", "Nellore", "Tirupati",
-    "Kurnool", "Rajahmundry", "Kakinada", "Anantapur", "Chittoor"
+    "Kurnool", "Rajahmundry", "Kakinada", "Anantapur", "Chittoor",
   ],
   "Arunachal Pradesh": ["Itanagar", "Tawang", "Naharlagun", "Pasighat", "Ziro"],
   "Jammu and Kashmir": ["Srinagar", "Jammu", "Anantnag", "Baramulla", "Leh"],
   "Ladakh": ["Leh", "Kargil"],
   "Lakshadweep": ["Kavaratti"],
   "Puducherry": ["Puducherry", "Karaikal", "Mahe", "Yanam"],
+  
+
+ "Arunachal Pradesh": ["Itanagar", "Tawang", "Ziro", "Pasighat"],
+  "Assam": ["Guwahati", "Silchar", "Dibrugarh", "Jorhat"],
+  "Bihar": ["Patna", "Gaya", "Muzaffarpur", "Bhagalpur"],
+  "Chhattisgarh": ["Raipur", "Bhilai", "Bilaspur", "Korba"],
+  "Goa": ["Panaji", "Margao", "Mapusa", "Vasco da Gama"],
+  "Gujarat": ["Ahmedabad", "Surat", "Vadodara", "Rajkot"],
+  "Haryana": ["Gurugram", "Faridabad", "Panipat", "Hisar"],
+  "Himachal Pradesh": ["Shimla", "Manali", "Dharamshala", "Kullu"],
+  "Jharkhand": ["Ranchi", "Jamshedpur", "Dhanbad", "Bokaro"],
+  "Karnataka": ["Bengaluru", "Mysuru", "Hubli", "Mangalore"],
+  "Kerala": ["Thiruvananthapuram", "Kochi", "Kozhikode", "Thrissur"],
+  "Madhya Pradesh": ["Bhopal", "Indore", "Gwalior", "Jabalpur"],
+  "Maharashtra": ["Mumbai", "Pune", "Nagpur", "Nashik"],
+  "Manipur": ["Imphal", "Thoubal", "Churachandpur", "Ukhrul"],
+  "Meghalaya": ["Shillong", "Tura", "Jowai", "Nongpoh"],
+  "Mizoram": ["Aizawl", "Lunglei", "Champhai", "Serchhip"],
+  "Nagaland": ["Kohima", "Dimapur", "Mokokchung", "Tuensang"],
+  "Odisha": ["Bhubaneswar", "Cuttack", "Rourkela", "Puri"],
+  "Punjab": ["Amritsar", "Ludhiana", "Jalandhar", "Patiala"],
+  "Rajasthan": ["Jaipur", "Udaipur", "Jodhpur", "Kota"],
+  "Sikkim": ["Gangtok", "Namchi", "Geyzing", "Mangan"],
+  "Tamil Nadu": ["Chennai", "Coimbatore", "Madurai", "Salem"],
+  "Telangana": ["Hyderabad", "Warangal", "Karimnagar", "Nizamabad"],
+  "Tripura": ["Agartala", "Udaipur", "Dharmanagar", "Kailasahar"],
+  "Uttar Pradesh": ["Lucknow", "Noida", "Kanpur", "Varanasi"],
+  "Uttarakhand": ["Dehradun", "Haridwar", "Nainital", "Rishikesh"],
+  "West Bengal": ["Kolkata", "Howrah", "Durgapur", "Siliguri"],
+  "Andaman and Nicobar Islands": ["Port Blair", "Havelock Island", "Neil Island"],
+  "Chandigarh": ["Chandigarh"],
+  "Dadra and Nagar Haveli and Daman and Diu": ["Daman", "Silvassa"],
+  "Delhi": ["New Delhi", "Dwarka", "Rohini", "Karol Bagh"],
+  "Jammu and Kashmir": ["Srinagar", "Jammu", "Anantnag", "Baramulla"],
+  "Ladakh": ["Leh", "Kargil"],
+  "Lakshadweep": ["Kavaratti", "Minicoy", "Agatti"],
+  "Puducherry": ["Puducherry", "Karaikal", "Mahe", "Yanam"]
 };
 
 const Step4 = () => {
@@ -51,6 +88,8 @@ const Step4 = () => {
   const [addresses, setAddresses] = useState(storedStep4Data.addresses);
   const [workingHours, setWorkingHours] = useState(storedStep4Data.workingHours);
   const [showModal, setShowModal] = useState(false);
+  const [loading, setLoading] = useState(false);
+
 
   const [selectedDays, setSelectedDays] = useState([]);
   const [openTime, setOpenTime] = useState("09:00");
@@ -132,34 +171,40 @@ const Step4 = () => {
   };
 
   // 🚀 Submit to backend
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const formattedAddresses = addresses.map((addr) => ({
-        country: addr.country,
-        street_address: addr.streetAddress,
-        city: addr.city,
-        state: addr.state,
-        zip_code: addr.zipCode,
-        latitude: addr.latitude,
-        longitude: addr.longitude,
-      }));
+const handleSubmit = async (e) => {
+  e.preventDefault();
 
-      const payload = {
-        lawyer_id,
-        address: formattedAddresses,
-        working_hours: workingHours,
-      };
+  try {
+    setLoading(true); // start loader
 
-      const result = await submitStep4(payload);
-      console.log("Step 4 saved:", result);
+    const formattedAddresses = addresses.map((addr) => ({
+      country: addr.country,
+      street_address: addr.streetAddress,
+      city: addr.city,
+      state: addr.state,
+      zip_code: addr.zipCode,
+      latitude: addr.latitude,
+      longitude: addr.longitude,
+    }));
 
-      navigate("/step5", { state: { lawyer_id } });
-    } catch (err) {
-      console.error(err);
-      alert("Error saving step 4, please try again.");
-    }
-  };
+    const payload = {
+      lawyer_id,
+      address: formattedAddresses,
+      working_hours: workingHours,
+    };
+
+    const result = await submitStep4(payload);
+    console.log("Step 4 saved:", result);
+
+    navigate("/step5", { state: { lawyer_id } });
+  } catch (err) {
+    console.error(err);
+    alert("Error saving step 4, please try again.");
+  } finally {
+    setLoading(false); // stop loader
+  }
+};
+
 
   return (
     <div className="lr-step4-container">
@@ -258,45 +303,49 @@ const Step4 = () => {
               <p/>
 
               <div className="lr-step4-row">
-                <div className="lr-step4-input-box">
-                  <input
-                    type="text"
-                    className="lr-step4-input"
-                    placeholder="Zip Code"
-                    value={addr.zipCode}
-                    onChange={(e) =>
-                      handleAddressChange(index, "zipCode", e.target.value)
-                    }
-                  />
-                  <span className="lr-step4-placeholder">Zip Code</span>
-                </div>
+  <div className="lr-step4-input-box">
+    <input
+      type="text"
+      className="lr-step4-input"
+      placeholder="Zip Code"
+      value={addr.zipCode}
+      onChange={(e) =>
+        handleAddressChange(index, "zipCode", e.target.value)
+      }
+      style={{ width: "80%" }} // ✅ Inline width
+    />
+    <span className="lr-step4-placeholder">Zip Code</span>
+  </div>
 
-                <div className="lr-step4-input-box">
-                  <input
-                    type="text"
-                    className="lr-step4-input"
-                    placeholder="Latitude"
-                    value={addr.latitude}
-                    onChange={(e) =>
-                      handleAddressChange(index, "latitude", e.target.value)
-                    }
-                  />
-                  <span className="lr-step4-placeholder">Latitude</span>
-                </div>
+  <div className="lr-step4-input-box">
+    <input
+      type="text"
+      className="lr-step4-input"
+      placeholder="Latitude"
+      value={addr.latitude}
+      onChange={(e) =>
+        handleAddressChange(index, "latitude", e.target.value)
+      }
+      style={{ width: "80%" }} // ✅ Inline width
+    />
+    <span className="lr-step4-placeholder">Latitude</span>
+  </div>
 
-                <div className="lr-step4-input-box">
-                  <input
-                    type="text"
-                    className="lr-step4-input"
-                    placeholder="Longitude"
-                    value={addr.longitude}
-                    onChange={(e) =>
-                      handleAddressChange(index, "longitude", e.target.value)
-                    }
-                  />
-                  <span className="lr-step4-placeholder">Longitude</span>
-                </div>
-              </div>
+  <div className="lr-step4-input-box">
+    <input
+      type="text"
+      className="lr-step4-input"
+      placeholder="Longitude"
+      value={addr.longitude}
+      onChange={(e) =>
+        handleAddressChange(index, "longitude", e.target.value)
+      }
+      style={{ width: "80%" }} // ✅ Inline width
+    />
+    <span className="lr-step4-placeholder">Longitude</span>
+  </div>
+</div>
+
 
               {addresses.length > 1 && (
                 <button
@@ -330,17 +379,24 @@ const Step4 = () => {
           </div>
 
           <div className="lr-step4-btn-container">
-            <button
-              type="button"
-              className="lr-step4-prev-btn"
-              onClick={() => navigate("/step3", { state: { lawyer_id } })}
-            >
-              Previous
-            </button>
-            <button type="submit" className="lr-step4-next-btn">
-              Next
-            </button>
-          </div>
+  <button
+    type="button"
+    className="lr-step4-prev-btn"
+    onClick={() => navigate("/step3", { state: { lawyer_id } })}
+    disabled={loading}
+  >
+    Previous
+  </button>
+
+  <button
+    type="submit"
+    className="lr-step4-next-btn"
+    disabled={loading}
+  >
+    {loading ? "Submitting..." : "Next"}
+  </button>
+</div>
+
         </form>
       </div>
 

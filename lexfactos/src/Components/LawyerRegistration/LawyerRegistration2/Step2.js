@@ -8,8 +8,9 @@ import { createLawyerProfile } from "../../Service/Service";
 
 const countriesData = {
 India: {
-  "Andhra Pradesh": ["Visakhapatnam", "Vijayawada", "Guntur", "Tirupati"],
-  "Arunachal Pradesh": ["Itanagar", "Tawang", "Ziro", "Pasighat"],
+  "Andhra Pradesh": ["Visakhapatnam", "Vijayawada", "Guntur", "Tirupati", "Chittoor"],
+
+ "Arunachal Pradesh": ["Itanagar", "Tawang", "Ziro", "Pasighat"],
   "Assam": ["Guwahati", "Silchar", "Dibrugarh", "Jorhat"],
   "Bihar": ["Patna", "Gaya", "Muzaffarpur", "Bhagalpur"],
   "Chhattisgarh": ["Raipur", "Bhilai", "Bilaspur", "Korba"],
@@ -44,6 +45,7 @@ India: {
   "Ladakh": ["Leh", "Kargil"],
   "Lakshadweep": ["Kavaratti", "Minicoy", "Agatti"],
   "Puducherry": ["Puducherry", "Karaikal", "Mahe", "Yanam"]
+ 
 },
 
   USA: {
