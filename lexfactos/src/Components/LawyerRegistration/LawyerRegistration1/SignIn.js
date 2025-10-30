@@ -4,7 +4,6 @@ import { FiUpload } from "react-icons/fi";
 import { registerLawyer } from "../../Service/Service";
 import { useNavigate } from "react-router-dom";
 
-
 const formatDOB = (dob) => {
   if (!dob) return "";
   const [year, month, day] = dob.split("-");
@@ -69,7 +68,6 @@ const countryCodes = [
 const LawyerRegistration = () => {
   const navigate = useNavigate();
 
-  // Load saved form data
   const storedData = JSON.parse(localStorage.getItem("lawyerFormData")) || {
     full_name: "",
     gender: "",
@@ -86,13 +84,12 @@ const LawyerRegistration = () => {
   };
 
   const storedLawyerId = localStorage.getItem("lawyerId");
-
   const [formData, setFormData] = useState(storedData);
   const [photoPreview, setPhotoPreview] = useState(
     localStorage.getItem("lawyerPhoto") || null
   );
+  const [errors, setErrors] = useState({});
 
-  // Save formData to localStorage (without file object)
   useEffect(() => {
     const saveData = { ...formData, photo: null };
     localStorage.setItem("lawyerFormData", JSON.stringify(saveData));
@@ -111,8 +108,28 @@ const LawyerRegistration = () => {
     }
   };
 
+  const validateForm = () => {
+    const newErrors = {};
+
+    if (!formData.full_name.trim()) newErrors.full_name = "Full name is required.";
+    if (!formData.email.trim()) newErrors.email = "Email is required.";
+    if (!formData.phone_number.trim()) newErrors.phone_number = "Phone number is required.";
+    if (!formData.password.trim()) newErrors.password = "Password is required.";
+    if (!formData.confirm_password.trim()) newErrors.confirm_password = "Please confirm your password.";
+    if (formData.password !== formData.confirm_password)
+      newErrors.confirm_password = "Passwords do not match.";
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!validateForm()) {
+      alert("Please fill in all required fields correctly.");
+      return;
+    }
 
     try {
       if (storedLawyerId) {
@@ -125,11 +142,8 @@ const LawyerRegistration = () => {
       data.append("gender", formData.gender);
       data.append("dob", formatDOB(formData.dob));
       data.append("email", formData.email);
-
-      // Combine code + number
       const fullPhone = `${formData.country_code}${formData.phone_number}`;
       data.append("phone_number", fullPhone);
-
       data.append("password", formData.password);
       data.append("confirm_password", formData.confirm_password);
       data.append("linkedin_url", formData.linkedin_url);
@@ -139,10 +153,19 @@ const LawyerRegistration = () => {
 
       const res = await registerLawyer(data);
       localStorage.setItem("lawyerId", res.id);
-
       navigate("/step2", { state: { lawyerId: res.id } });
     } catch (err) {
-      alert(err.detail || "Registration failed all fields are mandidatory ");
+      if (err?.response?.status === 400) {
+        if (err.response.data.detail?.includes("Email already registered")) {
+          alert("This email is already registered. Please use another email.");
+        } else if (err.response.data.detail?.includes("Phone number already registered")) {
+          alert("This phone number is already registered. Please use another one.");
+        } else {
+          alert(err.response.data.detail || "Registration failed. Please try again.");
+        }
+      } else {
+        alert("Registration failed. Please check all fields and try again.");
+      }
     }
   };
 
@@ -152,9 +175,7 @@ const LawyerRegistration = () => {
         <div className="registration-header">
           <div>
             <h2 className="registration-title">Lawyer Registration</h2>
-            <p className="registration-step">
-              Step 1 of 6: Personal & Contact Info
-            </p>
+            <p className="registration-step">Step 1 of 6: Personal & Contact Info</p>
           </div>
           <div className="progress-container">
             <span className="progress-text">11% Complete</span>
@@ -168,11 +189,7 @@ const LawyerRegistration = () => {
           <div className="upload-section">
             <div className="photo-placeholder">
               {photoPreview ? (
-                <img
-                  src={photoPreview}
-                  alt="preview"
-                  className="photo-preview"
-                />
+                <img src={photoPreview} alt="preview" className="photo-preview" />
               ) : (
                 <span className="photo-icon">🖼</span>
               )}
@@ -204,31 +221,31 @@ const LawyerRegistration = () => {
                   placeholder="Enter your full name"
                   required
                 />
+                {errors.full_name && <p className="error-text">{errors.full_name}</p>}
               </div>
 
-             <div className="form-group">
-  <label>Gender (Optional)</label>
-  <select
-    name="gender"
-    value={formData.gender}
-    onChange={handleChange}
-    style={{
-      width: "95%",
-      padding: "10px",
-      borderRadius: "8px",
-      border: "1px solid #ccc",
-      fontSize: "14px",
-      outline: "none",
-      boxSizing: "border-box",
-    }}
-  >
-    <option value="">Select gender</option>
-    <option>Male</option>
-    <option>Female</option>
-    <option>Other</option>
-  </select>
-</div>
-
+              <div className="form-group">
+                <label>Gender (Optional)</label>
+                <select
+                  name="gender"
+                  value={formData.gender}
+                  onChange={handleChange}
+                  style={{
+                    width: "95%",
+                    padding: "10px",
+                    borderRadius: "8px",
+                    border: "1px solid #ccc",
+                    fontSize: "14px",
+                    outline: "none",
+                    boxSizing: "border-box",
+                  }}
+                >
+                  <option value="">Select gender</option>
+                  <option>Male</option>
+                  <option>Female</option>
+                  <option>Other</option>
+                </select>
+              </div>
             </div>
 
             <div className="form-row">
@@ -251,10 +268,10 @@ const LawyerRegistration = () => {
                   placeholder="your.email@example.com"
                   required
                 />
+                {errors.email && <p className="error-text">{errors.email}</p>}
               </div>
             </div>
 
-            {/* 🔹 Combined Country Code + Phone Number Input */}
             <div className="form-row">
               <div className="form-group">
                 <label>Phone Number *</label>
@@ -265,8 +282,8 @@ const LawyerRegistration = () => {
                     border: "1px solid #ccc",
                     borderRadius: "6px",
                     padding: "4px 8px",
-                    width:"300px",
-                    height:"34px",
+                    width: "300px",
+                    height: "34px",
                   }}
                 >
                   <select
@@ -303,6 +320,7 @@ const LawyerRegistration = () => {
                     }}
                   />
                 </div>
+                {errors.phone_number && <p className="error-text">{errors.phone_number}</p>}
               </div>
 
               <div className="form-group">
@@ -315,6 +333,7 @@ const LawyerRegistration = () => {
                   placeholder="Create a strong password"
                   required
                 />
+                {errors.password && <p className="error-text">{errors.password}</p>}
               </div>
             </div>
 
@@ -329,6 +348,9 @@ const LawyerRegistration = () => {
                   placeholder="Confirm your password"
                   required
                 />
+                {errors.confirm_password && (
+                  <p className="error-text">{errors.confirm_password}</p>
+                )}
               </div>
               <div className="form-group">
                 <label>LinkedIn URL (Optional)</label>
@@ -355,42 +377,24 @@ const LawyerRegistration = () => {
               </div>
             </div>
 
-            {/* <div className="form-row">
-              <div className="form-group full-width">
-                <label>Short Note (Optional)</label>
-                <textarea
-                  name="short_note"
-                  value={formData.short_note}
-                  onChange={handleChange}
-                  placeholder="Write a brief note about yourself"
-                  rows={3}
-                />
-              </div>
-            </div> */}
+            <div className="lr-step2-footer">
+              <button
+                type="button"
+                className="lr-step2-prev-btn"
+                onClick={() => navigate(-1)}
+              >
+                Previous
+              </button>
 
-
-<div className="lr-step2-footer">
-  <button
-    type="button"
-    className="lr-step2-prev-btn"
-    onClick={() => navigate(-1)}
-  >
-    Previous
-  </button>
-
-  <button
-    type="submit"
-    className="lr-step2-next-btn"
-    onClick={handleSubmit}
-  >
-    Next
-  </button>
-</div>
+              <button
+                type="submit"
+                className="lr-step2-next-btn"
+                onClick={handleSubmit}
+              >
+                Next
+              </button>
+            </div>
           </form>
-
-
-
-          
         </div>
       </div>
     </div>
