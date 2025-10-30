@@ -49,6 +49,21 @@
   color: #333;
 }
 
+
+/* Fix dropdown widths in Address Details */
+.full-reg-nested select,
+.full-reg-nested input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+  margin-bottom: 12px;
+  box-sizing: border-box;
+}
+
+
+
 .full-reg-form-section input,
 .full-reg-form-section textarea,
 .full-reg-form-section select {

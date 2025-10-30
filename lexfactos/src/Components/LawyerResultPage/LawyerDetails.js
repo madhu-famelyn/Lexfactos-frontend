@@ -40,6 +40,42 @@ export default function LawyerProfilePage() {
         setLoading(true);
         setError("");
         const data = await getLawyerById(id);
+
+        // ✅ Safely parse nested JSON fields if needed
+        const safeParse = (value) => {
+          if (!value) return [];
+          if (typeof value === "string") {
+            try {
+              return JSON.parse(value);
+            } catch {
+              return [];
+            }
+          }
+          return value;
+        };
+
+        if (data.profile) {
+          data.profile.bar_details = safeParse(data.profile.bar_details);
+          data.profile.languages_spoken = safeParse(data.profile.languages_spoken);
+          data.profile.education = safeParse(data.profile.education);
+        }
+
+        if (data.registration3) {
+          data.registration3.work_experience = safeParse(data.registration3.work_experience);
+        }
+
+        if (Array.isArray(data.registration5)) {
+          data.registration5 = data.registration5.map((r) => ({
+            ...r,
+            address: safeParse(r.address),
+          }));
+        }
+
+        if (data.registration6) {
+          data.registration6.certifications = safeParse(data.registration6.certifications);
+          data.registration6.awards = safeParse(data.registration6.awards);
+        }
+
         setLawyer(data);
       } catch (err) {
         setError("Failed to load lawyer details.");
@@ -88,14 +124,13 @@ export default function LawyerProfilePage() {
 
           <div className="lawyer-profile-info">
             <h1 className="lawyer-name">{lawyer.full_name}</h1>
-            <p className="lawyer-designation">{lawyer.short_note}</p>
+            <p className="lawyer-designation">{lawyer.short_note || ""}</p>
             <p className="lawyer-chamber-name">
               Kumar & Associates Law Chambers
             </p>
 
             <div className="lawyer-tags">
-              <span>{lawyer.profile?.years_of_experience}+ Years</span>
-              {/* <span>{lawyer.registration3?.court_admitted_to}</span> */}
+              <span>{lawyer.profile?.years_of_experience || 0}+ Years</span>
             </div>
 
             <div className="lawyer-rating-section">
@@ -139,7 +174,7 @@ export default function LawyerProfilePage() {
             {/* ABOUT */}
             <section className="lawyer-about-section">
               <h2 className="lawyer-section-title">About</h2>
-              <p className="lawyer-about-text">{lawyer.profile?.bio}</p>
+              <p className="lawyer-about-text">{lawyer.profile?.bio || ""}</p>
             </section>
 
             {/* EDUCATION */}
@@ -148,44 +183,54 @@ export default function LawyerProfilePage() {
                 Education & Qualifications
               </h2>
               <ul>
-                {lawyer.profile?.education?.map((edu, idx) => (
-                  <li key={idx}>
-                    <strong>{edu.degree}</strong>{" "}
-                    <span className="college">{edu.college_name}</span>{" "}
-                    ({edu.graduation_year})
-                  </li>
-                ))}
+                {Array.isArray(lawyer.profile?.education) &&
+                lawyer.profile.education.length > 0 ? (
+                  lawyer.profile.education.map((edu, idx) => (
+                    <li key={idx}>
+                      <strong>{edu.degree}</strong>{" "}
+                      <span className="college">{edu.college_name}</span>{" "}
+                      ({edu.graduation_year})
+                    </li>
+                  ))
+                ) : (
+                  <p>No education details available.</p>
+                )}
               </ul>
             </section>
-            {/* WORKING HOURS */}
-<section className="lawyer-working-hours-section">
-  <h2 className="lawyer-section-title">Working Hours</h2>
-  {lawyer.working_hours && lawyer.working_hours.length > 0 ? (
-    <ul className="working-hours-list">
-      {lawyer.working_hours.map((slot, idx) => (
-        <li key={idx} className="working-hour-item">
-          <strong>{slot.day}</strong>: {slot.time}
-        </li>
-      ))}
-    </ul>
-  ) : (
-    <p>Available Monday to Friday, 9:00 AM – 6:00 PM</p> // default fallback
-  )}
-</section>
 
+            {/* WORKING HOURS */}
+            <section className="lawyer-working-hours-section">
+              <h2 className="lawyer-section-title">Working Hours</h2>
+              {lawyer.working_hours && lawyer.working_hours.length > 0 ? (
+                <ul className="working-hours-list">
+                  {lawyer.working_hours.map((slot, idx) => (
+                    <li key={idx} className="working-hour-item">
+                      <strong>{slot.day}</strong>: {slot.time}
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p>Available Monday to Friday, 9:00 AM – 6:00 PM</p>
+              )}
+            </section>
 
             {/* EXPERIENCE */}
             <section>
               <h2 className="lawyer-section-title">Professional Experience</h2>
               <ul>
-                {lawyer.registration3?.work_experience?.map((job, idx) => (
-                  <li key={idx}>
-                    <strong>{job.role}</strong>
-                    <div>{job.company_name}</div>
-                    <div>{job.duration}</div>
-                    <div>{job.description}</div>
-                  </li>
-                ))}
+                {Array.isArray(lawyer.registration3?.work_experience) &&
+                lawyer.registration3.work_experience.length > 0 ? (
+                  lawyer.registration3.work_experience.map((job, idx) => (
+                    <li key={idx}>
+                      <strong>{job.role}</strong>
+                      <div>{job.company_name}</div>
+                      <div>{job.duration}</div>
+                      <div>{job.description}</div>
+                    </li>
+                  ))
+                ) : (
+                  <p>No professional experience available.</p>
+                )}
               </ul>
             </section>
 
@@ -195,7 +240,6 @@ export default function LawyerProfilePage() {
 
               {addresses.length > 0 ? (
                 <>
-                  {/* ✅ Leaflet Map replacing Google Map */}
                   <MapContainer
                     center={[
                       parseFloat(addresses[0].latitude),
@@ -268,23 +312,33 @@ export default function LawyerProfilePage() {
             <section className="lawyer-certifications-section">
               <h2 className="lawyer-section-title">Certifications</h2>
               <ul>
-                {lawyer.registration6?.certifications?.map((cert, idx) => (
-                  <li key={idx}>
-                    {cert.title} – {cert.issuer} ({cert.year})
-                  </li>
-                ))}
+                {Array.isArray(lawyer.registration6?.certifications) &&
+                lawyer.registration6.certifications.length > 0 ? (
+                  lawyer.registration6.certifications.map((cert, idx) => (
+                    <li key={idx}>
+                      {cert.title} – {cert.issuer} ({cert.year})
+                    </li>
+                  ))
+                ) : (
+                  <p>No certifications available.</p>
+                )}
               </ul>
 
               <h2 className="lawyer-section-title">Awards & Recognition</h2>
               <ul className="awards-list">
-                {lawyer.registration6?.awards?.map((award, idx) => (
-                  <li key={idx} className="award-item">
-                    <FaTrophy className="award-icon" />
-                    <span>
-                      {award.name} – {award.organization} ({award.year})
-                    </span>
-                  </li>
-                ))}
+                {Array.isArray(lawyer.registration6?.awards) &&
+                lawyer.registration6.awards.length > 0 ? (
+                  lawyer.registration6.awards.map((award, idx) => (
+                    <li key={idx} className="award-item">
+                      <FaTrophy className="award-icon" />
+                      <span>
+                        {award.name} – {award.organization} ({award.year})
+                      </span>
+                    </li>
+                  ))
+                ) : (
+                  <p>No awards available.</p>
+                )}
               </ul>
             </section>
           </div>
