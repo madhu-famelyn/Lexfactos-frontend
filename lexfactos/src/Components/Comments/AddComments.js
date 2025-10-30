@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../Context/UserContext";
 import {
@@ -44,10 +44,12 @@ export default function AddComments({ lawyerId }) {
     return date.toLocaleDateString();
   };
 
-  // 📥 Fetch reviews
-  const fetchReviews = async () => {
+  // 📥 Fetch reviews (wrapped with useCallback)
+  const fetchReviews = useCallback(async () => {
     try {
-      const res = await fetch(`https://lexfactos-frontend.pages.dev/lawyer-rating/${lawyerId}`);
+      const res = await fetch(
+        `https://lexfactos-frontend.pages.dev/lawyer-rating/${lawyerId}`
+      );
       if (!res.ok) throw new Error("Failed to fetch reviews");
       const data = await res.json();
       setAvgRating(data.average_rating || 0);
@@ -56,11 +58,11 @@ export default function AddComments({ lawyerId }) {
     } catch (err) {
       console.error(err);
     }
-  };
+  }, [lawyerId]);
 
   useEffect(() => {
     fetchReviews();
-  }, [lawyerId]);
+  }, [fetchReviews]);
 
   const handleWriteClick = () => {
     if (!auth?.user?.id) {
@@ -85,14 +87,19 @@ export default function AddComments({ lawyerId }) {
     };
 
     try {
-      const res = await fetch("https://lexfactos-frontend.pages.dev/lawyer-rating/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `${auth?.token_type || "Bearer"} ${auth?.token || ""}`,
-        },
-        body: JSON.stringify(payload),
-      });
+      const res = await fetch(
+        "https://lexfactos-frontend.pages.dev/lawyer-rating/",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `${auth?.token_type || "Bearer"} ${
+              auth?.token || ""
+            }`,
+          },
+          body: JSON.stringify(payload),
+        }
+      );
 
       if (!res.ok) {
         const err = await res.json();
@@ -130,7 +137,9 @@ export default function AddComments({ lawyerId }) {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `${auth?.token_type || "Bearer"} ${auth?.token || ""}`,
+            Authorization: `${auth?.token_type || "Bearer"} ${
+              auth?.token || ""
+            }`,
           },
           body: JSON.stringify({
             rating: editRating,
@@ -216,84 +225,73 @@ export default function AddComments({ lawyerId }) {
       )}
 
       {/* ======= REVIEWS LIST ======= */}
-{/* ======= REVIEWS LIST ======= */}
-<div className="reviews-list">
-  {reviews.length === 0 ? (
-    <p className="no-reviews">No reviews yet. Be the first to write one!</p>
-  ) : (
-    reviews.map((rev) => {
-      console.log("🔍 Review:", {
-        review_id: rev.id,
-        review_user_id: rev.user_id,
-        logged_in_user_id: auth?.user?.id,
-        match: String(auth?.user?.id) === String(rev.user_id),
-      });
-
-      return (
-        <div key={rev.id} className="review-card">
-          <img
-            src={rev.user_photo || "/default-avatar.png"}
-            alt={rev.user_name}
-            className="review-avatar"
-          />
-          <div className="review-content">
-            <div className="review-top">
-              <div className="review-user-info">
-                <span className="review-name">{rev.user_name}</span>
-                <div className="review-stars">
-                  {[...Array(rev.rating)].map((_, i) => (
-                    <FaStar key={i} color="#facc15" size={14} />
-                  ))}
+      <div className="reviews-list">
+        {reviews.length === 0 ? (
+          <p className="no-reviews">No reviews yet. Be the first to write one!</p>
+        ) : (
+          reviews.map((rev) => (
+            <div key={rev.id} className="review-card">
+              <img
+                src={rev.user_photo || "/default-avatar.png"}
+                alt={rev.user_name}
+                className="review-avatar"
+              />
+              <div className="review-content">
+                <div className="review-top">
+                  <div className="review-user-info">
+                    <span className="review-name">{rev.user_name}</span>
+                    <div className="review-stars">
+                      {[...Array(rev.rating)].map((_, i) => (
+                        <FaStar key={i} color="#facc15" size={14} />
+                      ))}
+                    </div>
+                  </div>
+                  <span className="review-time">{timeAgo(rev.created_at)}</span>
                 </div>
-              </div>
-              <span className="review-time">{timeAgo(rev.created_at)}</span>
-            </div>
 
-            <p className="review-comment">{rev.comment}</p>
+                <p className="review-comment">{rev.comment}</p>
 
-            {/* ✅ Show edit button only if user owns this review */}
-            {auth?.user?.id &&
-              String(auth.user.id) === String(rev.user_id) && (
-                <button
-                  className="edit-review-btn"
-                  onClick={() => handleEditClick(rev)}
-                >
-                  <FaEdit /> Edit
-                </button>
-              )}
-
-            {rev.reply && (
-              <div className="review-reply">
-                <button
-                  className="view-reply-btn"
-                  onClick={() =>
-                    setOpenReplyId(openReplyId === rev.id ? null : rev.id)
-                  }
-                >
-                  {openReplyId === rev.id ? (
-                    <>
-                      Hide Reply <FaChevronUp />
-                    </>
-                  ) : (
-                    <>
-                      View Reply <FaChevronDown />
-                    </>
+                {/* ✅ Show edit button only if user owns this review */}
+                {auth?.user?.id &&
+                  String(auth.user.id) === String(rev.user_id) && (
+                    <button
+                      className="edit-review-btn"
+                      onClick={() => handleEditClick(rev)}
+                    >
+                      <FaEdit /> Edit
+                    </button>
                   )}
-                </button>
-                {openReplyId === rev.id && (
-                  <div className="reply-box">
-                    <p className="reply-text">{rev.reply}</p>
+
+                {rev.reply && (
+                  <div className="review-reply">
+                    <button
+                      className="view-reply-btn"
+                      onClick={() =>
+                        setOpenReplyId(openReplyId === rev.id ? null : rev.id)
+                      }
+                    >
+                      {openReplyId === rev.id ? (
+                        <>
+                          Hide Reply <FaChevronUp />
+                        </>
+                      ) : (
+                        <>
+                          View Reply <FaChevronDown />
+                        </>
+                      )}
+                    </button>
+                    {openReplyId === rev.id && (
+                      <div className="reply-box">
+                        <p className="reply-text">{rev.reply}</p>
+                      </div>
+                    )}
                   </div>
                 )}
               </div>
-            )}
-          </div>
-        </div>
-      );
-    })
-  )}
-</div>
-
+            </div>
+          ))
+        )}
+      </div>
 
       {/* ======= SIGN-IN POPUP ======= */}
       {showPopup && (

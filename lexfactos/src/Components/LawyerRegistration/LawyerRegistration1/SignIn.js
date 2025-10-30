@@ -142,7 +142,7 @@ const LawyerRegistration = () => {
 
       navigate("/step2", { state: { lawyerId: res.id } });
     } catch (err) {
-      alert(err.detail || "Registration failed");
+      alert(err.detail || "Registration failed all fields are mandidatory ");
     }
   };
 
