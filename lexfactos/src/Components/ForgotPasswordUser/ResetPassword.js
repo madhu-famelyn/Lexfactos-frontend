@@ -8,6 +8,7 @@ const UserResetPassword = () => {
   const location = useLocation();
 
   const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [token, setToken] = useState("");
@@ -18,7 +19,6 @@ const UserResetPassword = () => {
     let tokenParam = params.get("token");
 
     if (tokenParam && tokenParam.includes("&")) {
-      // Removes tracking params like "&subid1="
       tokenParam = tokenParam.split("&")[0];
     }
 
@@ -28,8 +28,13 @@ const UserResetPassword = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!newPassword) {
-      setMessage("⚠️ Please enter your new password.");
+    if (!newPassword || !confirmPassword) {
+      setMessage("⚠️ Please fill in both fields.");
+      return;
+    }
+
+    if (newPassword !== confirmPassword) {
+      setMessage("❌ Passwords do not match. Please try again.");
       return;
     }
 
@@ -63,7 +68,7 @@ const UserResetPassword = () => {
       <div className="user-reset-box">
         <h2 className="user-reset-title">Reset Your Password</h2>
         <p className="user-reset-subtitle">
-          Enter your new password below to complete the reset.
+          Enter your new password and confirm it below to complete the reset.
         </p>
 
         <form onSubmit={handleSubmit} className="user-reset-form">
@@ -78,6 +83,21 @@ const UserResetPassword = () => {
               placeholder="Enter new password"
               value={newPassword}
               onChange={(e) => setNewPassword(e.target.value)}
+              required
+            />
+          </div>
+
+          <div className="user-reset-input-group">
+            <label htmlFor="confirmPassword" className="user-reset-label">
+              Confirm Password
+            </label>
+            <input
+              type="password"
+              id="confirmPassword"
+              className="user-reset-input"
+              placeholder="Re-enter new password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
               required
             />
           </div>
