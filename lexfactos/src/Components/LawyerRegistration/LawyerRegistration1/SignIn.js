@@ -85,6 +85,7 @@ const LawyerRegistration = () => {
 
   const storedLawyerId = localStorage.getItem("lawyerId");
   const [formData, setFormData] = useState(storedData);
+  const [loading, setLoading] = useState(false);
   const [photoPreview, setPhotoPreview] = useState(
     localStorage.getItem("lawyerPhoto") || null
   );
@@ -123,6 +124,7 @@ const LawyerRegistration = () => {
     return Object.keys(newErrors).length === 0;
   };
 
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -130,6 +132,8 @@ const LawyerRegistration = () => {
       alert("Please fill in all required fields correctly.");
       return;
     }
+
+    setLoading(true); // 🔹 Start loader
 
     try {
       if (storedLawyerId) {
@@ -166,8 +170,11 @@ const LawyerRegistration = () => {
       } else {
         alert("Registration failed. Please check all fields and try again.");
       }
+    } finally {
+      setLoading(false); // 🔹 Stop loader
     }
   };
+
 
   return (
     <div className="registration-container">
@@ -387,12 +394,16 @@ const LawyerRegistration = () => {
               </button>
 
               <button
-                type="submit"
-                className="lr-step2-next-btn"
-                onClick={handleSubmit}
-              >
-                Next
-              </button>
+        type="submit"
+        className="lr-step2-next-btn"
+        disabled={loading} // 🔹 prevent double submit
+      >
+        {loading ? (
+          <div className="spinner"></div> // 🔹 spinner visible
+        ) : (
+          "Next"
+        )}
+      </button>
             </div>
           </form>
         </div>

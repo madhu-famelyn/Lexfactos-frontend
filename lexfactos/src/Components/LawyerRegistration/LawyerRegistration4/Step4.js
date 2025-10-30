@@ -5,6 +5,64 @@ import "./Step4.css";
 
 const countries = ["India", "UAE"];
 
+
+
+const uaeStates = {
+  "Abu Dhabi": [
+    "Abu Dhabi City",
+    "Al Ain",
+    "Madinat Zayed",
+    "Liwa Oasis",
+    "Ghayathi",
+    "Al Dhafra"
+  ],
+  "Dubai": [
+    "Dubai City",
+    "Jumeirah",
+    "Deira",
+    "Bur Dubai",
+    "Business Bay",
+    "Dubai Marina",
+    "Al Barsha"
+  ],
+  "Sharjah": [
+    "Sharjah City",
+    "Khor Fakkan",
+    "Kalba",
+    "Dibba Al-Hisn",
+    "Al Dhaid",
+    "Al Madam"
+  ],
+  "Ajman": [
+    "Ajman City",
+    "Al Jurf",
+    "Al Hamidiya",
+    "Masfout",
+    "Manama"
+  ],
+  "Umm Al Quwain": [
+    "Umm Al Quwain City",
+    "Falaj Al Mualla",
+    "Al Ramlah",
+    "Al Rafaah"
+  ],
+  "Ras Al Khaimah": [
+    "Ras Al Khaimah City",
+    "Al Jazirah Al Hamra",
+    "Digdaga",
+    "Ghalilah",
+    "Khatt"
+  ],
+  "Fujairah": [
+    "Fujairah City",
+    "Dibba Al-Fujairah",
+    "Masafi",
+    "Mirbah",
+    "Al Bidya"
+  ]
+};
+
+
 const indiaStates = {
   "Andhra Pradesh": [
     "Visakhapatnam", "Vijayawada", "Guntur", "Nellore", "Tirupati",
@@ -255,46 +313,86 @@ const handleSubmit = async (e) => {
               </div>
               <p/>
 
-              <div className="lr-step4-row">
-                <div className="lr-step4-input-box">
-                  <select
-                    className="lr-step4-input"
-                    value={addr.state}
-                    onChange={(e) => {
-                      handleAddressChange(index, "state", e.target.value);
-                      handleAddressChange(index, "city", "");
-                    }}
-                  >
-                    <option value="">Select State</option>
-                    {Object.keys(indiaStates || {}).map((st) => (
-                      <option key={st} value={st}>
-                        {st}
-                      </option>
-                    ))}
-                  </select>
-                  <span className="lr-step4-placeholder">State</span>
-                </div>
 
-                <div className="lr-step4-input-box">
-                  <select
-                    className="lr-step4-input"
-                    value={addr.city}
-                    onChange={(e) =>
-                      handleAddressChange(index, "city", e.target.value)
-                    }
-                    disabled={!addr.state}
-                  >
-                    <option value="">Select City</option>
-                    {addr.state &&
-                      indiaStates[addr.state]?.map((ct) => (
-                        <option key={ct} value={ct}>
-                          {ct}
-                        </option>
-                      ))}
-                  </select>
-                  <span className="lr-step4-placeholder">City</span>
-                </div>
-              </div>
+
+
+
+
+
+             <div className="lr-step4-row">
+  {/* ---------- STATE DROPDOWN ---------- */}
+  <div className="lr-step4-input-box">
+    <select
+      className="lr-step4-input"
+      value={addr.state}
+      onChange={(e) => {
+        handleAddressChange(index, "state", e.target.value);
+        handleAddressChange(index, "city", "");
+      }}
+    >
+      <option value="">Select State</option>
+
+      {/* ✅ If country is India */}
+      {addr.country === "India" &&
+        Object.keys(indiaStates || {}).map((st) => (
+          <option key={st} value={st}>
+            {st}
+          </option>
+        ))}
+
+      {/* ✅ If country is UAE */}
+      {addr.country === "UAE" &&
+        Object.keys(uaeStates || {}).map((st) => (
+          <option key={st} value={st}>
+            {st}
+          </option>
+        ))}
+    </select>
+    <span className="lr-step4-placeholder">State</span>
+  </div>
+
+  {/* ---------- CITY DROPDOWN ---------- */}
+  <div className="lr-step4-input-box">
+    <select
+      className="lr-step4-input"
+      value={addr.city}
+      onChange={(e) =>
+        handleAddressChange(index, "city", e.target.value)
+      }
+      disabled={!addr.state}
+    >
+      <option value="">Select City</option>
+
+      {/* ✅ Indian cities */}
+      {addr.country === "India" &&
+        addr.state &&
+        indiaStates[addr.state]?.map((ct) => (
+          <option key={ct} value={ct}>
+            {ct}
+          </option>
+        ))}
+
+      {/* ✅ UAE cities */}
+      {addr.country === "UAE" &&
+        addr.state &&
+        uaeStates[addr.state]?.map((ct) => (
+          <option key={ct} value={ct}>
+            {ct}
+          </option>
+        ))}
+    </select>
+    <span className="lr-step4-placeholder">City</span>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
               <p/>
 
               <div className="lr-step4-row">
