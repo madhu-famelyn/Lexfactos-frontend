@@ -3,18 +3,13 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { submitStep4 } from "../../Service/Service";
 import "./Step4.css";
 
-const countries = ["India", "AE"];
+const countries = ["India", "UAE"];
 
 const indiaStates = {
   "Andhra Pradesh": [
     "Visakhapatnam", "Vijayawada", "Guntur", "Nellore", "Tirupati",
     "Kurnool", "Rajahmundry", "Kakinada", "Anantapur", "Chittoor",
   ],
-  "Arunachal Pradesh": ["Itanagar", "Tawang", "Naharlagun", "Pasighat", "Ziro"],
-  "Jammu and Kashmir": ["Srinagar", "Jammu", "Anantnag", "Baramulla", "Leh"],
-  "Ladakh": ["Leh", "Kargil"],
-  "Lakshadweep": ["Kavaratti"],
-  "Puducherry": ["Puducherry", "Karaikal", "Mahe", "Yanam"],
   
 
  "Arunachal Pradesh": ["Itanagar", "Tawang", "Ziro", "Pasighat"],
