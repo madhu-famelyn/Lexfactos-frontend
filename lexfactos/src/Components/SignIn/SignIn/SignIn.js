@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { GoogleLogin } from "@react-oauth/google";
-import { jwtDecode } from "jwt-decode"; // 👈 import this
+import { jwtDecode } from "jwt-decode";
 import "./SignIn.css";
 import { loginUser, loginWithGoogle } from "../../Service/Service";
 import { useAuth } from "../../Context/UserContext";
@@ -24,27 +24,21 @@ export default function SignIn() {
     try {
       const data = await loginUser(email, password);
 
-      // Decode JWT to extract user ID
       const decoded = jwtDecode(data.access_token);
       const userId = decoded.sub;
 
-      const userInfo = {
-        id: userId,
-        email: email,
-      };
+      const userInfo = { id: userId, email };
 
-      // Save tokens
       localStorage.setItem("access_token", data.access_token);
       localStorage.setItem("token_type", data.token_type);
 
-      // Store in auth context
       login(userInfo, data.access_token, data.token_type);
 
       alert("Login successful!");
       navigate("/");
     } catch (err) {
       console.error("Login Error:", err);
-      if (err.response && err.response.data && err.response.data.detail) {
+      if (err.response?.data?.detail) {
         if (err.response.data.detail === "Invalid credentials") {
           setMessage("Username or password is incorrect.");
         } else {
@@ -66,10 +60,7 @@ export default function SignIn() {
       const decoded = jwtDecode(data.access_token);
       const userId = decoded.sub;
 
-      const userInfo = {
-        id: userId,
-        email: "google_user",
-      };
+      const userInfo = { id: userId, email: "google_user" };
 
       localStorage.setItem("access_token", data.access_token);
       localStorage.setItem("token_type", data.token_type);
@@ -80,7 +71,7 @@ export default function SignIn() {
       navigate("/");
     } catch (err) {
       console.error("Google Login Error:", err);
-      if (err.response && err.response.data && err.response.data.detail) {
+      if (err.response?.data?.detail) {
         setMessage(err.response.data.detail);
       } else {
         setMessage("Google Username or password is incorrect.");
@@ -101,8 +92,8 @@ export default function SignIn() {
           It's fast, simple, and free.
         </p>
 
+        {/* Google Login Section */}
         <div
-          className="form"
           style={{
             width: "100%",
             display: "flex",
@@ -111,7 +102,6 @@ export default function SignIn() {
           }}
         >
           <div
-            className="google-login-container"
             style={{
               width: "100%",
               display: "flex",
@@ -123,6 +113,18 @@ export default function SignIn() {
               <GoogleLogin
                 onSuccess={handleGoogleSuccess}
                 onError={handleGoogleFailure}
+                useOneTap={false}
+                theme="outline"
+                shape="rectangular"
+                text="signin_with"
+                type="standard"
+                size="large"
+                // 👇 Forces Google to always show account chooser
+                promptMomentNotification={(notification) => {
+                  if (notification.isDisplayed()) {
+                    console.log("Google prompt displayed");
+                  }
+                }}
               />
             </div>
           </div>
