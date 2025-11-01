@@ -448,3 +448,49 @@ select {
   background-color: #1d4ed8;
   transform: translateY(-1px);
 }
+
+
+.api-error-popup {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: #ff4d4f;
+  color: #fff;
+  padding: 12px 18px;
+  border-radius: 8px;
+  font-weight: 500;
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  animation: fadeInOut 4s ease forwards;
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: translateY(-10px); }
+  10%, 90% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-10px); }
+}
+
+.phone-input-wrapper {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 4px 8px;
+  width: 300px;
+}
+
+.phone-input-wrapper select {
+  border: none;
+  background: transparent;
+  font-size: 14px;
+  outline: none;
+  width: 80px;
+}
+
+.phone-input-wrapper input {
+  border: none;
+  outline: none;
+  flex: 1;
+  font-size: 14px;
+  padding: 8px;
+}

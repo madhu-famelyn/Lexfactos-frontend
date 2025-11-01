@@ -11,58 +11,8 @@ const formatDOB = (dob) => {
 };
 
 const countryCodes = [
-  { code: "+1" },
-  { code: "+7" },
-  { code: "+20" },
-  { code: "+27" },
-  { code: "+30" },
-  { code: "+31" },
-  { code: "+32" },
-  { code: "+33" },
-  { code: "+34" },
-  { code: "+36" },
-  { code: "+39" },
-  { code: "+40" },
-  { code: "+41" },
-  { code: "+43" },
-  { code: "+44" },
-  { code: "+45" },
-  { code: "+46" },
-  { code: "+47" },
-  { code: "+48" },
-  { code: "+49" },
-  { code: "+52" },
-  { code: "+55" },
-  { code: "+56" },
-  { code: "+57" },
-  { code: "+58" },
-  { code: "+60" },
-  { code: "+61" },
-  { code: "+62" },
-  { code: "+63" },
-  { code: "+64" },
-  { code: "+65" },
-  { code: "+66" },
-  { code: "+81" },
-  { code: "+82" },
-  { code: "+84" },
-  { code: "+86" },
-  { code: "+90" },
-  { code: "+91" },
-  { code: "+92" },
-  { code: "+93" },
-  { code: "+94" },
-  { code: "+95" },
-  { code: "+98" },
-  { code: "+971" },
-  { code: "+972" },
-  { code: "+974" },
-  { code: "+975" },
-  { code: "+977" },
-  { code: "+994" },
-  { code: "+995" },
-  { code: "+996" },
-  { code: "+998" },
+  { name: "India", code: "+91", flag: "🇮🇳" },
+  { name: "United Arab Emirates", code: "+971", flag: "🇦🇪" },
 ];
 
 const LawyerRegistration = () => {
@@ -90,11 +40,20 @@ const LawyerRegistration = () => {
     localStorage.getItem("lawyerPhoto") || null
   );
   const [errors, setErrors] = useState({});
+  const [apiError, setApiError] = useState(null);
 
   useEffect(() => {
     const saveData = { ...formData, photo: null };
     localStorage.setItem("lawyerFormData", JSON.stringify(saveData));
   }, [formData]);
+
+  // Auto-hide popup after 4s
+  useEffect(() => {
+    if (apiError) {
+      const timer = setTimeout(() => setApiError(null), 4000);
+      return () => clearTimeout(timer);
+    }
+  }, [apiError]);
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -124,16 +83,15 @@ const LawyerRegistration = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!validateForm()) {
-      alert("Please fill in all required fields correctly.");
+      setApiError("Please fill in all required fields correctly.");
       return;
     }
 
-    setLoading(true); // 🔹 Start loader
+    setLoading(true);
 
     try {
       if (storedLawyerId) {
@@ -160,24 +118,31 @@ const LawyerRegistration = () => {
       navigate("/step2", { state: { lawyerId: res.id } });
     } catch (err) {
       if (err?.response?.status === 400) {
-        if (err.response.data.detail?.includes("Email already registered")) {
-          alert("This email is already registered. Please use another email.");
-        } else if (err.response.data.detail?.includes("Phone number already registered")) {
-          alert("This phone number is already registered. Please use another one.");
+        const detail = err.response.data?.detail || "";
+        if (detail.includes("email")) {
+          setApiError("This email is already registered. Please use another email.");
+        } else if (detail.includes("phone")) {
+          setApiError("This phone number is already registered. Please use another one.");
         } else {
-          alert(err.response.data.detail || "Registration failed. Please try again.");
+          setApiError(detail || "Registration failed. Please try again.");
         }
       } else {
-        alert("Registration failed. Please check all fields and try again.");
+        setApiError("Registration failed. Please check all fields and try again.");
       }
     } finally {
-      setLoading(false); // 🔹 Stop loader
+      setLoading(false);
     }
   };
 
-
   return (
     <div className="registration-container">
+      {/* 🔹 Popup for API Errors */}
+      {apiError && (
+        <div className="api-error-popup">
+          <p>{apiError}</p>
+        </div>
+      )}
+
       <div className="registration-card">
         <div className="registration-header">
           <div>
@@ -203,7 +168,7 @@ const LawyerRegistration = () => {
             </div>
             <label className="upload-btn">
               <FiUpload className="upload-icon" />
-              Upload Profile Photo
+              Upload Profile Photo *
               <input
                 type="file"
                 accept="image/*"
@@ -237,15 +202,6 @@ const LawyerRegistration = () => {
                   name="gender"
                   value={formData.gender}
                   onChange={handleChange}
-                  style={{
-                    width: "95%",
-                    padding: "10px",
-                    borderRadius: "8px",
-                    border: "1px solid #ccc",
-                    fontSize: "14px",
-                    outline: "none",
-                    boxSizing: "border-box",
-                  }}
                 >
                   <option value="">Select gender</option>
                   <option>Male</option>
@@ -282,32 +238,15 @@ const LawyerRegistration = () => {
             <div className="form-row">
               <div className="form-group">
                 <label>Phone Number *</label>
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    border: "1px solid #ccc",
-                    borderRadius: "6px",
-                    padding: "4px 8px",
-                    width: "300px",
-                    height: "34px",
-                  }}
-                >
+                <div className="phone-input-wrapper">
                   <select
                     name="country_code"
                     value={formData.country_code}
                     onChange={handleChange}
-                    style={{
-                      border: "none",
-                      background: "transparent",
-                      fontSize: "14px",
-                      outline: "none",
-                      width: "70px",
-                    }}
                   >
                     {countryCodes.map((c, idx) => (
                       <option key={idx} value={c.code}>
-                        {c.code}
+                        {c.flag} {c.code}
                       </option>
                     ))}
                   </select>
@@ -318,13 +257,6 @@ const LawyerRegistration = () => {
                     onChange={handleChange}
                     placeholder="Enter phone number"
                     required
-                    style={{
-                      border: "none",
-                      outline: "none",
-                      flex: 1,
-                      fontSize: "14px",
-                      padding: "8px",
-                    }}
                   />
                 </div>
                 {errors.phone_number && <p className="error-text">{errors.phone_number}</p>}
@@ -394,16 +326,12 @@ const LawyerRegistration = () => {
               </button>
 
               <button
-        type="submit"
-        className="lr-step2-next-btn"
-        disabled={loading} // 🔹 prevent double submit
-      >
-        {loading ? (
-          <div className="spinner"></div> // 🔹 spinner visible
-        ) : (
-          "Next"
-        )}
-      </button>
+                type="submit"
+                className="lr-step2-next-btn"
+                disabled={loading}
+              >
+                {loading ? <div className="spinner"></div> : "Next"}
+              </button>
             </div>
           </form>
         </div>

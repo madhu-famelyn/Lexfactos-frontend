@@ -301,3 +301,208 @@
     text-align: center;
   }
 }
+
+
+
+
+
+
+/* =========================================
+   📱 MOBILE OPTIMIZED STYLES (≤600px)
+========================================= */
+
+@media (max-width: 600px) {
+  .pending-lawyer-container {
+    padding: 0.8rem;
+    font-family: "Geist", sans-serif;
+  }
+
+  /* 🔸 Alert Box */
+  .pending-lawyer-alert {
+    background-color: #fff8e1;
+    border-left: 4px solid #e0a800;
+    padding: 0.7rem 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+  }
+
+  .pending-lawyer-alert span {
+    font-size: 0.95rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+  }
+
+  .pending-lawyer-alert p {
+    font-size: 0.8rem;
+    margin-top: 2px;
+    color: #666;
+  }
+
+  /* 🔸 Lawyer List */
+  .pending-lawyer-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+  }
+
+  /* 🔸 Lawyer Card */
+  .pending-lawyer-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.8rem;
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    padding: 0.9rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  }
+
+  /* Avatar + Info */
+  .pending-lawyer-info {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    width: 100%;
+  }
+
+  .pending-lawyer-avatar img {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1.5px solid #eee;
+  }
+
+  .pending-lawyer-name {
+    font-size: 0.95rem;
+    font-weight: 600;
+  }
+
+  .pending-lawyer-email {
+    font-size: 0.8rem;
+    color: #555;
+  }
+
+  .pending-lawyer-location,
+  .pending-lawyer-experience {
+    font-size: 0.78rem;
+    color: #777;
+    display: flex;
+    align-items: center;
+    margin-top: 2px;
+  }
+
+  /* 🔸 Right Section */
+  .pending-lawyer-right {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
+  }
+
+  /* 🔹 Buttons Section */
+  .pending-lawyer-actions {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 0.5rem;
+  }
+
+  .pending-lawyer-actions button {
+    flex: 1;
+    font-size: 0.8rem;
+    padding: 0.5rem;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    font-weight: 500;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.2s ease;
+  }
+
+  .pending-lawyer-approve {
+    background-color: #4caf50;
+  }
+
+  .pending-lawyer-reject {
+    background-color: #e53935;
+  }
+
+  .pending-lawyer-view {
+    background-color: #1976d2;
+  }
+
+  .pending-lawyer-actions button:hover {
+    opacity: 0.9;
+  }
+
+  /* 🔹 Popups */
+  .pending-lawyer-popup-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(34, 34, 34, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+  }
+
+  .pending-lawyer-popup {
+    background: white;
+    padding: 1rem;
+    width: 90%;
+    max-width: 320px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    text-align: center;
+  }
+
+  .pending-lawyer-popup h3 {
+    font-size: 1rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .pending-lawyer-popup textarea {
+    width: 100%;
+    height: 70px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    padding: 0.5rem;
+    font-size: 0.85rem;
+    resize: none;
+    margin-bottom: 0.8rem;
+  }
+
+  .pending-lawyer-popup-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .pending-lawyer-confirm {
+    background-color: #4caf50;
+    color: #fff;
+    padding: 0.45rem;
+    border: none;
+    border-radius: 6px;
+  }
+
+  .pending-lawyer-cancel {
+    background-color: #e53935;
+    color: #fff;
+    padding: 0.45rem;
+    border: none;
+    border-radius: 6px;
+  }
+
+  .pending-lawyer-success {
+    font-size: 0.9rem;
+    color: #2e7d32;
+    font-weight: 600;
+  }
+}
