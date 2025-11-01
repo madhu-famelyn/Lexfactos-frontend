@@ -18,20 +18,20 @@ const AdminLawyer = () => {
   }, []);
 
   const fetchLawyers = async () => {
+    setLoading(true);
     try {
-      setLoading(true);
-      const response = await axios.get("https://lexfactos-frontend.pages.dev/api/lawyers");
-      
-      // Filter based on status from backend
-      const pending = response.data.filter(l => l.status === "Pending");
-      const approved = response.data.filter(l => l.status === "Approved");
-      const rejected = response.data.filter(l => l.status === "Rejected");
+      // ✅ Fetch from correct backend routes
+      const [unverifiedRes, verifiedRes, rejectedRes] = await Promise.all([
+        axios.get("https://lexfactos-backend.fly.dev/get-all-details/lawyers/unverified"),
+        axios.get("https://lexfactos-backend.fly.dev/get-all-details/lawyers/verified"),
+        axios.get("https://lexfactos-backend.fly.dev/get-all-details/lawyers/rejected").catch(() => ({ data: [] })), // handle 404 safely
+      ]);
 
-      setPendingLawyers(pending);
-      setApprovedLawyers(approved);
-      setRejectedLawyers(rejected);
+      setPendingLawyers(unverifiedRes.data || []);
+      setApprovedLawyers(verifiedRes.data || []);
+      setRejectedLawyers(rejectedRes.data || []);
     } catch (error) {
-      console.error("Error fetching lawyers:", error);
+      console.error("❌ Error fetching lawyers:", error);
     } finally {
       setLoading(false);
     }
@@ -42,7 +42,6 @@ const AdminLawyer = () => {
       <Sidebar />
       <main className="dashboard-content">
         <div className="lawyer-container">
-
           {/* Tabs */}
           <div className="tabs">
             <button
@@ -71,15 +70,9 @@ const AdminLawyer = () => {
             <p className="loading-text">Loading lawyers...</p>
           ) : (
             <>
-              {activeTab === "pending" && (
-                <PendingLawyers lawyers={pendingLawyers} />
-              )}
-              {activeTab === "approved" && (
-                <ApprovedLawyers lawyers={approvedLawyers} />
-              )}
-              {activeTab === "rejected" && (
-                <RejectedLawyers lawyers={rejectedLawyers} />
-              )}
+              {activeTab === "pending" && <PendingLawyers lawyers={pendingLawyers} />}
+              {activeTab === "approved" && <ApprovedLawyers lawyers={approvedLawyers} />}
+              {activeTab === "rejected" && <RejectedLawyers lawyers={rejectedLawyers} />}
             </>
           )}
         </div>
