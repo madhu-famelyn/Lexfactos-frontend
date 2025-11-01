@@ -1,43 +1,51 @@
-/* ===== Full Lawyer Registration Form ===== */
+/* =========================================
+   FULL LAWYER REGISTRATION FORM
+   Palette: Deep Blue (#1f3c88), Light Gray (#fafafa)
+   Font: Inter / Geist / Sans-serif
+========================================= */
 
 .full-reg-lawyer-form-container {
   max-width: 900px;
-  margin: 40px auto;
+  margin: 50px auto;
   padding: 40px;
   background: #ffffff;
   border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  font-family: "Inter", sans-serif;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
+  font-family: "Inter", "Geist", sans-serif;
   color: #333;
 }
 
 .full-reg-lawyer-form-container h2 {
   text-align: center;
   color: #1f3c88;
-  margin-bottom: 24px;
-  font-size: 26px;
+  margin-bottom: 32px;
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
 }
 
+/* Section Styling */
 .full-reg-form-section {
-  margin-bottom: 40px;
-  border: 1px solid #eee;
+  background: #fafafa;
+  border: 1px solid #e0e0e0;
   border-radius: 12px;
   padding: 25px 30px;
-  background: #fafafa;
+  margin-bottom: 40px;
+  position: relative;
 }
 
 .full-reg-form-section h3 {
   color: #1f3c88;
   font-size: 20px;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
   border-bottom: 2px solid #1f3c88;
   display: inline-block;
   padding-bottom: 4px;
 }
 
 .full-reg-form-section h4 {
-  color: #444;
   font-size: 17px;
+  color: #444;
   margin-top: 20px;
   margin-bottom: 10px;
 }
@@ -49,42 +57,64 @@
   color: #333;
 }
 
-
-/* Fix dropdown widths in Address Details */
-.full-reg-nested select,
-.full-reg-nested input {
+/* Input / Select / Textarea Styling */
+.full-reg-form-section input,
+.full-reg-form-section select,
+.full-reg-form-section textarea {
   width: 100%;
   padding: 10px 12px;
-  border: 1px solid #ccc;
   border-radius: 8px;
-  font-size: 14px;
-  margin-bottom: 12px;
-  box-sizing: border-box;
-}
-
-
-
-.full-reg-form-section input,
-.full-reg-form-section textarea,
-.full-reg-form-section select {
-  width: 97%;
-  padding: 10px 12px;
+  border: 1px solid #ccc;
+  font-size: 15px;
   margin-bottom: 15px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
+  box-sizing: border-box;
   outline: none;
-  font-size: 14px;
   transition: border 0.2s ease, box-shadow 0.2s ease;
 }
 
 .full-reg-form-section input:focus,
-.full-reg-form-section textarea:focus,
-.full-reg-form-section select:focus {
+.full-reg-form-section select:focus,
+.full-reg-form-section textarea:focus {
   border-color: #1f3c88;
   box-shadow: 0 0 4px rgba(31, 60, 136, 0.3);
 }
 
-/* Nested sections (Bar Details, Education, etc.) */
+/* Phone Input Group */
+.phone-input-container {
+  margin-bottom: 16px;
+}
+
+.phone-input-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.phone-dropdown {
+  flex: 0 0 110px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: #fff;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.phone-input-field {
+  flex: 1;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 15px;
+  transition: border 0.2s ease, box-shadow 0.2s ease;
+}
+
+.phone-input-field:focus {
+  border-color: #1f3c88;
+  box-shadow: 0 0 4px rgba(31, 60, 136, 0.3);
+}
+
+/* Nested Fields (Bar Details, Education, Work Exp, Address) */
 .full-reg-nested {
   background: #fff;
   padding: 15px 20px;
@@ -95,44 +125,45 @@
 
 .full-reg-nested input,
 .full-reg-nested select {
-  margin-bottom: 10px;
+  width: 100%;
+  margin-bottom: 12px;
 }
 
-.full-reg-lawreg-remove-btn,
-.full-reg-nested button {
-  background: #ff5c5c;
-  color: white;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-
-.full-reg-lawreg-remove-btn:hover,
-.full-reg-nested button:hover {
-  background: #e04747;
-}
-
-/* Add buttons */
-.full-reg-form-section button[type="button"] {
-  display: inline-block;
+/* Buttons */
+.full-reg-form-section button[type="button"],
+.full-reg-lawreg-remove-btn {
   background: #1f3c88;
   color: #fff;
   border: none;
   padding: 10px 14px;
-  margin-top: 8px;
   border-radius: 8px;
   cursor: pointer;
   font-weight: 600;
   transition: background 0.3s;
+  display: inline-block;
+  margin-top: 6px;
 }
 
 .full-reg-form-section button[type="button"]:hover {
   background: #274da0;
 }
 
-/* Form Submit */
+.full-reg-lawreg-remove-btn {
+  background: #ff5c5c;
+}
+
+.full-reg-lawreg-remove-btn:hover {
+  background: #e04747;
+}
+
+/* Add button alignment */
+.full-reg-form-section .add-btn-container {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+/* Submit Section */
 .full-reg-form-actions {
   text-align: center;
   margin-top: 30px;
@@ -142,7 +173,7 @@
   background: #1f3c88;
   color: #fff;
   border: none;
-  padding: 12px 26px;
+  padding: 12px 28px;
   font-size: 16px;
   border-radius: 10px;
   cursor: pointer;
@@ -171,8 +202,8 @@
   border: 4px solid #eee;
   border-top: 4px solid #1f3c88;
   border-radius: 50%;
-  width: 40px;
-  height: 40px;
+  width: 45px;
+  height: 45px;
   animation: spin 0.9s linear infinite;
 }
 
@@ -188,7 +219,7 @@
   font-weight: 600;
 }
 
-/* Success Popup */
+/* Popup Boxes */
 .full-reg-popup-overlay {
   position: fixed;
   inset: 0;
@@ -205,11 +236,10 @@
   border-radius: 14px;
   text-align: center;
   width: 360px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
 }
 
 .full-reg-popup-box h3 {
-  color: #28a745;
   margin-bottom: 10px;
 }
 
@@ -221,13 +251,18 @@
   border-radius: 8px;
   cursor: pointer;
   margin-top: 10px;
+  transition: background 0.3s;
 }
 
 .full-reg-popup-box button:hover {
   background: #274da0;
 }
 
-/* Responsive */
+.full-reg-popup-box.error h3 {
+  color: #e04747;
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
   .full-reg-lawyer-form-container {
     padding: 20px;
@@ -235,6 +270,14 @@
 
   .full-reg-form-section {
     padding: 20px;
+  }
+
+  .phone-input-wrapper {
+    flex-direction: column;
+  }
+
+  .phone-dropdown {
+    width: 100%;
   }
 
   .full-reg-popup-box {
