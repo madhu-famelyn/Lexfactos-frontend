@@ -110,22 +110,20 @@ export default function SignIn() {
             }}
           >
             <div className="google-login-wrapper">
-              <GoogleLogin
-                onSuccess={handleGoogleSuccess}
-                onError={handleGoogleFailure}
-                useOneTap={false}
-                theme="outline"
-                shape="rectangular"
-                text="signin_with"
-                type="standard"
-                size="large"
-                // 👇 Forces Google to always show account chooser
-                promptMomentNotification={(notification) => {
-                  if (notification.isDisplayed()) {
-                    console.log("Google prompt displayed");
-                  }
-                }}
-              />
+          <GoogleLogin
+            onSuccess={handleGoogleSuccess}
+            onError={handleGoogleFailure}
+            useOneTap={false}
+            theme="outline"
+            shape="rectangular"
+            text="signin_with"
+            type="standard"
+            size="large"
+            ux_mode="popup"
+            // 👇 Forces account chooser each time
+            prompt="select_account"
+          />
+
             </div>
           </div>
         </div>
