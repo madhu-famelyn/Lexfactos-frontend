@@ -110,19 +110,20 @@ export default function SignIn() {
             }}
           >
             <div className="google-login-wrapper">
-          <GoogleLogin
-            onSuccess={handleGoogleSuccess}
-            onError={handleGoogleFailure}
-            useOneTap={false}
-            theme="outline"
-            shape="rectangular"
-            text="signin_with"
-            type="standard"
-            size="large"
-            ux_mode="popup"
-            // 👇 Forces account chooser each time
-            prompt="select_account"
-          />
+         <GoogleLogin
+  onSuccess={handleGoogleSuccess}
+  onError={handleGoogleFailure}
+  useOneTap={false}
+  ux_mode="popup"
+  theme="outline"
+  shape="rectangular"
+  text="signin_with"
+  type="standard"
+  size="large"
+  prompt="select_account"
+  // 👇 prevent showing logged-in email
+  auto_select={false}
+/>
 
             </div>
           </div>
