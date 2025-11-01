@@ -476,6 +476,7 @@ const LawyerFullRegistration = () => {
               </button>
             </div>
           ))}
+         <div className="add-bar-btn">
           <button
             type="button"
             onClick={() =>
@@ -491,6 +492,8 @@ const LawyerFullRegistration = () => {
           >
             + Add Bar
           </button>
+        </div>
+
           <p/>
 
           <label>Languages Spoken *</label>
@@ -528,14 +531,16 @@ const LawyerFullRegistration = () => {
               </button>
             </div>
           ))}
-          <button
-            type="button"
-            onClick={() =>
-              addNestedItem("education", { degree: "", college_name: "", graduation_year: "" })
-            }
-          >
-            + Add Education
-          </button>
+<button
+  type="button"
+  className="add-education-btn"
+  onClick={() =>
+    addNestedItem("education", { degree: "", college_name: "", graduation_year: "" })
+  }
+>
+  + Add Education
+</button>
+
         </div>
 
         {/* === Step 3: Practice Details === */}
@@ -570,14 +575,16 @@ const LawyerFullRegistration = () => {
               </button>
             </div>
           ))}
-          <button
-            type="button"
-            onClick={() =>
-              addNestedItem("work_experience", { company_name: "", role: "", duration: "" })
-            }
-          >
-            + Add Work Experience
-          </button>
+         <button
+  type="button"
+  className="add-education-btn"
+  onClick={() =>
+    addNestedItem("work_experience", { company_name: "", role: "", duration: "" })
+  }
+>
+  + Add Work Experience
+</button>
+
         </div>
 
         {/* === Step 4: Address === */}
@@ -622,6 +629,7 @@ const LawyerFullRegistration = () => {
           ))}
           <button
             type="button"
+              className="add-education-btn"
             onClick={() =>
               addNestedItem("address", {
                 street_address: "",

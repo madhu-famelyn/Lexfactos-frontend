@@ -288,3 +288,66 @@
     width: 100%;
   }
 }
+/* Align "Add Bar" button to right */
+.full-reg-form-section .add-bar-btn {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
+.full-reg-form-section .add-bar-btn button {
+  background: #1f3c88;
+  color: #fff;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.3s ease;
+}
+
+.full-reg-form-section .add-bar-btn button:hover {
+  background: #162c68;
+}
+
+
+/* Align "Add Education" button to right */
+.full-reg-form-section .add-education-btn {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
+.full-reg-form-section .add-education-btn button {
+  background: #1f3c88;
+  color: #fff;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.3s ease;
+}
+
+.full-reg-form-section .add-education-btn button:hover {
+  background: #162c68;
+}
+
+
+/* Right-align Add Education button */
+.full-reg-form-section button.add-education-btn {
+  display: block;
+  margin-left: auto;
+  background: #1f3c88;
+  color: #fff;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.3s ease;
+}
+
+.full-reg-form-section button.add-education-btn:hover {
+  background: #162d66;
+}
