@@ -14,6 +14,8 @@ export default function AddComments({ lawyerId }) {
   const { auth } = useAuth();
   const navigate = useNavigate();
 
+  const BASE_URL = "https://lexfactos-backend.fly.dev";
+
   const [showInput, setShowInput] = useState(false);
   const [comment, setComment] = useState("");
   const [rating, setRating] = useState(5);
@@ -44,19 +46,18 @@ export default function AddComments({ lawyerId }) {
     return date.toLocaleDateString();
   };
 
-  // 📥 Fetch reviews (wrapped with useCallback)
+  // 📥 Fetch reviews
   const fetchReviews = useCallback(async () => {
     try {
-      const res = await fetch(
-        `https://lexfactos-frontend.pages.dev/lawyer-rating/${lawyerId}`
-      );
+      const res = await fetch(`${BASE_URL}/lawyer-rating/${lawyerId}`);
       if (!res.ok) throw new Error("Failed to fetch reviews");
+
       const data = await res.json();
       setAvgRating(data.average_rating || 0);
       setTotalReviews(data.total_reviews || 0);
       setReviews(data.reviews || []);
     } catch (err) {
-      console.error(err);
+      console.error("❌ Fetch reviews failed:", err);
     }
   }, [lawyerId]);
 
@@ -64,6 +65,7 @@ export default function AddComments({ lawyerId }) {
     fetchReviews();
   }, [fetchReviews]);
 
+  // ✍️ Toggle input box
   const handleWriteClick = () => {
     if (!auth?.user?.id) {
       setShowPopup(true);
@@ -75,10 +77,13 @@ export default function AddComments({ lawyerId }) {
   // 🚀 Submit Review
   const handleSubmit = async () => {
     if (!comment.trim()) {
-      setMessage("Please enter a comment before submitting.");
+      setMessage("⚠️ Please enter a comment before submitting.");
       return;
     }
+
     setLoading(true);
+    setMessage("");
+
     const payload = {
       rating,
       comment,
@@ -87,30 +92,39 @@ export default function AddComments({ lawyerId }) {
     };
 
     try {
-      const res = await fetch(
-        "https://lexfactos-frontend.pages.dev/lawyer-rating/",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `${auth?.token_type || "Bearer"} ${
-              auth?.token || ""
-            }`,
-          },
-          body: JSON.stringify(payload),
-        }
-      );
+      const res = await fetch(`${BASE_URL}/lawyer-rating/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `${auth?.token_type || "Bearer"} ${auth?.token || ""}`,
+        },
+        body: JSON.stringify(payload),
+      });
 
-      if (!res.ok) {
-        const err = await res.json();
-        throw new Error(err.detail || "Failed to post comment");
+      let data = null;
+      try {
+        data = await res.json();
+      } catch {
+        // HTML or empty body -> avoid JSON error
+        console.warn("⚠️ Non-JSON response received from backend");
       }
 
+      console.log("📥 Response status:", res.status);
+      console.log("📥 Response body:", data);
+
+      if (!res.ok) {
+        const errorMsg = data?.detail || "Failed to submit review";
+        setMessage(`❌ ${errorMsg}`);
+        return;
+      }
+
+      // ✅ Success
       setMessage("✅ Review submitted successfully!");
       setComment("");
       setShowInput(false);
       fetchReviews();
     } catch (err) {
+      console.error("❌ Review submission failed:", err);
       setMessage("❌ " + err.message);
     } finally {
       setLoading(false);
@@ -132,14 +146,12 @@ export default function AddComments({ lawyerId }) {
     setEditLoading(true);
     try {
       const res = await fetch(
-        `https://lexfactos-frontend.pages.dev/lawyer-rating/${editReview.id}/${auth.user.id}`,
+        `${BASE_URL}/lawyer-rating/${editReview.id}/${auth.user.id}`,
         {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `${auth?.token_type || "Bearer"} ${
-              auth?.token || ""
-            }`,
+            Authorization: `${auth?.token_type || "Bearer"} ${auth?.token || ""}`,
           },
           body: JSON.stringify({
             rating: editRating,
@@ -148,7 +160,18 @@ export default function AddComments({ lawyerId }) {
         }
       );
 
-      if (!res.ok) throw new Error("Failed to update review");
+      let data = null;
+      try {
+        data = await res.json();
+      } catch {
+        console.warn("⚠️ Non-JSON response during update");
+      }
+
+      if (!res.ok) {
+        const errorMsg = data?.detail || "Failed to update review";
+        setMessage(`❌ ${errorMsg}`);
+        return;
+      }
 
       setEditModalOpen(false);
       setMessage("✅ Review updated successfully!");
@@ -189,6 +212,7 @@ export default function AddComments({ lawyerId }) {
         </button>
       </div>
 
+      {/* ======= MESSAGE ======= */}
       {message && <p className="comment-message">{message}</p>}
 
       {/* ======= ADD COMMENT BOX ======= */}

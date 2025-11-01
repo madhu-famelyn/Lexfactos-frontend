@@ -16,7 +16,7 @@ const Header = () => {
 
   const handleJoinClick = useCallback(() => {
     closeMenu(); // close mobile menu if open
-    navigate("/sign-in-lawyer"); // redirect to lawyer sign-in
+    navigate("/lawyer-auth"); // redirect to lawyer sign-in
   }, [closeMenu, navigate]);
 
   const handleProfileClick = useCallback(() => {

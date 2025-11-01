@@ -126,9 +126,9 @@ export default function LawyerProfilePage() {
           <div className="lawyer-profile-info">
             <h1 className="lawyer-name">{lawyer.full_name}</h1>
             <p className="lawyer-designation">{lawyer.short_note || ""}</p>
-            <p className="lawyer-chamber-name">
+            {/* <p className="lawyer-chamber-name">
               Kumar & Associates Law Chambers
-            </p>
+            </p> */}
 
             <div className="lawyer-tags">
               <span>{lawyer.profile?.years_of_experience || 0}+ Years</span>

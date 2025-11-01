@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import "./Hero.css";
 
 const indiaStates = {
-  "Andhra Pradesh": ["Visakhapatnam", "Vijayawada", "Guntur", "Nellore", "Tirupati", "Kurnool", "Rajahmundry"],
+  "Andhra Pradesh": ["Visakhapatnam", "Vijayawada", "Guntur", "Nellore", "Tirupati","Chittoor", "Kurnool", "Rajahmundry"],
   "Arunachal Pradesh": ["Itanagar", "Tawang", "Ziro", "Pasighat"],
   "Assam": ["Guwahati", "Silchar", "Dibrugarh", "Jorhat"],
   "Bihar": ["Patna", "Gaya", "Bhagalpur", "Muzaffarpur", "Darbhanga"],

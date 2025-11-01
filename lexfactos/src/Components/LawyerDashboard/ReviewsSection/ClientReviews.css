@@ -1,0 +1,330 @@
+.lawyer-reviews-container {
+  display: flex;
+  flex-direction: column;
+  background-color: #f9fafc;
+  min-height: 100vh;
+  padding: 1.5rem 2rem 2rem;
+  margin-left: 230px; /* for sidebar */
+  box-sizing: border-box;
+}
+
+/* Headings */
+.reviews-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #05308d;
+  margin-bottom: 0.3rem;
+}
+
+.reviews-subtitle {
+  color: #6b7280;
+  font-size: 0.95rem;
+  margin-bottom: 1.5rem;
+}
+
+/* =============================
+   Summary Card
+============================= */
+.reviews-summary-card {
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06);
+  padding: 1.6rem 1.8rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  margin-bottom: 1.8rem;
+}
+
+.rating-left {
+  flex: 1;
+  min-width: 220px;
+}
+
+.rating-score {
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: #2563eb;
+  margin: 0;
+}
+
+.rating-stars {
+  display: flex;
+  gap: 4px;
+  margin: 0.4rem 0;
+}
+
+.rating-total {
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+
+.rating-right {
+  flex: 2;
+  min-width: 260px;
+  padding-left: 2rem;
+}
+
+.rating-bar-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.5rem;
+}
+
+.rating-bar {
+  background-color: #e5e7eb;
+  flex-grow: 1;
+  height: 8px;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.rating-bar-fill {
+  background: linear-gradient(90deg, #05308d, #2563eb);
+  height: 100%;
+  border-radius: 4px;
+}
+
+.rating-count {
+  color: #374151;
+  font-size: 0.9rem;
+  min-width: 20px;
+  text-align: right;
+}
+
+/* =============================
+   Reviews List
+============================= */
+.lawyer-reviews-list-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.3rem;
+}
+
+/* Review Card */
+.lawyer-review-card {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05);
+  padding: 1.3rem 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.lawyer-review-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+}
+
+/* Header (Profile + Name + Date) */
+.lawyer-review-header {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  margin-bottom: 0.6rem;
+}
+
+.lawyer-review-user-photo {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  object-fit: cover;
+  background-color: #e5e7eb;
+  border: 2px solid #2563eb25;
+}
+
+.lawyer-review-user-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.lawyer-review-user-name {
+  font-weight: 600;
+  color: #111827;
+  margin: 0;
+}
+
+.lawyer-review-date {
+  font-size: 0.85rem;
+  color: #6b7280;
+}
+
+/* Rating stars */
+.lawyer-review-rating {
+  display: flex;
+  gap: 3px;
+  margin-bottom: 0.4rem;
+}
+
+/* Comment text */
+.lawyer-review-comment {
+  font-size: 0.95rem;
+  color: #374151;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+/* =============================
+   Reply Section (No Reply Yet)
+============================= */
+.lawyer-reply-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.lawyer-reply-textarea {
+  width: 100%;
+  min-height: 80px;
+  padding: 0.7rem;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  resize: vertical;
+  transition: border 0.2s ease;
+}
+
+.lawyer-reply-textarea:focus {
+  border-color: #2563eb;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+.lawyer-reply-btn {
+  align-self: flex-start;
+  background: linear-gradient(90deg, #05308d, #2563eb);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 0.45rem 0.9rem;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.lawyer-reply-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+/* =============================
+   Reply Box (Existing Reply)
+============================= */
+.lawyer-review-reply-box {
+  background-color: #eef4ff;
+  border-radius: 8px;
+  border: 1px solid #d0e1ff;
+  padding: 0.9rem 1rem;
+  color: #1e3a8a;
+  margin-top: 0.8rem;
+}
+
+.lawyer-review-reply-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.lawyer-review-reply-header strong {
+  color: #05308d;
+  font-weight: 600;
+}
+
+.lawyer-reply-edit-icon {
+  color: #2563eb;
+  cursor: pointer;
+  opacity: 0.8;
+  transition: all 0.2s ease;
+}
+
+.lawyer-reply-edit-icon:hover {
+  opacity: 1;
+}
+
+.lawyer-review-reply-text {
+  color: #1e3a8a;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* =============================
+   Miscellaneous
+============================= */
+.lawyer-no-reviews {
+  text-align: center;
+  font-size: 1rem;
+  color: #6b7280;
+}
+
+.reviews-loading {
+  text-align: center;
+  font-size: 1.1rem;
+  color: #2563eb;
+  margin-top: 3rem;
+}
+
+/* =============================
+   Responsive Design
+============================= */
+@media (max-width: 1024px) {
+  .lawyer-reviews-container {
+    margin-left: 200px;
+    padding: 1.5rem;
+  }
+
+  .reviews-summary-card {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .rating-right {
+    padding-left: 0;
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .lawyer-reviews-container {
+    margin-left: 0;
+    padding: 1rem 1.2rem;
+  }
+
+  .reviews-summary-card {
+    padding: 1.2rem;
+  }
+
+  .lawyer-review-card {
+    padding: 1rem;
+  }
+
+  .lawyer-review-user-photo {
+    width: 40px;
+    height: 40px;
+  }
+
+  .lawyer-review-comment {
+    font-size: 0.9rem;
+  }
+
+  .lawyer-reply-btn {
+    font-size: 0.8rem;
+    padding: 0.4rem 0.7rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .reviews-title {
+    font-size: 1.5rem;
+  }
+
+  .lawyer-review-reply-box {
+    font-size: 0.85rem;
+    padding: 0.7rem 0.8rem;
+  }
+}

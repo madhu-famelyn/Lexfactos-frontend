@@ -86,9 +86,9 @@ export default function LawyerResultsPage() {
               <p className="lawyer-title">{lawyer.profile?.title}</p>
               <p className="lawyer-location">
                 <FaMapMarkerAlt style={{ marginRight: "5px", color: "#000" }} />
-                {mainAddress?.city}, {mainAddress?.state} • {yearsExp} years
+                {mainAddress?.city}{mainAddress?.state} {yearsExp} years
                 experience
-              </p>
+              </p> 
             </div>
           </div>
 

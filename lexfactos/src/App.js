@@ -32,6 +32,8 @@ import AdminLawyer from "./Components/AdminLawyer/AdminLawyer";
 import AdminAppointments from "./Components/AdminAppointments/AdminAppointments";
 import AdminSupport from "./Components/AdminSupport/AdminSupport";
 import LawyerProfile from "./Components/AdminLawyer/Profile";
+import { LawyerAuthProvider } from "./Components/Context/LawyerContext";
+// import LawyerDashboard from "./Components/LawyerDashboard/LawyerDashboard/LawyerDashboard";
 // import SignIn from "./Components/SignIn/SignIn/SignIn";
 
 import { AuthProvider } from "./Components/Context/AuthContext";
@@ -49,6 +51,8 @@ import AdminJobs from "./Components/AdminJobs/AdminJobs";
 import ForgotPasswordUser from "./Components/ForgotPasswordUser/ForgotPassword";
 import LawyerFullRegistration from "./Components/LawyerRegistration/LawyerFullRegistration/LawyerFullRegistration";
 import UserResetPassword from "./Components/ForgotPasswordUser/ResetPassword";
+import LawyerDashboard from "./Components/LawyerDashboard/LawyerDashboard/LawyerDashboard";
+import LawyerReviews from "./Components/LawyerDashboard/ReviewsSection/ClientReviews";
 
 // Replace with your actual Google Client ID
 const GOOGLE_CLIENT_ID = "776723084181-ilgvju235ine04lqlkbl7v4nd55rpt3m.apps.googleusercontent.com";
@@ -71,7 +75,9 @@ function Layout({ children }) {
     "/view-job/:id",
     "/applicents",
     "/my-applied-jobs",
-    "/job-post"
+    "/job-post",
+    "/lawyer-dashboard",
+    "/lawyer-reviews"
   ];
 
   const hideHeaderFooterStartsWith = ["/lawyer/"];
@@ -98,6 +104,7 @@ function App() {
         {/* AuthProvider wraps the entire app so Header and all routes have access */}
         <AuthProvider>
           <UserProvider>
+            <LawyerAuthProvider>
             <Layout>
               <Routes>
                 {/* Public routes */}
@@ -111,7 +118,7 @@ function App() {
                 <Route path="/topics" element={<LegalAdviceTopicMain />} />
                 <Route path="/sign-in" element={<SignInPage />} />
                 <Route path="/sign-up" element={<SignupPage />} />
-                <Route path="/sign-in-lawyer" element={<LawyerRegistration />} />
+                <Route path="/sign-up-lawyer" element={<LawyerRegistration />} />
                 <Route path="/lawyer-full-registration" element={<LawyerFullRegistration />} />
                 <Route path="/step2" element={<LawyerRegistrationStep2 />} />
                 <Route path="/step3" element={<LawyerRegistrationStep3 />} />
@@ -135,6 +142,8 @@ function App() {
                 <Route path="/change-lawyer-password" element={<LawyerForgotPassword />} />
                 <Route path="/user/reset-password" element={<UserResetPassword />} />
                 <Route path="/reset-password" element={<LawyerResetPassword />} />
+                <Route path="/lawyer-dashboard" element={<LawyerDashboard />} />
+                <Route path="/lawyer-reviews" element={<LawyerReviews />} />
 
                 
 
@@ -151,6 +160,7 @@ function App() {
                 <Route path="/view-job/:id" element={<ViewJobDetails />} />
               </Routes>
             </Layout>
+            </LawyerAuthProvider>
           </UserProvider>
         </AuthProvider>
       </Router>

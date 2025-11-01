@@ -1,6 +1,7 @@
 // src/Pages/LawyerAuth.js
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useLawyerAuth } from "../../Context/LawyerContext";
 import "./LawyerAuth.css";
 
 const LawyerAuth = () => {
@@ -10,6 +11,7 @@ const LawyerAuth = () => {
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
+  const { login } = useLawyerAuth();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -32,14 +34,26 @@ const LawyerAuth = () => {
       const data = await response.json();
 
       if (response.ok) {
-        // ✅ Save token locally
-        localStorage.setItem("lawyer_token", data.access_token);
+        // Example backend response:
+        // {
+        //   "access_token": "...",
+        //   "token_type": "bearer",
+        //   "lawyer_id": "a314cc92-c118-4206-9366-54380d7727a3"
+        // }
+
+        const token = data.access_token;
+        const lawyerId = data.lawyer_id || "";
+
+        // ✅ Store in Context + LocalStorage
+        login(token, lawyerId);
+
         setMessage("✅ Login successful! Redirecting...");
-        setTimeout(() => navigate("/dashboard"), 1500);
+        setTimeout(() => navigate("/lawyer-dashboard"), 1500);
       } else {
         setMessage(data.detail || "❌ Invalid credentials.");
       }
     } catch (error) {
+      console.error("Login error:", error);
       setMessage("⚠️ Server error. Please try again later.");
     } finally {
       setLoading(false);
@@ -89,7 +103,7 @@ const LawyerAuth = () => {
         <div className="lawyer-auth-links">
           <p>
             Don’t have an account?{" "}
-            <span onClick={() => navigate("/sign-in-lawyer")} className="link">
+            <span onClick={() => navigate("/sign-up-lawyer")} className="link">
               Sign Up
             </span>
           </p>

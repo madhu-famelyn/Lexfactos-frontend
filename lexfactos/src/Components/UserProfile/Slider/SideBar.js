@@ -1,25 +1,27 @@
 import React, { useState } from "react";
 import {
   FaHome,
-  FaUserCog,
   FaHeart,
-  FaHeadset,
   FaBriefcase,
   FaClipboardList,
   FaClipboardCheck,
+  FaUserCog,
+  FaHeadset,
   FaBars,
   FaTimes,
+  FaSignOutAlt,
 } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import "./SideBar.css";
 
 const Sidebar = () => {
-  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation();
+
+  const toggleSidebar = () => setIsOpen(!isOpen);
 
   const menuItems = [
     { name: "Home", icon: <FaHome />, path: "/" },
-    { name: "Saved Lawyers", icon: <FaHeart />, path: "/saved-lawyers" },
     { name: "Post a Job", icon: <FaBriefcase />, path: "/post-job" },
     { name: "View Posted Jobs", icon: <FaClipboardList />, path: "/view-jobs" },
     { name: "My Applied Jobs", icon: <FaClipboardCheck />, path: "/my-applied-jobs" },
@@ -29,32 +31,46 @@ const Sidebar = () => {
 
   return (
     <>
-      {/* Hamburger for mobile */}
-      <div className="hamburger" onClick={() => setIsOpen(!isOpen)}>
-        {isOpen ? <FaTimes /> : <FaBars />}
-      </div>
+      {/* Hamburger button for mobile */}
+      <button className="hamburger-btn" onClick={toggleSidebar}>
+        {isOpen ? <FaTimes size={20} /> : <FaBars size={20} />}
+      </button>
 
+      {/* Sidebar */}
       <div className={`sidebar ${isOpen ? "open" : ""}`}>
+        {/* Header */}
         <div className="sidebar-header">
-          <h2 className="logo-text">Lexfactos</h2>
+          <h1>Lexfactos</h1>
+          <p>Lawyer Dashboard</p>
         </div>
 
-        <ul className="sidebar-menu">
-          {menuItems.map((item, index) => (
-            <li
-              key={index}
-              className="sidebar-item"
-              onClick={() => {
-                navigate(item.path);
-                setIsOpen(false); // close sidebar on mobile click
-              }}
-            >
-              <span className="icon">{item.icon}</span>
-              <span className="text">{item.name}</span>
-            </li>
-          ))}
-        </ul>
+        {/* Menu */}
+        <nav>
+          <ul>
+            {menuItems.map((item, index) => (
+              <li key={index}>
+                <Link
+                  to={item.path}
+                  className={location.pathname === item.path ? "active" : ""}
+                  onClick={() => setIsOpen(false)}
+                >
+                  {item.icon} <span>{item.name}</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        {/* Footer */}
+        <div className="sidebar-footer">
+          <button>
+            <FaSignOutAlt /> Sign Out
+          </button>
+        </div>
       </div>
+
+      {/* Overlay for mobile */}
+      {isOpen && <div className="sidebar-overlay" onClick={toggleSidebar}></div>}
     </>
   );
 };

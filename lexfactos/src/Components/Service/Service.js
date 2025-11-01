@@ -329,7 +329,7 @@ export const fetchLawyersByState = async (practiceArea, state) => {
 
 export const postJob = async (jobData) => {
   try {
-    const response = await axios.post(`${API_BASE_URL}/job-posts/ `, jobData);
+    const response = await axios.post(`${API_BASE_URL}/job-posts/`, jobData);
     return response.data;
   } catch (error) {
     console.error("Error posting job:", error);

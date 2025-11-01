@@ -1,4 +1,3 @@
-// src/pages/MyAppliedJobsPage.js
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Sidebar from "../Slider/SideBar";
@@ -11,9 +10,9 @@ const MyAppliedJobsPage = () => {
   const navigate = useNavigate();
   const [applications, setApplications] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [jobsData, setJobsData] = useState({}); // store job details keyed by job_id
+  const [jobsData, setJobsData] = useState({});
 
-  const userId = auth?.user?.id; // get user id from context
+  const userId = auth?.user?.id; 
 
   useEffect(() => {
     if (!userId) return;

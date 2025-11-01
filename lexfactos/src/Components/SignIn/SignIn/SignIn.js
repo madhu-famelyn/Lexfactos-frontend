@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { GoogleLogin } from "@react-oauth/google";
-import {jwtDecode} from "jwt-decode"; // 👈 import this
+import { jwtDecode } from "jwt-decode"; // 👈 import this
 import "./SignIn.css";
 import { loginUser, loginWithGoogle } from "../../Service/Service";
 import { useAuth } from "../../Context/UserContext";
@@ -43,7 +43,16 @@ export default function SignIn() {
       alert("Login successful!");
       navigate("/");
     } catch (err) {
-      setMessage(err.detail || "Login failed. Please try again.");
+      console.error("Login Error:", err);
+      if (err.response && err.response.data && err.response.data.detail) {
+        if (err.response.data.detail === "Invalid credentials") {
+          setMessage("Username or password is incorrect.");
+        } else {
+          setMessage(err.response.data.detail);
+        }
+      } else {
+        setMessage("Username or password is incorrect.");
+      }
     } finally {
       setLoading(false);
     }
@@ -70,7 +79,12 @@ export default function SignIn() {
       alert("Google login successful!");
       navigate("/");
     } catch (err) {
-      setMessage(err.detail || "Google login failed.");
+      console.error("Google Login Error:", err);
+      if (err.response && err.response.data && err.response.data.detail) {
+        setMessage(err.response.data.detail);
+      } else {
+        setMessage("Google Username or password is incorrect.");
+      }
     }
   };
 
@@ -87,7 +101,7 @@ export default function SignIn() {
           It's fast, simple, and free.
         </p>
 
-       <div
+        <div
           className="form"
           style={{
             width: "100%",
@@ -97,25 +111,22 @@ export default function SignIn() {
           }}
         >
           <div
-              className="google-login-container"
-              style={{
-                width: "100%",
-                display: "flex",
-                justifyContent: "center",
-                marginTop: "16px",
-              }}
-            >
-              <div className="google-login-wrapper">
-                <GoogleLogin
-                  onSuccess={handleGoogleSuccess}
-                  onError={handleGoogleFailure}
-                />
-              </div>
+            className="google-login-container"
+            style={{
+              width: "100%",
+              display: "flex",
+              justifyContent: "center",
+              marginTop: "16px",
+            }}
+          >
+            <div className="google-login-wrapper">
+              <GoogleLogin
+                onSuccess={handleGoogleSuccess}
+                onError={handleGoogleFailure}
+              />
             </div>
-
+          </div>
         </div>
-
-
 
         <div className="divider">
           <span className="line"></span>
@@ -124,7 +135,9 @@ export default function SignIn() {
         </div>
 
         <form className="login-form" onSubmit={handleSubmit}>
-          <label htmlFor="email" className="form-label">Email address</label>
+          <label htmlFor="email" className="form-label">
+            Email address
+          </label>
           <input
             type="email"
             id="email"
@@ -135,7 +148,9 @@ export default function SignIn() {
             required
           />
 
-          <label htmlFor="password" className="form-label">Password</label>
+          <label htmlFor="password" className="form-label">
+            Password
+          </label>
           <input
             type="password"
             id="password"
@@ -155,13 +170,12 @@ export default function SignIn() {
             </a>
           </div>
 
- <button type="submit" className="signup-btn" disabled={loading}>
-          {loading ? "Signing In..." : "Sign In"}
-        </button>
+          <button type="submit" className="signup-btn" disabled={loading}>
+            {loading ? "Signing In..." : "Sign In"}
+          </button>
 
           {message && <p className="form-message">{message}</p>}
         </form>
-
 
         <p className="signup-link">
           Don’t have an account?{" "}
