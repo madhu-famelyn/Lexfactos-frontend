@@ -1,4 +1,3 @@
-// src/pages/auth/SignIn.js
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { GoogleLogin } from "@react-oauth/google";

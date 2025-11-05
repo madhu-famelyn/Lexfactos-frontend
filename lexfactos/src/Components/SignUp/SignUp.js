@@ -1,34 +1,17 @@
 import React, { useState } from "react";
-import { FaUpload } from "react-icons/fa";
-import { useNavigate } from "react-router-dom"; // import useNavigate
+import { useNavigate } from "react-router-dom";
 import "./SignUp.css";
-import { signupUser } from "../Service/Service";
+import axios from "axios";
 
 const SignupPage = () => {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [mobileNumber, setMobileNumber] = useState("");
   const [password, setPassword] = useState("");
-  const [photo, setPhoto] = useState(null);
-  const [preview, setPreview] = useState(null); // preview URL
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
 
-  const navigate = useNavigate(); // initialize navigate
-
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    setPhoto(file);
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setPreview(reader.result); // set preview image
-      };
-      reader.readAsDataURL(file);
-    } else {
-      setPreview(null);
-    }
-  };
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -36,23 +19,33 @@ const SignupPage = () => {
     setMessage("");
 
     try {
-      const formData = new FormData();
+      // Prepare URL-encoded form data
+      const formData = new URLSearchParams();
       formData.append("full_name", fullName);
       formData.append("email", email);
       formData.append("mobile_number", mobileNumber);
       formData.append("password", password);
-      if (photo) {
-        formData.append("photo", photo);
-      }
 
-      const data = await signupUser(formData);
+      const response = await axios.post(
+        "https://lexfactos-backend.fly.dev/users/signup",
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+            Accept: "application/json",
+          },
+        }
+      );
 
-      setMessage(`Signup successful! Welcome, ${data.full_name}`);
+      setMessage(`Signup successful! Welcome, ${response.data.full_name}`);
 
-      // Redirect to Sign-In page after successful signup
-      navigate("/sign-in");
-    } catch (err) {
-      setMessage(err.detail || "Signup failed. Try again.");
+      // Redirect to Sign-In page after short delay
+      setTimeout(() => navigate("/sign-in"), 1500);
+    } catch (error) {
+      console.error("Signup error:", error);
+      const errMsg =
+        error.response?.data?.detail || "Signup failed. Please try again.";
+      setMessage(errMsg);
     } finally {
       setLoading(false);
     }
@@ -60,7 +53,7 @@ const SignupPage = () => {
 
   return (
     <div className="signup-container">
-      {/* Left Side */}
+      {/* Left Section */}
       <div className="signup-left">
         <h1>
           Welcome to <span className="brand">Lexfactos</span>
@@ -90,7 +83,7 @@ const SignupPage = () => {
         </div>
       </div>
 
-      {/* Right Side */}
+      {/* Right Section */}
       <div className="signup-right">
         <h2>Create your Lexfactos account</h2>
         <p>
@@ -99,76 +92,47 @@ const SignupPage = () => {
         </p>
 
         <form className="signup-form" onSubmit={handleSubmit}>
-          <div className="profile-upload">
-            <div className="circle">
-              {preview ? (
-                <img
-                  src={preview}
-                  alt="Preview"
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    borderRadius: "50%",
-                    objectFit: "cover",
-                  }}
-                />
-              ) : (
-                <i className="camera-icon"></i>
-              )}
-            </div>
-            <label className="upload-btn">
-              <FaUpload className="upload-icon" /> Upload Profile Photo
-              <input
-                type="file"
-                accept="image/*"
-                style={{ display: "none" }}
-                onChange={handleFileChange}
-              />
-            </label>
-          </div>
+          <input
+            type="text"
+            className="form-input"
+            placeholder="Full name"
+            value={fullName}
+            onChange={(e) => setFullName(e.target.value)}
+            required
+          />
 
           <input
-  type="text"
-  className="form-input"
-  placeholder="Full name"
-  value={fullName}
-  onChange={(e) => setFullName(e.target.value)}
-  required
-/>
+            type="email"
+            className="form-input"
+            placeholder="Email address"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
 
-<input
-  type="email"
-  className="form-input"
-  placeholder="Email address"
-  value={email}
-  onChange={(e) => setEmail(e.target.value)}
-  required
-/>
+          <input
+            type="text"
+            className="form-input"
+            placeholder="Mobile number"
+            value={mobileNumber}
+            onChange={(e) => setMobileNumber(e.target.value)}
+            required
+          />
 
-<input
-  type="text"
-  className="form-input"
-  placeholder="Mobile number"
-  value={mobileNumber}
-  onChange={(e) => setMobileNumber(e.target.value)}
-  required
-/>
-
-<input
-  type="password"
-  className="form-input"
-  placeholder="Password"
-  value={password}
-  onChange={(e) => setPassword(e.target.value)}
-  required
-/>
-
+          <input
+            type="password"
+            className="form-input"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
 
           <div className="form-options">
             <label>
               <input type="checkbox" /> Remember me
             </label>
-            <a href="/forgot-password-user"  className="forgot">
+            <a href="/forgot-password-user" className="forgot">
               Forgot password?
             </a>
           </div>
@@ -177,7 +141,19 @@ const SignupPage = () => {
             {loading ? "Signing Up..." : "Sign Up"}
           </button>
 
-          {message && <p style={{ marginTop: "10px" }}>{message}</p>}
+          {message && (
+            <p
+              style={{
+                marginTop: "10px",
+                color:
+                  message.includes("successful") || message.includes("Welcome")
+                    ? "green"
+                    : "red",
+              }}
+            >
+              {message}
+            </p>
+          )}
 
           <p className="create-account">
             Already have an account?{" "}

@@ -255,11 +255,7 @@ export default function AddComments({ lawyerId }) {
         ) : (
           reviews.map((rev) => (
             <div key={rev.id} className="review-card">
-              <img
-                src={rev.user_photo || "/default-avatar.png"}
-                alt={rev.user_name}
-                className="review-avatar"
-              />
+             
               <div className="review-content">
                 <div className="review-top">
                   <div className="review-user-info">

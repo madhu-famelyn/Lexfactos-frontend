@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { useLawyerAuth } from "../../Context/LawyerContext";
 import "./LawyerUpdate.css";
 import LawyerPannel from "../../LawyerDashboard/LaywerPannel/LawyerPannel";
 
-// Import the child sections
 import SectionPersonal from "./SectionPersonal1";
 import SectionReg2 from "./Section2";
 import SectionReg3 from "./Section3";
 import SectionReg4 from "./Section4";
 import SectionReg5 from "./Section5";
 import SectionReg6 from "./Section6";
+import ChangePassword from "./ChangePassword";
 
 export default function LawyerUpdateProfile() {
   const { lawyerId, token, isAuthenticated } = useLawyerAuth();
@@ -24,11 +24,54 @@ export default function LawyerUpdateProfile() {
     linkedin_url: "",
     website_url: "",
     photo: "",
-    reg2: { bio: "", years_of_experience: "", bar_details:[{country:"",state:"",city:"",bar_license_number:"",bar_association_name:""}], languages_spoken:"", education:[{degree:"",college_name:"",graduation_year:""}]},
-    reg3: { practice_area:"", court_admitted_to:"", active_since:"", work_experience:[{company_name:"",role:"",duration:"",description:""}]},
-    reg4: { case_results:[{title:"",outcome:"",summary:"",court:"",year:""}]},
-    reg5: { address:[{country:"",state:"",city:"",street_address:"",zip_code:"",latitude:"",longitude:""}], working_hours:"" },
-    reg6: { professional_associations:"", certifications:[{title:"",issuer:"",year:""}], awards:[{name:"",organization:"",year:""}], publications:[{title:"",year:"",link:"",description:""}] }
+    reg2: {
+      bio: "",
+      years_of_experience: "",
+      bar_details: [
+        {
+          country: "",
+          state: "",
+          city: "",
+          bar_license_number: "",
+          bar_association_name: "",
+        },
+      ],
+      languages_spoken: "",
+      education: [{ degree: "", college_name: "", graduation_year: "" }],
+    },
+    reg3: {
+      practice_area: "",
+      court_admitted_to: "",
+      active_since: "",
+      work_experience: [
+        { company_name: "", role: "", duration: "", description: "" },
+      ],
+    },
+    reg4: {
+      case_results: [
+        { title: "", outcome: "", summary: "", court: "", year: "" },
+      ],
+    },
+    reg5: {
+      address: [
+        {
+          country: "",
+          state: "",
+          city: "",
+          street_address: "",
+          zip_code: "",
+          latitude: "",
+          longitude: "",
+        },
+      ],
+      working_hours: "",
+    },
+    reg6: {
+      professional_associations: "",
+      certifications: [{ title: "", issuer: "", year: "" }],
+      awards: [{ name: "", organization: "", year: "" }],
+      publications: [{ title: "", year: "", link: "", description: "" }],
+    },
   });
 
   const [message, setMessage] = useState("");
@@ -36,12 +79,16 @@ export default function LawyerUpdateProfile() {
 
   useEffect(() => {
     if (!lawyerId) return;
+
     const fetchLawyer = async () => {
       try {
         setLoading(true);
-        const res = await axios.get(`http://localhost:8000/lawyers/${lawyerId}`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const res = await axios.get(
+          `http://localhost:8000/lawyers/${lawyerId}`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
 
         setFormData((prev) => ({
           ...prev,
@@ -58,10 +105,10 @@ export default function LawyerUpdateProfile() {
         setLoading(false);
       }
     };
+
     fetchLawyer();
   }, [lawyerId, token]);
 
-  // shared handlers passed to children
   const handleNestedChange = (section, key, value) =>
     setFormData((prev) => ({
       ...prev,
@@ -80,27 +127,39 @@ export default function LawyerUpdateProfile() {
   const addListItem = (section, listKey, template) =>
     setFormData((prev) => ({
       ...prev,
-      [section]: { ...prev[section], [listKey]: [...prev[section][listKey], template] },
+      [section]: {
+        ...prev[section],
+        [listKey]: [...prev[section][listKey], template],
+      },
     }));
 
   const removeListItem = (section, listKey, index) =>
     setFormData((prev) => ({
       ...prev,
-      [section]: { ...prev[section], [listKey]: prev[section][listKey].filter((_, i) => i !== index) },
+      [section]: {
+        ...prev[section],
+        [listKey]: prev[section][listKey].filter((_, i) => i !== index),
+      },
     }));
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+
     try {
-      await axios.put(`http://localhost:8000/lawyers/update-full/${lawyerId}`, formData, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      await axios.put(
+        `http://localhost:8000/lawyers/update-full/${lawyerId}`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
       setMessage("✅ Profile updated successfully!");
-    } catch {
+    } catch (err) {
       setMessage("❌ Failed to update profile.");
     } finally {
       setLoading(false);
@@ -111,21 +170,63 @@ export default function LawyerUpdateProfile() {
 
   return (
     <div className="lu-container">
-        <LawyerPannel/>
+      <LawyerPannel />
+
       <div className="lu-card">
         <form className="lu-form" onSubmit={handleSubmit}>
-          
           <SectionPersonal formData={formData} setFormData={setFormData} />
 
-          <SectionReg2 {...{ formData, handleNestedChange, handleListChange, addListItem, removeListItem }} />
+          <SectionReg2
+            {...{
+              formData,
+              handleNestedChange,
+              handleListChange,
+              addListItem,
+              removeListItem,
+            }}
+          />
 
-          <SectionReg3 {...{ formData, handleNestedChange, handleListChange, addListItem, removeListItem }} />
+          <SectionReg3
+            {...{
+              formData,
+              handleNestedChange,
+              handleListChange,
+              addListItem,
+              removeListItem,
+            }}
+          />
 
-          <SectionReg4 {...{ formData, handleListChange, addListItem, removeListItem }} />
+          <SectionReg4
+            {...{
+              formData,
+              handleListChange,
+              addListItem,
+              removeListItem,
+            }}
+          />
 
-          <SectionReg5 {...{ formData, handleListChange, addListItem, removeListItem, handleNestedChange }} />
+          <SectionReg5
+            {...{
+              formData,
+              handleListChange,
+              addListItem,
+              removeListItem,
+              handleNestedChange,
+            }}
+          />
 
-          <SectionReg6 {...{ formData, handleNestedChange, handleListChange, addListItem, removeListItem }} />
+          <SectionReg6
+            {...{
+              formData,
+              handleNestedChange,
+              handleListChange,
+              addListItem,
+              removeListItem,
+            }}
+          />
+
+          {/* ✅ Change Password Section below Step 6 */}
+          <ChangePassword />
 
           <button type="submit" className="lu-submit-btn" disabled={loading}>
             {loading ? "Updating..." : "Update Profile"}
