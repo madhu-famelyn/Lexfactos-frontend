@@ -433,3 +433,89 @@
 .overlay .login-btn:hover {
   background: #0056b3;
 }
+@media (max-width: 768px) {
+
+  /* Card stays horizontal, just tighter */
+  .lawyer-card {
+    width: 100%;
+    padding: 14px;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  /* Small photo left */
+  .lawyer-photo img {
+    width: 90px;
+    height: 105px;
+    border-radius: 6px;
+  }
+
+  /* Content on the right */
+  .lawyer-content {
+    flex: 1;
+  }
+
+  .lawyer-name {
+    font-size: 16px;
+    margin-bottom: 3px;
+  }
+
+  .lawyer-title,
+  .lawyer-location,
+  .lawyer-bio {
+    font-size: 12px;
+    line-height: 1.4;
+  }
+
+  .practice-tags {
+    margin: 6px 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
+  .practice-tag {
+    font-size: 11px;
+    padding: 3px 8px;
+  }
+
+
+  /* ✅ Action Buttons Section Moves Below Content */
+  .lawyer-actions-right {
+    width: 100%;
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  /* Call + Book side-by-side */
+  .call-btn,
+  .book-btn {
+    flex: 1;
+    font-size: 12px;
+    padding: 8px 0;
+  }
+
+  /* View Profile takes full width */
+  .profile-btn {
+    width: 100%;
+    font-size: 12px;
+    padding: 8px 0;
+  }
+
+  /* Website also full width */
+  .website-link {
+    width: 100%;
+    text-align: center;
+    display: block;
+    margin-top: 6px;
+    font-size: 12px;
+  }
+
+  /* Hide Save icon on mobile (optional) */
+  .save-btn {
+    display: none;
+  }
+}

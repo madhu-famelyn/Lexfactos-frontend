@@ -23,30 +23,15 @@ const LawyerRegistrationStep5 = () => {
       : [{ title: "", outcome: "", summary: "" }]
   );
 
-  // ✅ Office image upload (optional, but defined to avoid no-undef)
-  const [officeImage, setOfficeImage] = useState(storedStep5Data.officeImage || null);
-  const [imagePreview, setImagePreview] = useState(storedStep5Data.imagePreview || null);
-
-  // ✅ Handle office image selection
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setOfficeImage(file);
-      setImagePreview(URL.createObjectURL(file));
-    }
-  };
-
   // ✅ Save form data locally
   useEffect(() => {
     localStorage.setItem(
       "step5FormData",
       JSON.stringify({
         caseResults,
-        officeImage,
-        imagePreview,
       })
     );
-  }, [caseResults, officeImage, imagePreview]);
+  }, [caseResults]);
 
   // ✅ Add case result
   const addCaseResult = () => {
@@ -76,18 +61,6 @@ const LawyerRegistrationStep5 = () => {
           )
         )
       );
-
-      // Office image (optional)
-      if (officeImage instanceof File) {
-        formData.append("office_image", officeImage);
-      } else {
-        // If not uploaded, append an empty blob (optional)
-        formData.append(
-          "office_image",
-          new Blob([], { type: "application/octet-stream" }),
-          "dummy.jpg"
-        );
-      }
 
       const result = await submitStep5(formData);
       console.log("✅ Step 5 saved:", result);
@@ -159,24 +132,6 @@ const LawyerRegistrationStep5 = () => {
                 />
               </div>
             ))}
-          </div>
-
-          {/* Office Image Upload (Optional) */}
-          <div className="lr-step5-upload">
-            <label className="lr-step5-label">Office Image (Optional)</label>
-            <input
-              type="file"
-              accept="image/*"
-              onChange={handleImageChange}
-              className="lr-step5-file-input"
-            />
-            {imagePreview && (
-              <img
-                src={imagePreview}
-                alt="Office Preview"
-                className="lr-step5-preview"
-              />
-            )}
           </div>
 
           {/* Footer Buttons */}

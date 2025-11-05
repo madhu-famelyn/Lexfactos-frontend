@@ -23,7 +23,7 @@ const CustomDropdown = ({ label, options, value, onChange, placeholder }) => {
 
   return (
     <div className="custom-dropdown" ref={dropdownRef}>
-      {label && <label className="dropdown-label">{label}</label>}
+      {label && <label className="dropdown-label">{label} </label>}
       <div
         className={`dropdown-selected ${open ? "active" : ""}`}
         onClick={() => setOpen(!open)}

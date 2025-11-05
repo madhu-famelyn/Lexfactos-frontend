@@ -33,6 +33,7 @@ import AdminAppointments from "./Components/AdminAppointments/AdminAppointments"
 import AdminSupport from "./Components/AdminSupport/AdminSupport";
 import LawyerProfile from "./Components/AdminLawyer/Profile";
 import { LawyerAuthProvider } from "./Components/Context/LawyerContext";
+import LawyerUpdateProfile from "./Components/LawyerRegistration/LawyerUpdate/LawyerUpdate";
 // import LawyerDashboard from "./Components/LawyerDashboard/LawyerDashboard/LawyerDashboard";
 // import SignIn from "./Components/SignIn/SignIn/SignIn";
 
@@ -77,7 +78,8 @@ function Layout({ children }) {
     "/my-applied-jobs",
     "/job-post",
     "/lawyer-dashboard",
-    "/lawyer-reviews"
+    "/lawyer-reviews",
+    "/lawyer-update"
   ];
 
   const hideHeaderFooterStartsWith = ["/lawyer/"];
@@ -144,6 +146,7 @@ function App() {
                 <Route path="/reset-password" element={<LawyerResetPassword />} />
                 <Route path="/lawyer-dashboard" element={<LawyerDashboard />} />
                 <Route path="/lawyer-reviews" element={<LawyerReviews />} />
+                <Route path="/lawyer-update" element={<LawyerUpdateProfile />} />
 
                 
 

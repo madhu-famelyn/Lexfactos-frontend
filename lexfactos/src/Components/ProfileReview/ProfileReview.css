@@ -1,143 +1,95 @@
-.review-container {
+/* === Container === */
+.pr-container {
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  background-color: #f8f9fa; /* light gray background */
-}
-
-.review-card {
-  text-align: center;
-  max-width: 600px;
   padding: 20px;
+  font-family: "Inter", sans-serif;
 }
 
-.review-image {
-  width: 280px;
-  margin: 0 auto 20px auto;
-  display: block;
+/* === Card === */
+.pr-card {
+  width: 100%;
+  max-width: 450px;
+  text-align: center;
+  padding: 40px 35px;
+  border-radius: 16px;
+  animation: fadeIn 0.4s ease-in-out;
 }
 
-.review-title {
-  font-family: "Geist", sans-serif;
-  font-weight: 600;       /* SemiBold */
+/* Card Fade Animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* === Image === */
+.pr-image {
+  width: 200px;
+  margin-bottom: 20px;
+  user-select: none;
+}
+
+/* === Title === */
+.pr-title {
   font-size: 24px;
-  line-height: 20px;      /* as you specified */
-  letter-spacing: -0.02em; /* -2% */
-  text-align: center;
-  vertical-align: middle;
-  color: #000000;
-  margin-bottom: 12px;
+  font-weight: 600;
+  color: #222;
+  margin: 10px 0 12px;
+  line-height: 1.3;
 }
 
-
-.check-icon {
-  font-size: 22px;
+/* ✅ Check icon styling */
+.pr-check-icon {
+  font-size: 24px;
+  margin-left: 6px;
 }
 
-.review-text {
-  font-family: "Geist", sans-serif;
-  font-weight: 400;       /* Regular */
-  font-size: 16px;
-  line-height: 33px;
-  letter-spacing: -0.02em; /* -2% */
-  text-align: center;
-  vertical-align: middle;
-  color: #5E5E5E;
-  margin-bottom: 30px;
-}
-
-
-.back-button {
-  background-color: #000;
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  padding: 10px 18px;
+/* === Text === */
+.pr-text {
   font-size: 15px;
-  font-weight: 500;
-  cursor: pointer;
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 28px;
+}
+
+/* === Button === */
+.pr-back-button {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  transition: background 0.3s ease;
+  background: #0056b3;
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 8px;
+  border: none;
+  font-size: 15px;
+  cursor: pointer;
+  transition: 0.25s ease;
 }
 
-.back-btn:hover {
-  background-color: #333;
+.pr-back-button:hover {
+  background: #003e84;
+  transform: translateY(-2px);
 }
 
-.back-icon {
+/* Icon inside button */
+.pr-back-icon {
   font-size: 14px;
 }
 
-
-
-
-/* Mobile screens */
-@media (max-width: 768px) {
-  .review-container {
-    padding: 0 16px;
-  }
-
-  .review-card {
-    max-width: 100%;
-    padding: 12px;
-  }
-
-  .review-image {
-    width: 200px;   /* shrink image */
-    margin-bottom: 16px;
-  }
-
-  .review-title {
-    font-size: 20px;  /* smaller text */
-    line-height: 26px;
-    margin-bottom: 10px;
-  }
-
-  .check-icon {
-    font-size: 18px;
-  }
-
-  .review-text {
-    font-size: 14px;
-    line-height: 24px;
-    margin-bottom: 24px;
-    padding: 0 10px;  /* prevent text touching edges */
-  }
-
-  .back-button {
-    width: 100%;          /* full-width button */
-    justify-content: center;
-    font-size: 14px;
-    padding: 12px;
-    border-radius: 8px;
-  }
-
-  .back-icon {
-    font-size: 12px;
-  }
-}
-
-/* Extra small screens (phones < 480px) */
+/* === Responsive === */
 @media (max-width: 480px) {
-  .review-image {
+  .pr-card {
+    padding: 30px 22px;
+  }
+
+  .pr-title {
+    font-size: 20px;
+  }
+
+  .pr-image {
     width: 160px;
-  }
-
-  .review-title {
-    font-size: 18px;
-    line-height: 24px;
-  }
-
-  .review-text {
-    font-size: 13px;
-    line-height: 22px;
-  }
-
-  .back-button {
-    font-size: 13px;
-    padding: 10px;
   }
 }

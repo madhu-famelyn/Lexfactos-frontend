@@ -235,30 +235,63 @@ const LawyerRegistration = () => {
               </div>
             </div>
 
-            <div className="form-row">
-              <div className="form-group">
-                <label>Phone Number *</label>
-                <div className="phone-input-wrapper">
-                  <select
-                    name="country_code"
-                    value={formData.country_code}
-                    onChange={handleChange}
-                  >
-                    {countryCodes.map((c, idx) => (
-                      <option key={idx} value={c.code}>
-                        {c.flag} {c.code}
-                      </option>
-                    ))}
-                  </select>
-                  <input
-                    type="tel"
-                    name="phone_number"
-                    value={formData.phone_number}
-                    onChange={handleChange}
-                    placeholder="Enter phone number"
-                    required
-                  />
-                </div>
+<div className="form-row">
+  <div className="form-group">
+    <label>Phone Number *</label>
+ <div
+  className="phone-field"
+  style={{
+    display: "flex",
+    alignItems: "center",
+    gap: "8px",
+    border: "1px solid #ccc",
+    borderRadius: "6px",
+    padding: "6px 10px",
+    width: "300px",
+    background: "#fff",
+  }}
+>
+  <select
+    name="country_code"
+    value={formData.country_code}
+    onChange={handleChange}
+    style={{
+      border: "none",
+      outline: "none",
+      background: "transparent",
+      fontSize: "14px",
+      width: "80px",
+      flexShrink: 0,
+      cursor: "pointer",
+    }}
+  >
+    {countryCodes.map((c, idx) => (
+      <option key={idx} value={c.code}>
+        {c.flag} {c.code}
+      </option>
+    ))}
+  </select>
+
+  <input
+    type="tel"
+    name="phone_number"
+    value={formData.phone_number}
+    onChange={handleChange}
+    placeholder="Enter phone number"
+    required
+    style={{
+      flex: 1,
+      border: "none",
+      outline: "none",
+      fontSize: "14px",
+      padding: "8px",
+      background: "transparent",
+    }}
+  />
+</div>
+
+
+
                 {errors.phone_number && <p className="error-text">{errors.phone_number}</p>}
               </div>
 

@@ -161,13 +161,54 @@ export default function LawyerResultsPage() {
   return (
     <div className="lawyer-results-page">
       <div className="lawyer-banner">
-        <h1>India Brain Injury Lawyers</h1>
-        <p>
-          There are many brain injury lawyers in India. To help you make the
-          best choice, we have curated information on education, work experience,
-          and languages. Combine this with reviews to determine the best attorney
-          for your needs.
-        </p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div className="lawyer-banner">
+  <h1>
+    {practiceArea
+      ? `${practiceArea} Lawyers`
+      : "Lawyers"}{" "}
+    {city && state ? `in ${city}, ${state}` : state ? `in ${state}` : ""}
+  </h1>
+
+  <p>
+    {practiceArea && city && state &&
+      `We have curated a list of verified lawyers specializing in ${practiceArea} located in ${city}, ${state}. Explore profiles, experience, and reviews to choose the right lawyer for your needs.`}
+
+    {practiceArea && state && !city &&
+      `Here are experienced ${practiceArea} lawyers practicing across ${state}. Compare profiles, experience, and reviews to find the right match.`}
+
+    {!practiceArea && city &&
+      `Lawyers available in ${city}, offering trustworthy legal services based on your needs.`}
+  </p>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         <div className="city-tags">
           {(showMore ? indianCities : indianCities.slice(0, 10)).map((c, idx) => (
             <span key={idx} className="city-tag">{c}</span>

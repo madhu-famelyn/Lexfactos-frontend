@@ -207,12 +207,14 @@ const countries = {
   }
 };
 
-
-
 export default function LocationSelector({ onLocationChange }) {
   const [selectedCountry, setSelectedCountry] = useState("");
   const [selectedState, setSelectedState] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
+
+  const countryList = Object.keys(countries);
+  const stateList = selectedCountry ? Object.keys(countries[selectedCountry]) : [];
+  const cityList = selectedCountry && selectedState ? countries[selectedCountry][selectedState] : [];
 
   const handleCountryChange = (country) => {
     setSelectedCountry(country);
@@ -234,39 +236,40 @@ export default function LocationSelector({ onLocationChange }) {
 
   return (
     <div className="form-group">
-      <label>Location</label>
+   
       <div
         className="location-group"
         style={{
           display: "flex",
-          gap: "12px", // spacing between dropdowns
-          flexWrap: "wrap", // allows wrapping on smaller screens
+          gap: "12px",
+          flexWrap: "wrap",
         }}
       >
+        {/* Country Dropdown */}
         <CustomDropdown
-          options={Object.keys(countries)}
+          options={countryList}
           value={selectedCountry}
           onChange={handleCountryChange}
           placeholder="Select Country"
         />
 
-        {selectedCountry && (
-          <CustomDropdown
-            options={Object.keys(countries[selectedCountry])}
-            value={selectedState}
-            onChange={handleStateChange}
-            placeholder="Select State"
-          />
-        )}
+        {/* State Dropdown (Disabled until country selected) */}
+        <CustomDropdown
+          options={stateList}
+          value={selectedState}
+          onChange={handleStateChange}
+          placeholder="Select State"
+          disabled={!selectedCountry}
+        />
 
-        {selectedState && (
-          <CustomDropdown
-            options={countries[selectedCountry][selectedState]}
-            value={selectedCity}
-            onChange={handleCityChange}
-            placeholder="Select City"
-          />
-        )}
+        {/* City Dropdown (Disabled until state selected) */}
+        <CustomDropdown
+          options={cityList}
+          value={selectedCity}
+          onChange={handleCityChange}
+          placeholder="Select City"
+          disabled={!selectedState}
+        />
       </div>
     </div>
   );

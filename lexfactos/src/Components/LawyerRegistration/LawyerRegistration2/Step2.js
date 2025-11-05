@@ -62,7 +62,7 @@ const countriesData = {
 const LawyerRegistrationStep2 = () => {
   const location = useLocation();
   const navigate = useNavigate();
-
+  const [showAll, setShowAll] = useState(false);
   const storedId = localStorage.getItem("lawyerId");
   const { lawyerId: idFromState } = location.state || {};
   const lawyerId = idFromState || storedId;
@@ -89,6 +89,20 @@ const LawyerRegistrationStep2 = () => {
     educationList: [{ degree: "", college_name: "", graduation_year: "" }],
     languages: [],
   });
+
+    const allLanguages = [
+    // 🇮🇳 Indian Languages
+    "Hindi", "English", "Bengali", "Telugu", "Marathi", "Tamil", "Gujarati",
+    "Urdu", "Kannada", "Odia", "Malayalam", "Punjabi", "Assamese", "Maithili",
+    "Santali", "Kashmiri", "Konkani", "Manipuri", "Sindhi", "Dogri", "Bodo",
+    "Sanskrit",
+
+    // 🇦🇪 UAE / Middle Eastern Languages
+    "Arabic", "English (UAE)", "Hindi (UAE)", "Urdu (UAE)", "Malayalam (UAE)",
+    "Tamil (UAE)", "Tagalog", "Persian (Farsi)", "Pashto", "Balochi",
+    "Bengali (UAE)", "Sinhalese", "Nepali"
+  ];
+
 
   const [bio, setBio] = useState(storedData.bio || "");
   const [yearsOfExperience, setYearsOfExperience] = useState(
@@ -177,7 +191,11 @@ const LawyerRegistrationStep2 = () => {
     } catch (err) {
       alert(err.detail || "Profile creation failed");
     }
+
+
+
   };
+  const visibleLanguages = showAll ? allLanguages : allLanguages.slice(0, 10);
 
   return (
     <div className="lr-step2-container">
@@ -285,35 +303,32 @@ const LawyerRegistrationStep2 = () => {
           </button>
         </div>
 
-        <div className="lr-step2-section">
-          <label className="lr-step2-label">Languages Spoken</label>
-          <div className="lr-step2-checkboxes">
-            {[
-              "English",
-              "Spanish",
-              "French",
-              "German",
-              "Italian",
-              "Portuguese",
-              "Mandarin",
-              "Japanese",
-              "Korean",
-              "Arabic",
-              "Hindi",
-              "Russian",
-            ].map((lang) => (
-              <label key={lang} className="lr-step2-checkbox-label">
-                <input
-                  type="checkbox"
-                  className="lr-step2-checkbox"
-                  checked={languages.includes(lang)}
-                  onChange={() => toggleLanguage(lang)}
-                />
-                {lang}
-              </label>
-            ))}
-          </div>
-        </div>
+         <div className="lr-step2-section">
+      <label className="lr-step2-label">Languages Spoken</label>
+      <div className="lr-step2-checkboxes">
+        {visibleLanguages.map((lang) => (
+          <label key={lang} className="lr-step2-checkbox-label">
+            <input
+              type="checkbox"
+              className="lr-step2-checkbox"
+              checked={languages.includes(lang)}
+              onChange={() => toggleLanguage(lang)}
+            />
+            {lang}
+          </label>
+        ))}
+      </div>
+
+      {allLanguages.length > 10 && (
+        <button
+          type="button"
+          className="lr-showmore-btn"
+          onClick={() => setShowAll(!showAll)}
+        >
+          {showAll ? "Show less" : "Show more"}
+        </button>
+      )}
+    </div>
 
         <div className="lr-step2-section">
           <label className="lr-step2-label">Education</label>

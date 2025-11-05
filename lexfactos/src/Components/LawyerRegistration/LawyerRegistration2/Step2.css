@@ -29,7 +29,7 @@
 }
 
 .lr-step2-checkbox-label:hover {
-  background: #f0f5ff;
+  background: #e4e4e4;
   border-color: #000000;
   color: #000000;
 }
@@ -258,4 +258,49 @@
     font-size: 15px;
     box-sizing: border-box;
   }
+}
+
+
+
+
+
+
+.lr-step2-section {
+  margin-bottom: 20px;
+}
+
+.lr-step2-checkboxes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  max-width: 100%;
+}
+
+.lr-step2-checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 14px;
+  color: #333;
+  padding: 5px 10px;
+  border-radius: 8px;
+}
+
+.lr-step2-checkbox {
+  accent-color: #000000;
+}
+
+.lr-showmore-btn {
+  margin-top: 10px;
+  background: none;
+  border: none;
+  color: #000000;
+  font-size: 14px;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 4px;
+}
+
+.lr-showmore-btn:hover {
+  color: #353535;
 }

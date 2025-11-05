@@ -59,6 +59,7 @@ const areas = [
     desc: "Patents, trademarks, copyrights, and IP litigation",
     stats: ["220+ lawyers"],
   },
+
 ];
 
 

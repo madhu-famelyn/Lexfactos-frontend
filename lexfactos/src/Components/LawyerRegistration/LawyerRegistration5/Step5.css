@@ -1,4 +1,4 @@
-/* Container */
+/* Base Layout */
 .lr-step5-container {
   min-height: 100vh;
   background: #f9fafb;
@@ -50,44 +50,14 @@
   margin-top: 4px;
 }
 
-/* Upload Section */
-.lr-step5-upload {
-  border: 2px dashed #d1d5db;
-  border-radius: 8px;
-  padding: 24px;
-  text-align: center;
-  margin: 24px 0;
-}
-
-.lr-step5-upload-icon {
-  color: #9ca3af;
-  margin-bottom: 8px;
-}
-
-.lr-step5-upload-text {
-  color: #6b7280;
-  margin-bottom: 12px;
-}
-
-.lr-step5-upload-btn {
-  padding: 8px 16px;
-  background: #f3f4f6;
-  border-radius: 6px;
-  font-size: 14px;
-  border: 1px solid #d1d5db;
-  cursor: pointer;
-}
-
-.lr-step5-upload-btn:hover {
-  background: #e5e7eb;
-}
-
-/* Case Results */
+/* Case Results Section */
 .lr-step5-case-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 12px;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
 .lr-step5-case-title {
@@ -124,6 +94,7 @@
   margin-bottom: 12px;
 }
 
+/* Inputs & Textareas */
 .lr-step5-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -131,9 +102,16 @@
   margin-bottom: 12px;
 }
 
-.lr-step5-input,
-.lr-step5-textarea {
+.lr-step5-input{
   width: 90%;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  padding: 10px;
+  font-size: 14px;
+  color: #111827;
+}
+.lr-step5-textarea {
+  width: 95%;
   border: 1px solid #d1d5db;
   border-radius: 6px;
   padding: 10px;
@@ -151,6 +129,7 @@
   display: flex;
   justify-content: space-between;
   margin-top: 24px;
+  gap: 12px;
 }
 
 .lr-step5-prev-btn {
@@ -160,6 +139,8 @@
   border-radius: 6px;
   border: 1px solid #d1d5db;
   cursor: pointer;
+  flex: 1;
+  text-align: center;
 }
 
 .lr-step5-prev-btn:hover {
@@ -173,8 +154,112 @@
   border-radius: 6px;
   border: none;
   cursor: pointer;
+  flex: 1;
+  text-align: center;
 }
 
 .lr-step5-next-btn:hover {
   background: #000;
+}
+
+/* =============================
+   📱 RESPONSIVE MEDIA QUERIES
+   ============================= */
+
+/* Tablets (max-width: 992px) */
+@media (max-width: 992px) {
+  .lr-step5-card {
+    padding: 24px;
+  }
+
+  .lr-step5-title {
+    font-size: 17px;
+  }
+
+  .lr-step5-subtitle {
+    font-size: 13px;
+  }
+}
+
+/* Mobile Large (max-width: 768px) */
+@media (max-width: 768px) {
+  .lr-step5-card {
+    padding: 20px;
+  }
+
+  .lr-step5-row {
+    grid-template-columns: 1fr; /* stack inputs vertically */
+  }
+
+  .lr-step5-input,
+  .lr-step5-textarea {
+    font-size: 13px;
+  }
+
+  .lr-step5-add-btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  .lr-step5-footer {
+    flex-direction: column;
+  }
+
+  .lr-step5-prev-btn,
+  .lr-step5-next-btn {
+    width: 100%;
+    font-size: 14px;
+  }
+}
+
+/* Small Mobile (max-width: 480px) */
+@media (max-width: 480px) {
+  .lr-step5-container {
+    padding: 24px 12px;
+  }
+
+  .lr-step5-card {
+    padding: 16px;
+    border-radius: 6px;
+  }
+
+  .lr-step5-title {
+    font-size: 16px;
+  }
+
+  .lr-step5-case-title {
+    font-size: 15px;
+  }
+
+  .lr-step5-input,
+  .lr-step5-textarea {
+    font-size: 13px;
+    padding: 8px;
+  }
+
+  .lr-step5-add-btn {
+    font-size: 13px;
+  }
+
+  .lr-step5-prev-btn,
+  .lr-step5-next-btn {
+    padding: 9px 16px;
+    font-size: 13px;
+  }
+  .lr-step5-input{
+  width: 100%;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  padding: 10px;
+  font-size: 14px;
+  color: #111827;
+}
+.lr-step5-textarea {
+  width: 100%;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  padding: 10px;
+  font-size: 14px;
+  color: #111827;
+}
 }

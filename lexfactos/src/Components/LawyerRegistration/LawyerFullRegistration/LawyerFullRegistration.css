@@ -1,210 +1,195 @@
-/* =========================================
+/* ================================
    FULL LAWYER REGISTRATION FORM
-   Palette: Deep Blue (#1f3c88), Light Gray (#fafafa)
-   Font: Inter / Geist / Sans-serif
-========================================= */
+=================================== */
 
 .full-reg-lawyer-form-container {
+  width: 100%;
   max-width: 900px;
-  margin: 50px auto;
-  padding: 40px;
+  margin: 2rem auto;
   background: #ffffff;
+  padding: 2.5rem;
   border-radius: 16px;
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
-  font-family: "Inter", "Geist", sans-serif;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  font-family: 'Geist', 'Inter', sans-serif;
   color: #333;
+  box-sizing: border-box;
 }
 
+/* === Headings === */
 .full-reg-lawyer-form-container h2 {
   text-align: center;
-  color: #1f3c88;
-  margin-bottom: 32px;
-  font-size: 28px;
-  font-weight: 700;
-  letter-spacing: 0.5px;
+  font-size: 2rem;
+  color: #1a202c;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
 }
 
-/* Section Styling */
 .full-reg-form-section {
-  background: #fafafa;
-  border: 1px solid #e0e0e0;
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: #f9fafc;
   border-radius: 12px;
-  padding: 25px 30px;
-  margin-bottom: 40px;
-  position: relative;
+  border: 1px solid #e2e8f0;
+  box-sizing: border-box;
 }
 
 .full-reg-form-section h3 {
-  color: #1f3c88;
-  font-size: 20px;
-  margin-bottom: 20px;
-  border-bottom: 2px solid #1f3c88;
-  display: inline-block;
+  color: #2c5282;
+  margin-bottom: 1rem;
+  font-size: 1.3rem;
+  border-bottom: 2px solid #2b6cb0;
   padding-bottom: 4px;
 }
 
 .full-reg-form-section h4 {
-  font-size: 17px;
-  color: #444;
-  margin-top: 20px;
-  margin-bottom: 10px;
+  color: #2d3748;
+  font-size: 1.1rem;
+  margin-top: 1.2rem;
+  margin-bottom: 0.6rem;
 }
 
-.full-reg-form-section label {
+/* === Labels and Inputs === */
+label {
   display: block;
   margin-bottom: 6px;
-  font-weight: 600;
-  color: #333;
+  font-weight: 500;
+  color: #2d3748;
 }
 
-/* Input / Select / Textarea Styling */
-.full-reg-form-section input,
-.full-reg-form-section select,
-.full-reg-form-section textarea {
+input,
+textarea,
+select {
+  display: block;
   width: 100%;
-  padding: 10px 12px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  font-size: 15px;
-  margin-bottom: 15px;
   box-sizing: border-box;
-  outline: none;
-  transition: border 0.2s ease, box-shadow 0.2s ease;
-}
-
-.full-reg-form-section input:focus,
-.full-reg-form-section select:focus,
-.full-reg-form-section textarea:focus {
-  border-color: #1f3c88;
-  box-shadow: 0 0 4px rgba(31, 60, 136, 0.3);
-}
-
-/* Phone Input Group */
-.phone-input-container {
-  margin-bottom: 16px;
-}
-
-.phone-input-wrapper {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.phone-dropdown {
-  flex: 0 0 110px;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  background: #fff;
-  font-size: 14px;
-  cursor: pointer;
-}
-
-.phone-input-field {
-  flex: 1;
   padding: 10px 12px;
+  border: 1px solid #cbd5e0;
   border-radius: 8px;
-  border: 1px solid #ccc;
-  font-size: 15px;
+  font-size: 0.95rem;
+  outline: none;
+  margin-bottom: 1rem;
   transition: border 0.2s ease, box-shadow 0.2s ease;
+  background: #fff;
 }
 
-.phone-input-field:focus {
-  border-color: #1f3c88;
-  box-shadow: 0 0 4px rgba(31, 60, 136, 0.3);
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: #2b6cb0;
+  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.25);
 }
 
-/* Nested Fields (Bar Details, Education, Work Exp, Address) */
+textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+/* === Nested Blocks (Education, Address, etc.) === */
 .full-reg-nested {
   background: #fff;
-  padding: 15px 20px;
+  border: 1px solid #e2e8f0;
   border-radius: 10px;
-  border: 1px solid #e0e0e0;
-  margin-bottom: 15px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  position: relative;
 }
 
 .full-reg-nested input,
+.full-reg-nested textarea,
 .full-reg-nested select {
   width: 100%;
-  margin-bottom: 12px;
 }
 
-/* Buttons */
-.full-reg-form-section button[type="button"],
-.full-reg-lawreg-remove-btn {
-  background: #1f3c88;
+.full-reg-nested button {
+  margin-top: 0.5rem;
+  background: #e53e3e;
   color: #fff;
   border: none;
-  padding: 10px 14px;
+  padding: 6px 12px;
   border-radius: 8px;
   cursor: pointer;
-  font-weight: 600;
-  transition: background 0.3s;
-  display: inline-block;
-  margin-top: 6px;
+  transition: background 0.3s ease;
 }
 
-.full-reg-form-section button[type="button"]:hover {
-  background: #274da0;
+.full-reg-nested button:hover {
+  background: #c53030;
 }
 
-.full-reg-lawreg-remove-btn {
-  background: #ff5c5c;
+/* === Add Buttons === */
+.add-education-btn,
+.add-bar-btn button {
+  background: #3182ce;
+  color: #fff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  margin-top: 0.6rem;
+  transition: background 0.3s ease;
 }
 
-.full-reg-lawreg-remove-btn:hover {
-  background: #e04747;
+.add-education-btn:hover,
+.add-bar-btn button:hover {
+  background: #2b6cb0;
 }
 
-/* Add button alignment */
-.full-reg-form-section .add-btn-container {
-  display: flex;
-  justify-content: flex-end;
-  width: 100%;
+
+/* === Selected Values === */
+.selected-values {
+  font-size: 0.9rem;
+  color: #4a5568;
+  margin-top: 0.5rem;
+  font-style: italic;
 }
 
-/* Submit Section */
+/* === Buttons === */
 .full-reg-form-actions {
   text-align: center;
-  margin-top: 30px;
+  margin-top: 2rem;
 }
 
 .full-reg-submit-btn {
-  background: #1f3c88;
+  background: linear-gradient(90deg, #2b6cb0, #3182ce);
   color: #fff;
   border: none;
-  padding: 12px 28px;
-  font-size: 16px;
+  padding: 12px 24px;
   border-radius: 10px;
+  font-size: 1rem;
   cursor: pointer;
-  font-weight: 600;
-  transition: background 0.3s, transform 0.2s;
+  transition: transform 0.2s ease, background 0.3s ease;
+  width: 100%;
+  max-width: 300px;
 }
 
 .full-reg-submit-btn:hover {
-  background: #274da0;
-  transform: translateY(-2px);
+  background: linear-gradient(90deg, #2c5282, #2b6cb0);
+  transform: translateY(-1px);
 }
 
-/* Loader Overlay */
+/* === Loader Overlay === */
 .full-reg-loader-overlay {
   position: fixed;
-  inset: 0;
-  background: rgba(255, 255, 255, 0.8);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.85);
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   z-index: 999;
 }
 
 .full-reg-loader {
-  border: 4px solid #eee;
-  border-top: 4px solid #1f3c88;
+  width: 50px;
+  height: 50px;
+  border: 5px solid #cbd5e0;
+  border-top: 5px solid #3182ce;
   border-radius: 50%;
-  width: 45px;
-  height: 45px;
-  animation: spin 0.9s linear infinite;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
 }
 
 @keyframes spin {
@@ -213,141 +198,161 @@
   }
 }
 
-.full-reg-loader-overlay p {
-  margin-top: 12px;
-  color: #1f3c88;
-  font-weight: 600;
-}
-
-/* Popup Boxes */
+/* === Popups === */
 .full-reg-popup-overlay {
   position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.6);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(17, 24, 39, 0.7);
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   z-index: 1000;
 }
 
 .full-reg-popup-box {
   background: #fff;
-  padding: 30px 40px;
-  border-radius: 14px;
+  padding: 2rem;
+  border-radius: 12px;
   text-align: center;
-  width: 360px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
 }
 
-.full-reg-popup-box h3 {
-  margin-bottom: 10px;
+.full-reg-popup-box.error h3 {
+  color: #e53e3e;
 }
 
 .full-reg-popup-box button {
-  background: #1f3c88;
+  background: #3182ce;
   color: #fff;
   border: none;
   padding: 10px 18px;
   border-radius: 8px;
+  margin-top: 1rem;
   cursor: pointer;
-  margin-top: 10px;
-  transition: background 0.3s;
 }
 
 .full-reg-popup-box button:hover {
-  background: #274da0;
+  background: #2b6cb0;
 }
 
-.full-reg-popup-box.error h3 {
-  color: #e04747;
-}
-
-/* Responsive Design */
+/* === Responsive === */
 @media (max-width: 768px) {
   .full-reg-lawyer-form-container {
-    padding: 20px;
+    padding: 1.5rem;
   }
 
   .full-reg-form-section {
-    padding: 20px;
+    padding: 1rem;
   }
 
   .phone-input-wrapper {
     flex-direction: column;
+    align-items: stretch;
   }
 
-  .phone-dropdown {
-    width: 100%;
-  }
-
-  .full-reg-popup-box {
-    width: 85%;
-  }
-
-  .full-reg-submit-btn {
+  .phone-dropdown,
+  .phone-input-field {
     width: 100%;
   }
 }
-/* Align "Add Bar" button to right */
-.full-reg-form-section .add-bar-btn {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ================================
+   PHONE INPUT STYLES
+=================================== */
+
+.phone-input-container {
+  width: 100%;
+  margin-bottom: 1.2rem;
+}
+
+.phone-input-wrapper {
   display: flex;
-  justify-content: flex-end;
-  margin-top: 10px;
+  align-items: center;
+  gap: 0.6rem;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-.full-reg-form-section .add-bar-btn button {
-  background: #1f3c88;
-  color: #fff;
-  border: none;
-  padding: 10px 14px;
+/* Country Code Dropdown */
+.phone-dropdown {
+  width: 110px;
+  padding: 10px 8px;
   border-radius: 8px;
+  border: 1px solid #cbd5e0;
+  background: #fff;
+  font-size: 0.95rem;
+  height: 44px;
+  appearance: none;
+  text-align: center;
   cursor: pointer;
-  font-weight: 600;
-  transition: background 0.3s ease;
+  transition: border 0.2s ease, box-shadow 0.2s ease;
 }
 
-.full-reg-form-section .add-bar-btn button:hover {
-  background: #162c68;
+.phone-dropdown:focus,
+.phone-dropdown:hover {
+  border-color: #2b6cb0;
+  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.25);
 }
 
-
-/* Align "Add Education" button to right */
-.full-reg-form-section .add-education-btn {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 10px;
-}
-
-.full-reg-form-section .add-education-btn button {
-  background: #1f3c88;
-  color: #fff;
-  border: none;
-  padding: 10px 14px;
+/* Phone Number Field */
+.phone-input-field {
+  flex: 1;
+  padding: 10px 12px;
+  border: 1px solid #cbd5e0;
   border-radius: 8px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: background 0.3s ease;
+  font-size: 0.95rem;
+  height: 44px;
+  background: #fff;
+  box-sizing: border-box;
+  transition: border 0.2s ease, box-shadow 0.2s ease;
 }
 
-.full-reg-form-section .add-education-btn button:hover {
-  background: #162c68;
+.phone-input-field:focus {
+  border-color: #2b6cb0;
+  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.25);
+  outline: none;
 }
 
-
-/* Right-align Add Education button */
-.full-reg-form-section button.add-education-btn {
-  display: block;
-  margin-left: auto;
-  background: #1f3c88;
-  color: #fff;
-  border: none;
-  padding: 10px 14px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: background 0.3s ease;
+/* Placeholder styling */
+.phone-input-field::placeholder {
+  color: #a0aec0;
 }
 
-.full-reg-form-section button.add-education-btn:hover {
-  background: #162d66;
+/* Smooth interaction on hover */
+.phone-input-field:hover {
+  border-color: #a0aec0;
+}
+
+/* === Responsive Design === */
+@media (max-width: 768px) {
+  .phone-input-wrapper {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .phone-dropdown,
+  .phone-input-field {
+    width: 100%;
+  }
 }

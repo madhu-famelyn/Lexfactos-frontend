@@ -2,25 +2,28 @@ import React from "react";
 import "./ProfileReview.css";
 import { FaArrowLeft } from "react-icons/fa";
 import reviewImage from "../Assets/review-illustration.png";
+import { useNavigate } from "react-router-dom";
 
 const ProfileReview = () => {
-  return (
-    <div className="review-container">
-      <div className="review-card">
-        <img src={reviewImage} alt="Profile Review" className="review-image" />
+  const navigate = useNavigate();
 
-        <h2 className="review-title">
-          Your Profile Is Under Review <span className="check-icon">✅</span>
+  return (
+    <div className="pr-container">
+      <div className="pr-card">
+        <img src={reviewImage} alt="Profile Review" className="pr-image" />
+
+        <h2 className="pr-title">
+          Your Profile Is Under Review <span className="pr-check-icon">✅</span>
         </h2>
 
-        <p className="review-text">
+        <p className="pr-text">
           Thank you for registering with Lexfactos. <br />
           Our team is reviewing your profile to ensure all details meet our
           verification standards.
         </p>
 
-        <button className="back-button">
-          <FaArrowLeft className="back-icon" /> Back to Home
+        <button className="pr-back-button" onClick={() => navigate("/")}>
+          <FaArrowLeft className="pr-back-icon" /> Back to Home
         </button>
       </div>
     </div>

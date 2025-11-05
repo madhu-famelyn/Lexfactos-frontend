@@ -1,0 +1,106 @@
+/* ================================
+   Lawyer Update Page Styling
+==================================*/
+
+.lu-container {
+  display: flex;
+  justify-content: center;
+  background: #f5f5f5;
+  min-height: 100vh;
+  font-family: "Geist", sans-serif;
+  padding: 40px 0;
+  box-sizing: border-box;
+
+  /* 🧱 Space for sidebar */
+  margin-left: 230px;
+}
+
+/* Main card container */
+.lu-card {
+  background: #fff;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  max-width: 1100px;
+  box-sizing: border-box;
+}
+
+/* Page title */
+.lu-title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+/* Form layout */
+.lu-form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Section divider */
+.lu-section {
+  border-top: 1px solid #e0e0e0;
+  padding-top: 1.5rem;
+}
+
+/* Grid layout for fields */
+.lu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+/* Buttons */
+.lu-add-btn,
+.lu-submit-btn {
+  background: #0066cc;
+  color: #fff;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s ease;
+  font-weight: 500;
+}
+
+.lu-add-btn:hover,
+.lu-submit-btn:hover {
+  background: #004da3;
+}
+
+/* Messages */
+.lu-message {
+  margin-top: 1.5rem;
+  text-align: center;
+  font-weight: 500;
+}
+
+.lu-error {
+  color: red;
+  text-align: center;
+  margin-top: 2rem;
+}
+
+/* ================================
+   Responsive adjustments
+==================================*/
+@media (max-width: 992px) {
+  .lu-container {
+    margin-left: 0; /* Sidebar likely hidden */
+    padding: 20px;
+  }
+
+  .lu-card {
+    width: 100%;
+    padding: 20px;
+  }
+
+  .lu-title {
+    font-size: 1.5rem;
+  }
+}

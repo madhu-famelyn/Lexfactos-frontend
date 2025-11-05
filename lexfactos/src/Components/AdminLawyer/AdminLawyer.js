@@ -17,25 +17,26 @@ const AdminLawyer = () => {
     fetchLawyers();
   }, []);
 
-  const fetchLawyers = async () => {
-    setLoading(true);
-    try {
-      // ✅ Fetch from correct backend routes
-      const [unverifiedRes, verifiedRes, rejectedRes] = await Promise.all([
-        axios.get("https://lexfactos-backend.fly.dev/get-all-details/lawyers/unverified"),
-        axios.get("https://lexfactos-backend.fly.dev/get-all-details/lawyers/verified"),
-        axios.get("https://lexfactos-backend.fly.dev/get-all-details/lawyers/rejected").catch(() => ({ data: [] })), // handle 404 safely
-      ]);
+const fetchLawyers = async () => {
+  setLoading(true);
+  try {
+    const baseURL = "https://lexfactos-backend.fly.dev";
+    const [unverifiedRes, verifiedRes, rejectedRes] = await Promise.all([
+      axios.get(`${baseURL}/get-all-details/lawyers/unverified`),
+      axios.get(`${baseURL}/get-all-details/lawyers/verified`),
+      axios.get(`${baseURL}/get-all-details/lawyers/rejected`).catch(() => ({ data: [] })),
+    ]);
 
-      setPendingLawyers(unverifiedRes.data || []);
-      setApprovedLawyers(verifiedRes.data || []);
-      setRejectedLawyers(rejectedRes.data || []);
-    } catch (error) {
-      console.error("❌ Error fetching lawyers:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
+    setPendingLawyers(unverifiedRes.data || []);
+    setApprovedLawyers(verifiedRes.data || []);
+    setRejectedLawyers(rejectedRes.data || []);
+  } catch (error) {
+    console.error("❌ Error fetching lawyers:", error);
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   return (
     <div className="dashboard-layout">

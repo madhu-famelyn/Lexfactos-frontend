@@ -15,7 +15,7 @@ export default function LawyerReviews() {
   const [replyText, setReplyText] = useState({});
   const [loading, setLoading] = useState(true);
 
-  // ✅ Fetch reviews (memoized to fix dependency warning)
+  // ✅ Fetch reviews
   const fetchReviews = useCallback(async () => {
     if (!lawyerId || !token) return;
 
@@ -26,7 +26,7 @@ export default function LawyerReviews() {
         headers: { Authorization: `Bearer ${token}` },
       });
 
-      console.log("✅ API Response Data:", res.data);
+      console.log("✅ Reviews fetched successfully:", res.data);
       setReviewsData(res.data);
     } catch (err) {
       console.error("❌ Error fetching reviews:", err);
@@ -39,63 +39,71 @@ export default function LawyerReviews() {
     }
   }, [lawyerId, token]);
 
-  // ✅ Run fetchReviews when lawyerId or token changes
   useEffect(() => {
     if (lawyerId && token) {
       fetchReviews();
     } else {
-      console.warn("⚠️ Lawyer ID or token missing, skipping fetch...");
+      console.warn("⚠️ Missing lawyerId or token, skipping fetch...");
       setLoading(false);
     }
   }, [lawyerId, token, fetchReviews]);
 
-  // ✅ Handle reply API
-  const handleReply = async (commentId, userId) => {
-    if (!replyText[commentId]) return;
+  // ✅ Handle reply submission (POST for add, PUT for update)
+  const handleReply = async (commentId, userId, existingReply) => {
+    const reply = replyText[commentId]?.trim();
+
+    if (!reply) {
+      alert("Please write a reply before submitting.");
+      return;
+    }
+
+    const payload = {
+      lawyer_id: lawyerId,
+      user_id: userId,
+      comment_id: commentId,
+      reply,
+    };
+
+    const method = existingReply ? "put" : "post";
+    const url = `${BASE_URL}/lawyer-rating/reply`;
+
+    console.log(`✉️ ${method.toUpperCase()} request to:`, url, payload);
 
     try {
-      console.log("✉️ Posting reply:", {
-        lawyer_id: lawyerId,
-        user_id: userId,
-        comment_id: commentId,
-        reply: replyText[commentId],
+      const res = await axios({
+        method,
+        url,
+        data: payload,
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
       });
 
-      await axios.post(
-        `${BASE_URL}/lawyer-rating/reply`,
-        {
-          lawyer_id: lawyerId,
-          user_id: userId,
-          comment_id: commentId,
-          reply: replyText[commentId],
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
-
-      console.log("✅ Reply posted successfully!");
-      await fetchReviews(); // Refresh data after reply
+      console.log("✅ Reply submitted successfully:", res.data);
       setReplyText((prev) => ({ ...prev, [commentId]: "" }));
+      await fetchReviews();
+      alert(existingReply ? "Reply updated successfully!" : "Reply added successfully!");
     } catch (err) {
-      console.error("❌ Error posting reply:", err);
+      console.error("❌ Error submitting reply:", err);
       if (err.response) {
-        console.error("Response status:", err.response.status);
-        console.error("Response data:", err.response.data);
+        alert(
+          `Failed to ${
+            existingReply ? "update" : "post"
+          } reply: ${err.response.data.detail || "Unexpected error"}`
+        );
+      } else {
+        alert("Network error while submitting reply.");
       }
     }
   };
 
-  // ✅ Conditional Rendering
+  // ✅ Loading and empty states
   if (loading) return <div className="reviews-loading">Loading reviews...</div>;
-  if (!reviewsData) return <div>No reviews found.</div>;
+  if (!reviewsData)
+    return <div className="no-reviews-message">No reviews found.</div>;
 
   const { average_rating = 0, total_reviews = 0, reviews = [] } = reviewsData;
-
-  // Compute rating breakdown
   const ratingCounts = [5, 4, 3, 2, 1].map(
     (r) => reviews.filter((rev) => rev.rating === r).length
   );
@@ -107,7 +115,7 @@ export default function LawyerReviews() {
       <h2 className="reviews-title">Client Reviews</h2>
       <p className="reviews-subtitle">Manage and respond to client feedback</p>
 
-      {/* Summary Card */}
+      {/* Summary Section */}
       <div className="reviews-summary-card">
         <div className="rating-left">
           <h1 className="rating-score">{average_rating.toFixed(1)}</h1>
@@ -155,7 +163,7 @@ export default function LawyerReviews() {
         ) : (
           reviews.map((rev) => (
             <div className="lawyer-review-card" key={rev.id}>
-              {/* Header Section */}
+              {/* Header */}
               <div className="lawyer-review-header">
                 <img
                   src={rev.user_photo || "/default-user.png"}
@@ -190,35 +198,40 @@ export default function LawyerReviews() {
               <p className="lawyer-review-comment">{rev.comment}</p>
 
               {/* Reply Section */}
-              {rev.reply ? (
-                <div className="lawyer-review-reply-box">
-                  <div className="lawyer-review-reply-header">
-                    <strong>Your Reply:</strong>
-                    <Edit3 size={15} className="lawyer-reply-edit-icon" />
+              <div className="lawyer-reply-section">
+                {rev.reply && (
+                  <div className="lawyer-review-reply-box">
+                    <div className="lawyer-review-reply-header">
+                      <strong>Your Reply:</strong>
+                      <Edit3 size={15} className="lawyer-reply-edit-icon" />
+                    </div>
+                    <p className="lawyer-review-reply-text">{rev.reply}</p>
                   </div>
-                  <p className="lawyer-review-reply-text">{rev.reply}</p>
-                </div>
-              ) : (
-                <div className="lawyer-reply-section">
-                  <textarea
-                    placeholder="Write a reply..."
-                    value={replyText[rev.id] || ""}
-                    onChange={(e) =>
-                      setReplyText((prev) => ({
-                        ...prev,
-                        [rev.id]: e.target.value,
-                      }))
-                    }
-                    className="lawyer-reply-textarea"
-                  />
-                  <button
-                    onClick={() => handleReply(rev.id, rev.user_id)}
-                    className="lawyer-reply-btn"
-                  >
-                    <MessageSquare size={16} /> Reply to Review
-                  </button>
-                </div>
-              )}
+                )}
+
+                <textarea
+                  placeholder={
+                    rev.reply
+                      ? "Update your existing reply..."
+                      : "Write a reply..."
+                  }
+                  value={replyText[rev.id] || ""}
+                  onChange={(e) =>
+                    setReplyText((prev) => ({
+                      ...prev,
+                      [rev.id]: e.target.value,
+                    }))
+                  }
+                  className="lawyer-reply-textarea"
+                />
+                <button
+                  onClick={() => handleReply(rev.id, rev.user_id, rev.reply)}
+                  className="lawyer-reply-btn"
+                >
+                  <MessageSquare size={16} />{" "}
+                  {rev.reply ? "Update Reply" : "Reply to Review"}
+                </button>
+              </div>
             </div>
           ))
         )}

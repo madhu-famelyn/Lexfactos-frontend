@@ -91,9 +91,9 @@ const LawyerPannel = () => {
 
             <li>
               <Link
-                to="/lawyer-account-settings"
+                to="/lawyer-update"
                 className={
-                  location.pathname === "/lawyer-account-settings" ? "active" : ""
+                  location.pathname === "/lawyer-update" ? "active" : ""
                 }
                 onClick={() => setIsOpen(false)}
               >

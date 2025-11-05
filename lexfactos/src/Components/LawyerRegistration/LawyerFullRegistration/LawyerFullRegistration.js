@@ -372,13 +372,7 @@ const LawyerFullRegistration = () => {
     >
       <option value="+91">🇮🇳 +91</option>
       <option value="+971">🇦🇪 +971</option>
-      <option value="+966">🇸🇦 +966</option>
-      <option value="+974">🇶🇦 +974</option>
-      <option value="+965">🇰🇼 +965</option>
-      <option value="+973">🇧🇭 +973</option>
-      <option value="+968">🇴🇲 +968</option>
-      <option value="+92">🇵🇰 +92</option>
-      <option value="+880">🇧🇩 +880</option>
+    
     </select>
 
     <input
@@ -389,13 +383,7 @@ const LawyerFullRegistration = () => {
         const maxLengths = {
           "+91": 10,
           "+971": 9,
-          "+966": 9,
-          "+974": 8,
-          "+965": 8,
-          "+973": 8,
-          "+968": 8,
-          "+92": 10,
-          "+880": 10,
+        
         };
         const currentMax = maxLengths[form.country_code || "+91"];
         const value = e.target.value.replace(/\D/g, "").slice(0, currentMax);
@@ -452,7 +440,7 @@ const LawyerFullRegistration = () => {
                 onChange={(e) => handleNestedChange("bar_details", i, "bar_association_name", e.target.value)}
                 required
               />
-              <label>Enrollment Year *</label>
+              <label>Enrollment Date *</label>
               <input
                 type="date"
                 value={b.enrollment_year}

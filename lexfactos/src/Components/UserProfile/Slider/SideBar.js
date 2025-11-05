@@ -40,7 +40,6 @@ const Sidebar = () => {
         {/* Header */}
         <div className="sidebar-header">
           <h1>Lexfactos</h1>
-          <p>Lawyer Dashboard</p>
         </div>
 
         {/* Menu */}
