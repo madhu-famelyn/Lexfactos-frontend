@@ -2,12 +2,13 @@ import React, { useEffect } from "react";
 import "./ErrorPopUp.css";
 
 const ErrorPopup = ({ message, onClose }) => {
-  useEffect(() => {
+    useEffect(() => {
     if (message) {
-      const timer = setTimeout(() => onClose(), 3500);
-      return () => clearTimeout(timer);
+        const timer = setTimeout(() => onClose(), 3500);
+        return () => clearTimeout(timer);
     }
-  }, [message]);
+    }, [message, onClose]);
+
 
   if (!message) return null;
 
