@@ -59,7 +59,7 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: #0056b3;
+  background: #000000;
   color: #fff;
   padding: 12px 20px;
   border-radius: 8px;
@@ -70,7 +70,7 @@
 }
 
 .pr-back-button:hover {
-  background: #003e84;
+  background: #252525;
   transform: translateY(-2px);
 }
 

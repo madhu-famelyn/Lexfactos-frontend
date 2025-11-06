@@ -124,7 +124,7 @@ const LawyerRegistrationStep6 = () => {
       const payload = buildPayload();
       await submitStep6(payload);
 
-      alert("Registration Step 6 completed!");
+    
       localStorage.removeItem("step6FormData"); // clear saved data after submit
       navigate("/profile-review");
     } catch (err) {

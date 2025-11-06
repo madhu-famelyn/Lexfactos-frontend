@@ -33,35 +33,6 @@
   margin-top: 4px;
 }
 
-/* Progress */
-.lr-step4-progress {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 25px;
-}
-.lr-step4-progress-bar {
-  flex: 1;
-  height: 8px;
-  background: #e5e7eb;
-  border-radius: 6px;
-  position: relative;
-}
-.lr-step4-progress-bar::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0;
-  height: 100%;
-  width: 44%;
-  background: #111827;
-  border-radius: 6px;
-}
-.lr-step4-progress-text {
-  font-size: 13px;
-  color: #111827;
-}
-
 /* Form layout */
 .lr-step4-form {
   display: flex;
@@ -70,16 +41,15 @@
   width: 100%;
 }
 
-/* Address block card */
+/* Address block */
 .lr-step4-address-block {
   padding: 20px;
   border: 1px solid #e5e7eb;
   border-radius: 10px;
   background: #fdfdfd;
-  margin-bottom: 10px;
 }
 
-/* Inputs */
+/* Labels */
 .lr-step4-label {
   font-size: 14px;
   font-weight: 600;
@@ -87,6 +57,8 @@
   margin-bottom: 6px;
   display: block;
 }
+
+/* Uniform Inputs */
 .lr-step4-input {
   width: 100%;
   padding: 12px 14px;
@@ -94,9 +66,23 @@
   border: 1px solid #d1d5db;
   border-radius: 8px;
   outline: none;
+  background-color: #fff;
+  box-sizing: border-box;
 }
+
 .lr-step4-input:focus {
   border-color: #111827;
+}
+
+/* Working hours display must look identical to input */
+.lr-step4-workinghours-display {
+  cursor: pointer;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  height: 48px;
+  width: 100% !important;       /* ✅ Force 100% width */
+  box-sizing: border-box;        /* ✅ Prevent overflow */
 }
 
 /* Row for grouped fields */
@@ -110,13 +96,7 @@
   flex-direction: column;
 }
 
-.lr-step4-placeholder {
-  font-size: 12px;
-  color: #6b7280;
-  margin-top: 3px;
-}
-
-/* Remove address button */
+/* Remove Address button */
 .lr-step4-remove-btn {
   margin-top: 12px;
   background: #fee2e2;
@@ -129,13 +109,6 @@
 }
 .lr-step4-remove-btn:hover {
   background: #fca5a5;
-}
-
-/* Divider */
-.lr-step4-divider {
-  margin-top: 20px;
-  border: 0;
-  border-bottom: 1px solid #e5e7eb;
 }
 
 /* Add another address button */
@@ -189,174 +162,5 @@
   .lr-step4-row {
     flex-direction: column;
     gap: 10px;
-  }
-}
-
-
-
-
-/* ===================== 🕒 Working Hours Popup ===================== */
-
-.working-hours-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(17, 24, 39, 0.45); /* semi-transparent dark overlay */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 2000;
-  backdrop-filter: blur(3px);
-  animation: fadeIn 0.25s ease-in-out;
-}
-
-.working-hours-popup {
-  background: #fff;
-  width: 420px;
-  padding: 2rem;
-  border-radius: 14px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-  text-align: center;
-  font-family: "Inter", sans-serif;
-  animation: slideUp 0.3s ease-out;
-}
-
-.working-hours-popup h3 {
-  font-size: 1.4rem;
-  font-weight: 600;
-  margin-bottom: 1.2rem;
-  color: #111827;
-}
-
-/* === Days selector === */
-.days-selector {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-bottom: 1.5rem;
-}
-
-.day-btn {
-  border: 1px solid #d1d5db;
-  background: #f9fafb;
-  color: #374151;
-  font-size: 0.9rem;
-  font-weight: 500;
-  padding: 0.45rem 0.9rem;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.day-btn:hover {
-  background: #e5e7eb;
-}
-
-.day-btn.active {
-  background: #05308D;
-  color: #fff;
-  border-color: #05308D;
-  font-weight: 600;
-}
-
-/* === Time input row === */
-.time-inputs {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 0.8rem;
-  margin-bottom: 1.8rem;
-}
-
-.time-inputs input[type="time"] {
-  padding: 0.5rem;
-  border: 1px solid #d1d5db;
-  border-radius: 6px;
-  font-size: 0.9rem;
-  color: #111827;
-  cursor: pointer;
-  outline: none;
-  transition: border 0.2s ease;
-}
-
-.time-inputs input[type="time"]:focus {
-  border-color: #05308D;
-}
-
-.time-inputs span {
-  font-weight: 600;
-  color: #4b5563;
-}
-
-/* === Popup action buttons === */
-.popup-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 0.8rem;
-}
-
-.cancel-btn,
-.save-btn {
-  border: none;
-  border-radius: 8px;
-  padding: 0.55rem 1.2rem;
-  font-size: 0.9rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.25s ease;
-}
-
-.cancel-btn {
-  background: #e5e7eb;
-  color: #374151;
-}
-
-.cancel-btn:hover {
-  background: #d1d5db;
-}
-
-.save-btn {
-  background: #05308D;
-  color: #fff;
-}
-
-.save-btn:hover {
-  background: #042874;
-  color: white;
-}
-
-/* === Working Hours field in main form === */
-.lr-step4-workinghours-display {
-  background: #f9fafb;
-  color: #374151;
-  padding: 0.75rem 1rem;
-  border-radius: 8px;
-  border: 1px solid #d1d5db;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.lr-step4-workinghours-display:hover {
-  background: #f3f4f6;
-  border-color: #9ca3af;
-}
-
-/* === Animations === */
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes slideUp {
-  from {
-    transform: translateY(20px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
   }
 }

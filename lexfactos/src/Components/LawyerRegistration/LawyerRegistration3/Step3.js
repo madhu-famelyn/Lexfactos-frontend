@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import Select from "react-select";
 import { submitLawyerStep3 } from "../../Service/Service";
+
+// ✅ IMPORT COMPONENTS
+import ErrorPopup from "../../ReusableComponents/ErrorPopUP/ErrorPopUp";
+import PracticeAreaDropdown from "../../ReusableComponents/PracticeArea/PracticeArea";
+
 import "./Step3.css";
 
 const LawyerRegistrationStep3 = () => {
@@ -24,30 +28,25 @@ const LawyerRegistrationStep3 = () => {
     description: "",
   };
 
-  const [practiceAreas, setPracticeAreas] = useState(
-    storedData.practiceArea
-      ? storedData.practiceArea.split(",").map((area) => ({ value: area, label: area }))
-      : []
-  );
+  const [practiceArea, setPracticeArea] = useState(storedData.practiceArea);
   const [courtAdmittedTo, setCourtAdmittedTo] = useState(storedData.courtAdmittedTo);
   const [activeSince, setActiveSince] = useState(storedData.activeSince);
   const [experiences, setExperiences] = useState(storedData.experiences);
   const [description, setDescription] = useState(storedData.description);
-  
 
-  const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
+  const [popupError, setPopupError] = useState("");
 
   useEffect(() => {
     const step3Data = {
-      practiceArea: practiceAreas.map((a) => a.value).join(","),
+      practiceArea,
       courtAdmittedTo,
       activeSince,
       experiences,
       description,
     };
     localStorage.setItem("lawyerStep3Data", JSON.stringify(step3Data));
-  }, [practiceAreas, courtAdmittedTo, activeSince, experiences, description]);
+  }, [practiceArea, courtAdmittedTo, activeSince, experiences, description]);
 
   const addExperience = () => {
     setExperiences([
@@ -58,125 +57,60 @@ const LawyerRegistrationStep3 = () => {
 
   const removeExperience = (index) => {
     const updated = experiences.filter((_, i) => i !== index);
-    setExperiences(
-      updated.length > 0
-        ? updated
-        : [{ company_name: "", role: "", duration: "", description: "" }]
-    );
+    setExperiences(updated.length > 0 ? updated : [{ company_name: "", role: "", duration: "", description: "" }]);
   };
 
-  // ✅ Validation before submit
+  // ✅ Validation using popup
   const validateForm = () => {
-    let newErrors = {};
+    if (!practiceArea.trim())
+      return setPopupError("Please select a Practice Area.");
 
-    if (practiceAreas.length === 0)
-      newErrors.practiceAreas = "Please select at least one practice area.";
     if (!courtAdmittedTo.trim())
-      newErrors.courtAdmittedTo = "Court admitted to is required.";
+      return setPopupError("Court Admitted To is required.");
+
     if (!activeSince || activeSince < 1900 || activeSince > new Date().getFullYear())
-      newErrors.activeSince = "Please enter a valid year.";
+      return setPopupError("Enter a valid year in Active Since.");
+
     if (!description.trim())
-      newErrors.description = "Professional summary is required.";
+      return setPopupError("Professional Summary is required.");
 
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+    return true;
   };
 
-const handleSubmit = async () => {
-  if (!lawyerId) {
-    alert("Error: Lawyer ID missing. Please complete previous steps first.");
-    return;
-  }
+  const handleSubmit = async () => {
+    if (!lawyerId) {
+      return setPopupError("Error: Lawyer ID missing. Complete previous steps first.");
+    }
 
-  if (!validateForm()) return;
+    if (!validateForm()) return;
 
-  setLoading(true); // start loader
+    setLoading(true);
 
-  const payload = {
-    lawyer_id: lawyerId,
-    practice_area: practiceAreas.map((a) => a.value).join(","),
-    court_admitted_to: courtAdmittedTo,
-    active_since: parseInt(activeSince, 10) || 0,
-    work_experience: experiences,
-    description:
-      description || "Experienced lawyer with expertise in multiple practice areas.",
+    const payload = {
+      lawyer_id: lawyerId,
+      practice_area: practiceArea, // ✅ single field from dropdown
+      court_admitted_to: courtAdmittedTo,
+      active_since: parseInt(activeSince, 10) || 0,
+      work_experience: experiences,
+      description:
+        description || "Experienced lawyer with expertise in multiple practice areas.",
+    };
+
+    try {
+      const res = await submitLawyerStep3(payload);
+      localStorage.setItem("lawyerProfileId", res.id);
+      navigate("/step4", { state: { lawyer_id: lawyerId } });
+    } catch (err) {
+      setPopupError("Failed to submit Step 3. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
-
-  try {
-    const res = await submitLawyerStep3(payload);
-    localStorage.setItem("lawyerProfileId", res.id);
-    navigate("/step4", { state: { lawyer_id: lawyerId } });
-  } catch (err) {
-    alert("Failed to submit step 3. Please try again.");
-  } finally {
-    setLoading(false); // stop loader
-  }
-};
-
-  const allPracticeAreas = [
-    "Administrative Law",
-    "Admiralty & Maritime Law",
-    "Alternative Dispute Resolution",
-    "Animal Law",
-    "Antitrust Law",
-    "Appellate Law",
-    "Arbitration & Mediation",
-    "Aviation & Aerospace Law",
-    "Banking & Finance Law",
-    "Bankruptcy",
-    "Civil Litigation",
-    "Civil Rights",
-    "Commercial Law",
-     "Constitutional & Human Rights Law",
-    "Construction Law",
-    "Consumer Protection Law",
-    "Contract Law",
-    "Corporate & Commercial Law",
-    "Criminal Defense",
-    "Criminal Law",
-    "Cybersecurity & Data Protection",
-    "Elder Law",
-    "Election & Political Law",
-    "Employment Law",
-    "Energy Law",
-    "Entertainment & Sports Law",
-    "Environmental Law",
-    "Estate Planning",
-    "Family Law",
-    "Franchise Law",
-    "Government Contracts",
-    "Health Care Law",
-    "Immigration",
-    "Insurance Law",
-    "Intellectual Property",
-    "International Law",
-    "Juvenile Law",
-    "Labour & Employment Law",
-    "Land Use & Zoning Law",
-    "Legal Malpractice",
-    "Medical Malpractice",
-    "Military Law",
-    "Nonprofit & Charities Law",
-    "Patent Law",
-    "Personal Injury",
-    "Privacy & Data Security",
-    "Product Liability",
-    "Professional Responsibility",
-    "Property & Real Estate Law",
-    "Public Interest Law",
-    "Securities Law",
-    "Social Security Law",
-    "Tax Law",
-    "Technology Law",
-    "Torts",
-    "Trade Law",
-    "Transportation Law",
-    "Trusts & Estates",
-    "Workers' Compensation",
-  ].map((area) => ({ value: area, label: area }));
 
   return (
     <div className="lr-step3-container">
+      {popupError && <ErrorPopup message={popupError} onClose={() => setPopupError("")} />}
+
       <div className="lr-step3-card">
         <h2 className="lr-step3-title">Lawyer Registration</h2>
         <p className="lr-step3-subtitle">Step 3 of 6: Practice Details</p>
@@ -187,21 +121,13 @@ const handleSubmit = async () => {
           <span className="lr-step3-progress-text">33% Complete</span>
         </div>
 
-        {/* Practice Area */}
+        {/* ✅ Practice Area using dropdown */}
         <div className="lr-step3-section">
-          <label className="lr-step3-label">Practice Areas *</label>
-          <Select
-            isMulti
-            options={allPracticeAreas}
-            value={practiceAreas}
-            onChange={setPracticeAreas}
-            className="lr-step3-select"
-            classNamePrefix="select"
-            placeholder="Search and select practice areas..."
+          <label className="lr-step3-label">Practice Area *</label>
+          <PracticeAreaDropdown
+            value={practiceArea}
+            onChange={setPracticeArea}
           />
-          {errors.practiceAreas && (
-            <p className="lr-error-text">{errors.practiceAreas}</p>
-          )}
         </div>
 
         {/* Court Admitted */}
@@ -214,9 +140,6 @@ const handleSubmit = async () => {
             value={courtAdmittedTo}
             onChange={(e) => setCourtAdmittedTo(e.target.value)}
           />
-          {errors.courtAdmittedTo && (
-            <p className="lr-error-text">{errors.courtAdmittedTo}</p>
-          )}
         </div>
 
         {/* Active Since */}
@@ -230,13 +153,10 @@ const handleSubmit = async () => {
               value={activeSince}
               onChange={(e) => setActiveSince(e.target.value)}
             />
-            {errors.activeSince && (
-              <p className="lr-error-text">{errors.activeSince}</p>
-            )}
           </div>
         </div>
 
-        {/* Professional Summary */}
+        {/* Summary */}
         <div className="lr-step3-section">
           <label className="lr-step3-label">Professional Summary *</label>
           <textarea
@@ -245,9 +165,6 @@ const handleSubmit = async () => {
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
-          {errors.description && (
-            <p className="lr-error-text">{errors.description}</p>
-          )}
         </div>
 
         {/* Work Experience */}
@@ -266,6 +183,7 @@ const handleSubmit = async () => {
                   setExperiences(updated);
                 }}
               />
+
               <input
                 type="text"
                 placeholder="Role"
@@ -277,6 +195,7 @@ const handleSubmit = async () => {
                   setExperiences(updated);
                 }}
               />
+
               <input
                 type="text"
                 placeholder="Duration (e.g., 2018-2020)"
@@ -288,6 +207,7 @@ const handleSubmit = async () => {
                   setExperiences(updated);
                 }}
               />
+
               <textarea
                 placeholder="Description of responsibilities/achievements"
                 className="lr-step3-input lr-step3-textarea"
@@ -298,11 +218,8 @@ const handleSubmit = async () => {
                   setExperiences(updated);
                 }}
               />
-              <button
-                type="button"
-                className="lr-step3-remove-btn"
-                onClick={() => removeExperience(index)}
-              >
+
+              <button type="button" className="lr-step3-remove-btn" onClick={() => removeExperience(index)}>
                 – Remove
               </button>
             </div>
@@ -312,26 +229,16 @@ const handleSubmit = async () => {
           </button>
         </div>
 
-        {/* Footer Buttons */}
-{/* Footer Buttons */}
-<div className="lr-step3-footer">
-  <button
-    className="lr-step3-prev-btn"
-    onClick={() => navigate(-1)}
-    disabled={loading}
-  >
-    ‹ Previous
-  </button>
+        {/* Footer */}
+        <div className="lr-step3-footer">
+          <button className="lr-step3-prev-btn" onClick={() => navigate(-1)} disabled={loading}>
+            ‹ Previous
+          </button>
 
-  <button
-    className="lr-step3-next-btn"
-    onClick={handleSubmit}
-    disabled={loading}
-  >
-    {loading ? "Submitting..." : "Next ›"}
-  </button>
-</div>
-
+          <button className="lr-step3-next-btn" onClick={handleSubmit} disabled={loading}>
+            {loading ? "Submitting..." : "Next ›"}
+          </button>
+        </div>
       </div>
     </div>
   );

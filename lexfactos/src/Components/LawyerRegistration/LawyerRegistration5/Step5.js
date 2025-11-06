@@ -8,7 +8,6 @@ const LawyerRegistrationStep5 = () => {
   const navigate = useNavigate();
   const { lawyer_id } = location.state || {};
 
-  // ✅ Load from localStorage safely
   let storedStep5Data;
   try {
     storedStep5Data = JSON.parse(localStorage.getItem("step5FormData")) || {};
@@ -16,14 +15,12 @@ const LawyerRegistrationStep5 = () => {
     storedStep5Data = {};
   }
 
-  // ✅ Case Results state
   const [caseResults, setCaseResults] = useState(
     Array.isArray(storedStep5Data.caseResults)
       ? storedStep5Data.caseResults
       : [{ title: "", outcome: "", summary: "" }]
   );
 
-  // ✅ Save form data locally
   useEffect(() => {
     localStorage.setItem(
       "step5FormData",
@@ -33,26 +30,28 @@ const LawyerRegistrationStep5 = () => {
     );
   }, [caseResults]);
 
-  // ✅ Add case result
   const addCaseResult = () => {
     setCaseResults([...caseResults, { title: "", outcome: "", summary: "" }]);
   };
 
-  // ✅ Handle case result field change
-  const handleChange = (index, field, value) => {
-    const newResults = [...caseResults];
-    newResults[index][field] = value;
-    setCaseResults(newResults);
+  const removeCaseResult = (index) => {
+    const updated = [...caseResults];
+    updated.splice(index, 1);
+    setCaseResults(updated);
   };
 
-  // ✅ Submit step 5
+  const handleChange = (index, field, value) => {
+    const updated = [...caseResults];
+    updated[index][field] = value;
+    setCaseResults(updated);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const formData = new FormData();
       formData.append("lawyer_id", lawyer_id);
 
-      // Append case_results as JSON string
       formData.append(
         "case_results",
         JSON.stringify(
@@ -65,9 +64,7 @@ const LawyerRegistrationStep5 = () => {
       const result = await submitStep5(formData);
       console.log("✅ Step 5 saved:", result);
 
-      // ✅ Clear step5 data after successful submit
       localStorage.removeItem("step5FormData");
-
       navigate("/step6", { state: { lawyer_id } });
     } catch (err) {
       console.error(err);
@@ -78,10 +75,11 @@ const LawyerRegistrationStep5 = () => {
   return (
     <div className="lr-step5-container">
       <div className="lr-step5-card">
+
         {/* Header */}
         <div className="lr-step5-header">
           <h2 className="lr-step5-title">Lawyer Registration</h2>
-          <p className="lr-step5-subtitle">Step 5 of 6: Portfolio &amp; Gallery</p>
+          <p className="lr-step5-subtitle">Step 5 of 6: Portfolio & Gallery</p>
           <div className="lr-step5-progress-bar">
             <div className="lr-step5-progress-fill" style={{ width: "56%" }}></div>
           </div>
@@ -89,15 +87,10 @@ const LawyerRegistrationStep5 = () => {
         </div>
 
         <form onSubmit={handleSubmit}>
-          {/* Case Results Section */}
           <div className="lr-step5-case-results">
             <div className="lr-step5-case-header">
               <h3 className="lr-step5-case-title">Case Results (Optional)</h3>
-              <button
-                type="button"
-                className="lr-step5-add-btn"
-                onClick={addCaseResult}
-              >
+              <button type="button" className="lr-step5-add-btn" onClick={addCaseResult}>
                 + Add Case Result
               </button>
             </div>
@@ -130,11 +123,21 @@ const LawyerRegistrationStep5 = () => {
                   className="lr-step5-textarea"
                   rows={3}
                 />
+
+                {/* ✅ Remove button */}
+                {caseResults.length > 1 && (
+                  <button
+                    type="button"
+                    className="lr-step5-remove-btn"
+                    onClick={() => removeCaseResult(index)}
+                  >
+                    Remove Case
+                  </button>
+                )}
               </div>
             ))}
           </div>
 
-          {/* Footer Buttons */}
           <div className="lr-step5-footer">
             <button
               type="button"

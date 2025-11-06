@@ -1,3 +1,7 @@
+/* =============================
+   STEP 5 - FORM STYLE
+   ============================= */
+
 /* Base Layout */
 .lr-step5-container {
   min-height: 100vh;
@@ -11,14 +15,14 @@
   background: #fff;
   width: 100%;
   max-width: 720px;
-  border-radius: 8px;
+  border-radius: 10px;
   padding: 32px;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.08);
 }
 
 /* Header */
 .lr-step5-title {
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 600;
   color: #111827;
 }
@@ -34,7 +38,7 @@
   height: 8px;
   background: #e5e7eb;
   border-radius: 6px;
-  margin-top: 12px;
+  margin: 12px 0 6px 0;
 }
 
 .lr-step5-progress-fill {
@@ -47,7 +51,6 @@
   text-align: right;
   font-size: 12px;
   color: #6b7280;
-  margin-top: 4px;
 }
 
 /* Case Results Section */
@@ -55,73 +58,89 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 12px;
+  margin-bottom: 16px;
   flex-wrap: wrap;
   gap: 8px;
 }
 
 .lr-step5-case-title {
-  font-size: 16px;
-  font-weight: 500;
+  font-size: 18px;
+  font-weight: 600;
   color: #111827;
 }
 
 .lr-step5-add-btn {
-  padding: 6px 12px;
+  padding: 8px 14px;
   border: 1px solid #d1d5db;
   border-radius: 6px;
   font-size: 14px;
-  color: #4b5563;
-  background: #fff;
+  color: #1e3a8a;
+  background: #e0e7ff;
   cursor: pointer;
+  transition: 0.2s ease;
 }
 
 .lr-step5-add-btn:hover {
-  background: #f9fafb;
+  background: #c7d2fe;
 }
 
+/* Case block card */
 .lr-step5-case-card {
   border: 1px solid #e5e7eb;
-  border-radius: 6px;
-  padding: 16px;
-  margin-bottom: 16px;
+  border-radius: 10px;
+  padding: 18px;
+  margin-bottom: 18px;
   background: #fff;
 }
 
+/* Subtitle inside card */
 .lr-step5-case-subtitle {
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 500;
   margin-bottom: 12px;
 }
 
-/* Inputs & Textareas */
+/* Form rows (Title + Outcome) */
 .lr-step5-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  margin-bottom: 12px;
+  display: flex;
+  gap: 14px;
+  width: 100%;
 }
 
-.lr-step5-input{
-  width: 90%;
-  border: 1px solid #d1d5db;
-  border-radius: 6px;
-  padding: 10px;
-  font-size: 14px;
-  color: #111827;
-}
+/* Form Input */
+.lr-step5-input,
 .lr-step5-textarea {
-  width: 95%;
+  width: 100%;              /* ✅ Full width */
   border: 1px solid #d1d5db;
-  border-radius: 6px;
-  padding: 10px;
+  border-radius: 8px;
+  padding: 12px;
   font-size: 14px;
   color: #111827;
+  box-sizing: border-box;   /* ✅ Prevents overflow */
+  outline: none;
 }
 
-.lr-step5-input::placeholder,
-.lr-step5-textarea::placeholder {
-  color: #9ca3af;
+.lr-step5-input:focus,
+.lr-step5-textarea:focus {
+  border-color: #111827;
+}
+
+/* Remove Button */
+.lr-step5-remove-btn {
+  width: fit-content;
+  margin-top: 14px;
+  background: #fee2e2;
+  color: #b91c1c;
+  border: 1px solid #fca5a5;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: 0.2s ease;
+}
+
+.lr-step5-remove-btn:hover {
+  background: #fca5a5;
 }
 
 /* Footer */
@@ -132,32 +151,31 @@
   gap: 12px;
 }
 
+.lr-step5-prev-btn,
+.lr-step5-next-btn {
+  padding: 12px;
+  font-size: 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  flex: 1;
+}
+
+/* prev button */
 .lr-step5-prev-btn {
   background: #f3f4f6;
   color: #111827;
-  padding: 10px 20px;
-  border-radius: 6px;
   border: 1px solid #d1d5db;
-  cursor: pointer;
-  flex: 1;
-  text-align: center;
 }
-
 .lr-step5-prev-btn:hover {
   background: #e5e7eb;
 }
 
+/* next button */
 .lr-step5-next-btn {
   background: #111827;
   color: #fff;
-  padding: 10px 20px;
-  border-radius: 6px;
   border: none;
-  cursor: pointer;
-  flex: 1;
-  text-align: center;
 }
-
 .lr-step5-next-btn:hover {
   background: #000;
 }
@@ -166,34 +184,9 @@
    📱 RESPONSIVE MEDIA QUERIES
    ============================= */
 
-/* Tablets (max-width: 992px) */
-@media (max-width: 992px) {
-  .lr-step5-card {
-    padding: 24px;
-  }
-
-  .lr-step5-title {
-    font-size: 17px;
-  }
-
-  .lr-step5-subtitle {
-    font-size: 13px;
-  }
-}
-
-/* Mobile Large (max-width: 768px) */
 @media (max-width: 768px) {
-  .lr-step5-card {
-    padding: 20px;
-  }
-
   .lr-step5-row {
-    grid-template-columns: 1fr; /* stack inputs vertically */
-  }
-
-  .lr-step5-input,
-  .lr-step5-textarea {
-    font-size: 13px;
+    flex-direction: column; /* ✅ Stack inputs vertically */
   }
 
   .lr-step5-add-btn {
@@ -204,62 +197,4 @@
   .lr-step5-footer {
     flex-direction: column;
   }
-
-  .lr-step5-prev-btn,
-  .lr-step5-next-btn {
-    width: 100%;
-    font-size: 14px;
-  }
-}
-
-/* Small Mobile (max-width: 480px) */
-@media (max-width: 480px) {
-  .lr-step5-container {
-    padding: 24px 12px;
-  }
-
-  .lr-step5-card {
-    padding: 16px;
-    border-radius: 6px;
-  }
-
-  .lr-step5-title {
-    font-size: 16px;
-  }
-
-  .lr-step5-case-title {
-    font-size: 15px;
-  }
-
-  .lr-step5-input,
-  .lr-step5-textarea {
-    font-size: 13px;
-    padding: 8px;
-  }
-
-  .lr-step5-add-btn {
-    font-size: 13px;
-  }
-
-  .lr-step5-prev-btn,
-  .lr-step5-next-btn {
-    padding: 9px 16px;
-    font-size: 13px;
-  }
-  .lr-step5-input{
-  width: 100%;
-  border: 1px solid #d1d5db;
-  border-radius: 6px;
-  padding: 10px;
-  font-size: 14px;
-  color: #111827;
-}
-.lr-step5-textarea {
-  width: 100%;
-  border: 1px solid #d1d5db;
-  border-radius: 6px;
-  padding: 10px;
-  font-size: 14px;
-  color: #111827;
-}
 }

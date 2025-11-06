@@ -14,6 +14,38 @@
   gap: 12px 20px; /* vertical and horizontal spacing */
   margin-top: 10px;
 }
+/* Wrapper */
+.lr-step-checkboxes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 6px;
+}
+
+/* Label styling */
+.lr-step-checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  font-size: 15px;
+  color: #000000; /* ✅ Green text */
+  font-weight: 500;
+}
+
+/* Checkbox styling */
+.lr-step-checkbox {
+  accent-color: #000000; /* ✅ Green checkbox tick + border */
+  width: 16px;
+  margin-top:12px;
+  height: 16px;
+}
+
+/* Optional hover effect */
+.lr-step-checkbox-label:hover {
+  color: #000000;
+}
+
 
 .lr-step2-checkbox-label {
   display: flex;

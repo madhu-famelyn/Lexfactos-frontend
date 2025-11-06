@@ -3,6 +3,8 @@ import "./SignIn.css";
 import { FiUpload } from "react-icons/fi";
 import { registerLawyer } from "../../Service/Service";
 import { useNavigate } from "react-router-dom";
+import DateSelector from "../../ReusableComponents/DateSelector/DateSelector";
+import ErrorPopup from "../../ReusableComponents/ErrorPopUP/ErrorPopUp";
 
 const formatDOB = (dob) => {
   if (!dob) return "";
@@ -33,27 +35,17 @@ const LawyerRegistration = () => {
     photo: null,
   };
 
-  const storedLawyerId = localStorage.getItem("lawyerId");
   const [formData, setFormData] = useState(storedData);
   const [loading, setLoading] = useState(false);
   const [photoPreview, setPhotoPreview] = useState(
     localStorage.getItem("lawyerPhoto") || null
   );
-  const [errors, setErrors] = useState({});
-  const [apiError, setApiError] = useState(null);
+  const [popupMessage, setPopupMessage] = useState(null);
 
   useEffect(() => {
     const saveData = { ...formData, photo: null };
     localStorage.setItem("lawyerFormData", JSON.stringify(saveData));
   }, [formData]);
-
-  // Auto-hide popup after 4s
-  useEffect(() => {
-    if (apiError) {
-      const timer = setTimeout(() => setApiError(null), 4000);
-      return () => clearTimeout(timer);
-    }
-  }, [apiError]);
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -68,67 +60,50 @@ const LawyerRegistration = () => {
     }
   };
 
+  // ✅ Popup-based Validation
   const validateForm = () => {
-    const newErrors = {};
-
-    if (!formData.full_name.trim()) newErrors.full_name = "Full name is required.";
-    if (!formData.email.trim()) newErrors.email = "Email is required.";
-    if (!formData.phone_number.trim()) newErrors.phone_number = "Phone number is required.";
-    if (!formData.password.trim()) newErrors.password = "Password is required.";
-    if (!formData.confirm_password.trim()) newErrors.confirm_password = "Please confirm your password.";
+    if (!formData.full_name.trim()) return "Full name is required.";
+    if (!formData.email.trim()) return "Email is required.";
+    if (!formData.phone_number.trim()) return "Phone number is required.";
+    if (!formData.password.trim()) return "Password is required.";
+    if (!formData.confirm_password.trim()) return "Please confirm password.";
     if (formData.password !== formData.confirm_password)
-      newErrors.confirm_password = "Passwords do not match.";
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+      return "Passwords do not match.";
+    if (!formData.photo) return "Profile photo is required.";
+    return null;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!validateForm()) {
-      setApiError("Please fill in all required fields correctly.");
+    const validationError = validateForm();
+    if (validationError) {
+      setPopupMessage(validationError);
       return;
     }
 
     setLoading(true);
-
     try {
-      if (storedLawyerId) {
-        navigate("/step2", { state: { lawyerId: storedLawyerId } });
-        return;
-      }
-
       const data = new FormData();
-      data.append("full_name", formData.full_name);
-      data.append("gender", formData.gender);
-      data.append("dob", formatDOB(formData.dob));
-      data.append("email", formData.email);
-      const fullPhone = `${formData.country_code}${formData.phone_number}`;
-      data.append("phone_number", fullPhone);
-      data.append("password", formData.password);
-      data.append("confirm_password", formData.confirm_password);
-      data.append("linkedin_url", formData.linkedin_url);
-      data.append("website_url", formData.website_url);
-      data.append("short_note", formData.short_note);
-      if (formData.photo) data.append("photo", formData.photo);
+      Object.keys(formData).forEach((key) => {
+        if (key === "dob") {
+          data.append(key, formatDOB(formData[key]));
+        } else if (key === "phone_number") {
+          data.append(
+            "phone_number",
+            `${formData.country_code}${formData.phone_number}`
+          );
+        } else {
+          data.append(key, formData[key]);
+        }
+      });
 
       const res = await registerLawyer(data);
       localStorage.setItem("lawyerId", res.id);
       navigate("/step2", { state: { lawyerId: res.id } });
+
     } catch (err) {
-      if (err?.response?.status === 400) {
-        const detail = err.response.data?.detail || "";
-        if (detail.includes("email")) {
-          setApiError("This email is already registered. Please use another email.");
-        } else if (detail.includes("phone")) {
-          setApiError("This phone number is already registered. Please use another one.");
-        } else {
-          setApiError(detail || "Registration failed. Please try again.");
-        }
-      } else {
-        setApiError("Registration failed. Please check all fields and try again.");
-      }
+      setPopupMessage(err.detail || "Registration failed.");
     } finally {
       setLoading(false);
     }
@@ -136,12 +111,8 @@ const LawyerRegistration = () => {
 
   return (
     <div className="registration-container">
-      {/* 🔹 Popup for API Errors */}
-      {apiError && (
-        <div className="api-error-popup">
-          <p>{apiError}</p>
-        </div>
-      )}
+      {/* 🔹 Popup for frontend/backend errors */}
+      <ErrorPopup message={popupMessage} onClose={() => setPopupMessage(null)} />
 
       <div className="registration-card">
         <div className="registration-header">
@@ -149,6 +120,7 @@ const LawyerRegistration = () => {
             <h2 className="registration-title">Lawyer Registration</h2>
             <p className="registration-step">Step 1 of 6: Personal & Contact Info</p>
           </div>
+
           <div className="progress-container">
             <span className="progress-text">11% Complete</span>
             <div className="progress-bar">
@@ -169,17 +141,11 @@ const LawyerRegistration = () => {
             <label className="upload-btn">
               <FiUpload className="upload-icon" />
               Upload Profile Photo *
-              <input
-                type="file"
-                accept="image/*"
-                name="photo"
-                style={{ display: "none" }}
-                onChange={handleChange}
-                required
-              />
+              <input type="file" accept="image/*" name="photo" onChange={handleChange} />
             </label>
           </div>
-          <div className="vertical-line"></div>
+
+          <div className="vertical-line" />
 
           <form className="registration-form" onSubmit={handleSubmit}>
             <div className="form-row">
@@ -191,18 +157,12 @@ const LawyerRegistration = () => {
                   value={formData.full_name}
                   onChange={handleChange}
                   placeholder="Enter your full name"
-                  required
                 />
-                {errors.full_name && <p className="error-text">{errors.full_name}</p>}
               </div>
 
               <div className="form-group">
                 <label>Gender (Optional)</label>
-                <select
-                  name="gender"
-                  value={formData.gender}
-                  onChange={handleChange}
-                >
+                <select name="gender" value={formData.gender} onChange={handleChange}>
                   <option value="">Select gender</option>
                   <option>Male</option>
                   <option>Female</option>
@@ -212,15 +172,14 @@ const LawyerRegistration = () => {
             </div>
 
             <div className="form-row">
-              <div className="form-group">
-                <label>Date of Birth (Optional)</label>
-                <input
-                  type="date"
-                  name="dob"
-                  value={formData.dob}
-                  onChange={handleChange}
-                />
-              </div>
+              <DateSelector
+                label="Date of Birth (Optional)"
+                name="dob"
+                value={formData.dob}
+                onChange={handleChange}
+                required={false}
+              />
+
               <div className="form-group">
                 <label>Email Address *</label>
                 <input
@@ -229,72 +188,59 @@ const LawyerRegistration = () => {
                   value={formData.email}
                   onChange={handleChange}
                   placeholder="your.email@example.com"
-                  required
                 />
-                {errors.email && <p className="error-text">{errors.email}</p>}
               </div>
             </div>
 
-<div className="form-row">
+<div className="form-row lr-phone-pass-row">
+  {/* 📞 Phone Number Field */}
   <div className="form-group">
     <label>Phone Number *</label>
- <div
-  className="phone-field"
-  style={{
-    display: "flex",
-    alignItems: "center",
-    gap: "8px",
-    border: "1px solid #ccc",
-    borderRadius: "6px",
-    padding: "6px 10px",
-    width: "300px",
-    background: "#fff",
-  }}
->
-  <select
-    name="country_code"
-    value={formData.country_code}
-    onChange={handleChange}
-    style={{
-      border: "none",
-      outline: "none",
-      background: "transparent",
-      fontSize: "14px",
-      width: "80px",
-      flexShrink: 0,
-      cursor: "pointer",
-    }}
-  >
-    {countryCodes.map((c, idx) => (
-      <option key={idx} value={c.code}>
-        {c.flag} {c.code}
-      </option>
-    ))}
-  </select>
+    <div className="lr-phone-wrapper">
+      <select
+        name="country_code"
+        value={formData.country_code}
+        onChange={handleChange}
+        className="lr-phone-select"
+      >
+        {countryCodes.map((c, idx) => (
+          <option key={idx} value={c.code}>
+            {c.flag} {c.code}
+          </option>
+        ))}
+      </select>
 
-  <input
-    type="tel"
-    name="phone_number"
-    value={formData.phone_number}
-    onChange={handleChange}
-    placeholder="Enter phone number"
-    required
-    style={{
-      flex: 1,
-      border: "none",
-      outline: "none",
-      fontSize: "14px",
-      padding: "8px",
-      background: "transparent",
-    }}
-  />
+      <input
+        type="tel"
+        name="phone_number"
+        value={formData.phone_number}
+        onChange={handleChange}
+        placeholder="Enter phone number"
+        required
+        className="lr-phone-input"
+        pattern="\d*"
+        inputMode="numeric"
+      />
+    </div>
+  </div>
+
+  {/* 🔒 Password Field */}
+  <div className="form-group">
+    <label>Password *</label>
+    <input
+      type="password"
+      name="hashed_password"
+      value={formData.hashed_password}
+      onChange={handleChange}
+      placeholder="Enter password"
+      required
+      className="lr-password-input"
+    />
+  </div>
 </div>
 
 
-
-                {errors.phone_number && <p className="error-text">{errors.phone_number}</p>}
-              </div>
-
+            <div className="form-row">
               <div className="form-group">
                 <label>Password *</label>
                 <input
@@ -303,13 +249,9 @@ const LawyerRegistration = () => {
                   value={formData.password}
                   onChange={handleChange}
                   placeholder="Create a strong password"
-                  required
                 />
-                {errors.password && <p className="error-text">{errors.password}</p>}
               </div>
-            </div>
 
-            <div className="form-row">
               <div className="form-group">
                 <label>Confirm Password *</label>
                 <input
@@ -318,12 +260,11 @@ const LawyerRegistration = () => {
                   value={formData.confirm_password}
                   onChange={handleChange}
                   placeholder="Confirm your password"
-                  required
                 />
-                {errors.confirm_password && (
-                  <p className="error-text">{errors.confirm_password}</p>
-                )}
               </div>
+            </div>
+
+            <div className="form-row">
               <div className="form-group">
                 <label>LinkedIn URL (Optional)</label>
                 <input
@@ -334,10 +275,8 @@ const LawyerRegistration = () => {
                   placeholder="https://linkedin.com/in/yourprofile"
                 />
               </div>
-            </div>
 
-            <div className="form-row">
-              <div className="form-group full-width">
+              <div className="form-group">
                 <label>Website / Firm URL (Optional)</label>
                 <input
                   type="text"
@@ -350,19 +289,11 @@ const LawyerRegistration = () => {
             </div>
 
             <div className="lr-step2-footer">
-              <button
-                type="button"
-                className="lr-step2-prev-btn"
-                onClick={() => navigate(-1)}
-              >
+              <button type="button" className="lr-step2-prev-btn" onClick={() => navigate(-1)}>
                 Previous
               </button>
 
-              <button
-                type="submit"
-                className="lr-step2-next-btn"
-                disabled={loading}
-              >
+              <button type="submit" className="lr-step2-next-btn" disabled={loading}>
                 {loading ? <div className="spinner"></div> : "Next"}
               </button>
             </div>

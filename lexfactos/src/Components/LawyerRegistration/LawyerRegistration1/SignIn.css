@@ -1,0 +1,468 @@
+/* ============================
+   Lawyer Registration Page
+   Clean, Minimal Design
+============================ */
+
+.registration-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  background-color: #f9f9f9;
+  padding: 40px 0;
+  min-height: 100vh;
+  font-family: "Inter", "Segoe UI", sans-serif;
+}
+
+.registration-card {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  width: 90%;
+  max-width: 1100px;
+  padding: 32px 40px;
+  box-sizing: border-box;
+}
+
+/* ---------- Header ---------- */
+.registration-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 28px;
+}
+
+.registration-title {
+  font-size: 22px;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 4px;
+}
+
+.registration-step {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.progress-container {
+  text-align: right;
+}
+
+.progress-text {
+  font-size: 13px;
+  color: #6b7280;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.progress-bar {
+  width: 120px;
+  height: 8px;
+  background-color: #e5e7eb;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+}
+
+.progress-fill {
+  background-color: #111;
+  height: 100%;
+  border-radius: 10px;
+}
+
+/* ---------- Layout ---------- */
+.registration-body {
+  display: flex;
+  align-items: flex-start;
+  gap: 40px;
+}
+
+/* ---------- Photo Section ---------- */
+.upload-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 240px;
+}
+
+.photo-placeholder {
+  width: 270px;               /* Updated width */
+  height: 377px;              /* Updated height */
+  gap: 10px;                  /* Added gap (if applicable for inner elements) */
+  transform: rotate(0deg);    /* Set angle to 0 degrees */
+  opacity: 1;                 /* Full opacity */
+  border-radius: 8px;         /* Rounded corners */
+  border-width: 1px;          /* Set border width */
+  border-style: solid;        /* Added border style */
+  border-color: #d1d5db;      /* Border color */
+  padding: 10px;              /* Added padding */
+  background-color: #fafafa;  /* Background color */
+  display: flex;              /* Flexbox layout */
+  align-items: center;        /* Vertically center content */
+  justify-content: center;    /* Horizontally center content */
+  color: #9ca3af;             /* Text color */
+  font-size: 32px;            /* Font size */
+  overflow: hidden;           /* Hide any overflow */
+}
+
+.photo-preview {
+  width: 100%;                /* Fill the container */
+  height: 100%;               /* Fill the container */
+  object-fit: cover;          /* Ensure the image covers the container */
+}
+
+
+.upload-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 20px;
+  background-color: #fff;
+  color: #111827;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.upload-btn:hover {
+  background-color: #f3f4f6;
+}
+
+.upload-btn input {
+  display: none;
+}
+
+.upload-icon {
+  font-size: 16px;
+}
+
+/* ---------- Vertical Divider ---------- */
+.vertical-line {
+  width: 1px;
+  background-color: #e5e7eb;
+  height: 100%;
+}
+
+/* ---------- Form Section ---------- */
+.registration-form {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.form-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.form-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-size: 14px;
+  color: #374151;
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+
+.form-group input,
+.form-group select {
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  padding: 10px 12px;
+  font-size: 14px;
+  color: #111827;
+  background-color: #fff;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  margin-top: 0; /* Removes top margin */
+  margin-bottom: 0; /* Removes bottom margin */
+}
+
+
+.form-group input::placeholder {
+  color: #9ca3af;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: #111;
+  box-shadow: 0 0 0 2px rgba(17, 17, 17, 0.1);
+}
+
+.error-text {
+  color: #ef4444;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+/* ============================
+   📞 Lawyer Registration - Phone & Password
+============================ */
+
+.lr-phone-pass-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Phone Wrapper */
+.lr-phone-wrapper {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+
+
+/* Country Code Dropdown (30%) */
+.lr-phone-select {
+  flex: 0 0 30%;
+  min-width: 90px;
+  border: none;
+  outline: none;
+  background-color: #f9fafb;
+  padding: 10px 8px;
+  font-size: 14px;
+  color: #111827;
+  cursor: pointer;
+  border-right: 1px solid #ddd;
+  height: 42px;
+}
+
+.lr-phone-select::-ms-expand {
+  display: none;
+}
+
+/* Phone Input (70%) */
+.lr-phone-input {
+  flex: 1 1 70%;
+  border: none;
+  outline: none;
+  padding: 10px 12px;
+  font-size: 14px;
+  color: #111827;
+  background: transparent;
+  height: 42px;
+}
+
+.lr-phone-input::placeholder {
+  color: #9ca3af;
+}
+
+/* Password Input */
+.lr-password-input {
+  width: 100%;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 14px;
+  color: #111827;
+  height: 42px;
+  background-color: #fff;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.lr-password-input:focus {
+  border-color: #111;
+  box-shadow: 0 0 0 2px rgba(17, 17, 17, 0.1);
+}
+
+.lr-password-input::placeholder {
+  color: #9ca3af;
+}
+
+/* Error text */
+.error-text {
+  color: #ef4444;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+/* 📱 Mobile Adjustments */
+@media (max-width: 768px) {
+  .lr-phone-pass-row {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .lr-phone-select {
+    flex: 0 0 35%;
+  }
+
+  .lr-phone-input {
+    flex: 1 1 65%;
+  }
+}
+
+/* ---------- Buttons ---------- */
+.lr-step2-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 20px;
+  border-top: 1px solid #e5e7eb;
+  margin-top: 12px;
+}
+
+.lr-step2-prev-btn,
+.lr-step2-next-btn {
+  border: 1px solid #111;
+  border-radius: 6px;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  background: #fff;
+  color: #111;
+  transition: all 0.2s ease;
+}
+
+.lr-step2-prev-btn:hover {
+  background-color: #f3f4f6;
+}
+
+.lr-step2-next-btn {
+  background-color: #111;
+  color: #fff;
+}
+
+.lr-step2-next-btn:hover {
+  background-color: #000;
+}
+
+.spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid #fff;
+  border-top: 2px solid transparent;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* ---------- API Error Popup ---------- */
+.api-error-popup {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #ef4444;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 14px;
+  z-index: 1000;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+
+/* ============================
+   📱 Responsive (Tablet & Mobile)
+============================ */
+@media (max-width: 992px) {
+  .registration-body {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .upload-section {
+    width: 100%;
+    flex-direction: row;
+    justify-content: center;
+    gap: 20px;
+  }
+
+.photo-placeholder {
+  width: 304px;               /* Updated width */
+  height: 397px;              /* Updated height */
+  gap: 10px;                  /* Added gap (affects children) */
+  transform: rotate(0deg);    /* Angle set to 0 degrees (no rotation) */
+  opacity: 1;                 /* Full opacity */
+  border-radius: 8px;         /* Rounded corners */
+  border-width: 1px;          /* Border width */
+  border-style: solid;        /* Solid border style */
+  border-color: #d1d5db;      /* Border color */
+  padding: 10px;              /* Padding inside the placeholder */
+  background-color: #fafafa;  /* Light gray background */
+  display: flex;              /* Flexbox for inner content */
+  align-items: center;        /* Center content vertically */
+  justify-content: center;    /* Center content horizontally */
+  color: #9ca3af;             /* Text color */
+  font-size: 32px;            /* Font size */
+  overflow: hidden;           /* Hide any overflow */
+}
+
+.photo-preview {
+  width: 100%;                /* Make image fill the container */
+  height: 100%;               /* Make image fill the container */
+  object-fit: cover;          /* Ensure image covers the area */
+}
+
+
+  .registration-form {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .form-row,
+  .lr-phone-pass-row {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .registration-card {
+    padding: 20px;
+  }
+
+  .lr-phone-select {
+    flex: 0 0 35%;
+  }
+
+  .lr-phone-input {
+    flex: 1 1 65%;
+  }
+
+  .lr-step2-footer {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .upload-section {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 480px) {
+  .registration-card {
+    width: 95%;
+    padding: 16px;
+  }
+
+  .registration-title {
+    font-size: 18px;
+  }
+
+  .lr-phone-select,
+  .lr-phone-input,
+  .lr-password-input {
+    font-size: 13px;
+    height: 38px;
+  }
+}
