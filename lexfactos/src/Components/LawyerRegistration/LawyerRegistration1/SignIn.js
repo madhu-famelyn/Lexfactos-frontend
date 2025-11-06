@@ -224,21 +224,24 @@ const LawyerRegistration = () => {
     </div>
   </div>
 
-
+  {/* 🔒 Password Field */}
+  <div className="form-group">
+    <label>Password *</label>
+    <input
+      type="password"
+      name="hashed_password"
+      value={formData.hashed_password}
+      onChange={handleChange}
+      placeholder="Enter password"
+      required
+      className="lr-password-input"
+    />
+  </div>
 </div>
 
 
             <div className="form-row">
-              <div className="form-group">
-                <label>Password *</label>
-                <input
-                  type="password"
-                  name="password"
-                  value={formData.password}
-                  onChange={handleChange}
-                  placeholder="Create a strong password"
-                />
-              </div>
+
 
               <div className="form-group">
                 <label>Confirm Password *</label>
