@@ -3,7 +3,7 @@ import axios from "axios";
 // // Before
 
 // After
-const API_BASE_URL = "https://lexfactos-backend.fly.dev";
+const API_BASE_URL = "http://127.0.0.1:8000";
 
 export const signupUser = async (formData) => {
   try {
@@ -75,6 +75,25 @@ export const registerLawyer = async (formData) => {
 
 
 
+
+
+export const uploadLawyerExcel = async (file) => {
+  try {
+    const formData = new FormData();
+    formData.append("file", file); // must match FastAPI parameter name
+
+    const response = await axios.post(`${API_BASE_URL}/lawyers/upload-excel/`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+
+    return response.data; // backend response
+  } catch (error) {
+    console.error("Excel upload error:", error);
+    throw error.response ? error.response.data : error;
+  }
+};
 
 
 

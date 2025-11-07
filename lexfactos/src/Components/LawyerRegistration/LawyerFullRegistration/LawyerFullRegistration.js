@@ -54,8 +54,7 @@ const LawyerFullRegistration = () => {
         state: "",
         city: "",
         zip_code: "",
-        latitude: "",
-        longitude: "",
+
       },
     ],
     working_hours: "",
@@ -279,8 +278,6 @@ const LawyerFullRegistration = () => {
             state: "",
             city: "",
             zip_code: "",
-            latitude: "",
-            longitude: "",
           },
         ],
         working_hours: "",
@@ -598,18 +595,6 @@ const LawyerFullRegistration = () => {
                 onChange={(e) => handleNestedChange("address", i, "zip_code", e.target.value)}
                 required
               />
-              <input
-                placeholder="Latitude"
-                value={a.latitude}
-                onChange={(e) => handleNestedChange("address", i, "latitude", e.target.value)}
-                required
-              />
-              <input
-                placeholder="Longitude"
-                value={a.longitude}
-                onChange={(e) => handleNestedChange("address", i, "longitude", e.target.value)}
-                required
-              />
               <button type="button" onClick={() => removeNestedItem("address", i)}>
                 Remove
               </button>
@@ -625,8 +610,7 @@ const LawyerFullRegistration = () => {
                 state: "",
                 city: "",
                 zip_code: "",
-                latitude: "",
-                longitude: "",
+
               })
             }
           >

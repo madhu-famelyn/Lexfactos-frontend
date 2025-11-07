@@ -1,0 +1,96 @@
+/* Upload Excel Page Styling */
+
+.excel-upload-container {
+  display: flex;
+  background-color: #f9fafc;
+  min-height: 100vh;
+  font-family: "Geist", sans-serif;
+}
+
+.excel-upload-content {
+  flex: 1;
+  padding: 40px;
+  margin-left: 230px; /* Space for sidebar */
+  box-sizing: border-box;
+}
+
+.excel-upload-title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+.excel-upload-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  padding: 30px;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.file-label {
+  font-weight: 500;
+  color: #555;
+  font-size: 1rem;
+}
+
+.file-input {
+  border: 2px dashed #cbd5e1;
+  border-radius: 8px;
+  padding: 14px;
+  background: #f8fafc;
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+}
+
+.file-input:hover {
+  border-color: #4caf50;
+}
+
+.upload-btn {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 12px 18px;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  width: 140px;
+  text-align: center;
+}
+
+.upload-btn:hover {
+  background-color: #43a047;
+}
+
+.upload-btn:disabled {
+  background-color: #a5d6a7;
+  cursor: not-allowed;
+}
+
+.upload-message {
+  font-size: 0.95rem;
+  padding: 10px 12px;
+  border-radius: 6px;
+  margin-top: 10px;
+}
+
+.upload-message.info {
+  background-color: #e3f2fd;
+  color: #1976d2;
+}
+
+.upload-message.success {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+.upload-message.error {
+  background-color: #ffebee;
+  color: #c62828;
+}

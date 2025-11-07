@@ -5,7 +5,7 @@ import { useLawyerAuth } from "../../Context/LawyerContext";
 import "./LawyerAuth.css";
 
 const LawyerAuth = () => {
-  const [email, setEmail] = useState("");
+  const [uniqueId, setUniqueId] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
@@ -17,8 +17,8 @@ const LawyerAuth = () => {
     e.preventDefault();
     setMessage("");
 
-    if (!email || !password) {
-      setMessage("⚠️ Please enter both email and password.");
+    if (!uniqueId || !password) {
+      setMessage("⚠️ Please enter both User Name and password.");
       return;
     }
 
@@ -28,19 +28,12 @@ const LawyerAuth = () => {
       const response = await fetch("https://lexfactos-backend.fly.dev/lawyer/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ unique_id: uniqueId, password }),
       });
 
       const data = await response.json();
 
       if (response.ok) {
-        // Example backend response:
-        // {
-        //   "access_token": "...",
-        //   "token_type": "bearer",
-        //   "lawyer_id": "a314cc92-c118-4206-9366-54380d7727a3"
-        // }
-
         const token = data.access_token;
         const lawyerId = data.lawyer_id || "";
 
@@ -50,7 +43,7 @@ const LawyerAuth = () => {
         setMessage("✅ Login successful! Redirecting...");
         setTimeout(() => navigate("/lawyer-dashboard"), 1500);
       } else {
-        setMessage(data.detail || "❌ Invalid credentials.");
+        setMessage(data.detail || "❌ Invalid User Name or password.");
       }
     } catch (error) {
       console.error("Login error:", error);
@@ -70,13 +63,13 @@ const LawyerAuth = () => {
 
         <form onSubmit={handleLogin} className="lawyer-auth-form">
           <div className="lawyer-input-group">
-            <label htmlFor="email">Email</label>
+            <label htmlFor="uniqueId">User Name</label>
             <input
-              type="email"
-              id="email"
-              placeholder="Enter your email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              type="text"
+              id="uniqueId"
+              placeholder="Enter your User Name"
+              value={uniqueId}
+              onChange={(e) => setUniqueId(e.target.value)}
               required
             />
           </div>

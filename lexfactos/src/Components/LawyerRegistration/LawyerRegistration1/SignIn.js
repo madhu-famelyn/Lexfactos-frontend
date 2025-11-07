@@ -27,6 +27,7 @@ const LawyerRegistration = () => {
     email: "",
     country_code: "+91",
     phone_number: "",
+    unique_id:"",
     password: "",
     confirm_password: "",
     linkedin_url: "",
@@ -66,6 +67,7 @@ const LawyerRegistration = () => {
     if (!formData.email.trim()) return "Email is required.";
     if (!formData.phone_number.trim()) return "Phone number is required.";
     if (!formData.password.trim()) return "Password is required.";
+    if(!formData.unique_id.trim()) return "user name is required."
     if (!formData.confirm_password.trim()) return "Please confirm password.";
     if (formData.password !== formData.confirm_password)
       return "Passwords do not match.";
@@ -226,13 +228,13 @@ const LawyerRegistration = () => {
 
   {/* 🔒 Password Field */}
   <div className="form-group">
-    <label>Password *</label>
+    <label>Unique Name *</label>
     <input
-      type="password"
-      name="hashed_password"
-      value={formData.hashed_password}
+      type="text"
+      name="unique_id"
+      value={formData.unique_id}
       onChange={handleChange}
-      placeholder="Enter password"
+      placeholder="Enter Unique Name"
       required
       className="lr-password-input"
     />
@@ -241,7 +243,16 @@ const LawyerRegistration = () => {
 
 
             <div className="form-row">
-
+              <div className="form-group">
+                <label>Password *</label>
+                <input
+                  type="password"
+                  name="password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  placeholder="Create a strong password"
+                />
+              </div>
 
               <div className="form-group">
                 <label>Confirm Password *</label>
