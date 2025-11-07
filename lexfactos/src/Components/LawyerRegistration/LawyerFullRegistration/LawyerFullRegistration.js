@@ -63,28 +63,28 @@ const LawyerFullRegistration = () => {
     });
 
     if (photoFile) fd.append("photo", photoFile);
+try {
+  await axios.post(
+    "https://lexfactos-backend.fly.dev/lawyer/full/",
+    fd,
+    { headers: { "Content-Type": "multipart/form-data" } }
+  );
 
-    try {
-      const _res = await axios.post(
-        "https://lexfactos-backend.fly.dev/lawyer/full/",
-        fd,
-        { headers: { "Content-Type": "multipart/form-data" } }
-      );
+  setPopup({ type: "success", message: "✅ Registration Successful!" });
+  setLoading(false);
+} catch (err) {
+  setLoading(false);
+  const msg = err.response?.data?.detail || "Something went wrong";
 
-      setPopup({ type: "success", message: "✅ Registration Successful!" });
-      setLoading(false);
-    } catch (err) {
-      setLoading(false);
-      const msg = err.response?.data?.detail || "Something went wrong";
+  if (msg.toLowerCase().includes("unique")) {
+    setPopup({ type: "error", message: "⚠️ Unique ID already exists. Please choose another!" });
+  } else if (msg.toLowerCase().includes("email") || msg.toLowerCase().includes("phone")) {
+    setPopup({ type: "error", message: "⚠️ Email or Phone already exists!" });
+  } else {
+    setPopup({ type: "error", message: msg });
+  }
+}
 
-      if (msg.toLowerCase().includes("unique")) {
-        setPopup({ type: "error", message: "⚠️ Unique ID already exists. Please choose another!" });
-      } else if (msg.toLowerCase().includes("email") || msg.toLowerCase().includes("phone")) {
-        setPopup({ type: "error", message: "⚠️ Email or Phone already exists!" });
-      } else {
-        setPopup({ type: "error", message: msg });
-      }
-    }
   };
 
   return (
