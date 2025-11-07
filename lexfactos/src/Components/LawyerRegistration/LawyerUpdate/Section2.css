@@ -1,0 +1,219 @@
+/* ===== Main Wrapper ===== */
+.lu-section {
+  background: #ffffff;
+  padding: 24px;
+  border-radius: 14px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  font-family: "Inter", sans-serif;
+  margin-bottom: 26px;
+}
+
+/* ===== Section Title ===== */
+.lu-section-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #1a1a1a;
+  border-left: 4px solid #2b6ff2;
+  padding-left: 10px;
+  margin-bottom: 18px;
+}
+
+/* ===== Sub Titles ===== */
+.lu-sub-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  margin-top: 22px;
+  margin-bottom: 12px;
+}
+
+/* ===== Grid Layout ===== */
+.lu-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 8px;
+}
+
+@media (max-width: 768px) {
+  .lu-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ===== Form Field Wrapper ===== */
+.lu-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.lu-field label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #444;
+}
+
+/* ===== Inputs, Select, Textarea ===== */
+.lu-field input,
+.lu-field select,
+.lu-field textarea,
+.lu-repeat-block input,
+.lu-repeat-block select {
+  width: 96%;
+  padding: 10px 12px;
+  border: 1.5px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: 0.2s ease-in-out;
+  background: #fff;
+  outline: none;
+}
+
+.lu-field textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+.lu-field input:focus,
+.lu-field select:focus,
+.lu-field textarea:focus,
+.lu-repeat-block input:focus,
+.lu-repeat-block select:focus {
+  border-color: #2b6ff2;
+  box-shadow: 0 0 0 3px rgba(43, 111, 242, 0.15);
+}
+
+/* ===== Repeat Section Blocks (Bar & Education) ===== */
+.lu-repeat-block {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  padding: 14px;
+  border-radius: 10px;
+  margin-bottom: 14px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* ===== Badge Style ===== */
+.lu-badge {
+  background: #2b6ff2;
+  color: white;
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  width: fit-content;
+  font-weight: 500;
+}
+
+/* ===== Add & Remove Buttons ===== */
+.lu-add-btn {
+  background: #2b6ff2;
+  color: white;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  font-weight: 500;
+  margin-top: 6px;
+  transition: 0.2s;
+}
+
+.lu-add-btn:hover {
+  background: #2159c5;
+}
+
+.lu-remove-btn {
+  background: #ef4444;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  cursor: pointer;
+  width: fit-content;
+  transition: 0.2s;
+}
+
+.lu-remove-btn:hover {
+  background: #d32f2f;
+}
+
+/* ===== Language Tag Selector ===== */
+.lang-select-box {
+  border: 1.5px solid #d1d5db;
+  padding: 10px;
+  border-radius: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+  background: #fff;
+}
+
+.lang-select-box:focus-within {
+  border-color: #2b6ff2;
+  box-shadow: 0 0 0 3px rgba(43, 111, 242, 0.15);
+}
+
+/* ===== Selected Language Tags ===== */
+.selected-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.tag {
+  background: #e0e7ff;
+  color: #2b6ff2;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 4px 8px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Remove tag button */
+.remove-tag {
+  background: #2b6ff2;
+  color: #fff;
+  font-size: 10px;
+  width: 14px;
+  height: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.remove-tag:hover {
+  background: #1a47a8;
+}
+
+/* ===== Language Dropdown ===== */
+.lang-dropdown {
+  border: none;
+  outline: none;
+  font-size: 14px;
+  flex-grow: 1;
+  min-width: 120px;
+  cursor: pointer;
+  background: transparent;
+  color: #333;
+}
+
+/* ===== Scrollbar (Optional Styling) ===== */
+.lu-section::-webkit-scrollbar {
+  width: 5px;
+}
+
+.lu-section::-webkit-scrollbar-thumb {
+  background: #2b6ff2;
+  border-radius: 10px;
+}

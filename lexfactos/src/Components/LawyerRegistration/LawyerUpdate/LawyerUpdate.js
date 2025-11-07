@@ -47,54 +47,60 @@ export default function LawyerUpdateProfile() {
     const fetchLawyer = async () => {
       try {
         setLoading(true);
-        const res = await axios.get(`http://localhost:8000/lawyers/${lawyerId}`, {
+        const res = await axios.get(`https://lexfactos-backend.fly.dev/get-all-details/lawyers/all-details/${lawyerId}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
 
         const data = res.data;
 
-        setFormData({
-          full_name: data.full_name || "",
-          unique_id: data.unique_id || "",
-          gender: data.gender || "",
-          dob: data.dob || "",
-          email: data.email || "",
-          phone_number: data.phone_number || "",
-          linkedin_url: data.linkedin_url || "",
-          website_url: data.website_url || "",
-          photo: data.photo || "",
+setFormData({
+  full_name: data.full_name || "",
+  unique_id: data.unique_id || "",
+  gender: data.gender || "",
+  dob: data.dob || "",
+  email: data.email || "",
+  phone_number: data.phone_number || "",
+  linkedin_url: data.linkedin_url || "",
+  website_url: data.website_url || "",
+  photo: data.photo || "",
 
-          reg2: {
-            bio: data.reg2?.bio || "",
-            years_of_experience: data.reg2?.years_of_experience || "",
-            languages_spoken: data.reg2?.languages_spoken || "",
-            bar_details: data.reg2?.bar_details?.length ? data.reg2.bar_details : [{}],
-            education: data.reg2?.education?.length ? data.reg2.education : [{}],
-          },
+  // ✅ profile = registration2 equivalent
+  reg2: {
+    bio: data.profile?.bio || "",
+    years_of_experience: data.profile?.years_of_experience || "",
+    languages_spoken: data.profile?.languages_spoken || "",
+    bar_details: data.profile?.bar_details?.length ? data.profile.bar_details : [{}],
+    education: data.profile?.education?.length ? data.profile.education : [{}],
+  },
 
-          reg3: {
-            practice_area: data.reg3?.practice_area || "",
-            court_admitted_to: data.reg3?.court_admitted_to || "",
-            active_since: data.reg3?.active_since || "",
-            work_experience: data.reg3?.work_experience?.length ? data.reg3.work_experience : [{}],
-          },
+  // ✅ registration3
+  reg3: {
+    practice_area: data.registration3?.practice_area || "",
+    court_admitted_to: data.registration3?.court_admitted_to || "",
+    active_since: data.registration3?.active_since || "",
+    work_experience: data.registration3?.work_experience?.length ? data.registration3.work_experience : [{}],
+  },
 
-          reg4: {
-            case_results: data.reg4?.case_results?.length ? data.reg4.case_results : [{}],
-          },
+  // ✅ registration4
+  reg4: {
+    case_results: data.registration4?.case_results?.length ? data.registration4.case_results : [{}],
+  },
 
-          reg5: {
-            address: data.reg5?.address?.length ? data.reg5.address : [{}],
-            working_hours: data.reg5?.working_hours || "",
-          },
+  // ✅ registration5 is an array
+  reg5: {
+    address: data.registration5?.[0]?.address?.length ? data.registration5[0].address : [{}],
+    working_hours: data.registration5?.[0]?.working_hours || "",
+  },
 
-          reg6: {
-            professional_associations: data.reg6?.professional_associations || "",
-            certifications: data.reg6?.certifications?.length ? data.reg6.certifications : [{}],
-            awards: data.reg6?.awards?.length ? data.reg6.awards : [{}],
-            publications: data.reg6?.publications?.length ? data.reg6.publications : [{}],
-          },
-        });
+  // ✅ registration6
+  reg6: {
+    professional_associations: data.registration6?.professional_associations || "",
+    certifications: data.registration6?.certifications?.length ? data.registration6.certifications : [{}],
+    awards: data.registration6?.awards?.length ? data.registration6.awards : [{}],
+    publications: data.registration6?.publications?.length ? data.registration6.publications : [{}],
+  },
+});
+
 
       } catch (err) {
         setMessage("❌ Failed to load lawyer data.");
@@ -111,7 +117,7 @@ export default function LawyerUpdateProfile() {
     setLoading(true);
 
     try {
-      await axios.put(`http://localhost:8000/lawyers/update-full/${lawyerId}`, formData, {
+      await axios.put(`https://lexfactos-backend.fly.dev/lawyers/update-full/${lawyerId}`, formData, {
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
       });
       setMessage("✅ Profile updated successfully!");
@@ -135,7 +141,7 @@ export default function LawyerUpdateProfile() {
 
     try {
       await axios.put(
-        `http://localhost:8000/lawyers/change-password/${lawyerId}`,
+        `https://lexfactos-backend.fly.dev/lawyer/change-password/${lawyerId}`,
         passwordData,
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -155,47 +161,130 @@ export default function LawyerUpdateProfile() {
 
       <div className="lu-card">
         <form className="lu-form" onSubmit={handleSubmit}>
-          <SectionPersonal formData={formData} setFormData={setFormData} />
+         <SectionPersonal formData={formData} setFormData={setFormData} />
 
-          <SectionReg2
-            formData={formData}
-            handleNestedChange={(section, field, value) =>
-              setFormData((prev) => ({
-                ...prev,
-                [section]: { ...prev[section], [field]: value }
-              }))
-            }
-            handleListChange={(section, list, i, key, value) =>
-              setFormData((prev) => {
-                const arr = [...prev[section][list]];
-                arr[i][key] = value;
-                return { ...prev, [section]: { ...prev[section], [list]: arr } };
-              })
-            }
-            addListItem={(section, list, item) =>
-              setFormData((prev) => ({
-                ...prev,
-                [section]: { ...prev[section], [list]: [...prev[section][list], item] }
-              }))
-            }
-            removeListItem={(section, list, i) =>
-              setFormData((prev) => ({
-                ...prev,
-                [section]: { ...prev[section], [list]: prev[section][list].filter((_, idx) => idx !== i) }
-              }))
-            }
-          />
+<SectionReg2
+  formData={formData}
+  setFormData={setFormData}
+  handleNestedChange={(section, field, value) =>
+    setFormData((prev) => ({
+      ...prev,
+      [section]: { ...prev[section], [field]: value }
+    }))
+  }
+  handleListChange={(section, list, i, key, value) =>
+    setFormData((prev) => {
+      const arr = [...prev[section][list]];
+      arr[i][key] = value;
+      return { ...prev, [section]: { ...prev[section], [list]: arr } };
+    })
+  }
+  addListItem={(section, list, item) =>
+    setFormData((prev) => ({
+      ...prev,
+      [section]: { ...prev[section], [list]: [...prev[section][list], item] }
+    }))
+  }
+  removeListItem={(section, list, i) =>
+    setFormData((prev) => ({
+      ...prev,
+      [section]: { ...prev[section], [list]: prev[section][list].filter((_, idx) => idx !== i) }
+    }))
+  }
+/>
 
-          <SectionReg3 formData={formData} setFormData={setFormData} />
-          <SectionReg4 formData={formData} setFormData={setFormData} />
-          <SectionReg5 formData={formData} setFormData={setFormData} />
-          <SectionReg6 formData={formData} setFormData={setFormData} />
+{/* ✅ Pass same handlers here also */}
+<SectionReg3
+  formData={formData}
+  handleNestedChange={(section, field, value) =>
+    setFormData((prev) => ({
+      ...prev,
+      [section]: { ...prev[section], [field]: value }
+    }))
+  }
+  handleListChange={(section, list, i, key, value) =>
+    setFormData((prev) => {
+      const arr = [...prev[section][list]];
+      arr[i][key] = value;
+      return { ...prev, [section]: { ...prev[section], [list]: arr } };
+    })
+  }
+  addListItem={(section, list, item) =>
+    setFormData((prev) => ({
+      ...prev,
+      [section]: { ...prev[section], [list]: [...prev[section][list], item] }
+    }))
+  }
+  removeListItem={(section, list, i) =>
+    setFormData((prev) => ({
+      ...prev,
+      [section]: { ...prev[section], [list]: prev[section][list].filter((_, idx) => idx !== i) }
+    }))
+  }
+/>
 
-          <div className="password-btn-container">
+<SectionReg4
+  formData={formData}
+  handleListChange={(s, l, i, k, v) => setFormData(prev => {
+    const arr = [...prev[s][l]];
+    arr[i][k] = v;
+    return { ...prev, [s]: { ...prev[s], [l]: arr } };
+  })}
+  addListItem={(s, l, item) => setFormData(prev => ({
+    ...prev, [s]: { ...prev[s], [l]: [...prev[s][l], item] }
+  }))}
+  removeListItem={(s, l, i) => setFormData(prev => ({
+    ...prev, [s]: { ...prev[s], [l]: prev[s][l].filter((_, idx) => idx !== i) }
+  }))}
+/>
+
+<SectionReg5
+  formData={formData}
+  handleNestedChange={(section, field, value) =>
+    setFormData((prev) => ({
+      ...prev,
+      [section]: { ...prev[section], [field]: value }
+    }))
+  }
+  handleListChange={(s, l, i, k, v) => setFormData(prev => {
+    const arr = [...prev[s][l]];
+    arr[i][k] = v;
+    return { ...prev, [s]: { ...prev[s], [l]: arr } };
+  })}
+  addListItem={(s, l, item) => setFormData(prev => ({
+    ...prev, [s]: { ...prev[s], [l]: [...prev[s][l], item] }
+  }))}
+  removeListItem={(s, l, i) => setFormData(prev => ({
+    ...prev, [s]: { ...prev[s], [l]: prev[s][l].filter((_, idx) => idx !== i) }
+  }))}
+/>
+
+<SectionReg6
+  formData={formData}
+  handleNestedChange={(section, field, value) =>
+    setFormData((prev) => ({
+      ...prev,
+      [section]: { ...prev[section], [field]: value }
+    }))
+  }
+  handleListChange={(s, l, i, k, v) => setFormData(prev => {
+    const arr = [...prev[s][l]];
+    arr[i][k] = v;
+    return { ...prev, [s]: { ...prev[s], [l]: arr } };
+  })}
+  addListItem={(s, l, item) => setFormData(prev => ({
+    ...prev, [s]: { ...prev[s], [l]: [...prev[s][l], item] }
+  }))}
+  removeListItem={(s, l, i) => setFormData(prev => ({
+    ...prev, [s]: { ...prev[s], [l]: prev[s][l].filter((_, idx) => idx !== i) }
+  }))}
+/>
+
+          {/* <div className="password-btn-container">
             <button type="button" className="change-password-btn" onClick={() => setShowPasswordModal(true)}>
               Change Password
             </button>
-          </div>
+          </div> */}
 
           <button type="submit" className="lu-submit-btn" disabled={loading}>
             {loading ? "Updating..." : "Update Profile"}

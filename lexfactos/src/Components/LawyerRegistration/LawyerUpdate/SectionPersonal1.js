@@ -5,7 +5,7 @@ export default function SectionPersonal({ formData, setFormData }) {
   };
 
   return (
-    <div className="lu-section">
+    <div className="lu-section" autoComplete="off">
       <h3 className="lu-section-title">Personal Information</h3>
 
       <div className="lu-grid">
@@ -17,10 +17,10 @@ export default function SectionPersonal({ formData, setFormData }) {
             value={formData.full_name || ""}
             onChange={handleChange}
             placeholder="Enter your full name"
+            autoComplete="off"
           />
         </div>
 
-        {/* ✅ Added Unique ID Field */}
         <div className="lu-field">
           <label>Unique ID *</label>
           <input
@@ -29,6 +29,7 @@ export default function SectionPersonal({ formData, setFormData }) {
             value={formData.unique_id || ""}
             onChange={handleChange}
             placeholder="Enter unique ID (Ex: LAW-2025-0001)"
+            autoComplete="off"
           />
         </div>
 
@@ -38,6 +39,7 @@ export default function SectionPersonal({ formData, setFormData }) {
             name="gender"
             value={formData.gender || ""}
             onChange={handleChange}
+            autoComplete="off"
           >
             <option value="">Select gender</option>
             <option value="Male">Male</option>
@@ -53,6 +55,7 @@ export default function SectionPersonal({ formData, setFormData }) {
             name="dob"
             value={formData.dob || ""}
             onChange={handleChange}
+            autoComplete="off"
           />
         </div>
 
@@ -64,6 +67,7 @@ export default function SectionPersonal({ formData, setFormData }) {
             value={formData.email || ""}
             onChange={handleChange}
             placeholder="example@mail.com"
+            autoComplete="off"
           />
         </div>
 
@@ -75,6 +79,7 @@ export default function SectionPersonal({ formData, setFormData }) {
             value={formData.phone_number || ""}
             onChange={handleChange}
             placeholder="Enter contact number"
+            autoComplete="off"
           />
         </div>
 
@@ -86,6 +91,7 @@ export default function SectionPersonal({ formData, setFormData }) {
             value={formData.linkedin_url || ""}
             onChange={handleChange}
             placeholder="https://linkedin.com/in/username"
+            autoComplete="off"
           />
         </div>
 
@@ -97,6 +103,7 @@ export default function SectionPersonal({ formData, setFormData }) {
             value={formData.website_url || ""}
             onChange={handleChange}
             placeholder="https://your-website.com"
+            autoComplete="off"
           />
         </div>
       </div>

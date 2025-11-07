@@ -1,5 +1,5 @@
 import React from "react";
-import "./WorkingHours.css";
+import "./WorkingHours.css"; // Keep using your existing CSS file
 
 const daysList = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
@@ -14,19 +14,21 @@ export default function WorkingHoursPopup({
   closePopup,
 }) {
   return (
-    <div className="working-hours-overlay">
-      <div className="working-hours-popup">
-        <h3>Choose Days and Hours</h3>
+    <div className="whp-overlay">
+      <div className="whp-popup">
+        <h3 className="whp-title">Choose Days and Hours</h3>
 
-        <button className="close-workingHours" onClick={closePopup}>
+        <button className="whp-close-btn" onClick={closePopup}>
           ✖
         </button>
 
-        <div className="days-selector">
+        <div className="whp-days">
           {daysList.map((day) => (
             <button
               key={day}
-              className={`day-btn ${selectedDays.includes(day) ? "active" : ""}`}
+              className={`whp-day-btn ${
+                selectedDays.includes(day) ? "whp-day-active" : ""
+              }`}
               onClick={() => toggleDay(day)}
             >
               {day}
@@ -34,13 +36,13 @@ export default function WorkingHoursPopup({
           ))}
         </div>
 
-        <div className="time-inputs">
+        <div className="whp-time-inputs">
           <input
             type="time"
             value={openTime}
             onChange={(e) => setOpenTime(e.target.value)}
           />
-          <span>–</span>
+          <span className="whp-separator">–</span>
           <input
             type="time"
             value={closeTime}
@@ -48,8 +50,8 @@ export default function WorkingHoursPopup({
           />
         </div>
 
-        <div className="popup-actions">
-          <button className="save-btn" onClick={handleSaveWorkingHours}>
+        <div className="whp-actions">
+          <button className="whp-save-btn" onClick={handleSaveWorkingHours}>
             Save
           </button>
         </div>

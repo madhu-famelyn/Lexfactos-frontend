@@ -1,213 +1,210 @@
-/* ================= FORM CONTAINER ================= */
-.full-reg-lawyer-form-container {
-  width: 90%;
+/* ===============================
+   Lawyer Full Registration Styles
+   (Scoped with .lfr- prefix)
+==================================*/
+
+/* Container */
+.lfr-container {
   max-width: 900px;
-  margin: 30px auto;
-  padding: 20px 25px;
+  margin: 60px auto;
+  padding: 40px 50px;
   background: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  font-family: "Poppins", sans-serif;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  font-family: "Inter", "Geist", sans-serif;
   box-sizing: border-box;
 }
 
-/* ================= HEADINGS ================= */
-.full-reg-lawyer-form-container h2 {
+/* Title */
+.lfr-title {
   text-align: center;
-  color: #1a1a2e;
-  margin-bottom: 20px;
+  color: #1e293b;
+  font-size: 1.8rem;
   font-weight: 600;
+  margin-bottom: 30px;
 }
 
-section h3 {
-  margin-top: 25px;
-  margin-bottom: 12px;
-  font-size: 18px;
-  color: #16213e;
-  border-left: 4px solid #0f3460;
-  padding-left: 8px;
-  font-weight: 600;
+/* Form */
+.lfr-form {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
 }
 
-/* ================= ALL INPUT FIELDS MATCH WIDTH ================= */
-input,
-textarea,
-select,
-input[type="file"] {
+/* Each Section */
+.lfr-section {
+  background: #f9fafb;
+  padding: 25px 30px;
+  border-radius: 12px;
+  box-shadow: inset 0 0 0 1px #e5e7eb;
+}
+
+.lfr-section-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 15px;
+  color: #334155;
+}
+
+/* Inputs & Textarea */
+.lfr-section input,
+.lfr-section textarea,
+.lfr-section select {
   width: 100%;
-  min-width: 100%;
-  max-width: 100%;
-  padding: 12px 15px;
-  margin: 8px 0;
-  border: 1.8px solid #ddd;
+  padding: 10px 14px;
+  margin-bottom: 12px;
+  font-size: 0.95rem;
+  border: 1px solid #cbd5e1;
   border-radius: 8px;
+  background-color: #fff;
   outline: none;
-  font-size: 15px;
-  transition: 0.3s;
-  box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
-  display: block;
+  transition: border 0.2s ease;
 }
 
-/* Fix for file input alignment */
-input[type="file"] {
-  background: #fff;
-  cursor: pointer;
+.lfr-section input:focus,
+.lfr-section textarea:focus,
+.lfr-section select:focus {
+  border-color: #2563eb;
 }
 
-/* Focus Effect */
-input:focus,
-textarea:focus,
-select:focus {
-  border-color: #0f3460;
-  box-shadow: 0 0 6px rgba(15, 52, 96, 0.3);
+/* Textarea specifically */
+.lfr-section textarea {
+  resize: vertical;
+  min-height: 90px;
 }
 
-/* Textarea */
-textarea {
-  height: 90px;
-  resize: none;
-}
-
-/* ================= NESTED BOX ================= */
-.nested-box {
-  background: #f8f9fb;
+/* Nested Box */
+.lfr-nested-box {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
   padding: 15px;
-  border-left: 3.5px solid #0f3460;
-  border-radius: 8px;
+  border-radius: 10px;
   margin-bottom: 12px;
-  position: relative;
-  box-sizing: border-box;
-  width: 100%;
 }
 
-/* Make nested inputs same width */
-.nested-box input,
-.nested-box select {
-  width: 100% !important;
-  min-width: 100% !important;
-  max-width: 100% !important;
-  box-sizing: border-box;
-}
-
-/* Remove Button */
-.nested-box button {
-  background: #e94560;
+/* Add / Remove Buttons */
+.lfr-add-btn,
+.lfr-remove-btn {
+  background: #2563eb;
   color: #fff;
-  border: none;
-  padding: 6px 10px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 13px;
-  margin-top: 8px;
-}
-
-.nested-box button:hover {
-  background: #c72c41;
-}
-
-/* ================= ADD BUTTONS ================= */
-button[type="button"] {
-  background: #0f3460;
-  color: #fff;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 6px;
-  margin-top: 5px;
-  font-size: 14px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-button[type="button"]:hover {
-  background: #16213e;
-}
-
-/* ================= SUBMIT BUTTON ================= */
-button[type="submit"] {
-  width: 100%;
-  background: #0f3460;
-  color: #fff;
-  border: none;
-  padding: 14px;
-  font-size: 16px;
+  padding: 8px 16px;
   border-radius: 8px;
-  margin-top: 18px;
+  border: none;
+  font-size: 0.9rem;
   cursor: pointer;
-  font-weight: 600;
-  transition: 0.3s;
+  transition: background 0.2s ease;
+  width: fit-content;
 }
 
-button[type="submit"]:hover {
-  background: #16213e;
+.lfr-add-btn:hover {
+  background: #1d4ed8;
 }
 
-button[type="submit"]:disabled {
-  background: #777;
+.lfr-remove-btn {
+  background: #dc2626;
+}
+
+.lfr-remove-btn:hover {
+  background: #b91c1c;
+}
+
+/* Submit Button */
+.lfr-submit-btn {
+  background: #10b981;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: background 0.3s ease;
+  align-self: center;
+}
+
+.lfr-submit-btn:hover {
+  background: #059669;
+}
+
+.lfr-submit-btn:disabled {
+  opacity: 0.6;
   cursor: not-allowed;
 }
 
-/* ================= POPUP ================= */
-.popup-overlay {
+/* Popup Overlay */
+.lfr-popup-overlay {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  right: 0;
+  bottom: 0;
   background: rgba(0, 0, 0, 0.45);
   display: flex;
   justify-content: center;
   align-items: center;
-  backdrop-filter: blur(3px);
+  z-index: 1000;
 }
 
-.popup-box {
+/* Popup Box */
+.lfr-popup-box {
   background: #fff;
-  width: 300px;
-  padding: 18px;
-  border-radius: 10px;
+  border-radius: 14px;
+  padding: 25px 35px;
   text-align: center;
-  animation: fadeIn 0.3s ease-in;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  max-width: 380px;
 }
 
-.popup-box.success h3 {
-  color: #0f740f;
+.lfr-popup-box.success {
+  border-top: 5px solid #10b981;
 }
 
-.popup-box.error h3 {
-  color: #c72c41;
+.lfr-popup-box.error {
+  border-top: 5px solid #ef4444;
 }
 
-.popup-box button {
-  margin-top: 12px;
-  background: #0f3460;
+.lfr-popup-box h3 {
+  margin-bottom: 20px;
+  color: #111827;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+/* Close Button */
+.lfr-popup-close {
+  background: #2563eb;
   color: #fff;
   border: none;
-  padding: 7px 14px;
+  padding: 8px 18px;
   border-radius: 6px;
   cursor: pointer;
+  font-weight: 500;
 }
 
-/* ================= RESPONSIVE ================= */
-@media (max-width: 600px) {
-  .full-reg-lawyer-form-container {
-    width: 95%;
-    padding: 18px;
-  }
-
-  section h3 {
-    font-size: 16px;
-  }
+.lfr-popup-close:hover {
+  background: #1d4ed8;
 }
 
-/* ================= ANIMATIONS ================= */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(15px);
+/* Responsive Design */
+@media (max-width: 768px) {
+  .lfr-container {
+    padding: 25px 20px;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+
+  .lfr-section {
+    padding: 20px;
+  }
+
+  .lfr-add-btn,
+  .lfr-remove-btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  .lfr-submit-btn {
+    width: 100%;
   }
 }

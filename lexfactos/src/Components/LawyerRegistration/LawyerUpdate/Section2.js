@@ -1,19 +1,66 @@
 import React from "react";
+import { countriesData } from "../../ReusableComponents/CountryData/CountryData";
+import "./Section2.css";
 
 export default function SectionReg2({
   formData,
+  setFormData,
   handleNestedChange,
   handleListChange,
   addListItem,
   removeListItem,
 }) {
-  const reg2 = formData.reg2 || { bar_details: [], education: [] };
+  const reg2 = formData.reg2 || { bar_details: [], education: [], languages_spoken: "" };
+
+  // ✅ All Languages
+  const allLanguages = [
+    "Hindi",
+    "English",
+    "Bengali",
+    "Telugu",
+    "Marathi",
+    "Tamil",
+    "Gujarati",
+    "Urdu",
+    "Kannada",
+    "Odia",
+    "Malayalam",
+    "Punjabi",
+    "Assamese",
+    "Maithili",
+    "Arabic",
+    "English (UAE)",
+    "Urdu (UAE)",
+    "Malayalam (UAE)",
+    "Tamil (UAE)",
+    "Tagalog",
+    "Persian (Farsi)",
+    "Pashto",
+  ];
+
+  // ✅ Convert stored string → array for UI
+  const selectedLanguages = reg2.languages_spoken
+    ? reg2.languages_spoken.split(",").map((l) => l.trim())
+    : [];
+
+  // ✅ Handle add language
+  const addLanguage = (value) => {
+    if (!value) return;
+    const updated = [...new Set([...selectedLanguages, value])];
+    handleNestedChange("reg2", "languages_spoken", updated.join(", "));
+  };
+
+  // ✅ Handle remove language
+  const removeLanguage = (lang) => {
+    const updated = selectedLanguages.filter((l) => l !== lang);
+    handleNestedChange("reg2", "languages_spoken", updated.join(", "));
+  };
 
   return (
     <div className="lu-section">
       <h3 className="lu-section-title">About & Qualifications</h3>
 
-      {/* Bio */}
+      {/* Short Bio */}
       <div className="lu-field">
         <label>Short Bio *</label>
         <textarea
@@ -30,87 +77,106 @@ export default function SectionReg2({
           <input
             type="number"
             value={reg2.years_of_experience || ""}
-            onChange={(e) => handleNestedChange("reg2", "years_of_experience", e.target.value)}
+            onChange={(e) =>
+              handleNestedChange("reg2", "years_of_experience", e.target.value)
+            }
             placeholder="e.g: 5"
           />
         </div>
 
+        {/* ✅ Languages Spoken with tag-style UI */}
         <div className="lu-field">
           <label>Languages Spoken *</label>
-          <input
-            type="text"
-            value={reg2.languages_spoken || ""}
-            onChange={(e) => handleNestedChange("reg2", "languages_spoken", e.target.value)}
-            placeholder="e.g: English, Tamil, Hindi"
-          />
+
+          <div className="lang-select-box">
+            <div className="selected-tags">
+              {selectedLanguages.map((lang, i) => (
+                <span key={i} className="tag">
+                  {lang}
+                  <span className="remove-tag" onClick={() => removeLanguage(lang)}>
+                    ×
+                  </span>
+                </span>
+              ))}
+            </div>
+
+            <select
+              onChange={(e) => {
+                addLanguage(e.target.value);
+                e.target.value = "";
+              }}
+              className="lang-dropdown"
+            >
+              <option value="">Select Language</option>
+              {allLanguages.map((lang) => (
+                <option key={lang} value={lang}>
+                  {lang}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
       </div>
 
-      {/* ================= BAR COUNCIL DETAILS ================= */}
+      {/* BAR DETAILS */}
       <h4 className="lu-sub-title">Bar Registration Details</h4>
 
-      {reg2.bar_details?.length > 0 ? (
-        reg2.bar_details.map((bar, index) => (
+      {reg2.bar_details?.map((bar, index) => {
+        const states = bar.country ? Object.keys(countriesData[bar.country] || {}) : [];
+        const cities =
+          bar.country && bar.state ? countriesData[bar.country][bar.state] || [] : [];
+
+        return (
           <div key={index} className="lu-repeat-block">
             <span className="lu-badge">Bar Council #{index + 1}</span>
 
             <div className="lu-grid">
-              <div className="lu-field">
-                <label>Country *</label>
-                <input
-                  value={bar.country || ""}
-                  onChange={(e) =>
-                    handleListChange("reg2", "bar_details", index, "country", e.target.value)
-                  }
-                  placeholder="India"
-                />
-              </div>
+              {/* Country Dropdown */}
+              <select
+                value={bar.country || ""}
+                onChange={(e) =>
+                  handleListChange("reg2", "bar_details", index, "country", e.target.value)
+                }
+              >
+                <option value="">Select Country</option>
+                {Object.keys(countriesData).map((country) => (
+                  <option key={country} value={country}>
+                    {country}
+                  </option>
+                ))}
+              </select>
 
-              <div className="lu-field">
-                <label>State *</label>
-                <input
-                  value={bar.state || ""}
-                  onChange={(e) =>
-                    handleListChange("reg2", "bar_details", index, "state", e.target.value)
-                  }
-                  placeholder="Tamil Nadu"
-                />
-              </div>
+              {/* State Dropdown */}
+              <select
+                value={bar.state || ""}
+                onChange={(e) =>
+                  handleListChange("reg2", "bar_details", index, "state", e.target.value)
+                }
+                disabled={!bar.country}
+              >
+                <option value="">Select State</option>
+                {states.map((state) => (
+                  <option key={state} value={state}>
+                    {state}
+                  </option>
+                ))}
+              </select>
 
-              <div className="lu-field">
-                <label>City *</label>
-                <input
-                  value={bar.city || ""}
-                  onChange={(e) =>
-                    handleListChange("reg2", "bar_details", index, "city", e.target.value)
-                  }
-                  placeholder="Chennai"
-                />
-              </div>
-            </div>
-
-            <div className="lu-grid">
-              <div className="lu-field">
-                <label>Bar License Number *</label>
-                <input
-                  value={bar.bar_license_number || ""}
-                  onChange={(e) =>
-                    handleListChange("reg2", "bar_details", index, "bar_license_number", e.target.value)
-                  }
-                  placeholder="TN123456"
-                />
-              </div>
-
-              <div className="lu-field">
-                <label>Bar Association Name *</label>
-                <input
-                  value={bar.bar_association_name || ""}
-                  onChange={(e) =>
-                    handleListChange("reg2", "bar_details", index, "bar_association_name", e.target.value)
-                  }
-                  placeholder="Madras High Court Bar Association"
-                />
-              </div>
+              {/* City Dropdown */}
+              <select
+                value={bar.city || ""}
+                onChange={(e) =>
+                  handleListChange("reg2", "bar_details", index, "city", e.target.value)
+                }
+                disabled={!bar.state}
+              >
+                <option value="">Select City</option>
+                {cities.map((city) => (
+                  <option key={city} value={city}>
+                    {city}
+                  </option>
+                ))}
+              </select>
             </div>
 
             <button
@@ -121,10 +187,8 @@ export default function SectionReg2({
               Remove
             </button>
           </div>
-        ))
-      ) : (
-        <p className="text-gray">No bar details added</p>
-      )}
+        );
+      })}
 
       <button
         type="button"
@@ -142,62 +206,45 @@ export default function SectionReg2({
         + Add Bar Registration
       </button>
 
-      {/* ================= EDUCATION ================= */}
+      {/* EDUCATION */}
       <h4 className="lu-sub-title">Education</h4>
 
-      {reg2.education?.length > 0 ? (
-        reg2.education.map((edu, index) => (
-          <div key={index} className="lu-repeat-block">
-            <span className="lu-badge">Education #{index + 1}</span>
+      {reg2.education?.map((edu, index) => (
+        <div key={index} className="lu-repeat-block">
+          <span className="lu-badge">Education #{index + 1}</span>
 
-            <div className="lu-grid">
-              <div className="lu-field">
-                <label>Degree *</label>
-                <input
-                  value={edu.degree || ""}
-                  onChange={(e) =>
-                    handleListChange("reg2", "education", index, "degree", e.target.value)
-                  }
-                  placeholder="LLB / LLM"
-                />
-              </div>
+          <input
+            value={edu.degree || ""}
+            onChange={(e) =>
+              handleListChange("reg2", "education", index, "degree", e.target.value)
+            }
+            placeholder="Degree"
+          />
+          <input
+            value={edu.college_name || ""}
+            onChange={(e) =>
+              handleListChange("reg2", "education", index, "college_name", e.target.value)
+            }
+            placeholder="College"
+          />
+          <input
+            type="number"
+            value={edu.graduation_year || ""}
+            onChange={(e) =>
+              handleListChange("reg2", "education", index, "graduation_year", e.target.value)
+            }
+            placeholder="Year"
+          />
 
-              <div className="lu-field">
-                <label>College / University *</label>
-                <input
-                  value={edu.college_name || ""}
-                  onChange={(e) =>
-                    handleListChange("reg2", "education", index, "college_name", e.target.value)
-                  }
-                  placeholder="XYZ Law University"
-                />
-              </div>
-
-              <div className="lu-field">
-                <label>Graduation Year *</label>
-                <input
-                  type="number"
-                  value={edu.graduation_year || ""}
-                  onChange={(e) =>
-                    handleListChange("reg2", "education", index, "graduation_year", e.target.value)
-                  }
-                  placeholder="2020"
-                />
-              </div>
-            </div>
-
-            <button
-              type="button"
-              className="lu-remove-btn"
-              onClick={() => removeListItem("reg2", "education", index)}
-            >
-              Remove
-            </button>
-          </div>
-        ))
-      ) : (
-        <p className="text-gray">No education details added</p>
-      )}
+          <button
+            type="button"
+            className="lu-remove-btn"
+            onClick={() => removeListItem("reg2", "education", index)}
+          >
+            Remove
+          </button>
+        </div>
+      ))}
 
       <button
         type="button"

@@ -1,186 +1,119 @@
-/* ===================== 🕒 Working Hours Popup ===================== */
-
-.working-hours-overlay {
+/* Overlay */
+.whp-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(17, 24, 39, 0.45); /* semi-transparent dark overlay */
+  background: rgba(0, 0, 0, 0.4);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 2000;
-  backdrop-filter: blur(3px);
-  animation: fadeIn 0.25s ease-in-out;
+  z-index: 999;
 }
 
-.working-hours-popup {
-  position: relative; /* ✅ Needed for close button absolute position */
-  background: #fff;
-  width: 420px;
-  padding: 2rem;
+/* Popup Box */
+.whp-popup {
+  background: white;
+  width: 380px; /* Fixed width so inputs don’t expand */
+  max-width: 90%;
+  padding: 22px;
   border-radius: 14px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-  text-align: center;
-  font-family: "Inter", sans-serif;
-  animation: slideUp 0.3s ease-out;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  position: relative;
+  animation: fadeIn 0.3s ease-in-out;
 }
 
-.working-hours-popup h3 {
-  font-size: 1.4rem;
+/* Title */
+.whp-title {
+  font-size: 18px;
   font-weight: 600;
-  margin-bottom: 1.2rem;
-  color: #111827;
+  margin-bottom: 14px;
+  text-align: center;
 }
 
-/* === ❌ Close button === */
-.close-workingHours {
+/* Close Button */
+.whp-close-btn {
   position: absolute;
   top: 12px;
-  right: 14px;
-  background: transparent;
+  right: 12px;
   border: none;
-  font-size: 20px;
-  color: #6b7280;
+  background: none;
+  font-size: 18px;
   cursor: pointer;
-  transition: 0.2s ease;
+  color: #666;
 }
 
-.close-workingHours:hover {
-  color: #000;
-  transform: scale(1.1);
-}
-
-/* === Days selector === */
-.days-selector {
+/* Days Buttons */
+.whp-days {
   display: flex;
-  justify-content: center;
   flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-bottom: 1.5rem;
+  gap: 8px;
+  justify-content: center;
+  margin-bottom: 18px;
 }
 
-.day-btn {
-  border: 1px solid #d1d5db;
-  background: #f9fafb;
-  color: #374151;
-  font-size: 0.9rem;
-  font-weight: 500;
-  padding: 0.45rem 0.9rem;
-  border-radius: 8px;
+.whp-day-btn {
+  padding: 6px 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background: #fff;
   cursor: pointer;
-  transition: all 0.2s ease;
+  font-size: 13px;
+  min-width: 45px;
+  transition: 0.2s;
 }
 
-.day-btn:hover {
-  background: #e5e7eb;
-}
-
-.day-btn.active {
-  background: #05308D;
+.whp-day-active {
+  background: #0a65cc;
   color: #fff;
-  border-color: #05308D;
-  font-weight: 600;
+  border-color: #0a65cc;
 }
 
-/* === Time input row === */
-.time-inputs {
+/* ✅ Fix Time Input Width */
+.whp-time-inputs {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 0.8rem;
-  margin-bottom: 1.8rem;
+  gap: 12px;
+  margin: 18px 0;
 }
 
-.time-inputs input[type="time"] {
-  padding: 0.5rem;
-  border: 1px solid #d1d5db;
+.whp-time-inputs input {
+  width: 120px;  /* ✅ Fixed input width */
+  padding: 6px 10px;
+  border: 1px solid #bbb;
   border-radius: 6px;
-  font-size: 0.9rem;
-  color: #111827;
-  cursor: pointer;
+  font-size: 14px;
   outline: none;
-  transition: border 0.2s ease;
+  text-align: center;
 }
 
-.time-inputs input[type="time"]:focus {
-  border-color: #05308D;
+.whp-separator {
+  font-size: 18px;
+  font-weight: bold;
+  color: #444;
 }
 
-.time-inputs span {
-  font-weight: 600;
-  color: #4b5563;
-}
-
-/* === Popup action buttons === */
-.popup-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 0.8rem;
-}
-
-.cancel-btn,
-.save-btn {
+/* Save Button */
+.whp-save-btn {
+  background: #0a65cc;
   border: none;
-  border-radius: 8px;
-  padding: 0.55rem 1.2rem;
-  font-size: 0.9rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.25s ease;
-}
-
-.cancel-btn {
-  background: #e5e7eb;
-  color: #374151;
-}
-
-.cancel-btn:hover {
-  background: #d1d5db;
-}
-
-.save-btn {
-  background: #05308D;
-  color: #fff;
-}
-
-.save-btn:hover {
-  background: #042874;
-  color: white;
-}
-
-/* === Working Hours field in main form === */
-.lr-step4-workinghours-display {
-  background: #f9fafb;
-  color: #374151;
-  padding: 0.75rem 1rem;
-  border-radius: 8px;
-  border: 1px solid #d1d5db;
-  cursor: pointer;
+  padding: 8px 16px;
   width: 100%;
-  box-sizing: border-box;
-  transition: all 0.2s ease;
+  border-radius: 6px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 500;
 }
 
-.lr-step4-workinghours-display:hover {
-  background: #f3f4f6;
-  border-color: #9ca3af;
+.whp-save-btn:hover {
+  background: #084e9a;
 }
 
-/* === Animations === */
+/* Fade Animation */
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes slideUp {
-  from {
-    transform: translateY(20px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }

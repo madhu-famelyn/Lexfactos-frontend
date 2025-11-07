@@ -16,12 +16,29 @@ const LawyerFullRegistration = () => {
     hashed_password: "",
     bio: "",
     years_of_experience: "",
-    bar_details: [initialNested(["bar_license_number", "bar_association_name", "enrollment_year", "country", "state", "city"])],
+    bar_details: [
+      initialNested([
+        "bar_license_number",
+        "bar_association_name",
+        "enrollment_year",
+        "country",
+        "state",
+        "city",
+      ]),
+    ],
     languages_spoken: "",
     education: [initialNested(["degree", "college_name", "graduation_year"])],
     practice_area: "",
     work_experience: [initialNested(["company_name", "role", "duration"])],
-    address: [initialNested(["street_address", "country", "state", "city", "zip_code"])],
+    address: [
+      initialNested([
+        "street_address",
+        "country",
+        "state",
+        "city",
+        "zip_code",
+      ]),
+    ],
   });
 
   const [photoFile, setPhotoFile] = useState(null);
@@ -44,7 +61,12 @@ const LawyerFullRegistration = () => {
 
   const removeNested = (field, i) => {
     const update = form[field].filter((_, idx) => idx !== i);
-    setForm({ ...form, [field]: update.length ? update : [initialNested(Object.keys(form[field][0]))] });
+    setForm({
+      ...form,
+      [field]: update.length
+        ? update
+        : [initialNested(Object.keys(form[field][0]))],
+    });
   };
 
   const handleSubmit = async (e) => {
@@ -53,62 +75,100 @@ const LawyerFullRegistration = () => {
     setPopup({ type: "", message: "" });
 
     const fd = new FormData();
-
     Object.entries(form).forEach(([key, value]) => {
-      if (Array.isArray(value)) {
-        fd.append(key, JSON.stringify(value));
-      } else {
-        fd.append(key, value);
-      }
+      if (Array.isArray(value)) fd.append(key, JSON.stringify(value));
+      else fd.append(key, value);
     });
 
     if (photoFile) fd.append("photo", photoFile);
-try {
-  await axios.post(
-    "https://lexfactos-backend.fly.dev/lawyer/full/",
-    fd,
-    { headers: { "Content-Type": "multipart/form-data" } }
-  );
 
-  setPopup({ type: "success", message: "✅ Registration Successful!" });
-  setLoading(false);
-} catch (err) {
-  setLoading(false);
-  const msg = err.response?.data?.detail || "Something went wrong";
-
-  if (msg.toLowerCase().includes("unique")) {
-    setPopup({ type: "error", message: "⚠️ Unique ID already exists. Please choose another!" });
-  } else if (msg.toLowerCase().includes("email") || msg.toLowerCase().includes("phone")) {
-    setPopup({ type: "error", message: "⚠️ Email or Phone already exists!" });
-  } else {
-    setPopup({ type: "error", message: msg });
-  }
-}
-
+    try {
+      await axios.post("https://lexfactos-backend.fly.dev/lawyer/full/", fd, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+      setPopup({ type: "success", message: "✅ Registration Successful!" });
+      setLoading(false);
+    } catch (err) {
+      setLoading(false);
+      const msg = err.response?.data?.detail || "Something went wrong";
+      if (msg.toLowerCase().includes("unique")) {
+        setPopup({
+          type: "error",
+          message: "⚠️ Unique ID already exists. Please choose another!",
+        });
+      } else if (
+        msg.toLowerCase().includes("email") ||
+        msg.toLowerCase().includes("phone")
+      ) {
+        setPopup({
+          type: "error",
+          message: "⚠️ Email or Phone already exists!",
+        });
+      } else {
+        setPopup({ type: "error", message: msg });
+      }
+    }
   };
 
   return (
-    <div className="full-reg-lawyer-form-container">
-      <h2>Lawyer Registration</h2>
+    <div className="lfr-container">
+      <h2 className="lfr-title">Lawyer Registration</h2>
 
-      <form onSubmit={handleSubmit}>
-
+      <form onSubmit={handleSubmit} className="lfr-form">
         {/* BASIC DETAILS */}
-        <section>
-          <h3>Basic Info</h3>
-          <input placeholder="Full Name *" name="full_name" onChange={handleChange} required />
-          <input placeholder="Unique ID (username) *" name="unique_id" onChange={handleChange} required />
-          <input placeholder="Email *" name="email" type="email" onChange={handleChange} required />
-          <input placeholder="Phone Number *" name="phone_number" type="text" onChange={handleChange} required />
-          <input placeholder="Password *" name="hashed_password" type="password" onChange={handleChange} required />
-          <input type="file" onChange={(e) => setPhotoFile(e.target.files[0])} required />
+        <section className="lfr-section">
+          <h3 className="lfr-section-title">Basic Info</h3>
+          <input
+            placeholder="Full Name *"
+            name="full_name"
+            onChange={handleChange}
+            required
+          />
+          <input
+            placeholder="Unique ID (username) *"
+            name="unique_id"
+            onChange={handleChange}
+            required
+          />
+          <input
+            placeholder="Email *"
+            name="email"
+            type="email"
+            onChange={handleChange}
+            required
+          />
+          <input
+            placeholder="Phone Number *"
+            name="phone_number"
+            type="text"
+            onChange={handleChange}
+            required
+          />
+          <input
+            placeholder="Password *"
+            name="hashed_password"
+            type="password"
+            onChange={handleChange}
+            required
+          />
+          <input
+            type="file"
+            onChange={(e) => setPhotoFile(e.target.files[0])}
+            required
+          />
         </section>
 
         {/* PROFILE */}
-        <section>
-          <h3>Profile</h3>
-          <textarea placeholder="Bio *" name="bio" onChange={handleChange} required />
-          <input placeholder="Years of Experience *"
+        <section className="lfr-section">
+          <h3 className="lfr-section-title">Profile</h3>
+          <textarea
+            placeholder="Bio *"
+            name="bio"
+            onChange={handleChange}
+            required
+          />
+          <input
+            placeholder="Years of Experience *"
             name="years_of_experience"
             type="number"
             onChange={handleChange}
@@ -117,27 +177,59 @@ try {
         </section>
 
         {/* BAR DETAILS */}
-        <section>
-          <h3>Bar Details</h3>
+        <section className="lfr-section">
+          <h3 className="lfr-section-title">Bar Details</h3>
           {form.bar_details.map((b, i) => (
-            <div key={i} className="nested-box">
-              <input placeholder="License Number" onChange={(e) => handleNested("bar_details", i, "bar_license_number", e.target.value)} required />
-              <input placeholder="Association Name" onChange={(e) => handleNested("bar_details", i, "bar_association_name", e.target.value)} required />
-              <input type="date" onChange={(e) => handleNested("bar_details", i, "enrollment_year", e.target.value)} required />
-              <LocationSelector onLocationChange={(c, s, ci) => {
-                handleNested("bar_details", i, "country", c);
-                handleNested("bar_details", i, "state", s);
-                handleNested("bar_details", i, "city", ci);
-              }} />
-              <button type="button" onClick={() => removeNested("bar_details", i)}>Remove</button>
+            <div key={i} className="lfr-nested-box">
+              <input
+                placeholder="License Number"
+                onChange={(e) =>
+                  handleNested("bar_details", i, "bar_license_number", e.target.value)
+                }
+                required
+              />
+              <input
+                placeholder="Association Name"
+                onChange={(e) =>
+                  handleNested("bar_details", i, "bar_association_name", e.target.value)
+                }
+                required
+              />
+              <input
+                type="date"
+                onChange={(e) =>
+                  handleNested("bar_details", i, "enrollment_year", e.target.value)
+                }
+                required
+              />
+              <LocationSelector
+                onLocationChange={(c, s, ci) => {
+                  handleNested("bar_details", i, "country", c);
+                  handleNested("bar_details", i, "state", s);
+                  handleNested("bar_details", i, "city", ci);
+                }}
+              />
+              <button
+                type="button"
+                onClick={() => removeNested("bar_details", i)}
+                className="lfr-remove-btn"
+              >
+                Remove
+              </button>
             </div>
           ))}
-          <button type="button" onClick={() => addNested("bar_details")}>+ Add Bar</button>
+          <button
+            type="button"
+            onClick={() => addNested("bar_details")}
+            className="lfr-add-btn"
+          >
+            + Add Bar
+          </button>
         </section>
 
         {/* PRACTICE AREAS */}
-        <section>
-          <h3>Practice Area</h3>
+        <section className="lfr-section">
+          <h3 className="lfr-section-title">Practice Area</h3>
           <PracticeAreaDropdown
             value={form.practice_area}
             onChange={(v) => setForm({ ...form, practice_area: v })}
@@ -145,37 +237,68 @@ try {
         </section>
 
         {/* ADDRESS */}
-        <section>
-          <h3>Address</h3>
+        <section className="lfr-section">
+          <h3 className="lfr-section-title">Address</h3>
           {form.address.map((a, i) => (
-            <div key={i} className="nested-box">
-              <input placeholder="Street Address"
-                onChange={(e) => handleNested("address", i, "street_address", e.target.value)}
+            <div key={i} className="lfr-nested-box">
+              <input
+                placeholder="Street Address"
+                onChange={(e) =>
+                  handleNested("address", i, "street_address", e.target.value)
+                }
                 required
               />
-              <LocationSelector onLocationChange={(c, s, ci) => {
-                handleNested("address", i, "country", c);
-                handleNested("address", i, "state", s);
-                handleNested("address", i, "city", ci);
-              }} />
-              <input placeholder="Zip Code"
-                onChange={(e) => handleNested("address", i, "zip_code", e.target.value)}
+              <LocationSelector
+                onLocationChange={(c, s, ci) => {
+                  handleNested("address", i, "country", c);
+                  handleNested("address", i, "state", s);
+                  handleNested("address", i, "city", ci);
+                }}
+              />
+              <input
+                placeholder="Zip Code"
+                onChange={(e) =>
+                  handleNested("address", i, "zip_code", e.target.value)
+                }
                 required
               />
-              <button type="button" onClick={() => removeNested("address", i)}>Remove</button>
+              <button
+                type="button"
+                onClick={() => removeNested("address", i)}
+                className="lfr-remove-btn"
+              >
+                Remove
+              </button>
             </div>
           ))}
-          <button type="button" onClick={() => addNested("address")}>+ Add Address</button>
+          <button
+            type="button"
+            onClick={() => addNested("address")}
+            className="lfr-add-btn"
+          >
+            + Add Address
+          </button>
         </section>
 
-        <button type="submit" disabled={loading}>{loading ? "Submitting..." : "Submit"}</button>
+        <button
+          type="submit"
+          disabled={loading}
+          className="lfr-submit-btn"
+        >
+          {loading ? "Submitting..." : "Submit"}
+        </button>
       </form>
 
       {popup.message && (
-        <div className="popup-overlay">
-          <div className={`popup-box ${popup.type}`}>
+        <div className="lfr-popup-overlay">
+          <div className={`lfr-popup-box ${popup.type}`}>
             <h3>{popup.message}</h3>
-            <button onClick={() => setPopup({ type: "", message: "" })}>Close</button>
+            <button
+              onClick={() => setPopup({ type: "", message: "" })}
+              className="lfr-popup-close"
+            >
+              Close
+            </button>
           </div>
         </div>
       )}
