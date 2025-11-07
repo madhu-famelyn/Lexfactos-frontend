@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "./LawyerFullRegistration.css";
-import CustomDropdown from "../../ReusableComponents/CustomDropDown/CustomDropDown";
 import PracticeAreaDropdown from "../../ReusableComponents/PracticeArea/PracticeArea";
 import LocationSelector from "../../ReusableComponents/CustomDropDown/LocationSelector/Locations";
 
@@ -13,7 +12,7 @@ const LawyerFullRegistration = () => {
     full_name: "",
     email: "",
     phone_number: "",
-    unique_id: "",  // ✅ Added here
+    unique_id: "",
     hashed_password: "",
     bio: "",
     years_of_experience: "",
@@ -66,9 +65,11 @@ const LawyerFullRegistration = () => {
     if (photoFile) fd.append("photo", photoFile);
 
     try {
-      const res = await axios.post("https://lexfactos-backend.fly.dev/lawyer/full/", fd, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
+      const _res = await axios.post(
+        "https://lexfactos-backend.fly.dev/lawyer/full/",
+        fd,
+        { headers: { "Content-Type": "multipart/form-data" } }
+      );
 
       setPopup({ type: "success", message: "✅ Registration Successful!" });
       setLoading(false);
@@ -95,17 +96,11 @@ const LawyerFullRegistration = () => {
         {/* BASIC DETAILS */}
         <section>
           <h3>Basic Info</h3>
-
           <input placeholder="Full Name *" name="full_name" onChange={handleChange} required />
-
-          <input placeholder="Unique ID (username) *" name="unique_id" onChange={handleChange} required />  {/* ✅ New Field */}
-
+          <input placeholder="Unique ID (username) *" name="unique_id" onChange={handleChange} required />
           <input placeholder="Email *" name="email" type="email" onChange={handleChange} required />
-
           <input placeholder="Phone Number *" name="phone_number" type="text" onChange={handleChange} required />
-
           <input placeholder="Password *" name="hashed_password" type="password" onChange={handleChange} required />
-
           <input type="file" onChange={(e) => setPhotoFile(e.target.files[0])} required />
         </section>
 
@@ -113,7 +108,12 @@ const LawyerFullRegistration = () => {
         <section>
           <h3>Profile</h3>
           <textarea placeholder="Bio *" name="bio" onChange={handleChange} required />
-          <input placeholder="Years of Experience *" name="years_of_experience" type="number" onChange={handleChange} required />
+          <input placeholder="Years of Experience *"
+            name="years_of_experience"
+            type="number"
+            onChange={handleChange}
+            required
+          />
         </section>
 
         {/* BAR DETAILS */}
@@ -138,7 +138,10 @@ const LawyerFullRegistration = () => {
         {/* PRACTICE AREAS */}
         <section>
           <h3>Practice Area</h3>
-          <PracticeAreaDropdown value={form.practice_area} onChange={(v) => setForm({ ...form, practice_area: v })} />
+          <PracticeAreaDropdown
+            value={form.practice_area}
+            onChange={(v) => setForm({ ...form, practice_area: v })}
+          />
         </section>
 
         {/* ADDRESS */}
@@ -146,13 +149,19 @@ const LawyerFullRegistration = () => {
           <h3>Address</h3>
           {form.address.map((a, i) => (
             <div key={i} className="nested-box">
-              <input placeholder="Street Address" onChange={(e) => handleNested("address", i, "street_address", e.target.value)} required />
+              <input placeholder="Street Address"
+                onChange={(e) => handleNested("address", i, "street_address", e.target.value)}
+                required
+              />
               <LocationSelector onLocationChange={(c, s, ci) => {
                 handleNested("address", i, "country", c);
                 handleNested("address", i, "state", s);
                 handleNested("address", i, "city", ci);
               }} />
-              <input placeholder="Zip Code" onChange={(e) => handleNested("address", i, "zip_code", e.target.value)} required />
+              <input placeholder="Zip Code"
+                onChange={(e) => handleNested("address", i, "zip_code", e.target.value)}
+                required
+              />
               <button type="button" onClick={() => removeNested("address", i)}>Remove</button>
             </div>
           ))}
@@ -162,7 +171,6 @@ const LawyerFullRegistration = () => {
         <button type="submit" disabled={loading}>{loading ? "Submitting..." : "Submit"}</button>
       </form>
 
-      {/* POPUP */}
       {popup.message && (
         <div className="popup-overlay">
           <div className={`popup-box ${popup.type}`}>
@@ -171,7 +179,6 @@ const LawyerFullRegistration = () => {
           </div>
         </div>
       )}
-
     </div>
   );
 };
