@@ -1,5 +1,3 @@
-import React from "react";
-
 export default function SectionPersonal({ formData, setFormData }) {
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -19,6 +17,18 @@ export default function SectionPersonal({ formData, setFormData }) {
             value={formData.full_name || ""}
             onChange={handleChange}
             placeholder="Enter your full name"
+          />
+        </div>
+
+        {/* ✅ Added Unique ID Field */}
+        <div className="lu-field">
+          <label>Unique ID *</label>
+          <input
+            type="text"
+            name="unique_id"
+            value={formData.unique_id || ""}
+            onChange={handleChange}
+            placeholder="Enter unique ID (Ex: LAW-2025-0001)"
           />
         </div>
 

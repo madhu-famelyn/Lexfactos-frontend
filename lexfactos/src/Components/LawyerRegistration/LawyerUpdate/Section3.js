@@ -19,7 +19,7 @@ export default function SectionReg3({
           <input
             type="text"
             placeholder="e.g., Family Law, Criminal Law"
-            value={reg3.practice_area || ""}
+            defaultValue={reg3.practice_area}
             onChange={(e) =>
               handleNestedChange("reg3", "practice_area", e.target.value)
             }
@@ -31,7 +31,7 @@ export default function SectionReg3({
           <input
             type="text"
             placeholder="e.g., Madras High Court, District Court"
-            value={reg3.court_admitted_to || ""}
+            defaultValue={reg3.court_admitted_to}
             onChange={(e) =>
               handleNestedChange("reg3", "court_admitted_to", e.target.value)
             }
@@ -43,7 +43,7 @@ export default function SectionReg3({
           <input
             type="number"
             placeholder="e.g., 2016"
-            value={reg3.active_since || ""}
+            defaultValue={reg3.active_since}
             onChange={(e) =>
               handleNestedChange("reg3", "active_since", e.target.value)
             }
@@ -51,7 +51,7 @@ export default function SectionReg3({
         </div>
       </div>
 
-      {/* ============ WORK EXPERIENCE LIST ============ */}
+      {/* ===== WORK EXPERIENCE LIST ===== */}
       <h4 className="lu-sub-title">Work Experience</h4>
 
       {reg3.work_experience.map((work, index) => (
@@ -62,7 +62,7 @@ export default function SectionReg3({
               <label>Company / Law Firm *</label>
               <input
                 type="text"
-                value={work.company_name}
+                defaultValue={work.company_name}
                 onChange={(e) =>
                   handleListChange("reg3", "work_experience", index, "company_name", e.target.value)
                 }
@@ -74,7 +74,7 @@ export default function SectionReg3({
               <label>Role *</label>
               <input
                 type="text"
-                value={work.role}
+                defaultValue={work.role}
                 onChange={(e) =>
                   handleListChange("reg3", "work_experience", index, "role", e.target.value)
                 }
@@ -86,7 +86,7 @@ export default function SectionReg3({
               <label>Duration *</label>
               <input
                 type="text"
-                value={work.duration}
+                defaultValue={work.duration}
                 onChange={(e) =>
                   handleListChange("reg3", "work_experience", index, "duration", e.target.value)
                 }
@@ -99,7 +99,7 @@ export default function SectionReg3({
             <label>Description / Key Responsibilities</label>
             <textarea
               placeholder="Brief description of work handled..."
-              value={work.description}
+              defaultValue={work.description}
               onChange={(e) =>
                 handleListChange("reg3", "work_experience", index, "description", e.target.value)
               }
@@ -133,3 +133,4 @@ export default function SectionReg3({
     </div>
   );
 }
+
