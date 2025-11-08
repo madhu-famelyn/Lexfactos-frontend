@@ -167,7 +167,8 @@ const handleSubmit = async (e) => {
                 <span className="photo-icon">🖼</span>
               )}
             </div>
-            <label className="upload-btn">
+            <p/>
+            <label className="upload-btn-option">
               <FiUpload className="upload-icon" />
               Upload Profile Photo *
               <input type="file" accept="image/*" name="photo" onChange={handleChange} />

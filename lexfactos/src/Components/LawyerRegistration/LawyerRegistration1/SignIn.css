@@ -3,6 +3,47 @@
    Clean, Minimal Design
 ============================ */
 
+
+.upload-btn-option {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(90deg, #05308D 0%, #2563EB 100%);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 12px 22px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s ease;
+  box-shadow: 0px 4px 6px -4px #0000001A, 0px 10px 15px -3px #0000001A;
+  border: none;
+}
+
+/* Hover effect */
+.upload-btn-option:hover {
+  opacity: 0.92;
+  transform: translateY(-2px);
+  box-shadow: 0px 6px 8px -4px #0000001A, 0px 12px 18px -3px #0000001F;
+}
+
+/* Click effect */
+.upload-btn-option:active {
+  transform: scale(0.98);
+  box-shadow: 0px 2px 4px -2px #0000001A, 0px 6px 10px -2px #0000001A;
+}
+
+/* Hide default file input */
+.upload-btn-option input {
+  display: none;
+}
+
+/* Icon styling */
+.upload-icon {
+  font-size: 18px;
+}
+
+
 .registration-container {
   display: flex;
   justify-content: center;
