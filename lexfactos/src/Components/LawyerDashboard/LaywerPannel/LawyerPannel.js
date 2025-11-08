@@ -20,8 +20,12 @@ const LawyerPannel = () => {
   const toggleSidebar = () => setIsOpen(!isOpen);
 
   const handleSignOut = () => {
-    // 🟢 Add your logout logic here (e.g., clear token, redirect to login)
-    console.log("User signed out");
+    // ✅ Clear authentication
+    localStorage.clear();
+    sessionStorage.clear();
+
+    // ✅ Redirect + Refresh App
+    window.location.href = "/";
   };
 
   return (
@@ -44,9 +48,7 @@ const LawyerPannel = () => {
             <li>
               <Link
                 to="/lawyer-dashboard"
-                className={
-                  location.pathname === "/lawyer-dashboard" ? "active" : ""
-                }
+                className={location.pathname === "/lawyer-dashboard" ? "active" : ""}
                 onClick={() => setIsOpen(false)}
               >
                 <LayoutDashboard size={18} /> Dashboard
@@ -56,9 +58,7 @@ const LawyerPannel = () => {
             <li>
               <Link
                 to="/lawyer-profile"
-                className={
-                  location.pathname === "/lawyer-profile" ? "active" : ""
-                }
+                className={location.pathname === "/lawyer-profile" ? "active" : ""}
                 onClick={() => setIsOpen(false)}
               >
                 <User size={18} /> My Profile
@@ -68,9 +68,7 @@ const LawyerPannel = () => {
             <li>
               <Link
                 to="/lawyer-appointments"
-                className={
-                  location.pathname === "/lawyer-appointments" ? "active" : ""
-                }
+                className={location.pathname === "/lawyer-appointments" ? "active" : ""}
                 onClick={() => setIsOpen(false)}
               >
                 <CalendarDays size={18} /> Appointments
@@ -80,9 +78,7 @@ const LawyerPannel = () => {
             <li>
               <Link
                 to="/lawyer-reviews"
-                className={
-                  location.pathname === "/lawyer-reviews" ? "active" : ""
-                }
+                className={location.pathname === "/lawyer-reviews" ? "active" : ""}
                 onClick={() => setIsOpen(false)}
               >
                 <Star size={18} /> Client Reviews
@@ -92,9 +88,7 @@ const LawyerPannel = () => {
             <li>
               <Link
                 to="/lawyer-update"
-                className={
-                  location.pathname === "/lawyer-update" ? "active" : ""
-                }
+                className={location.pathname === "/lawyer-update" ? "active" : ""}
                 onClick={() => setIsOpen(false)}
               >
                 <Settings size={18} /> Account Settings
@@ -104,9 +98,7 @@ const LawyerPannel = () => {
             <li>
               <Link
                 to="/lawyer-support"
-                className={
-                  location.pathname === "/lawyer-support" ? "active" : ""
-                }
+                className={location.pathname === "/lawyer-support" ? "active" : ""}
                 onClick={() => setIsOpen(false)}
               >
                 <HelpCircle size={18} /> Help & Support
