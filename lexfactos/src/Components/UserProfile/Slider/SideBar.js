@@ -19,6 +19,15 @@ const Sidebar = () => {
 
   const toggleSidebar = () => setIsOpen(!isOpen);
 
+  const handleLogout = () => {
+    // ✅ Clear authentication data
+    localStorage.clear();
+    sessionStorage.clear();
+
+    // ✅ Full app refresh + redirect to home/login
+    window.location.href = "/";
+  };
+
   const menuItems = [
     { name: "Home", icon: <FaHome />, path: "/" },
     { name: "Post a Job", icon: <FaBriefcase />, path: "/post-job" },
@@ -61,7 +70,7 @@ const Sidebar = () => {
 
         {/* Footer */}
         <div className="sidebar-footer">
-          <button>
+          <button onClick={handleLogout}>
             <FaSignOutAlt /> Sign Out
           </button>
         </div>
