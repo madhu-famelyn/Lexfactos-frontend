@@ -15,15 +15,22 @@ import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import AddComments from "../Comments/AddComments";
 import L from "leaflet";
 
-// ✅ helper to auto fit all markers
+// ✅ helper to auto fit all markers safely
 function FitBounds({ addresses }) {
   const map = useMap();
   useEffect(() => {
     if (addresses && addresses.length > 0) {
-      const bounds = L.latLngBounds(
-        addresses.map((a) => [parseFloat(a.latitude), parseFloat(a.longitude)])
-      );
-      map.fitBounds(bounds, { padding: [50, 50] });
+      const validCoords = addresses
+        .map((a) => [
+          parseFloat(a.latitude || 17.3616),
+          parseFloat(a.longitude || 78.4747),
+        ])
+        .filter(([lat, lng]) => !isNaN(lat) && !isNaN(lng));
+
+      if (validCoords.length > 0) {
+        const bounds = L.latLngBounds(validCoords);
+        map.fitBounds(bounds, { padding: [50, 50] });
+      }
     }
   }, [addresses, map]);
   return null;
@@ -42,7 +49,7 @@ export default function LawyerProfilePage() {
         setError("");
         const data = await getLawyerById(id);
 
-        // ✅ Safely parse nested JSON fields if needed
+        // ✅ Safely parse nested JSON fields
         const safeParse = (value) => {
           if (!value) return [];
           if (typeof value === "string") {
@@ -57,23 +64,34 @@ export default function LawyerProfilePage() {
 
         if (data.profile) {
           data.profile.bar_details = safeParse(data.profile.bar_details);
-          data.profile.languages_spoken = safeParse(data.profile.languages_spoken);
+          data.profile.languages_spoken = safeParse(
+            data.profile.languages_spoken
+          );
           data.profile.education = safeParse(data.profile.education);
         }
 
         if (data.registration3) {
-          data.registration3.work_experience = safeParse(data.registration3.work_experience);
+          data.registration3.work_experience = safeParse(
+            data.registration3.work_experience
+          );
         }
 
         if (Array.isArray(data.registration5)) {
           data.registration5 = data.registration5.map((r) => ({
             ...r,
-            address: safeParse(r.address),
+            address: safeParse(r.address).map((addr) => ({
+              ...addr,
+              // ✅ Fallback to Charminar coordinates if missing
+              latitude: addr.latitude || 17.3616,
+              longitude: addr.longitude || 78.4747,
+            })),
           }));
         }
 
         if (data.registration6) {
-          data.registration6.certifications = safeParse(data.registration6.certifications);
+          data.registration6.certifications = safeParse(
+            data.registration6.certifications
+          );
           data.registration6.awards = safeParse(data.registration6.awards);
         }
 
@@ -126,9 +144,6 @@ export default function LawyerProfilePage() {
           <div className="lawyer-profile-info">
             <h1 className="lawyer-name">{lawyer.full_name}</h1>
             <p className="lawyer-designation">{lawyer.short_note || ""}</p>
-            {/* <p className="lawyer-chamber-name">
-              Kumar & Associates Law Chambers
-            </p> */}
 
             <div className="lawyer-tags">
               <span>{lawyer.profile?.years_of_experience || 0}+ Years</span>
@@ -243,8 +258,8 @@ export default function LawyerProfilePage() {
                 <>
                   <MapContainer
                     center={[
-                      parseFloat(addresses[0].latitude),
-                      parseFloat(addresses[0].longitude),
+                      parseFloat(addresses[0].latitude || 17.3616),
+                      parseFloat(addresses[0].longitude || 78.4747),
                     ]}
                     zoom={13}
                     style={{
@@ -262,8 +277,8 @@ export default function LawyerProfilePage() {
                       <Marker
                         key={idx}
                         position={[
-                          parseFloat(addr.latitude),
-                          parseFloat(addr.longitude),
+                          parseFloat(addr.latitude || 17.3616),
+                          parseFloat(addr.longitude || 78.4747),
                         ]}
                         icon={L.icon({
                           iconUrl:
@@ -292,7 +307,9 @@ export default function LawyerProfilePage() {
                             {addr.zip_code}
                           </p>
                           <a
-                            href={`https://www.google.com/maps?q=${addr.latitude},${addr.longitude}`}
+                            href={`https://www.google.com/maps?q=${
+                              addr.latitude || 17.3616
+                            },${addr.longitude || 78.4747}`}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="get-directions-link"
@@ -342,8 +359,9 @@ export default function LawyerProfilePage() {
                 )}
               </ul>
             </section>
-     <AddComments lawyerId={id} />
 
+            {/* COMMENTS */}
+            <AddComments lawyerId={id} />
           </div>
         </div>
       </div>
