@@ -5,7 +5,7 @@ import { FaMapMarkerAlt } from "react-icons/fa";
 import { useAuth } from "../Context/UserContext";
 import axios from "axios";
 
-const API_BASE_URL = "lexfactos-frontend.pages.dev";
+const API_BASE_URL = "https://lexfactos-backend.fly.dev";
 
 // Cache expiry: 30 minutes
 const CACHE_EXPIRY_MS = 30 * 60 * 1000;
