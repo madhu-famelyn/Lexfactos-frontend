@@ -84,7 +84,7 @@ const areas = [
       </div>
 
       <div class="button-container">
-  <button class="view-all-btn">View all practice areas</button>
+  
 </div>
 
     </section>

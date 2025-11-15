@@ -20,28 +20,27 @@ const LandingPage = () => {
 
   const handleSearch = () => {
     const { country, state, city } = location;
+
     if (!country || !state || !city) {
       alert("Please select Country, State, and City before searching.");
       return;
     }
 
-    // ✅ Show loader
     setLoading(true);
 
     setTimeout(() => {
       navigate(
         `/lawyers/search?state=${encodeURIComponent(state)}&city=${encodeURIComponent(city)}`
       );
-      setLoading(false); // ✅ hide after navigation (optional)
-    }, 1000);
+      setLoading(false);
+    }, 800);
   };
 
   return (
     <>
-      {loading && <Loader />}  {/* ✅ Loader visible when loading is true */}
+      {loading && <Loader />}
 
       <div className="landing-container">
-        {/* Trusted Badge */}
         <div className="trusted-badge">
           <span className="green-dot"></span>
           Trusted by 25,000+ users worldwide

@@ -45,35 +45,6 @@ const LawyerPannel = () => {
         {/* Navigation */}
         <nav>
           <ul>
-            <li>
-              <Link
-                to="/lawyer-dashboard"
-                className={location.pathname === "/lawyer-dashboard" ? "active" : ""}
-                onClick={() => setIsOpen(false)}
-              >
-                <LayoutDashboard size={18} /> Dashboard
-              </Link>
-            </li>
-
-            <li>
-              <Link
-                to="/lawyer-profile"
-                className={location.pathname === "/lawyer-profile" ? "active" : ""}
-                onClick={() => setIsOpen(false)}
-              >
-                <User size={18} /> My Profile
-              </Link>
-            </li>
-
-            <li>
-              <Link
-                to="/lawyer-appointments"
-                className={location.pathname === "/lawyer-appointments" ? "active" : ""}
-                onClick={() => setIsOpen(false)}
-              >
-                <CalendarDays size={18} /> Appointments
-              </Link>
-            </li>
 
             <li>
               <Link
@@ -97,8 +68,8 @@ const LawyerPannel = () => {
 
             <li>
               <Link
-                to="/lawyer-support"
-                className={location.pathname === "/lawyer-support" ? "active" : ""}
+                to="/contact-page"
+                className={location.pathname === "/contact-page" ? "active" : ""}
                 onClick={() => setIsOpen(false)}
               >
                 <HelpCircle size={18} /> Help & Support

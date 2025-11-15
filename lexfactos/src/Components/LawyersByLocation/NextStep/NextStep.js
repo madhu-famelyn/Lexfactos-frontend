@@ -8,7 +8,6 @@ export default function NextStep() {
       <p className="next-step-subtitle">
         Connect with qualified lawyers in your area today.
       </p>
-      <button className="next-step-button">Find a Lawyer Now</button>
     </section>
   );
 }

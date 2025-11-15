@@ -176,7 +176,6 @@
   width: 100%;
   max-width: 950px;
   border-radius: 10px;
-  padding: 25px;
   margin-bottom: 25px;
   text-align: left;
 }
@@ -518,4 +517,63 @@
   .save-btn {
     display: none;
   }
+}
+
+
+.login-popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.login-popup {
+  background: #fff;
+  padding: 25px;
+  border-radius: 10px;
+  width: 320px;
+  text-align: center;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.login-popup h3 {
+  margin-bottom: 10px;
+  font-size: 20px;
+}
+
+.login-popup p {
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+.login-popup-btn {
+  width: 100%;
+  padding: 10px;
+  background: #1976d2;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.login-popup-close {
+  width: 100%;
+  padding: 10px;
+  background: #eee;
+  color: #333;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
 }

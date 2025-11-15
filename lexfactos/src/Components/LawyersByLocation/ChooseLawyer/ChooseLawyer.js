@@ -42,7 +42,7 @@ export default function ChooseLawyer() {
           </div>
         ))}
       </div>
-      <button className="explore-button">Start Exploring Lawyers</button>
+   
     </div>
   );
 }

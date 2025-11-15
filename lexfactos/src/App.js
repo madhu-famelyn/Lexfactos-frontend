@@ -55,6 +55,7 @@ import UserResetPassword from "./Components/ForgotPasswordUser/ResetPassword";
 import LawyerDashboard from "./Components/LawyerDashboard/LawyerDashboard/LawyerDashboard";
 import LawyerReviews from "./Components/LawyerDashboard/ReviewsSection/ClientReviews";
 import LawyerExcelUpload from "./Components/AdminUploadLawyerExcel/UploadExcel";
+import ContactPage from "./Components/LawyerDashboard/HelpCenter/HelpCenter";
 
 // Replace with your actual Google Client ID
 const GOOGLE_CLIENT_ID = "776723084181-ilgvju235ine04lqlkbl7v4nd55rpt3m.apps.googleusercontent.com";
@@ -81,7 +82,8 @@ function Layout({ children }) {
     "/lawyer-dashboard",
     "/lawyer-reviews",
     "/lawyer-update",
-    "/lawyer-update-excel"
+    "/lawyer-update-excel",
+    "/contact-page"
   ];
 
   const hideHeaderFooterStartsWith = ["/lawyer/"];
@@ -150,6 +152,7 @@ function App() {
                 <Route path="/lawyer-reviews" element={<LawyerReviews />} />
                 <Route path="/lawyer-update" element={<LawyerUpdateProfile />} />
                 <Route path="/lawyer-update-excel" element={<LawyerExcelUpload />} />
+                <Route path="/contact-page" element={<ContactPage/>}/>
 
                 
 

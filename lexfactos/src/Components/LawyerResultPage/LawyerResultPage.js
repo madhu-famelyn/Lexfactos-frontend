@@ -3,22 +3,84 @@ import { useLocation, useNavigate } from "react-router-dom";
 import "./LawyerResultsPage.css";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { useAuth } from "../Context/UserContext";
-import { fetchLawyersByCity, fetchLawyersByState } from "../Service/Service";
+import axios from "axios";
 
+const API_BASE_URL = "http://127.0.0.1:8000";
+
+const CACHE_EXPIRY_MS = 30 * 60 * 1000;
+
+/* ---------------------------------------------
+    CACHE HELPERS
+----------------------------------------------*/
+function getCachedData(key) {
+  const item = localStorage.getItem(key);
+  if (!item) return null;
+
+  try {
+    const { timestamp, data } = JSON.parse(item);
+    if (Date.now() - timestamp > CACHE_EXPIRY_MS) {
+      localStorage.removeItem(key);
+      return null;
+    }
+    return data;
+  } catch {
+    localStorage.removeItem(key);
+    return null;
+  }
+}
+
+function setCachedData(key, data) {
+  localStorage.setItem(
+    key,
+    JSON.stringify({ timestamp: Date.now(), data })
+  );
+}
+
+/* ---------------------------------------------
+    API CALL
+----------------------------------------------*/
+async function fetchLawyers(practiceArea, location, page, pageSize) {
+  const safePractice = practiceArea || "";
+
+  try {
+    const res = await axios.get(`${API_BASE_URL}/get-all-details/lawyers/search`, {
+      params: {
+        practice_area: safePractice,
+        location,
+        page,
+        page_size: pageSize,
+      },
+    });
+
+    return res.data;
+  } catch (err) {
+    console.error("AXIOS REQUEST FAILED:", err);
+    throw err;
+  }
+}
+
+/* ---------------------------------------------
+    MAIN COMPONENT
+----------------------------------------------*/
 export default function LawyerResultsPage() {
-  const location = useLocation();
+  const url = useLocation();
   const navigate = useNavigate();
-  const searchParams = new URLSearchParams(location.search);
+  const searchParams = new URLSearchParams(url.search);
   const { auth } = useAuth();
 
   const practiceArea = searchParams.get("practice_area") || "";
   const city = searchParams.get("city") || "";
   const state = searchParams.get("state") || "";
 
-  const [cityLawyers, setCityLawyers] = useState([]);
-  const [stateLawyers, setStateLawyers] = useState([]);
+  const [lawyers, setLawyers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+
+  const [page, setPage] = useState(1);
+  const pageSize = 10;
+  const [totalPages, setTotalPages] = useState(1);
+
+  const [showLoginPopup, setShowLoginPopup] = useState(false);
 
   const indianCities = [
     "Delhi", "Mumbai", "Bengaluru", "Hyderabad", "Chennai", "Kolkata",
@@ -29,82 +91,95 @@ export default function LawyerResultsPage() {
 
   const [showMore, setShowMore] = useState(false);
 
+  /* ---------------------------------------------
+      CLICK CITY → NAVIGATE
+  ----------------------------------------------*/
+  const handleCityClick = (clickedCity) => {
+    navigate(
+      `/lawyers/search?state=${encodeURIComponent(state)}&city=${encodeURIComponent(clickedCity)}`
+    );
+  };
+
+  /* ---------------------------------------------
+      NEXT PAGE BLOCKING
+  ----------------------------------------------*/
+  const handleNextPage = () => {
+    if (!auth?.token) {
+      setShowLoginPopup(true);
+      return;
+    }
+    setPage((p) => p + 1);
+  };
+
+  /* ---------------------------------------------
+      LOAD DATA
+  ----------------------------------------------*/
   useEffect(() => {
-    const fetchLawyers = async () => {
+    const loadData = async () => {
       try {
         setLoading(true);
-        setError("");
 
-        const cityRes = city
-          ? await fetchLawyersByCity(practiceArea, city)
-          : [];
+        let response;
 
-        const stateRes = state
-          ? await fetchLawyersByState(practiceArea, state)
-          : [];
+        if (city) {
+          response = await fetchLawyers(practiceArea, city, page, pageSize);
+        } else if (state) {
+          response = await fetchLawyers(practiceArea, state, page, pageSize);
+        }
 
-        const cityIds = cityRes.map((lawyer) => lawyer.id);
-        const filteredState = stateRes.filter(
-          (lawyer) => !cityIds.includes(lawyer.id)
-        );
-
-        setCityLawyers(cityRes);
-        setStateLawyers(filteredState);
+        if (response?.results && Array.isArray(response.results)) {
+          setLawyers(response.results);
+          setTotalPages(response.total_pages || 1);
+        } else {
+          setLawyers([]);
+        }
       } catch (err) {
         setError("No lawyers found or server error.");
-        console.error(err);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchLawyers();
-  }, [practiceArea, city, state]);
+    loadData();
+  }, [practiceArea, city, state, page]);
 
   if (loading) return <p className="loading">Loading lawyers...</p>;
   if (error) return <p className="error">{error}</p>;
 
+  /* ---------------------------------------------
+      CARD COMPONENT
+  ----------------------------------------------*/
   const renderLawyerCard = (lawyer, isBlurred = false) => {
-    const mainAddress = lawyer.registration5?.[0];
+    if (!lawyer) return null;
+
+    const mainAddress = lawyer.registration5?.[0] || {};
     const yearsExp = lawyer.profile?.years_of_experience || "N/A";
+
     const practiceAreas = lawyer.registration3?.practice_area
       ? lawyer.registration3.practice_area.split(",")
       : [];
 
     return (
       <div key={lawyer.id} className={`lawyer-card ${isBlurred ? "blurred" : ""}`}>
-        {/* Left Photo */}
         <div className="lawyer-photo">
-          <img src={lawyer.photo} alt={lawyer.full_name} />
+          <img
+            src={lawyer.photo || "/placeholder.jpg"}
+            alt={lawyer.full_name || "Lawyer"}
+          />
         </div>
 
-        {/* Middle Content */}
         <div className="lawyer-content">
-          <div className="lawyer-header">
-            <div>
-              <h3 className="lawyer-name">{lawyer.full_name}</h3>
-              <p className="lawyer-title">{lawyer.profile?.title}</p>
-              <p className="lawyer-location">
-                <FaMapMarkerAlt style={{ marginRight: "5px", color: "#000" }} />
-                {mainAddress?.city}{mainAddress?.state} {yearsExp} years
-                experience
-              </p> 
-            </div>
-          </div>
-
-          {lawyer.rating && (
-            <div className="lawyer-rating">
-              ⭐ {lawyer.rating}{" "}
-              <span className="reviews">({lawyer.reviews} reviews)</span>
-            </div>
-          )}
+          <h3 className="lawyer-name">{lawyer.full_name || "Unknown Lawyer"}</h3>
+          <p className="lawyer-location">
+            <FaMapMarkerAlt style={{ marginRight: "5px" }} />
+            {mainAddress.city || "City"}, {mainAddress.state || "State"} • {yearsExp} yrs exp
+          </p>
 
           <p className="prac">Practice areas</p>
+
           <div className="practice-tags">
             {practiceAreas.slice(0, 3).map((area, idx) => (
-              <span key={idx} className="practice-tag">
-                {area}
-              </span>
+              <span key={idx} className="practice-tag">{area}</span>
             ))}
           </div>
 
@@ -113,41 +188,28 @@ export default function LawyerResultsPage() {
           )}
         </div>
 
-        {/* Right Actions */}
         <div className="lawyer-actions-right">
           <button className="call-btn">
-            Call for a consultation
+            Call for consultation
             {lawyer.phone_number && (
               <div className="phone">{lawyer.phone_number}</div>
             )}
           </button>
+
           <button className="book-btn">Book appointment</button>
+
           <button
             className="profile-btn"
             onClick={() => navigate(`/lawyer/${lawyer.id}`)}
           >
             View Profile
           </button>
-          {lawyer.website_url && (
-            <a
-              href={lawyer.website_url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="website-link"
-            >
-              {lawyer.website_url}
-            </a>
-          )}
         </div>
 
-        {/* Overlay for blurred cards */}
         {isBlurred && (
           <div className="overlay">
             <p>Login to view full details</p>
-            <button
-              className="login-btn"
-              onClick={() => navigate("/signin")}
-            >
+            <button className="login-btn" onClick={() => navigate("/signin")}>
               Login
             </button>
           </div>
@@ -156,82 +218,83 @@ export default function LawyerResultsPage() {
     );
   };
 
-  const combinedLawyers = [...cityLawyers, ...stateLawyers];
-
+  /* ---------------------------------------------
+      UI RENDER
+  ----------------------------------------------*/
   return (
     <div className="lawyer-results-page">
-      <div className="lawyer-banner">
+      <h1>
+        {practiceArea ? `${practiceArea} Lawyers` : "Lawyers"}{" "}
+        {city && state ? `in ${city}, ${state}` : state ? `in ${state}` : ""}
+      </h1>
 
+      <div className="city-tags">
+        {(showMore ? indianCities : indianCities.slice(0, 10)).map((c, idx) => (
+          <span
+            key={idx}
+            className="city-tag"
+            onClick={() => handleCityClick(c)}
+          >
+            {c}
+          </span>
+        ))}
+      </div>
 
+      <button className="see-more-btn" onClick={() => setShowMore(!showMore)}>
+        {showMore ? "Show less" : "See more"}
+      </button>
 
+      <div className="section">
+        {lawyers.length > 0 ? (
+          lawyers.map((lawyer, index) =>
+            auth?.token || index < 3
+              ? renderLawyerCard(lawyer)
+              : renderLawyerCard(lawyer, true)
+          )
+        ) : (
+          <p>No lawyers found.</p>
+        )}
+      </div>
 
+      <div className="pagination">
+        <button disabled={page === 1} onClick={() => setPage((p) => p - 1)}>
+          Prev
+        </button>
 
+        <span>
+          Page {page} of {totalPages}
+        </span>
 
-
-
-
-
-
-
-
-
-<div className="lawyer-banner">
-  <h1>
-    {practiceArea
-      ? `${practiceArea} Lawyers`
-      : "Lawyers"}{" "}
-    {city && state ? `in ${city}, ${state}` : state ? `in ${state}` : ""}
-  </h1>
-
-  <p>
-    {practiceArea && city && state &&
-      `We have curated a list of verified lawyers specializing in ${practiceArea} located in ${city}, ${state}. Explore profiles, experience, and reviews to choose the right lawyer for your needs.`}
-
-    {practiceArea && state && !city &&
-      `Here are experienced ${practiceArea} lawyers practicing across ${state}. Compare profiles, experience, and reviews to find the right match.`}
-
-    {!practiceArea && city &&
-      `Lawyers available in ${city}, offering trustworthy legal services based on your needs.`}
-  </p>
-  </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        <div className="city-tags">
-          {(showMore ? indianCities : indianCities.slice(0, 10)).map((c, idx) => (
-            <span key={idx} className="city-tag">{c}</span>
-          ))}
-        </div>
         <button
-          className="see-more-btn"
-          onClick={() => setShowMore(!showMore)}
+          disabled={page >= totalPages}
+          onClick={handleNextPage}
         >
-          {showMore ? "Show less cities" : "See more cities"}
+          Next
         </button>
       </div>
 
-      {combinedLawyers.length > 0 ? (
-        <div className="section">
-          {combinedLawyers.map((lawyer, index) =>
-            auth?.token || index < 3
-              ? renderLawyerCard(lawyer, false) // normal cards
-              : renderLawyerCard(lawyer, true) // blurred cards
-          )}
+      {/* ---------------- LOGIN POPUP ---------------- */}
+      {showLoginPopup && (
+        <div className="login-popup-overlay">
+          <div className="login-popup">
+            <h3>Please Login</h3>
+            <p>You must login to continue viewing more lawyer results.</p>
+
+            <button
+              className="login-popup-btn"
+              onClick={() => navigate("/signin")}
+            >
+              Login
+            </button>
+
+            <button
+              className="login-popup-close"
+              onClick={() => setShowLoginPopup(false)}
+            >
+              Cancel
+            </button>
+          </div>
         </div>
-      ) : (
-        <p>No lawyers found.</p>
       )}
     </div>
   );
