@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./LawyerResultsPage.css";
 import { FaMapMarkerAlt } from "react-icons/fa";
+import { FaPhone } from "react-icons/fa";
+
 import { useAuth } from "../Context/UserContext";
 import axios from "axios";
 
@@ -220,14 +222,26 @@ export default function LawyerResultsPage() {
     }
   }}
 >
-  Call for consultation
-  {lawyer.phone_number && (
-    <div className="phone">{lawyer.phone_number}</div>
-  )}
+
+
+{lawyer.phone_number && (
+  <div className="phone">
+    <FaPhone
+      style={{
+        fontSize: "12px",
+        marginRight: "10px",
+        marginTop: "5px",
+      }}
+    />
+    <span>{lawyer.phone_number}</span>
+  </div>
+)}
+
+
 </button>
 
 
-          <button className="book-btn">Book appointment</button>
+          {/* <button className="book-btn">Book appointment</button> */}
 
           <button
             className="profile-btn"

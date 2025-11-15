@@ -40,7 +40,7 @@ const Header = () => {
             <Link to="/support">Support</Link>
             <Link to="/lawyers-by-location">Lawyers by Location</Link>
             <Link to="/browse-jobs">Browse Jobs</Link>  
-            <Link to="/admin-lawyers">Admin</Link>
+            {/* <Link to="/admin-lawyers">Admin</Link> */}
           </nav>
         </div>
 
