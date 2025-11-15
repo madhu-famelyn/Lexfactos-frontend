@@ -187,7 +187,7 @@
   }
 
   .practice-tags {
-    justify-content: center !important;
+    justify-content: lett;
     gap: 4px !important;
     flex-wrap: wrap !important;
   }

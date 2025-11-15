@@ -432,6 +432,7 @@
 .overlay .login-btn:hover {
   background: #0056b3;
 }
+
 @media (max-width: 768px) {
 
   /* Card stays horizontal, just tighter */
@@ -442,13 +443,23 @@
     align-items: flex-start;
     gap: 12px;
   }
+.lawyer-photo {
+  width: 100% !important;        /* ensure container spans full row */
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  text-align: center !important;
+}
+  
+.lawyer-photo img {
+  width: 160px;
+  height: 185px;
+  border-radius: 10px;
+  display: block;
+  margin: 0 auto;                /* fallback centering */
+}
 
-  /* Small photo left */
-  .lawyer-photo img {
-    width: 90px;
-    height: 105px;
-    border-radius: 6px;
-  }
+
 
   /* Content on the right */
   .lawyer-content {
