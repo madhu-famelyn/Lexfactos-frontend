@@ -555,7 +555,7 @@
 .login-popup-btn {
   width: 100%;
   padding: 10px;
-  background: #1976d2;
+  background: #0066ff;
   color: #fff;
   border: none;
   border-radius: 6px;
@@ -576,4 +576,39 @@
 @keyframes fadeIn {
   from { opacity: 0; transform: scale(0.95); }
   to { opacity: 1; transform: scale(1); }
+}
+
+.pagination {
+  margin: 30px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+  font-family: "Poppins", sans-serif;
+}
+
+.pagination button {
+  padding: 8px 16px;
+  background-color: #1e88e5; /* Blue */
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.pagination button:hover {
+  background-color: #0a6ee1;
+}
+
+.pagination button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.pagination span {
+  font-size: 15px;
+  font-weight: 500;
+  color: #444;
 }

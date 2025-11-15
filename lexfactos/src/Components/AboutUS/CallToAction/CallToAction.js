@@ -1,9 +1,7 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import "./CallToAction.css";
 
 const CallToAction = () => {
-  const navigate = useNavigate();
 
   return (
     <section className="cta-section">
@@ -11,7 +9,7 @@ const CallToAction = () => {
         <h2>
           Ready to find your <span>legal solution?</span>
         </h2>
-        
+
         <p className="cta-subtitle">
           Join thousands of clients who’ve successfully resolved their legal matters through our trusted platform.
         </p>

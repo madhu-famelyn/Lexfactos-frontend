@@ -7,6 +7,7 @@ import axios from "axios";
 
 const API_BASE_URL = "http://127.0.0.1:8000";
 
+// Cache expiry: 30 minutes
 const CACHE_EXPIRY_MS = 30 * 60 * 1000;
 
 /* ---------------------------------------------
@@ -18,10 +19,13 @@ function getCachedData(key) {
 
   try {
     const { timestamp, data } = JSON.parse(item);
+
+    // Check expiration
     if (Date.now() - timestamp > CACHE_EXPIRY_MS) {
       localStorage.removeItem(key);
       return null;
     }
+
     return data;
   } catch {
     localStorage.removeItem(key);
@@ -32,7 +36,10 @@ function getCachedData(key) {
 function setCachedData(key, data) {
   localStorage.setItem(
     key,
-    JSON.stringify({ timestamp: Date.now(), data })
+    JSON.stringify({
+      timestamp: Date.now(),
+      data,
+    })
   );
 }
 
@@ -112,12 +119,25 @@ export default function LawyerResultsPage() {
   };
 
   /* ---------------------------------------------
-      LOAD DATA
+      LOAD DATA WITH CACHING
   ----------------------------------------------*/
   useEffect(() => {
     const loadData = async () => {
       try {
         setLoading(true);
+
+        // Create unique cache key
+        const cacheKey = `lawyers_${practiceArea}_${city}_${state}_${page}`;
+
+        // Try to get from cache
+        const cached = getCachedData(cacheKey);
+
+        if (cached) {
+          setLawyers(cached.results || []);
+          setTotalPages(cached.total_pages || 1);
+          setLoading(false);
+          return;
+        }
 
         let response;
 
@@ -130,6 +150,9 @@ export default function LawyerResultsPage() {
         if (response?.results && Array.isArray(response.results)) {
           setLawyers(response.results);
           setTotalPages(response.total_pages || 1);
+
+          // Save to cache
+          setCachedData(cacheKey, response);
         } else {
           setLawyers([]);
         }
@@ -189,12 +212,20 @@ export default function LawyerResultsPage() {
         </div>
 
         <div className="lawyer-actions-right">
-          <button className="call-btn">
-            Call for consultation
-            {lawyer.phone_number && (
-              <div className="phone">{lawyer.phone_number}</div>
-            )}
-          </button>
+          <button
+  className="call-btn"
+  onClick={() => {
+    if (lawyer.phone_number) {
+      window.location.href = `tel:${lawyer.phone_number}`;
+    }
+  }}
+>
+  Call for consultation
+  {lawyer.phone_number && (
+    <div className="phone">{lawyer.phone_number}</div>
+  )}
+</button>
+
 
           <button className="book-btn">Book appointment</button>
 
@@ -209,7 +240,7 @@ export default function LawyerResultsPage() {
         {isBlurred && (
           <div className="overlay">
             <p>Login to view full details</p>
-            <button className="login-btn" onClick={() => navigate("/signin")}>
+            <button className="login-btn" onClick={() => navigate("/sign-in")}>
               Login
             </button>
           </div>
@@ -282,7 +313,7 @@ export default function LawyerResultsPage() {
 
             <button
               className="login-popup-btn"
-              onClick={() => navigate("/signin")}
+              onClick={() => navigate("/sign-in")}
             >
               Login
             </button>
