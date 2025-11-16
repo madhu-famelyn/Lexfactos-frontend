@@ -83,7 +83,7 @@ const LawyerFullRegistration = () => {
     if (photoFile) fd.append("photo", photoFile);
 
     try {
-      await axios.post("https://lexfactos-backend.fly.dev/lawyer/full/", fd, {
+      await axios.post("https://api.lexfactos.com/lawyer/full/", fd, {
         headers: { "Content-Type": "multipart/form-data" },
       });
       setPopup({ type: "success", message: "✅ Registration Successful!" });

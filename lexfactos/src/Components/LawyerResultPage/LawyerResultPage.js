@@ -7,7 +7,7 @@ import { FaPhone } from "react-icons/fa";
 import { useAuth } from "../Context/UserContext";
 import axios from "axios";
 
-const API_BASE_URL = "https://lexfactos-backend.fly.dev";
+const API_BASE_URL = "https://api.lexfactos.com";
 
 // Cache expiry: 30 minutes
 const CACHE_EXPIRY_MS = 30 * 60 * 1000;

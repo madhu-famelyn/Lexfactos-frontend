@@ -20,13 +20,13 @@ const MyAppliedJobsPage = () => {
     const fetchApplications = async () => {
       try {
         const res = await axios.get(
-          `https://lexfactos-backend.fly.dev/job-applications/user/${userId}`
+          `https://api.lexfactos.com/job-applications/user/${userId}`
         );
         setApplications(res.data);
 
         // Fetch job details for each application
         const jobDetailsPromises = res.data.map(app =>
-          axios.get(`https://lexfactos-backend.fly.dev/job-posts/${app.job_id}`)
+          axios.get(`https://api.lexfactos.com/job-posts/${app.job_id}`)
         );
         const jobsRes = await Promise.all(jobDetailsPromises);
 

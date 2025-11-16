@@ -34,7 +34,7 @@ export default function BrowseJobGrid() {
       params.append("limit", 50);
 
       const res = await axios.get(
-        `https://lexfactos-backend.fly.dev/jobs/?${params.toString()}`
+        `https://api.lexfactos.com/jobs/?${params.toString()}`
       );
 
       // ✅ Show only verified jobs

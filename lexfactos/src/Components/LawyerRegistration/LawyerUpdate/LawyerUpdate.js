@@ -47,7 +47,7 @@ export default function LawyerUpdateProfile() {
     const fetchLawyer = async () => {
       try {
         setLoading(true);
-        const res = await axios.get(`https://lexfactos-backend.fly.dev/get-all-details/lawyers/all-details/${lawyerId}`, {
+        const res = await axios.get(`https://api.lexfactos.com/get-all-details/lawyers/all-details/${lawyerId}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -117,7 +117,7 @@ setFormData({
     setLoading(true);
 
     try {
-      await axios.put(`https://lexfactos-backend.fly.dev/lawyers/update-full/${lawyerId}`, formData, {
+      await axios.put(`https://api.lexfactos.com/lawyers/update-full/${lawyerId}`, formData, {
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
       });
       setMessage("✅ Profile updated successfully!");
@@ -141,7 +141,7 @@ setFormData({
 
     try {
       await axios.put(
-        `https://lexfactos-backend.fly.dev/lawyer/change-password/${lawyerId}`,
+        `https://api.lexfactos.com/lawyer/change-password/${lawyerId}`,
         passwordData,
         { headers: { Authorization: `Bearer ${token}` } }
       );

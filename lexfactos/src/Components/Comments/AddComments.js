@@ -14,7 +14,7 @@ export default function AddComments({ lawyerId }) {
   const { auth } = useAuth();
   const navigate = useNavigate();
 
-  const BASE_URL = "https://lexfactos-backend.fly.dev";
+  const BASE_URL = "https://api.lexfactos.com";
 
   const [showInput, setShowInput] = useState(false);
   const [comment, setComment] = useState("");

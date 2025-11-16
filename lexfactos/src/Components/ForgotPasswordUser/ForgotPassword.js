@@ -12,7 +12,7 @@ const UserForgotPassword = () => {
     setMessage("");
 
     try {
-      const response = await fetch("https://lexfactos-backend.fly.dev/user/forgot-password", {
+      const response = await fetch("https://api.lexfactos.com/user/forgot-password", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -27,7 +27,7 @@ const SignupPage = () => {
       formData.append("password", password);
 
       const response = await axios.post(
-        "https://lexfactos-backend.fly.dev/users/signup",
+        "https://api.lexfactos.com/users/signup",
         formData,
         {
           headers: {

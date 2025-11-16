@@ -41,7 +41,7 @@ const LawyerResetPassword = () => {
     setLoading(true);
 
     try {
-      const response = await fetch("https://lexfactos-backend.fly.dev/lawyer/reset-password", {
+      const response = await fetch("https://api.lexfactos.com/lawyer/reset-password", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

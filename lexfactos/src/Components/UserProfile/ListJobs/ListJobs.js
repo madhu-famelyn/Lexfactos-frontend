@@ -38,7 +38,7 @@ const JobsPage = () => {
           jobsData.map(async (job) => {
             try {
               const res = await axios.get(
-                `https://lexfactos-backend.fly.dev/job-applications/job/${job.id}`
+                `https://api.lexfactos.com/job-applications/job/${job.id}`
               );
               return { ...job, applicantCount: res.data.length };
             } catch (err) {

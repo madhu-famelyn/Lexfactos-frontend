@@ -25,7 +25,7 @@ const LawyerAuth = () => {
     setLoading(true);
 
     try {
-      const response = await fetch("https://lexfactos-backend.fly.dev/lawyer/login", {
+      const response = await fetch("https://api.lexfactos.com/lawyer/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ unique_id: uniqueId, password }),

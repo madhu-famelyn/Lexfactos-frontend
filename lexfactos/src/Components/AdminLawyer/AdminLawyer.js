@@ -20,7 +20,7 @@ const AdminLawyer = () => {
 const fetchLawyers = async () => {
   setLoading(true);
   try {
-    const baseURL = "https://lexfactos-backend.fly.dev";
+    const baseURL = "https://api.lexfactos.com";
     const [unverifiedRes, verifiedRes, rejectedRes] = await Promise.all([
       axios.get(`${baseURL}/get-all-details/lawyers/unverified`),
       axios.get(`${baseURL}/get-all-details/lawyers/verified`),

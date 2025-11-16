@@ -7,7 +7,7 @@ import { useLawyerAuth } from "../../Context/LawyerContext";
 import LawyerPannel from "../LaywerPannel/LawyerPannel";
 import "./ClientReviews.css";
 
-const BASE_URL = "https://lexfactos-backend.fly.dev";
+const BASE_URL = "https://api.lexfactos.com";
 
 export default function LawyerReviews() {
   const { lawyerId, token } = useLawyerAuth();

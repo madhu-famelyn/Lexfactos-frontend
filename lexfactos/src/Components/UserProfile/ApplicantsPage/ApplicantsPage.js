@@ -19,7 +19,7 @@ const ApplicantsPage = () => {
     const fetchApplicants = async () => {
       try {
         const res = await axios.get(
-          `https://lexfactos-backend.fly.dev/job-applications/job/${jobId}`
+          `https://api.lexfactos.com/job-applications/job/${jobId}`
         );
         setApplicants(res.data);
         setLoading(false);
@@ -53,7 +53,7 @@ const ApplicantsPage = () => {
 
     try {
       const res = await axios.put(
-        `https://lexfactos-backend.fly.dev/job-applications/${selectedApplicant.id}/status`,
+        `https://api.lexfactos.com/job-applications/${selectedApplicant.id}/status`,
         { rate } // matches JobApplicationUpdateStatus schema
       );
 

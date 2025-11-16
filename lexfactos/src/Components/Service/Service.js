@@ -3,7 +3,7 @@ import axios from "axios";
 // // Before
 
 // After
-const API_BASE_URL = "https://lexfactos-backend.fly.dev";
+const API_BASE_URL = "https://api.lexfactos.com";
 
 export const signupUser = async (formData) => {
   try {
