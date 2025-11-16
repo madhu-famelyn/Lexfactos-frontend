@@ -34,7 +34,7 @@ import AdminSupport from "./Components/AdminSupport/AdminSupport";
 import LawyerProfile from "./Components/AdminLawyer/Profile";
 import { LawyerAuthProvider } from "./Components/Context/LawyerContext";
 import LawyerUpdateProfile from "./Components/LawyerRegistration/LawyerUpdate/LawyerUpdate";
-// import LawyerDashboard from "./Components/LawyerDashboard/LawyerDashboard/LawyerDashboard";
+import LawyerDashboard from "./Components/LawyerDashboard/LawyerDashboard/LawyerDashboard";
 // import SignIn from "./Components/SignIn/SignIn/SignIn";
 
 import { AuthProvider } from "./Components/Context/AuthContext";
