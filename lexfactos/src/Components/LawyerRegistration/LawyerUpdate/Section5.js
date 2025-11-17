@@ -10,17 +10,24 @@ export default function SectionReg5({
   addListItem,
   removeListItem,
 }) {
-  // --- IMPORTANT FIX ---
-  // Force reg5 and address to always be proper structure
+  // SAFETY FIX: address must always be an array
   const reg5 = {
-    address: Array.isArray(formData.reg5?.address)
+    ...formData.reg5,
+    address: Array.isArray(formData?.reg5?.address)
       ? formData.reg5.address
-      : [],
-
-    working_hours: formData.reg5?.working_hours || "",
+      : [
+          {
+            country: "",
+            state: "",
+            city: "",
+            street_address: "",
+            zip_code: "",
+          },
+        ],
+    working_hours: formData?.reg5?.working_hours || "",
   };
 
-  // ---------- Working Hours Popup ----------
+  // ---------- 🕒 Working Hours Popup ----------
   const [showPopup, setShowPopup] = useState(false);
   const [selectedDays, setSelectedDays] = useState([]);
   const [openTime, setOpenTime] = useState("");
@@ -28,9 +35,7 @@ export default function SectionReg5({
 
   const toggleDay = (day) => {
     setSelectedDays((prev) =>
-      prev.includes(day)
-        ? prev.filter((d) => d !== day)
-        : [...prev, day]
+      prev.includes(day) ? prev.filter((d) => d !== day) : [...prev, day]
     );
   };
 
@@ -49,35 +54,24 @@ export default function SectionReg5({
     <div className="lu-section">
       <h3 className="lu-section-title">Office Locations & Working Hours</h3>
 
-      {/* ADDRESS LIST */}
+      {/* ============ ADDRESS LIST ============ */}
       {reg5.address.map((addr, index) => {
-        const states = addr.country
-          ? Object.keys(countriesData[addr.country] || {})
-          : [];
-
+        const states = addr.country ? Object.keys(countriesData[addr.country] || {}) : [];
         const cities =
-          addr.country && addr.state
-            ? countriesData[addr.country][addr.state] || []
-            : [];
+          addr.country && addr.state ? countriesData[addr.country][addr.state] || [] : [];
 
         return (
           <div key={index} className="lu-repeat-block">
             <span className="lu-badge">Office #{index + 1}</span>
 
             <div className="lu-grid">
-              {/* Country */}
+              {/* Country Dropdown */}
               <div className="lu-field">
                 <label>Country *</label>
                 <select
                   value={addr.country || ""}
                   onChange={(e) =>
-                    handleListChange(
-                      "reg5",
-                      "address",
-                      index,
-                      "country",
-                      e.target.value
-                    )
+                    handleListChange("reg5", "address", index, "country", e.target.value)
                   }
                 >
                   <option value="">Select Country</option>
@@ -89,19 +83,13 @@ export default function SectionReg5({
                 </select>
               </div>
 
-              {/* State */}
+              {/* State Dropdown */}
               <div className="lu-field">
                 <label>State *</label>
                 <select
                   value={addr.state || ""}
                   onChange={(e) =>
-                    handleListChange(
-                      "reg5",
-                      "address",
-                      index,
-                      "state",
-                      e.target.value
-                    )
+                    handleListChange("reg5", "address", index, "state", e.target.value)
                   }
                   disabled={!addr.country}
                 >
@@ -114,19 +102,13 @@ export default function SectionReg5({
                 </select>
               </div>
 
-              {/* City */}
+              {/* City Dropdown */}
               <div className="lu-field">
                 <label>City *</label>
                 <select
                   value={addr.city || ""}
                   onChange={(e) =>
-                    handleListChange(
-                      "reg5",
-                      "address",
-                      index,
-                      "city",
-                      e.target.value
-                    )
+                    handleListChange("reg5", "address", index, "city", e.target.value)
                   }
                   disabled={!addr.state}
                 >
@@ -140,21 +122,16 @@ export default function SectionReg5({
               </div>
             </div>
 
-            {/* Address Line */}
+            {/* Address Line & ZIP */}
             <div className="lu-grid">
               <div className="lu-field">
                 <label>Street Address *</label>
                 <input
                   type="text"
+                  placeholder="Street / Building Name"
                   value={addr.street_address || ""}
                   onChange={(e) =>
-                    handleListChange(
-                      "reg5",
-                      "address",
-                      index,
-                      "street_address",
-                      e.target.value
-                    )
+                    handleListChange("reg5", "address", index, "street_address", e.target.value)
                   }
                 />
               </div>
@@ -163,15 +140,10 @@ export default function SectionReg5({
                 <label>Zip / Pin Code *</label>
                 <input
                   type="text"
+                  placeholder="Zip Code"
                   value={addr.zip_code || ""}
                   onChange={(e) =>
-                    handleListChange(
-                      "reg5",
-                      "address",
-                      index,
-                      "zip_code",
-                      e.target.value
-                    )
+                    handleListChange("reg5", "address", index, "zip_code", e.target.value)
                   }
                 />
               </div>
@@ -180,9 +152,7 @@ export default function SectionReg5({
             <button
               type="button"
               className="lu-remove-btn"
-              onClick={() =>
-                removeListItem("reg5", "address", index)
-              }
+              onClick={() => removeListItem("reg5", "address", index)}
             >
               Remove Address
             </button>
@@ -207,18 +177,21 @@ export default function SectionReg5({
         + Add Another Office Address
       </button>
 
-      {/* Working Hours */}
+      {/* ---------- 🕒 Working Hours Section ---------- */}
       <div className="lu-field" style={{ marginTop: "1.5rem" }}>
         <label>Working Hours *</label>
-        <input
-          type="text"
-          value={reg5.working_hours}
-          readOnly
-          placeholder="Select your working hours"
-          onClick={() => setShowPopup(true)}
-        />
+        <div className="working-hours-input">
+          <input
+            type="text"
+            value={reg5.working_hours}
+            readOnly
+            placeholder="Select your working hours"
+            onClick={() => setShowPopup(true)}
+          />
+        </div>
       </div>
 
+      {/* ---------- Popup ---------- */}
       {showPopup && (
         <WorkingHoursPopup
           selectedDays={selectedDays}

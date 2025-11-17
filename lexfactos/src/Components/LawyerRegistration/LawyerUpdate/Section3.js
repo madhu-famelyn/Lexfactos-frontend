@@ -7,14 +7,19 @@ export default function SectionReg3({
   addListItem,
   removeListItem,
 }) {
-  // ✅ Ensure reg3 object always exists safely
+  // SAFETY FIX: ensure work_experience is ALWAYS an array
   const reg3 = {
-    practice_area: formData.reg3?.practice_area || "",
-    court_admitted_to: formData.reg3?.court_admitted_to || "",
-    active_since: formData.reg3?.active_since || "",
+    ...formData.reg3,
     work_experience: Array.isArray(formData.reg3?.work_experience)
       ? formData.reg3.work_experience
-      : [], // <--- FIX
+      : [
+          {
+            company_name: "",
+            role: "",
+            duration: "",
+            description: "",
+          },
+        ],
   };
 
   return (
@@ -26,11 +31,11 @@ export default function SectionReg3({
           <label>Primary Practice Area *</label>
           <input
             type="text"
-            value={reg3.practice_area}
+            placeholder="e.g., Family Law, Criminal Law"
+            defaultValue={reg3.practice_area}
             onChange={(e) =>
               handleNestedChange("reg3", "practice_area", e.target.value)
             }
-            placeholder="e.g., Family Law, Criminal Law"
           />
         </div>
 
@@ -38,11 +43,11 @@ export default function SectionReg3({
           <label>Court(s) Admitted To *</label>
           <input
             type="text"
-            value={reg3.court_admitted_to}
+            placeholder="e.g., Madras High Court, District Court"
+            defaultValue={reg3.court_admitted_to}
             onChange={(e) =>
               handleNestedChange("reg3", "court_admitted_to", e.target.value)
             }
-            placeholder="e.g., Madras High Court, District Court"
           />
         </div>
 
@@ -50,16 +55,16 @@ export default function SectionReg3({
           <label>Active Since (Year)</label>
           <input
             type="number"
-            value={reg3.active_since}
+            placeholder="e.g., 2016"
+            defaultValue={reg3.active_since}
             onChange={(e) =>
               handleNestedChange("reg3", "active_since", e.target.value)
             }
-            placeholder="e.g., 2016"
           />
         </div>
       </div>
 
-      {/* ===== WORK EXPERIENCE ===== */}
+      {/* ===== WORK EXPERIENCE LIST ===== */}
       <h4 className="lu-sub-title">Work Experience</h4>
 
       {reg3.work_experience.map((work, index) => (
@@ -69,7 +74,7 @@ export default function SectionReg3({
               <label>Company / Law Firm *</label>
               <input
                 type="text"
-                value={work.company_name || ""}
+                defaultValue={work.company_name}
                 onChange={(e) =>
                   handleListChange(
                     "reg3",
@@ -87,7 +92,7 @@ export default function SectionReg3({
               <label>Role *</label>
               <input
                 type="text"
-                value={work.role || ""}
+                defaultValue={work.role}
                 onChange={(e) =>
                   handleListChange(
                     "reg3",
@@ -105,7 +110,7 @@ export default function SectionReg3({
               <label>Duration *</label>
               <input
                 type="text"
-                value={work.duration || ""}
+                defaultValue={work.duration}
                 onChange={(e) =>
                   handleListChange(
                     "reg3",
@@ -123,7 +128,8 @@ export default function SectionReg3({
           <div className="lu-field">
             <label>Description / Key Responsibilities</label>
             <textarea
-              value={work.description || ""}
+              placeholder="Brief description of work handled..."
+              defaultValue={work.description}
               onChange={(e) =>
                 handleListChange(
                   "reg3",
@@ -133,14 +139,15 @@ export default function SectionReg3({
                   e.target.value
                 )
               }
-              placeholder="Brief description of work handled..."
             />
           </div>
 
           <button
             type="button"
             className="lu-remove-btn"
-            onClick={() => removeListItem("reg3", "work_experience", index)}
+            onClick={() =>
+              removeListItem("reg3", "work_experience", index)
+            }
           >
             Remove
           </button>
