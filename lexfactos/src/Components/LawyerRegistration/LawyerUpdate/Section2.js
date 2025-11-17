@@ -10,7 +10,20 @@ export default function SectionReg2({
   addListItem,
   removeListItem,
 }) {
-  const reg2 = formData.reg2 || { bar_details: [], education: [], languages_spoken: "" };
+  // ✅ Always keep arrays safe
+  const reg2 = {
+    bar_details: Array.isArray(formData.reg2?.bar_details)
+      ? formData.reg2.bar_details
+      : [],
+
+    education: Array.isArray(formData.reg2?.education)
+      ? formData.reg2.education
+      : [],
+
+    languages_spoken: formData.reg2?.languages_spoken || "",
+    bio: formData.reg2?.bio || "",
+    years_of_experience: formData.reg2?.years_of_experience || "",
+  };
 
   // ✅ All Languages
   const allLanguages = [
@@ -38,19 +51,17 @@ export default function SectionReg2({
     "Pashto",
   ];
 
-  // ✅ Convert stored string → array for UI
+  // Convert stored string → array safely
   const selectedLanguages = reg2.languages_spoken
     ? reg2.languages_spoken.split(",").map((l) => l.trim())
     : [];
 
-  // ✅ Handle add language
   const addLanguage = (value) => {
     if (!value) return;
     const updated = [...new Set([...selectedLanguages, value])];
     handleNestedChange("reg2", "languages_spoken", updated.join(", "));
   };
 
-  // ✅ Handle remove language
   const removeLanguage = (lang) => {
     const updated = selectedLanguages.filter((l) => l !== lang);
     handleNestedChange("reg2", "languages_spoken", updated.join(", "));
@@ -64,7 +75,7 @@ export default function SectionReg2({
       <div className="lu-field">
         <label>Short Bio *</label>
         <textarea
-          value={reg2.bio || ""}
+          value={reg2.bio}
           onChange={(e) => handleNestedChange("reg2", "bio", e.target.value)}
           placeholder="Write a brief professional introduction..."
         />
@@ -76,7 +87,7 @@ export default function SectionReg2({
           <label>Years of Experience *</label>
           <input
             type="number"
-            value={reg2.years_of_experience || ""}
+            value={reg2.years_of_experience}
             onChange={(e) =>
               handleNestedChange("reg2", "years_of_experience", e.target.value)
             }
@@ -84,7 +95,7 @@ export default function SectionReg2({
           />
         </div>
 
-        {/* ✅ Languages Spoken with tag-style UI */}
+        {/* Languages Spoken */}
         <div className="lu-field">
           <label>Languages Spoken *</label>
 
@@ -93,7 +104,10 @@ export default function SectionReg2({
               {selectedLanguages.map((lang, i) => (
                 <span key={i} className="tag">
                   {lang}
-                  <span className="remove-tag" onClick={() => removeLanguage(lang)}>
+                  <span
+                    className="remove-tag"
+                    onClick={() => removeLanguage(lang)}
+                  >
                     ×
                   </span>
                 </span>
@@ -121,21 +135,31 @@ export default function SectionReg2({
       {/* BAR DETAILS */}
       <h4 className="lu-sub-title">Bar Registration Details</h4>
 
-      {reg2.bar_details?.map((bar, index) => {
-        const states = bar.country ? Object.keys(countriesData[bar.country] || {}) : [];
+      {reg2.bar_details.map((bar, index) => {
+        const states = bar.country
+          ? Object.keys(countriesData[bar.country] || {})
+          : [];
         const cities =
-          bar.country && bar.state ? countriesData[bar.country][bar.state] || [] : [];
+          bar.country && bar.state
+            ? countriesData[bar.country][bar.state] || []
+            : [];
 
         return (
           <div key={index} className="lu-repeat-block">
             <span className="lu-badge">Bar Council #{index + 1}</span>
 
             <div className="lu-grid">
-              {/* Country Dropdown */}
+              {/* Country */}
               <select
                 value={bar.country || ""}
                 onChange={(e) =>
-                  handleListChange("reg2", "bar_details", index, "country", e.target.value)
+                  handleListChange(
+                    "reg2",
+                    "bar_details",
+                    index,
+                    "country",
+                    e.target.value
+                  )
                 }
               >
                 <option value="">Select Country</option>
@@ -146,11 +170,17 @@ export default function SectionReg2({
                 ))}
               </select>
 
-              {/* State Dropdown */}
+              {/* State */}
               <select
                 value={bar.state || ""}
                 onChange={(e) =>
-                  handleListChange("reg2", "bar_details", index, "state", e.target.value)
+                  handleListChange(
+                    "reg2",
+                    "bar_details",
+                    index,
+                    "state",
+                    e.target.value
+                  )
                 }
                 disabled={!bar.country}
               >
@@ -162,11 +192,17 @@ export default function SectionReg2({
                 ))}
               </select>
 
-              {/* City Dropdown */}
+              {/* City */}
               <select
                 value={bar.city || ""}
                 onChange={(e) =>
-                  handleListChange("reg2", "bar_details", index, "city", e.target.value)
+                  handleListChange(
+                    "reg2",
+                    "bar_details",
+                    index,
+                    "city",
+                    e.target.value
+                  )
                 }
                 disabled={!bar.state}
               >
@@ -209,7 +245,7 @@ export default function SectionReg2({
       {/* EDUCATION */}
       <h4 className="lu-sub-title">Education</h4>
 
-      {reg2.education?.map((edu, index) => (
+      {reg2.education.map((edu, index) => (
         <div key={index} className="lu-repeat-block">
           <span className="lu-badge">Education #{index + 1}</span>
 
@@ -223,7 +259,13 @@ export default function SectionReg2({
           <input
             value={edu.college_name || ""}
             onChange={(e) =>
-              handleListChange("reg2", "education", index, "college_name", e.target.value)
+              handleListChange(
+                "reg2",
+                "education",
+                index,
+                "college_name",
+                e.target.value
+              )
             }
             placeholder="College"
           />
@@ -231,7 +273,13 @@ export default function SectionReg2({
             type="number"
             value={edu.graduation_year || ""}
             onChange={(e) =>
-              handleListChange("reg2", "education", index, "graduation_year", e.target.value)
+              handleListChange(
+                "reg2",
+                "education",
+                index,
+                "graduation_year",
+                e.target.value
+              )
             }
             placeholder="Year"
           />
