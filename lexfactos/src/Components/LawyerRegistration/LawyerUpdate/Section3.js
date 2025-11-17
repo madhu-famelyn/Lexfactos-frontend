@@ -7,7 +7,15 @@ export default function SectionReg3({
   addListItem,
   removeListItem,
 }) {
-  const reg3 = formData.reg3;
+  // ✅ Ensure reg3 object always exists safely
+  const reg3 = {
+    practice_area: formData.reg3?.practice_area || "",
+    court_admitted_to: formData.reg3?.court_admitted_to || "",
+    active_since: formData.reg3?.active_since || "",
+    work_experience: Array.isArray(formData.reg3?.work_experience)
+      ? formData.reg3.work_experience
+      : [], // <--- FIX
+  };
 
   return (
     <div className="lu-section">
@@ -18,11 +26,11 @@ export default function SectionReg3({
           <label>Primary Practice Area *</label>
           <input
             type="text"
-            placeholder="e.g., Family Law, Criminal Law"
-            defaultValue={reg3.practice_area}
+            value={reg3.practice_area}
             onChange={(e) =>
               handleNestedChange("reg3", "practice_area", e.target.value)
             }
+            placeholder="e.g., Family Law, Criminal Law"
           />
         </div>
 
@@ -30,11 +38,11 @@ export default function SectionReg3({
           <label>Court(s) Admitted To *</label>
           <input
             type="text"
-            placeholder="e.g., Madras High Court, District Court"
-            defaultValue={reg3.court_admitted_to}
+            value={reg3.court_admitted_to}
             onChange={(e) =>
               handleNestedChange("reg3", "court_admitted_to", e.target.value)
             }
+            placeholder="e.g., Madras High Court, District Court"
           />
         </div>
 
@@ -42,29 +50,34 @@ export default function SectionReg3({
           <label>Active Since (Year)</label>
           <input
             type="number"
-            placeholder="e.g., 2016"
-            defaultValue={reg3.active_since}
+            value={reg3.active_since}
             onChange={(e) =>
               handleNestedChange("reg3", "active_since", e.target.value)
             }
+            placeholder="e.g., 2016"
           />
         </div>
       </div>
 
-      {/* ===== WORK EXPERIENCE LIST ===== */}
+      {/* ===== WORK EXPERIENCE ===== */}
       <h4 className="lu-sub-title">Work Experience</h4>
 
       {reg3.work_experience.map((work, index) => (
         <div key={index} className="lu-repeat-block">
-
           <div className="lu-grid">
             <div className="lu-field">
               <label>Company / Law Firm *</label>
               <input
                 type="text"
-                defaultValue={work.company_name}
+                value={work.company_name || ""}
                 onChange={(e) =>
-                  handleListChange("reg3", "work_experience", index, "company_name", e.target.value)
+                  handleListChange(
+                    "reg3",
+                    "work_experience",
+                    index,
+                    "company_name",
+                    e.target.value
+                  )
                 }
                 placeholder="XYZ & Associates"
               />
@@ -74,9 +87,15 @@ export default function SectionReg3({
               <label>Role *</label>
               <input
                 type="text"
-                defaultValue={work.role}
+                value={work.role || ""}
                 onChange={(e) =>
-                  handleListChange("reg3", "work_experience", index, "role", e.target.value)
+                  handleListChange(
+                    "reg3",
+                    "work_experience",
+                    index,
+                    "role",
+                    e.target.value
+                  )
                 }
                 placeholder="Senior Advocate / Legal Intern"
               />
@@ -86,9 +105,15 @@ export default function SectionReg3({
               <label>Duration *</label>
               <input
                 type="text"
-                defaultValue={work.duration}
+                value={work.duration || ""}
                 onChange={(e) =>
-                  handleListChange("reg3", "work_experience", index, "duration", e.target.value)
+                  handleListChange(
+                    "reg3",
+                    "work_experience",
+                    index,
+                    "duration",
+                    e.target.value
+                  )
                 }
                 placeholder="e.g., 2018-2022"
               />
@@ -98,11 +123,17 @@ export default function SectionReg3({
           <div className="lu-field">
             <label>Description / Key Responsibilities</label>
             <textarea
-              placeholder="Brief description of work handled..."
-              defaultValue={work.description}
+              value={work.description || ""}
               onChange={(e) =>
-                handleListChange("reg3", "work_experience", index, "description", e.target.value)
+                handleListChange(
+                  "reg3",
+                  "work_experience",
+                  index,
+                  "description",
+                  e.target.value
+                )
               }
+              placeholder="Brief description of work handled..."
             />
           </div>
 
@@ -133,4 +164,3 @@ export default function SectionReg3({
     </div>
   );
 }
-

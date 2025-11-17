@@ -52,7 +52,7 @@ import AdminJobs from "./Components/AdminJobs/AdminJobs";
 import ForgotPasswordUser from "./Components/ForgotPasswordUser/ForgotPassword";
 import LawyerFullRegistration from "./Components/LawyerRegistration/LawyerFullRegistration/LawyerFullRegistration";
 import UserResetPassword from "./Components/ForgotPasswordUser/ResetPassword";
-import LawyerDashboard from "./Components/LawyerDashboard/LawyerDashboard/LawyerDashboard";
+// import LawyerDashboard from "./Components/LawyerDashboard/LawyerDashboard/LawyerDashboard";
 import LawyerReviews from "./Components/LawyerDashboard/ReviewsSection/ClientReviews";
 import LawyerExcelUpload from "./Components/AdminUploadLawyerExcel/UploadExcel";
 import ContactPage from "./Components/LawyerDashboard/HelpCenter/HelpCenter";
