@@ -17,7 +17,7 @@ const AdminSignIn = () => {
 
     try {
       const data = await adminLogin(email, password);
-      login(data.access_token); // store JWT + adminId in context & localStorage
+      login(data.access_token);
       alert("Login successful ✅");
       window.location.href = "/admin-dashboard";
     } catch (err) {
@@ -28,13 +28,14 @@ const AdminSignIn = () => {
   };
 
   return (
-    <div className="signin-container">
-      <div className="signin-box">
-        <h1 className="signin-title">Sign in to Lexfactos</h1>
+    <div className="admin-signin-container">
+      <div className="admin-signin-box">
+        <h1 className="admin-signin-title">Sign in to Lexfactos</h1>
 
-        <form className="signin-form" onSubmit={handleSubmit}>
-          <label>Email address</label>
+        <form className="admin-signin-form" onSubmit={handleSubmit}>
+          <label className="admin-label">Email address</label>
           <input
+            className="admin-input"
             type="email"
             placeholder="Enter your email"
             value={email}
@@ -42,8 +43,9 @@ const AdminSignIn = () => {
             required
           />
 
-          <label>Password</label>
+          <label className="admin-label">Password</label>
           <input
+            className="admin-input"
             type="password"
             placeholder="Enter your password"
             value={password}
@@ -51,19 +53,16 @@ const AdminSignIn = () => {
             required
           />
 
-          <button type="submit" className="signin-btn" disabled={loading}>
+          <button
+            type="submit"
+            className="admin-signin-btn"
+            disabled={loading}
+          >
             {loading ? "Signing in..." : "Sign In"}
           </button>
         </form>
 
-        {error && <p className="error-text">{error}</p>}
-
-        <p className="signup-text">
-          Don’t have an account?{" "}
-          <a href="/" className="signup-link">
-            Create free account
-          </a>
-        </p>
+        {error && <p className="admin-error-text">{error}</p>}
       </div>
     </div>
   );

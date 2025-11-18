@@ -623,3 +623,320 @@
   font-weight: 500;
   color: #444;
 }
+
+
+
+/* SEARCH BOX WRAPPER */
+.search-box {
+  display: flex;
+  gap: 12px;
+  padding: 18px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.06);
+  margin-bottom: 20px;
+}
+
+/* INPUTS */
+.search-box input {
+  flex: 1;
+  padding: 12px 15px;
+  border: 1px solid #dcdcdc;
+  border-radius: 10px;
+  font-size: 15px;
+  outline: none;
+  transition: 0.2s;
+}
+
+.search-box input:focus {
+  border-color: #0073ff;
+  box-shadow: 0 0 5px rgba(0, 115, 255, 0.4);
+}
+
+/* SEARCH BUTTON */
+.submit-btn {
+  padding: 12px 22px;
+  background: #0073ff;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.submit-btn:hover {
+  background: #005ad1;
+}
+
+/* CITY TAGS */
+.city-tags {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.city-tag {
+  background: #f3f7ff;
+  padding: 8px 14px;
+  border-radius: 20px;
+  border: 1px solid #cfe0ff;
+  cursor: pointer;
+  transition: 0.2s;
+  font-size: 14px;
+}
+
+.city-tag:hover {
+  background: #0073ff;
+  color: white;
+}
+
+/* SHOW MORE */
+.show-more-btn {
+  background: transparent;
+  border: none;
+  color: #0073ff;
+  font-size: 14px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+/* --------------------------- */
+/* Modern Search Bar Styling   */
+/* --------------------------- */
+
+.modern-search-bar {
+  width: 100%;
+  max-width: 850px;
+  margin: 20px auto;
+  background: #fff;
+  border-radius: 50px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e5e7eb;
+}
+
+.search-input-section {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  padding: 10px 20px;
+}
+
+.input-with-icon {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+}
+
+.input-with-icon span {
+  font-size: 18px;
+  color: #444;
+}
+
+.input-with-icon input {
+  width: 100%;
+  border: none;
+  outline: none;
+  font-size: 15px;
+  background: transparent;
+}
+
+.divider {
+  width: 1px;
+  height: 28px;
+  background: #d6d6d6;
+  margin: 0 18px;
+}
+
+/* Blue Button Like Indeed */
+.search-btn {
+  padding: 12px 26px;
+  border-radius: 40px;
+  border: none;
+  background: #0a66ff;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: 0.25s ease;
+}
+
+.search-btn:hover {
+  background: #004ecc;
+}
+
+/* Mobile Responsive */
+@media (max-width: 640px) {
+  .modern-search-bar {
+    flex-direction: column;
+    border-radius: 30px;
+    padding: 15px;
+    gap: 15px;
+  }
+
+  .divider {
+    display: none;
+  }
+
+  .search-input-section {
+    flex-direction: column;
+    gap: 15px;
+    padding: 0;
+  }
+
+  .input-with-icon {
+    width: 100%;
+    padding: 10px 14px;
+    border-radius: 14px;
+    background: #fafafa;
+    border: 1px solid #eee;
+  }
+
+  .search-btn {
+    width: 100%;
+    border-radius: 12px;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* Pagination Container */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin: 30px 0;
+}
+
+/* Default Pagination Button */
+.pagination button,
+.pagination span {
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  background: #fff;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+/* Hover Effect */
+.pagination button:hover {
+  background: #4f46e5;
+  color: #000000;
+  border-color: #4f46e5;
+}
+
+/* Disabled Button */
+.pagination button:disabled {
+  background: #e5e7eb;
+  color: #000000;
+  border-color: #d1d5db;
+  cursor: not-allowed;
+}
+
+/* Active Page */
+.pagination .active {
+  background: #2015ec;
+  color: rgb(0, 0, 0) !important;
+  border-color: #4f46e5;
+  font-weight: 600;
+}
+
+/* Ellipsis (...) */
+.pagination .dots {
+  border: none;
+  background: transparent;
+  cursor: default;
+  font-size: 18px;
+}
+
+
+
+
+/* Pagination Wrapper */
+.lr-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin: 30px 0;
+}
+
+/* Pagination Buttons (Prev / Next) */
+.lr-page-btn {
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  background: #fff;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+/* Hover */
+.lr-page-btn:hover:not(:disabled) {
+  background: #4f46e5;
+  color: #fff;
+  border-color: #4f46e5;
+}
+
+/* Disabled Prev/Next */
+.lr-page-btn:disabled {
+  background: #e5e7eb;
+  color: #9ca3af;
+  border-color: #d1d5db;
+  cursor: not-allowed;
+}
+
+/* Page Number Buttons */
+.lr-page-number {
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  background: white;
+  cursor: pointer;
+  font-size: 15px;
+  transition: all 0.25s;
+}
+
+/* Page Hover */
+.lr-page-number:hover {
+  background: #364eef;
+  color: white;
+  border-color: #364eef;
+}
+
+/* Active Page */
+.lr-active-page {
+  background: #364eef;
+  color: #fff !important;
+  border-color: #364eef;
+  font-weight: 600;
+}
+
+/* Dots (…) */
+.lr-page-dots {
+  font-size: 18px;
+  padding: 8px 12px;
+  background: transparent;
+  border: none;
+  color: #6b7280;
+}

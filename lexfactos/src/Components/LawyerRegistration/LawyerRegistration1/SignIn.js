@@ -256,7 +256,7 @@ const handleSubmit = async (e) => {
 
   {/* 🔒 Password Field */}
   <div className="form-group">
-    <label>Unique Name *</label>
+    <label>User Name *</label>
     <input
       type="text"
       name="unique_id"

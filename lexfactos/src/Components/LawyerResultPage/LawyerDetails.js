@@ -1,3 +1,4 @@
+// ✅ FULL UPDATED FILE — LawyerProfilePage.jsx
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import {
@@ -15,27 +16,57 @@ import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import AddComments from "../Comments/AddComments";
 import L from "leaflet";
 
-// ✅ helper to auto fit all markers safely
+// -------------------------------------------------------------------
+// ✅ FUNCTION: Convert Address → Latitude/Longitude (Geocoding)
+// -------------------------------------------------------------------
+async function geocodeAddress(fullAddress) {
+  const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(
+    fullAddress
+  )}`;
+
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+
+    if (data.length > 0) {
+      return {
+        latitude: parseFloat(data[0].lat),
+        longitude: parseFloat(data[0].lon),
+      };
+    }
+  } catch (error) {
+    console.error("Geocoding error:", error);
+  }
+
+  // fallback - Charminar Hyderabad
+  return { latitude: 17.3616, longitude: 78.4747 };
+}
+
+// -------------------------------------------------------------------
+// Auto fit bounds for all markers
+// -------------------------------------------------------------------
 function FitBounds({ addresses }) {
   const map = useMap();
-  useEffect(() => {
-    if (addresses && addresses.length > 0) {
-      const validCoords = addresses
-        .map((a) => [
-          parseFloat(a.latitude || 17.3616),
-          parseFloat(a.longitude || 78.4747),
-        ])
-        .filter(([lat, lng]) => !isNaN(lat) && !isNaN(lng));
 
-      if (validCoords.length > 0) {
-        const bounds = L.latLngBounds(validCoords);
-        map.fitBounds(bounds, { padding: [50, 50] });
-      }
+  useEffect(() => {
+    if (!addresses || addresses.length === 0) return;
+
+    const validCoords = addresses
+      .map((a) => [a.latitude, a.longitude])
+      .filter(([lat, lng]) => !isNaN(lat) && !isNaN(lng));
+
+    if (validCoords.length > 0) {
+      const bounds = L.latLngBounds(validCoords);
+      map.fitBounds(bounds, { padding: [50, 50] });
     }
   }, [addresses, map]);
+
   return null;
 }
 
+// -------------------------------------------------------------------
+// MAIN COMPONENT
+// -------------------------------------------------------------------
 export default function LawyerProfilePage() {
   const { id } = useParams();
   const [lawyer, setLawyer] = useState(null);
@@ -47,9 +78,10 @@ export default function LawyerProfilePage() {
       try {
         setLoading(true);
         setError("");
+
         const data = await getLawyerById(id);
 
-        // ✅ Safely parse nested JSON fields
+        // Safe JSON parser
         const safeParse = (value) => {
           if (!value) return [];
           if (typeof value === "string") {
@@ -76,16 +108,26 @@ export default function LawyerProfilePage() {
           );
         }
 
+        // -------------------------------------------------------------------
+        // 🟢 Convert all addresses → lat/lng using geocoding API
+        // -------------------------------------------------------------------
         if (Array.isArray(data.registration5)) {
-          data.registration5 = data.registration5.map((r) => ({
-            ...r,
-            address: safeParse(r.address).map((addr) => ({
+          const addressesRaw = safeParse(data.registration5[0].address);
+          const resolved = [];
+
+          for (const addr of addressesRaw) {
+            const fullAddr = `${addr.street_address}, ${addr.city}, ${addr.state}, ${addr.zip_code}, ${addr.country}`;
+
+            const geo = await geocodeAddress(fullAddr);
+
+            resolved.push({
               ...addr,
-              // ✅ Fallback to Charminar coordinates if missing
-              latitude: addr.latitude || 17.3616,
-              longitude: addr.longitude || 78.4747,
-            })),
-          }));
+              latitude: geo.latitude,
+              longitude: geo.longitude,
+            });
+          }
+
+          data.registration5[0].address = resolved;
         }
 
         if (data.registration6) {
@@ -97,12 +139,13 @@ export default function LawyerProfilePage() {
 
         setLawyer(data);
       } catch (err) {
-        setError("Failed to load lawyer details.");
         console.error(err);
+        setError("Failed to load lawyer details.");
       } finally {
         setLoading(false);
       }
     };
+
     fetchLawyer();
   }, [id]);
 
@@ -257,10 +300,7 @@ export default function LawyerProfilePage() {
               {addresses.length > 0 ? (
                 <>
                   <MapContainer
-                    center={[
-                      parseFloat(addresses[0].latitude || 17.3616),
-                      parseFloat(addresses[0].longitude || 78.4747),
-                    ]}
+                    center={[addresses[0].latitude, addresses[0].longitude]}
                     zoom={13}
                     style={{
                       width: "100%",
@@ -271,15 +311,13 @@ export default function LawyerProfilePage() {
                   >
                     <TileLayer
                       url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                      attribution='&copy; OpenStreetMap contributors'
+                      attribution="&copy; OpenStreetMap contributors"
                     />
+
                     {addresses.map((addr, idx) => (
                       <Marker
                         key={idx}
-                        position={[
-                          parseFloat(addr.latitude || 17.3616),
-                          parseFloat(addr.longitude || 78.4747),
-                        ]}
+                        position={[addr.latitude, addr.longitude]}
                         icon={L.icon({
                           iconUrl:
                             "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png",
@@ -294,6 +332,7 @@ export default function LawyerProfilePage() {
                         </Popup>
                       </Marker>
                     ))}
+
                     <FitBounds addresses={addresses} />
                   </MapContainer>
 
@@ -306,10 +345,9 @@ export default function LawyerProfilePage() {
                             {addr.street_address}, {addr.city}, {addr.state} –{" "}
                             {addr.zip_code}
                           </p>
+
                           <a
-                            href={`https://www.google.com/maps?q=${
-                              addr.latitude || 17.3616
-                            },${addr.longitude || 78.4747}`}
+                            href={`https://www.google.com/maps?q=${addr.latitude},${addr.longitude}`}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="get-directions-link"

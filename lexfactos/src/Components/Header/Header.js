@@ -38,7 +38,7 @@ const Header = () => {
           <nav className="nav-links">
             <Link to="/about">About us</Link>
             <Link to="/support">Support</Link>
-            <Link to="/lawyers-by-location">Lawyers by Location</Link>
+            {/* <Link to="/lawyers-by-location">Lawyers by Location</Link> */}
             <Link to="/browse-jobs">Browse Jobs</Link>  
             {/* <Link to="/admin-lawyers">Admin</Link> */}
           </nav>
@@ -54,7 +54,7 @@ const Header = () => {
                 Sign in
               </Link>
               <button className="join-btn" onClick={handleJoinClick}>
-                Join as lawyer
+                Join/login as lawyer
               </button>
             </>
           ) : (
@@ -93,9 +93,9 @@ const Header = () => {
           <Link to="/support" onClick={closeMenu}>
             Support
           </Link>
-          <Link to="/lawyers-by-location" onClick={closeMenu}>
+          {/* <Link to="/lawyers-by-location" onClick={closeMenu}>
             Lawyers by Location
-          </Link>
+          </Link> */}
           <Link to="/browse-jobs"  onClick={closeMenu}>
           Browse Jobs</Link>
           <Link to="/admin-lawyers" onClick={closeMenu}>
@@ -111,7 +111,7 @@ const Header = () => {
                 Sign in
               </Link>
               <button className="mobile-join-btn" onClick={handleJoinClick}>
-                Join as lawyer
+                join/login as lawyer
               </button>
             </>
           ) : (
