@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState , useCallback} from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./LawyerResultsPage.css";
 import { FaMapMarkerAlt, FaPhone } from "react-icons/fa";
@@ -85,7 +85,8 @@ export default function LawyerResultsPage() {
   };
 
   /* ------------ LOAD LAWYERS ------------- */
-  const loadLawyers = async (currentPage, selectedLocation) => {
+const loadLawyers = useCallback(
+  async (currentPage, selectedLocation) => {
     try {
       setLoading(true);
       setError("");
@@ -119,11 +120,15 @@ export default function LawyerResultsPage() {
     } finally {
       setLoading(false);
     }
-  };
+  },
+  [practiceArea, location, searchName, sort]
+);
 
-  useEffect(() => {
-    loadLawyers(page);
-  }, [page]);
+
+useEffect(() => {
+  loadLawyers(page);
+}, [page, loadLawyers]);
+
 
   /* ------------ LAWYER CARD UI ------------- */
   const renderLawyerCard = (lawyer, isBlurred) => {
