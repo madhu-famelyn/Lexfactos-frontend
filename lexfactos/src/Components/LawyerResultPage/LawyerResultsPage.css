@@ -391,48 +391,6 @@
 
 
 
-/* Blur only the content, not the overlay */
-.blurred {
-  position: relative;
-}
-
-.blurred > *:not(.overlay) {
-  filter: blur(4px);
-  pointer-events: none; /* block interactions for blurred content */
-}
-
-.blurred .overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(255, 255, 255, 0.7);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  font-size: 16px;
-  color: #333;
-  z-index: 1;
-  pointer-events: auto; /* allow clicks on overlay */
-}
-
-.overlay .login-btn {
-  margin-top: 10px;
-  padding: 8px 14px;
-  background: #007bff;
-  border: none;
-  border-radius: 6px;
-  color: white;
-  cursor: pointer;
-}
-
-.overlay .login-btn:hover {
-  background: #0056b3;
-}
-
 @media (max-width: 768px) {
 
   /* Card stays horizontal, just tighter */
@@ -530,19 +488,6 @@
   }
 }
 
-
-.login-popup-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.6);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 999;
-}
 
 .login-popup {
   background: #fff;
@@ -939,4 +884,537 @@
   background: transparent;
   border: none;
   color: #6b7280;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ================================
+   LOGIN POPUP OVERLAY
+================================= */
+.login-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+/* ================================
+   POPUP BOX
+================================= */
+.login-popup-content {
+  width: 350px;
+  background: #ffffff;
+  padding: 25px 30px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  animation: popupFadeIn 0.25s ease-out;
+  position: relative;
+}
+
+/* ================================
+   CLOSE BUTTON
+================================= */
+.close-btn {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: #333;
+  transition: 0.2s;
+}
+
+.close-btn:hover {
+  color: #000;
+}
+
+/* ================================
+   POPUP TEXT
+================================= */
+.login-popup-content h2 {
+  font-size: 22px;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.login-popup-content p {
+  font-size: 15px;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+/* ================================
+   LOGIN BUTTON
+================================= */
+.login-now-btn {
+  width: 100%;
+  background: #005bbb;
+  color: white;
+  padding: 10px 0;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  transition: 0.25s;
+}
+
+.login-now-btn:hover {
+  background: #004999;
+}
+
+/* ================================
+   ANIMATION
+================================= */
+@keyframes popupFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.88);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.login-popup-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 5000; /* ABOVE EVERYTHING */
+}
+
+.login-popup {
+  background: #ffffff;
+  padding: 30px 35px;
+  width: 360px;
+  border-radius: 14px;
+  text-align: center;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+  animation: popupScale 0.25s ease-out;
+}
+
+@keyframes popupScale {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.popup-login-btn {
+  width: 100%;
+  padding: 14px;
+  background: #007bff;
+  color: white;
+  border-radius: 10px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 12px;
+  font-size: 15px;
+}
+
+.popup-close-btn {
+  width: 100%;
+  padding: 14px;
+  background: #f0f0f0;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 15px;
+}
+.blurred-card {
+  position: relative;
+  filter: blur(4px);
+  pointer-events: none;
+  user-select: none;
+  opacity: 0.6;
+}
+
+/* OVERLAY ABOVE EVERYTHING */
+.blur-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255,255,255,0.9);
+  z-index: 1000; /* INCREASED */
+  backdrop-filter: blur(4px);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+}
+
+/* Text stays visible + bold */
+.blur-overlay p {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: #333;
+}
+
+/* BUTTON ALWAYS ON TOP OF OVERLAY */
+.login-overlay-btn {
+  background: #007bff;
+  padding: 12px 26px;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+  z-index: 2000; /* 🔥 Super important */
+  position: relative;
+}
+
+
+
+
+
+/* ================== CARD MAIN BOX ================== */
+.lawyerCardBox {
+  display: flex;
+  padding: 18px;
+  background: #fff;
+  border-radius: 14px;
+  margin-bottom: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Blur Mode */
+.lawyerCardBlur {
+  filter: blur(4px);
+  opacity: 0.6;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* ================== OVERLAY ================== */
+.lawyerCardOverlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(3px);
+  z-index: 50;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.lawyerOverlayText {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: #222;
+}
+
+.lawyerOverlayLoginBtn {
+  background: #007bff;
+  padding: 12px 28px;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+  z-index: 100;
+}
+
+/* ================== PHOTO ================== */
+.lawyerPhotoWrap {
+  margin-right: 14px;
+}
+
+.lawyerPhotoImg {
+  height: 90px;
+  width: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* ================== CENTER INFO ================== */
+.lawyerInfoSection {
+  flex: 1;
+}
+
+.lawyerNameText {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.lawyerLocationText {
+  font-size: 14px;
+  color: #555;
+}
+
+.lawyerPracticeLabel {
+  margin-top: 6px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.lawyerPracticeTags {
+  margin-top: 6px;
+}
+
+.lawyerPracticeTag {
+  background: #eef3ff;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  margin-right: 6px;
+}
+
+/* ================== RIGHT ACTIONS ================== */
+.lawyerRightActions {
+  margin-left: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.lawyerCallBtn {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: #28a745;
+  padding: 8px 14px;
+  color: white;
+  border-radius: 8px;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.lawyerProfileBtn {
+  background: #007bff;
+  padding: 8px 14px;
+  color: white;
+  border-radius: 8px;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+
+
+
+
+
+
+.lawyerCardBlurContainer {
+  position: relative;
+}
+
+.lawyerBlurContentWrapper.blur-effect {
+  filter: blur(4px);
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* === Lawyer Card Blur Overlay === */
+.lawyerBlurOverlayBox {
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0.88);
+  backdrop-filter: blur(4px);
+  z-index: 10; 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border-radius: inherit;
+}
+
+.lawyerBlurOverlayText {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: #000;   /* fully visible */
+  z-index: 20;
+}
+
+.lawyerBlurOverlayBtn {
+  background: #007bff;
+  padding: 12px 26px;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+  z-index: 20; /* stays above overlay */
+}
+
+/* Overlay */
+.lx-popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  backdrop-filter: blur(3px);
+  animation: lxFadeIn 0.3s ease-out;
+}
+
+/* Popup Box */
+.lx-popup-container {
+  background: #ffffff;
+  width: 360px;
+  padding: 28px;
+  border-radius: 16px;
+  text-align: center;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+  animation: lxSlideUp 0.35s ease-out;
+}
+
+/* Title */
+.lx-popup-title {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: #222;
+}
+
+/* Message */
+.lx-popup-message {
+  font-size: 15px;
+  color: #555;
+  margin-bottom: 22px;
+}
+
+/* Login Button */
+.lx-popup-login-btn {
+  width: 100%;
+  padding: 12px 0;
+  background: #0077ff;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-bottom: 10px;
+  transition: 0.25s;
+}
+
+.lx-popup-login-btn:hover {
+  background: #005fcb;
+}
+
+/* Close Button */
+.lx-popup-close-btn {
+  width: 100%;
+  padding: 10px 0;
+  background: #e4e4e4;
+  color: #444;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+.lx-popup-close-btn:hover {
+  background: #ccc;
+}
+
+/* Animations */
+@keyframes lxFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes lxSlideUp {
+  from {
+    transform: translateY(25px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }

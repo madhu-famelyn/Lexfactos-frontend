@@ -8,7 +8,7 @@ import axios from "axios";
 const API_BASE_URL = "https://api.lexfactos.com";
 const CACHE_EXPIRY_MS = 30 * 60 * 1000;
 
-/* ------------------ CACHE HELPERS ------------------ */
+/* ----------- CACHE HELPERS ------------ */
 function getCachedData(key) {
   const item = localStorage.getItem(key);
   if (!item) return null;
@@ -29,7 +29,7 @@ function setCachedData(key, data) {
   localStorage.setItem(key, JSON.stringify({ timestamp: Date.now(), data }));
 }
 
-/* ------------------ API CALL ------------------ */
+/* ----------- API CALL ------------ */
 async function fetchLawyers(params) {
   const res = await axios.get(`${API_BASE_URL}/get-all-details/lawyers/search`, {
     params,
@@ -37,17 +37,21 @@ async function fetchLawyers(params) {
   return res.data;
 }
 
-/* ------------------ MAIN PAGE ------------------ */
+/* ======================================
+        MAIN PAGE
+======================================= */
 export default function LawyerResultsPage() {
   const url = useLocation();
   const navigate = useNavigate();
-  const { auth } = useAuth();
+  const { auth } = useAuth(); // ⭐ check auth
+  const isAuthenticated = auth?.access_token ? true : false;
+
+  const [showLoginPopup, setShowLoginPopup] = useState(false);
 
   const searchParams = new URLSearchParams(url.search);
   const initialPracticeArea = searchParams.get("practice_area") || "";
   const initialCity = searchParams.get("city") || "";
 
-  /* STATE VARIABLES */
   const [lawyers, setLawyers] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -58,7 +62,7 @@ export default function LawyerResultsPage() {
   const [practiceArea, setPracticeArea] = useState(initialPracticeArea);
   const [location, setLocation] = useState(initialCity);
   const [searchName, setSearchName] = useState("");
-  const [sort, setSort] = useState("");
+  const [sort] = useState("");
 
   const [showMore, setShowMore] = useState(false);
 
@@ -69,20 +73,18 @@ export default function LawyerResultsPage() {
     "Guwahati", "Coimbatore"
   ];
 
-  /* ------------------ CITY CLICK ------------------ */
   const handleCityClick = async (city) => {
     setLocation(city);
     setPage(1);
     await loadLawyers(1, city);
   };
 
-  /* ------------------ SEARCH SUBMIT ------------------ */
   const handleSearchSubmit = async () => {
     setPage(1);
     await loadLawyers(1, location);
   };
 
-  /* ------------------ LOADING LAWYERS ------------------ */
+  /* ------------ LOAD LAWYERS ------------- */
   const loadLawyers = async (currentPage, selectedLocation) => {
     try {
       setLoading(true);
@@ -123,14 +125,27 @@ export default function LawyerResultsPage() {
     loadLawyers(page);
   }, [page]);
 
-  /* ------------------ LAWYER CARD ------------------ */
-  const renderLawyerCard = (lawyer) => {
+  /* ------------ LAWYER CARD UI ------------- */
+  const renderLawyerCard = (lawyer, isBlurred) => {
     const addr = lawyer?.registration5?.[0]?.address?.[0] || {};
     const exp = lawyer?.profile?.years_of_experience || "N/A";
     const areas = lawyer?.registration3?.practice_area?.split(",") || [];
 
     return (
-      <div key={lawyer.id} className="lawyer-card">
+      <div key={lawyer.id} className={`lawyer-card ${isBlurred ? "blurred-card" : ""}`}>
+        {isBlurred && (
+        <div className="lawyerBlurOverlayBox">
+          <p className="lawyerBlurOverlayText">Login to view all lawyers</p>
+          <button
+            className="lawyerBlurOverlayBtn"
+            onClick={() => setShowLoginPopup(true)}
+          >
+            Login
+          </button>
+        </div>
+
+        )}
+
         <div className="lawyer-photo">
           <img src={lawyer.photo || "/placeholder.jpg"} alt={lawyer.full_name} />
         </div>
@@ -163,38 +178,36 @@ export default function LawyerResultsPage() {
     );
   };
 
-  /* ------------------ SMART PAGINATION LOGIC ------------------ */
+  /* ------------ SMART PAGINATION ------------- */
   const getPageNumbers = () => {
     let pages = [];
+    for (let i = 1; i <= Math.min(3, totalPages); i++) pages.push(i);
 
-    // FIRST 3 PAGES
-    for (let i = 1; i <= Math.min(3, totalPages); i++) {
-      pages.push(i);
-    }
-
-    // CURRENT PAGE ±1 (like 9,10,11)
     let startMid = Math.max(page - 1, 4);
     let endMid = Math.min(page + 1, totalPages - 3);
 
     if (startMid <= endMid) {
       pages.push("...");
-      for (let i = startMid; i <= endMid; i++) {
-        pages.push(i);
-      }
+      for (let i = startMid; i <= endMid; i++) pages.push(i);
     }
 
-    // LAST 3 PAGES
     if (totalPages > 3) {
       pages.push("...");
-      for (let i = Math.max(totalPages - 2, 4); i <= totalPages; i++) {
-        if (i > 0) pages.push(i);
-      }
+      for (let i = Math.max(totalPages - 2, 4); i <= totalPages; i++) pages.push(i);
     }
 
     return pages;
   };
 
-  /* ------------------ JSX UI ------------------ */
+  /* ------------ BLOCK NEXT PAGE IF NOT AUTH ------------- */
+  const handleNextPage = () => {
+    if (!isAuthenticated) {
+      setShowLoginPopup(true);
+      return;
+    }
+    if (page < totalPages) setPage(page + 1);
+  };
+
   return (
     <div className="lawyer-results-page">
       <h1>Find Lawyers</h1>
@@ -202,11 +215,7 @@ export default function LawyerResultsPage() {
       {/* ------------------ CITY TAGS ------------------ */}
       <div className="city-tags">
         {(showMore ? indianCities : indianCities.slice(0, 10)).map((c, i) => (
-          <span
-            key={i}
-            className="city-tag"
-            onClick={() => handleCityClick(c)}
-          >
+          <span key={i} className="city-tag" onClick={() => handleCityClick(c)}>
             {c}
           </span>
         ))}
@@ -216,11 +225,9 @@ export default function LawyerResultsPage() {
         {showMore ? "Show Less" : "Show More Cities"}
       </button>
 
-      {/* ------------------ MODERN SEARCH BAR ------------------ */}
+      {/* ------------------ SEARCH BAR ------------------ */}
       <div className="modern-search-bar">
-
         <div className="search-input-section">
-
           <div className="input-with-icon">
             <input
               type="text"
@@ -240,7 +247,6 @@ export default function LawyerResultsPage() {
               onChange={(e) => setPracticeArea(e.target.value)}
             />
           </div>
-
         </div>
 
         <button className="search-btn" onClick={handleSearchSubmit}>
@@ -251,46 +257,81 @@ export default function LawyerResultsPage() {
       {loading && <p className="loading">Loading...</p>}
       {error && <p className="error">{error}</p>}
 
+      {/* --------------- RESULTS ---------------- */}
       <div className="section">
-        {lawyers.length > 0
-          ? lawyers.map(renderLawyerCard)
-          : <p>No lawyers found.</p>}
+        {lawyers.length > 0 ? (
+          lawyers.map((lawyer, index) =>
+            isAuthenticated
+              ? renderLawyerCard(lawyer, false)
+              : renderLawyerCard(lawyer, index >= 3)
+          )
+        ) : (
+          <p>No lawyers found.</p>
+        )}
       </div>
 
-      {/* ------------------ SMART PAGINATION UI ------------------ */}
-    <div className="lr-pagination">
+      {/* ------------------ PAGINATION ------------------ */}
+      <div className="lr-pagination">
+        <button
+          disabled={page === 1}
+          className="lr-page-btn"
+          onClick={() => setPage(page - 1)}
+        >
+          Prev
+        </button>
 
-  <button
-    disabled={page === 1}
-    className="lr-page-btn"
-    onClick={() => setPage(page - 1)}
-  >
-    Prev
-  </button>
+        {getPageNumbers().map((num, index) =>
+          num === "..." ? (
+            <span key={index} className="lr-page-dots">...</span>
+          ) : (
+            <button
+              key={index}
+              className={`lr-page-number ${num === page ? "lr-active-page" : ""}`}
+              onClick={() => {
+                if (!isAuthenticated) setShowLoginPopup(true);
+                else setPage(num);
+              }}
+            >
+              {num}
+            </button>
+          )
+        )}
 
-  {getPageNumbers().map((num, index) =>
-    num === "..." ? (
-      <span key={index} className="lr-page-dots">...</span>
-    ) : (
+        <button
+          disabled={page >= totalPages}
+          className="lr-page-btn"
+          onClick={handleNextPage}
+        >
+          Next
+        </button>
+      </div>
+
+      {/* ============ LOGIN POPUP ============ */}
+     {showLoginPopup && (
+  <div className="lx-popup-overlay">
+    <div className="lx-popup-container">
+      <h3 className="lx-popup-title">Login Required</h3>
+      <p className="lx-popup-message">
+        You must be logged in to view more lawyers.
+      </p>
+
       <button
-        key={index}
-        className={`lr-page-number ${num === page ? "lr-active-page" : ""}`}
-        onClick={() => setPage(num)}
+        className="lx-popup-login-btn"
+        onClick={() => navigate("/login")}
       >
-        {num}
+        Login
       </button>
-    )
-  )}
 
-  <button
-    disabled={page >= totalPages}
-    className="lr-page-btn"
-    onClick={() => setPage(page + 1)}
-  >
-    Next
-  </button>
+      <button
+        className="lx-popup-close-btn"
+        onClick={() => setShowLoginPopup(false)}
+      >
+        Close
+      </button>
+    </div>
+  </div>
+)}
 
-</div>
 
     </div>
   );
